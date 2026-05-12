@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { MainLayout } from './layout/main-layout/main-layout';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MainLayout],
+  imports: [],
   template: `
-    <app-main-layout />
+    <div>teste</div>
   `,
   styleUrl: './app.scss',
 })
