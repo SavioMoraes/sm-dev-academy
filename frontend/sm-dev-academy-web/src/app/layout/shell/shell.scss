@@ -1,0 +1,19 @@
+.shell {
+  display: flex;
+
+  width: 100%;
+  min-height: 100vh;
+}
+
+.shell__content-area {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  min-height: 100vh;
+}
+
+.shell__content {
+  flex: 1;
+}
