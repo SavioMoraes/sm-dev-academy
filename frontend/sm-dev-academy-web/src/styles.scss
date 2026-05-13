@@ -1,2 +1,69 @@
 @use './styles/abstracts/variables';
 @use './styles/base/reset';
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  font-family:
+    Inter,
+    sans-serif;
+
+  color: #ffffff;
+
+  background:
+
+    /* BRILHO SUPERIOR DIREITO */
+    radial-gradient(
+      circle at top right,
+      rgba(255, 255, 255, 0.30) 0%,
+      rgba(255, 255, 255, 0.14) 10%,
+      rgba(255, 255, 255, 0.05) 22%,
+      transparent 42%
+    ),
+
+    /* BRILHO SUPERIOR ESQUERDO */
+    radial-gradient(
+      circle at top left,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.02) 14%,
+      transparent 30%
+    ),
+
+    linear-gradient(
+      180deg,
+      #686868 0%,
+      #5b5b5b 16%,
+      #4d4d4d 32%,
+      #3f3f3f 48%,
+      #303030 64%,
+      #202020 82%,
+      #141414 100%
+    );
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* =========================================================
+   APP ROOT
+========================================================= */
+
+app-root {
+  display: block;
+
+  width: 100%;
+  min-height: 100vh;
+}
