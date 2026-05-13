@@ -1,0 +1,167 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.header__left,
+.header__center,
+.header__right {
+  display: flex;
+  align-items: center;
+}
+
+.header__center {
+  flex: 1;
+}
+
+.header__search {
+  width: 100%;
+}
+
+.header__search-input {
+  width: 100%;
+}
+
+.header__actions,
+.header__right {
+  display: flex;
+  align-items: center;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1440px) {
+
+  .header__brand {
+    display: none;
+  }
+
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+
+  .header__brand {
+    display: none;
+  }
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .header {
+    gap: 2%;
+  }
+
+  .header__left {
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+  }
+
+  .header__brand {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    max-width: 140px;
+  }
+
+  .header__brand img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+  }
+
+  .header__center {
+    flex: 1;
+
+    min-width: 0;
+  }
+
+  .header__search {
+    width: 100%;
+  }
+
+  .header__search-input {
+    width: 100%;
+  }
+
+  .header__right {
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .header {
+    gap: 12px;
+  }
+
+  .header__left {
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+  }
+
+  .header__brand {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__brand img {
+    display: block;
+
+    width: auto;
+    height: 40px;
+  }
+
+  .header__center {
+    flex: 1;
+
+    min-width: 0;
+  }
+
+  .header__search {
+    width: 100%;
+  }
+
+  .header__search-input {
+    width: 100%;
+  }
+
+  .header__right {
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+  }
+
+}
