@@ -1,0 +1,145 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.sidebar {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #0f111a;
+
+  min-height: 100vh;
+}
+
+.sidebar__content {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+}
+
+.sidebar-logo img {
+  display: block;
+
+  width: auto;
+  max-width: 100%;
+}
+
+.sidebar-navigation ul,
+.categories-list,
+.footer-links {
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1440px) {
+
+  .sidebar {
+    width: 280px;
+  }
+
+  .sidebar.sidebar-collapsed {
+    width: 90px;
+  }
+
+  .sidebar__mobile-toggle,
+  .sidebar__mobile-header {
+    display: none;
+  }
+
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+
+  .sidebar {
+    width: 260px;
+  }
+
+  .sidebar.sidebar-collapsed {
+    width: 90px;
+  }
+
+  .sidebar__mobile-toggle,
+  .sidebar__mobile-header {
+    display: none;
+  }
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 320px;
+    height: 100vh;
+
+    transform: translateX(-100%);
+  }
+
+  .sidebar.sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar__desktop-toggle,
+  .sidebar-logo {
+    display: none;
+  }
+
+  .sidebar__mobile-toggle {
+    display: block;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 320px;
+    height: 100vh;
+
+    transform: translateX(-100%);
+  }
+
+  .sidebar.sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar__desktop-toggle,
+  .sidebar-logo {
+    display: none;
+  }
+
+  .sidebar__mobile-toggle {
+    display: block;
+  }
+
+}
