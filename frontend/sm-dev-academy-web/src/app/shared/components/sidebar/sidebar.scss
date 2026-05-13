@@ -2,19 +2,36 @@
    GLOBAL
 ========================================================= */
 
-h1, h2, p {
-  color: yellow;
-}
-
 .sidebar {
   position: relative;
 
   display: flex;
   flex-direction: column;
 
-  background: #0f111a;
-
   min-height: 100vh;
+
+  background:
+
+    /* BRILHO INFERIOR */
+    radial-gradient(
+      circle at bottom center,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.03) 18%,
+      transparent 42%
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(130, 130, 130, 0.14) 0%,
+      rgba(100, 100, 100, 0.12) 18%,
+      rgba(75, 75, 75, 0.10) 38%,
+      rgba(45, 45, 45, 0.08) 100%
+    );
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .sidebar__content {
