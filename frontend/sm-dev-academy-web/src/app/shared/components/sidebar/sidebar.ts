@@ -9,6 +9,20 @@ import { Component } from '@angular/core';
 })
 export class Sidebar {
 
+  /* DESKTOP */
+  isCollapsed = false;
+
+  /* MOBILE */
+  isMobileMenuOpen = false;
+
+  toggleSidebar(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
   navigationItems = [
     {
       label: 'Início',
@@ -81,10 +95,4 @@ export class Sidebar {
       route: '/',
     },
   ];
-
-  isCollapsed = false;
-
-  toggleSidebar(): void {
-    this.isCollapsed = !this.isCollapsed;
-  }
 }

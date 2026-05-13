@@ -1,95 +1,150 @@
-<aside class="sidebar" [class.sidebar-collapsed]="isCollapsed">
+<aside
+  class="sidebar"
+  [class.sidebar-collapsed]="isCollapsed"
+  [class.sidebar-mobile-open]="isMobileMenuOpen"
+>
 
-  <!-- LOGO -->
-  <div class="sidebar-logo">
-    @if (!isCollapsed) {
-      <!-- sidebar estendido-->
-      <a href="/">
-        <img src="assets/images/logo-sm-dev-academy.png" style="height: 50px; width: auto;" alt="Logo">
-      </a>
+  <!-- MOBILE HAMBURGUER -->
+  <button
+    type="button"
+    class="sidebar__mobile-toggle"
+    (click)="toggleMobileMenu()"
+  >
+    Menu
+  </button>
 
-    } @else {
-      <!-- sidebar recolhido -->
-      <a href="/">
-        <img src="assets/images/icon-sm-dev-academy.png" style="height: 50px; width: auto;" alt="Ícone">
-      </a>
-    }
-    <!-- Ajeitar o icone do sidebar recolhido para que seja exatamente o recorte do SM da Logo!!! -->
-    <!-- Gerar novo favicon.ico a partir do ícone consertado!! -->
-    <button type="button" (click)="toggleSidebar()">Toggle</button>
+  <!-- DESKTOP TOGGLE -->
+  <button
+    type="button"
+    class="sidebar__desktop-toggle"
+    (click)="toggleSidebar()"
+  >
+    Toggle
+  </button>
+
+  <!-- SIDEBAR CONTENT -->
+  <div class="sidebar__content">
+
+    <!-- MOBILE HEADER -->
+    <div class="sidebar__mobile-header">
+
+      <div class="sidebar-logo">
+        <a href="/">
+          <img
+            src="assets/images/logo-sm-dev-academy.png"
+            alt="Logo"
+          >
+        </a>
+      </div>
+
+      <button
+        type="button"
+        class="sidebar__mobile-close"
+        (click)="toggleMobileMenu()"
+      >
+        Fechar
+      </button>
+
+    </div>
+
+    <!-- DESKTOP LOGO -->
+    <div class="sidebar-logo">
+
+      @if (!isCollapsed) {
+
+        <a href="/">
+          <img
+            src="assets/images/logo-sm-dev-academy.png"
+            alt="Logo"
+          >
+        </a>
+
+      } @else {
+
+        <a href="/">
+          <img
+            src="assets/images/icon-sm-dev-academy.png"
+            alt="Ícone"
+          >
+        </a>
+
+      }
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="sidebar-navigation">
+
+      <ul class="navigation-list">
+
+        @for (item of navigationItems; track item.label) {
+
+          <li>
+
+            <a [href]="item.route">
+
+              <span>{{ item.label }}</span>
+
+            </a>
+
+          </li>
+
+        }
+
+      </ul>
+
+    </nav>
+
+    <!-- CATEGORIES -->
+    <section class="sidebar-categories">
+
+      <h2>Categorias</h2>
+
+      <ul class="categories-list">
+
+        @for (item of categoryItems; track item.label) {
+
+          <li>
+
+            <a [href]="item.route">
+
+              {{ item.label }}
+
+            </a>
+
+          </li>
+
+        }
+
+      </ul>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="sidebar-footer">
+
+      <ul class="footer-links">
+
+        @for (item of footerItems; track item.label) {
+
+          <li>
+
+            <a [href]="item.route">
+
+              {{ item.label }}
+
+            </a>
+
+          </li>
+
+        }
+
+      </ul>
+
+      <p>Built by Sávio Moraes</p>
+
+    </footer>
+
   </div>
-
-  <!-- NAVIGATION -->
-  <nav class="sidebar-navigation">
-
-    <ul class="navigation-list">
-
-      @for (item of navigationItems; track item.label) {
-
-        <li>
-
-          <a [href]="item.route">
-
-            <span>{{ item.label }}</span>
-
-          </a>
-
-        </li>
-
-      }
-
-    </ul>
-
-  </nav>
-
-  <!-- CATEGORIES -->
-  <section class="sidebar-categories">
-
-    <h2>Categorias</h2>
-
-    <ul class="categories-list">
-
-      @for (item of categoryItems; track item.label) {
-
-        <li>
-
-          <a [href]="item.route">
-
-            {{ item.label }}
-
-          </a>
-
-        </li>
-
-      }
-
-    </ul>
-
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="sidebar-footer">
-
-    <ul class="footer-links">
-
-      @for (item of footerItems; track item.label) {
-
-        <li>
-
-          <a [href]="item.route">
-
-            {{ item.label }}
-
-          </a>
-
-        </li>
-
-      }
-
-    </ul>
-
-    <p>Built by Sávio Moraes</p>
-
-  </footer>
 
 </aside>
