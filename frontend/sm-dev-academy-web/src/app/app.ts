@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { MainLayout } from './layout/main-layout/main-layout';
+import { Shell } from './layout/shell/shell';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MainLayout],
+  imports: [
+    Shell,
+  ],
   template: `
-    <app-main-layout />
+    <app-shell />
   `,
   styleUrl: './app.scss',
 })
