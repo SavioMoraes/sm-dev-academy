@@ -6,10 +6,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: rgba(50, 54, 63, 0.7);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  background-color: rgba(82, 86, 96, 0.92);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.14),
+              4px 0 24px rgba(0, 0, 0, 0.18);
 }
 
 .sidebar__content {
