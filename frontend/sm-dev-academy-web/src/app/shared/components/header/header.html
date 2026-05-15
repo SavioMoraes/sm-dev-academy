@@ -4,10 +4,11 @@
     <button
       type="button"
       class="header__menu-toggle"
+      (click)="toggleMobileMenu()"
     >
       Menu
     </button>
-    
+
     <div class="header__brand">
       <a href="/">
         <img
@@ -44,3 +45,70 @@
     </button>
   </div>
 </header>
+
+<!-- MOBILE/TABLET MENU -->
+<div class="mobile-menu-overlay" [class.mobile-menu-overlay--open]="isMobileMenuOpen">
+  <div class="mobile-menu">
+    <div class="mobile-menu__header">
+      <div class="mobile-menu__logo">
+        <a href="/">
+          <img
+            src="assets/images/logo-sm-dev-academy.png"
+            alt="SM Dev Academy"
+          >
+        </a>        
+      </div>
+
+      <button
+        type="button"
+        class="mobile-menu__close"
+        (click)="toggleMobileMenu()"
+      >
+        Fechar
+      </button>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="mobile-menu__navigation">
+      <ul>
+        @for (item of navigationItems; track item.label) {
+          <li>
+            <a [href]="item.route">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- CATEGORIES -->
+    <section class="mobile-menu__categories">
+      <h2>Categorias</h2>
+
+      <ul>
+        @for (item of categoryItems; track item.label) {
+          <li>
+            <a [href]="item.route">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mobile-menu__footer">
+      <ul>
+        @for (item of footerItems; track item.label) {
+          <li>
+            <a [href]="item.route">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+
+      <p>Built by Sávio Moraes</p>
+    </footer>
+  </div>
+</div>
