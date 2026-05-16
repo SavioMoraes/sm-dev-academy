@@ -1,6 +1,7 @@
 .logo-savio {
   background-image: url('../../../../../public/assets/images/bg-color.png');
   background-size: cover;
+  padding: 7px 7px;
 }
 
 .footer {
@@ -50,8 +51,8 @@
 }
 
 .footer-links li a img {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
   transition:
     filter 0.3s ease,
@@ -63,4 +64,32 @@
     drop-shadow(0 0 4px rgba(255, 59, 59, 0.45))
     drop-shadow(0 0 10px rgba(255, 59, 59, 0.28));
   transform: scale(1.08);
+}
+
+/* =========================================================
+   COLLAPSED
+========================================================= */
+
+.footer.footer-collapsed {
+  align-items: center;
+}
+
+.footer.footer-collapsed .logo-savio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 65px;
+}
+
+.footer.footer-collapsed .logo-savio img {
+  width: auto;
+  height: 55px;
+}
+
+.footer.footer-collapsed .footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-items: stretch;
 }

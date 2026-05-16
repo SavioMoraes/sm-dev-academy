@@ -20,7 +20,7 @@ import { Header } from '../../shared/components/header/header';
 })
 export class Shell {
 
-  isCollapsed = false;
+  isCollapsed = true;
 
   toggleSidebar(): void {
     this.isCollapsed = !this.isCollapsed;

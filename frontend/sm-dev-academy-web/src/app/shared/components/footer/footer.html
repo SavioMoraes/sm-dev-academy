@@ -1,10 +1,16 @@
-<footer class="footer">
+<footer class="footer" [class.footer-collapsed]="isCollapsed">
   <p class="footer-copy">Produzido por</p>
 
   <div class="logo-savio">
-    <a href="https://saviomoraes.github.io/portfolio-savio-moraes/" target="_blank" rel="noopener noreferrer">
-      <img src="assets/images/logo_savio_moraes.png" alt="Savio Moraes">
-    </a>
+    @if (!isCollapsed) {
+      <a href="https://saviomoraes.github.io/portfolio-savio-moraes/" target="_blank" rel="noopener noreferrer">
+        <img src="assets/images/logo_savio_moraes.png" alt="logo SM Savio Moraes Desenvolvedor Fullstack">
+      </a>
+    } @else {
+      <a href="https://saviomoraes.github.io/portfolio-savio-moraes/" target="_blank" rel="noopener noreferrer">
+        <img src="assets/images/icon_logo_savio_moraes.png" alt="ícone SM Savio Moraes Desenvolvedor Fullstack">
+      </a>
+    }
   </div>
 
   <ul class="footer-links">
