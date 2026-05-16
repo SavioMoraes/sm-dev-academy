@@ -46,7 +46,8 @@
   display: block;
   width: auto;
   max-width: 100%;
-  height: 38px;
+  height: 42px;
+  object-fit: contain;
 }
 
 .sidebar-navigation ul,
@@ -70,7 +71,7 @@
   }
 
   .sidebar.sidebar-collapsed {
-    width: 90px;
+    width: 140px;
   }
 
   .sidebar__mobile-header {
@@ -92,7 +93,7 @@
   }
 
   .sidebar.sidebar-collapsed {
-    width: 90px;
+    width: 140px;
   }
 
   .sidebar__mobile-header {
