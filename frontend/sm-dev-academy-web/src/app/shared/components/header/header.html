@@ -97,18 +97,6 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="mobile-menu__footer">
-      <ul>
-        @for (item of footerItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              {{ item.label }}
-            </a>
-          </li>
-        }
-      </ul>
-
-      <p>Built by Sávio Moraes</p>
-    </footer>
+    <app-footer />
   </div>
 </div>

@@ -1,0 +1,66 @@
+.logo-savio {
+  background-image: url('../../../../../public/assets/images/bg-color.png');
+  background-size: cover;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 0;
+}
+
+.footer-copy {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links li {
+  display: flex;
+}
+
+.footer-links li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.footer-links li a:hover {
+  background-color: rgba(255, 59, 59, 0.08);
+  box-shadow:
+    0 0 12px rgba(255, 59, 59, 0.18);
+  transform: translateY(-2px);
+}
+
+.footer-links li a img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
+}
+
+.footer-links li a:hover img {
+  filter:
+    drop-shadow(0 0 4px rgba(255, 59, 59, 0.45))
+    drop-shadow(0 0 10px rgba(255, 59, 59, 0.28));
+  transform: scale(1.08);
+}
