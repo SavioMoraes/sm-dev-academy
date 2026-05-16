@@ -1,9 +1,44 @@
 <div class="shell">
-  <app-sidebar />
+
+  <div class="shell__sidebar-wrapper">
+
+    <app-sidebar
+      [isCollapsed]="isCollapsed"
+    />
+
+    <!-- DESKTOP TOGGLE -->
+    <button
+      type="button"
+      class="shell__sidebar-toggle"
+      (click)="toggleSidebar()"
+    >
+
+      @if (!isCollapsed) {
+
+        <mat-icon class="shell__sidebar-toggle-icon">
+          chevron_left
+        </mat-icon>
+
+      } @else {
+
+        <mat-icon class="shell__sidebar-toggle-icon">
+          chevron_right
+        </mat-icon>
+
+      }
+
+    </button>
+
+  </div>
+
   <div class="shell__content-area">
+
     <app-header />
+
     <main class="shell__content">
       <router-outlet />
     </main>
+
   </div>
+
 </div>

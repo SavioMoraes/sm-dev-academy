@@ -4,21 +4,34 @@
 
 .sidebar {
   position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
   height: 100%;
   padding: 0 24px;
   background-color: #23262f;
-  border-right: 4px solid rgba(255, 255, 255, 0.1);
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 4px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar__content {
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: visible;
 }
 
 .sidebar-logo {

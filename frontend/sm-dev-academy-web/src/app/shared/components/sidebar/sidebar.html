@@ -4,20 +4,13 @@
   [class.sidebar-collapsed]="isCollapsed"
   [class.sidebar-mobile-open]="isMobileMenuOpen"
 >
-  <!-- DESKTOP TOGGLE -->
-  <button
-    type="button"
-    class="sidebar__desktop-toggle"
-    (click)="toggleSidebar()"
-  >
-    Toggle
-  </button>
 
   <!-- SIDEBAR CONTENT -->
   <div class="sidebar__content">
 
     <!-- MOBILE HEADER -->
     <div class="sidebar__mobile-header">
+
       <div class="sidebar-logo">
         <a href="/">
           <img
@@ -34,69 +27,95 @@
       >
         Fechar
       </button>
+
     </div>
 
     <!-- DESKTOP LOGO -->
     <div class="sidebar-logo">
+
       @if (!isCollapsed) {
+
         <a href="/">
           <img
             src="assets/images/logo-sm-dev-academy.png"
             alt="Logo"
           >
         </a>
+
       } @else {
+
         <a href="/">
           <img
             src="assets/images/icon-sm-dev-academy.png"
             alt="Ícone"
           >
         </a>
+
       }
+
     </div>
 
     <!-- NAVIGATION -->
     <nav class="sidebar-navigation">
+
       <ul class="navigation-list">
+
         @for (item of navigationItems; track item.label) {
+
           <li>
             <a [href]="item.route">
               <span>{{ item.label }}</span>
             </a>
           </li>
+
         }
+
       </ul>
+
     </nav>
 
     <!-- CATEGORIES -->
     <section class="sidebar-categories">
+
       <h2>Categorias</h2>
 
       <ul class="categories-list">
+
         @for (item of categoryItems; track item.label) {
+
           <li>
             <a [href]="item.route">
               {{ item.label }}
             </a>
           </li>
+
         }
+
       </ul>
+
     </section>
 
     <!-- FOOTER -->
     <footer class="sidebar-footer">
+
       <ul class="footer-links">
+
         @for (item of footerItems; track item.label) {
+
           <li>
             <a [href]="item.route">
               {{ item.label }}
             </a>
           </li>
+
         }
+
       </ul>
 
       <p>Built by Sávio Moraes</p>
+
     </footer>
 
   </div>
+
 </aside>
