@@ -1,1 +1,27 @@
-<p>footer works!</p>
+<footer class="footer">
+  <p class="footer-copy">Produzido por</p>
+
+  <div class="logo-savio">
+    <a href="https://saviomoraes.github.io/portfolio-savio-moraes/" target="_blank" rel="noopener noreferrer">
+      <img src="assets/images/logo_savio_moraes.png" alt="Savio Moraes">
+    </a>
+  </div>
+
+  <ul class="footer-links">
+    @for (item of footerItems; track item.label) {
+      <li>
+        <a
+          [href]="item.route"
+          target="_blank"
+          [attr.aria-label]="item.label"
+          [title]="item.label"
+        >
+          <img
+            [src]="item.icon"
+            [alt]="item.label"
+          >
+        </a>
+      </li>
+    }
+  </ul>
+</footer>

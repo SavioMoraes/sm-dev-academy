@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { navigationItems } from '../../../core/navigation/navigation-items';
 import { categoryItems } from '../../../core/navigation/category-items';
-import { footerItems } from '../../../core/navigation/footer-items';
+import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [
+    Footer,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -16,7 +18,6 @@ export class Header {
 
   navigationItems = navigationItems;
   categoryItems = categoryItems;
-  footerItems = footerItems;
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
