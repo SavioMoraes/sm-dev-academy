@@ -56,18 +56,6 @@
   gap: 12px;
 }
 
-.header__menu-toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background-color: #32363f;
-  color: #ffffff;
-  cursor: pointer;
-}
-
 .header__brand {
   display: flex;
   align-items: center;
@@ -213,6 +201,15 @@
   
   .header__menu-toggle {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
 
   .header__brand {
@@ -247,6 +244,40 @@
     flex-shrink: 0;
   }
 
+  .mobile-menu__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /* =========================================================
+    MATERIAL ICONS
+  ========================================================= */
+
+  .header__menu-toggle .material-symbols-outlined,
+  .mobile-menu__close .material-symbols-outlined {
+    font-size: 34px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+  }
+
+  .header__menu-toggle:hover .material-symbols-outlined,
+  .mobile-menu__close:hover .material-symbols-outlined {
+    transform: scale(1.08);
+  }
+
+  .header__menu-toggle:active .material-symbols-outlined,
+  .mobile-menu__close:active .material-symbols-outlined {
+    transform: scale(0.96);
+  }
+
 }
 
 /* =========================================================
@@ -268,6 +299,15 @@
 
   .header__menu-toggle {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
 
   .header__brand {
@@ -298,6 +338,40 @@
     display: flex;
     align-items: center;
     flex-shrink: 0;
+  }
+
+  .mobile-menu__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /* =========================================================
+    MATERIAL ICONS
+  ========================================================= */
+
+  .header__menu-toggle .material-symbols-outlined,
+  .mobile-menu__close .material-symbols-outlined {
+    font-size: 34px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+  }
+
+  .header__menu-toggle:hover .material-symbols-outlined,
+  .mobile-menu__close:hover .material-symbols-outlined {
+    transform: scale(1.08);
+  }
+
+  .header__menu-toggle:active .material-symbols-outlined,
+  .mobile-menu__close:active .material-symbols-outlined {
+    transform: scale(0.96);
   }
 
 }

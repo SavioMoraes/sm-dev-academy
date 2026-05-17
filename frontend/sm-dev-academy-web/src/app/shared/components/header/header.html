@@ -6,7 +6,7 @@
       class="header__menu-toggle"
       (click)="toggleMobileMenu()"
     >
-      Menu
+      <span class="material-symbols-outlined">density_medium</span>
     </button>
 
     <div class="header__brand">
@@ -64,7 +64,7 @@
         class="mobile-menu__close"
         (click)="toggleMobileMenu()"
       >
-        Fechar
+        <span class="material-symbols-outlined">close</span>
       </button>
     </div>
 
@@ -83,7 +83,7 @@
 
     <!-- CATEGORIES -->
     <section class="mobile-menu__categories">
-      <h2>Categorias</h2>
+      <p>Categorias</p>
 
       <ul>
         @for (item of categoryItems; track item.label) {
