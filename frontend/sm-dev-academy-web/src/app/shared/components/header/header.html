@@ -11,37 +11,60 @@
 
     <div class="header__brand">
       <a href="/">
-        <img
-          src="assets/images/logo-sm-dev-academy.png"
-          alt="SM Dev Academy"
-        >
+        <picture>
+          <source
+            media="(max-width: 400px)"
+            srcset="assets/images/icon-sm-dev-academy.png"
+          >
+
+          <img
+            src="assets/images/logo-sm-dev-academy.png"
+            alt="SM Dev Academy"
+          >
+        </picture>
       </a>
     </div>
   </div>
 
   <div class="header__center">
+    <!-- SEARCH -->
     <div class="header__search">
+      <button
+        type="button"
+        class="header__search-button"
+      >
+        <span class="material-symbols-outlined">
+          search
+        </span>
+      </button>
+
       <input
         type="text"
-        placeholder="Buscar cursos, categorias ou tópicos..."
+        placeholder="Pesquisar"
         class="header__search-input"
       >
     </div>
   </div>
 
   <div class="header__right">
+    <!-- NOTIFICATIONS -->
     <button
       type="button"
-      class="header__notifications"
+      class="header__icon-button"
     >
-      Notificações
+      <span class="material-symbols-outlined">
+        notifications
+      </span>
     </button>
 
+    <!-- LOGIN -->
     <button
       type="button"
-      class="header__auth"
+      class="header__icon-button"
     >
-      Login
+      <span class="material-symbols-outlined">
+        person
+      </span>
     </button>
   </div>
 </header>
