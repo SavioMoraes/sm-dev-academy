@@ -115,23 +115,6 @@
   color: #ffffff;
 }
 
-.header__search-input {
-  width: 0;
-  min-width: 0;
-  height: 42px;
-  padding: 0;
-  border: none;
-  outline: none;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  color: #ffffff;
-  opacity: 0;
-  transition:
-    width 0.3s ease,
-    opacity 0.3s ease,
-    padding 0.3s ease;
-}
-
 .header__search:hover .header__search-input,
 .header__search:focus-within .header__search-input {
   width: min(420px, 32vw);
