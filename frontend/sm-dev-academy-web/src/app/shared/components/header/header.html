@@ -1,52 +1,95 @@
 <header class="header">
-  <div class="header__left">
+
+  <!-- LEFT -->
+  <div
+    class="header__left"
+    [class.header__left--hidden]="isSearchActive"
+  >
     <!-- MOBILE/TABLET HAMBURGUER -->
     <button
       type="button"
       class="header__menu-toggle"
       (click)="toggleMobileMenu()"
     >
-      <span class="material-symbols-outlined">density_medium</span>
+      <span class="material-symbols-outlined">
+        density_medium
+      </span>
     </button>
 
+    <!-- LOGO -->
     <div class="header__brand">
       <a href="/">
-        <picture>
-          <source
-            media="(max-width: 400px)"
-            srcset="assets/images/icon-sm-dev-academy.png"
-          >
-
-          <img
-            src="assets/images/logo-sm-dev-academy.png"
-            alt="SM Dev Academy"
-          >
-        </picture>
+        <img
+          src="assets/images/logo-sm-dev-academy.png"
+          alt="SM Dev Academy"
+        >
       </a>
     </div>
+
+    <!-- OPEN SEARCH -->
+    <button
+      type="button"
+      class="header__search-trigger"
+      (click)="toggleSearch(); $event.stopPropagation();"
+    >
+      <span class="material-symbols-outlined">
+        search
+      </span>
+    </button>
   </div>
 
-  <div class="header__center">
-    <!-- SEARCH -->
-    <div class="header__search">
+  <!-- SEARCH -->
+  <div
+    class="header__search"
+    [class.header__search--active]="isSearchActive"
+  >
+    <!-- DESKTOP/LAPTOP INPUT -->
+    <input
+      type="text"
+      placeholder="Pesquisar"
+      class="header__search-input"
+      (click)="$event.stopPropagation()"
+    >
+
+    <!-- MOBILE/TABLET OVERLAY -->
+    <div class="header__search-overlay">
+      <!-- CLOSE SEARCH -->
       <button
         type="button"
-        class="header__search-button"
+        class="header__search-close"
+        (click)="toggleSearch()"
+      >
+        <span class="material-symbols-outlined">
+          arrow_back
+        </span>
+      </button>
+
+      <!-- INPUT -->
+      <input
+        type="text"
+        placeholder="Pesquisar"
+        class="header__search-mobile-input"
+        (click)="$event.stopPropagation()"
+      >
+
+      <!-- SUBMIT -->
+      <button
+        type="button"
+        class="header__search-submit"
       >
         <span class="material-symbols-outlined">
           search
         </span>
       </button>
-
-      <input
-        type="text"
-        placeholder="Pesquisar"
-        class="header__search-input"
-      >
     </div>
   </div>
 
-  <div class="header__right">
+  <!-- RIGHT -->
+  <div
+    class="header__right"
+    [class.header__right--hidden]="isSearchActive"
+  >
+
     <!-- NOTIFICATIONS -->
     <button
       type="button"
@@ -66,29 +109,42 @@
         person
       </span>
     </button>
+
   </div>
+
 </header>
 
 <!-- MOBILE/TABLET MENU -->
-<div class="mobile-menu-overlay" [class.mobile-menu-overlay--open]="isMobileMenuOpen">
+<div
+  class="mobile-menu-overlay"
+  [class.mobile-menu-overlay--open]="isMobileMenuOpen"
+>
   <div class="mobile-menu">
+
+    <!-- MOBILE HEADER -->
     <div class="mobile-menu__header">
+
+      <!-- LOGO -->
       <div class="mobile-menu__logo">
         <a href="/">
           <img
             src="assets/images/logo-sm-dev-academy.png"
             alt="SM Dev Academy"
           >
-        </a>        
+        </a>
       </div>
 
+      <!-- CLOSE -->
       <button
         type="button"
         class="mobile-menu__close"
         (click)="toggleMobileMenu()"
       >
-        <span class="material-symbols-outlined">close</span>
+        <span class="material-symbols-outlined">
+          close
+        </span>
       </button>
+
     </div>
 
     <!-- NAVIGATION -->
@@ -106,6 +162,7 @@
 
     <!-- CATEGORIES -->
     <section class="mobile-menu__categories">
+
       <p>Categorias</p>
 
       <ul>
@@ -117,9 +174,11 @@
           </li>
         }
       </ul>
+
     </section>
 
     <!-- FOOTER -->
     <app-footer />
+
   </div>
 </div>
