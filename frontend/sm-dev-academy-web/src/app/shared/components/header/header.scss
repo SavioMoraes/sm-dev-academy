@@ -414,8 +414,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     padding: 0;
     border: none;
     background: transparent;
@@ -536,8 +536,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     padding: 0;
     border: none;
     background: transparent;
@@ -548,7 +548,7 @@
   .header__search-trigger .material-symbols-outlined,
   .header__search-close .material-symbols-outlined,
   .header__search-submit .material-symbols-outlined {
-    font-size: 24px;
+    font-size: 30px;
     color: #ffffff;
   }
 
@@ -615,8 +615,15 @@
   .header__brand img {
     display: block;
     width: auto;
-    height: 16px !important;
+    height: 22px !important;
     max-width: 100%;
+  }
+
+  .mobile-menu__logo img {
+    display: block;
+    width: auto;
+    height: 22px;
+    object-fit: contain;
   }
 
   .mobile-menu__close {
