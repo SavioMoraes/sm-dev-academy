@@ -91,6 +91,10 @@
     display: none;
   }
 
+  .sidebar-logo img {
+    height: 35px;
+  }
+
 }
 
 /* =========================================================
@@ -111,6 +115,10 @@
 
   .sidebar__mobile-header {
     display: none;
+  }
+
+  .sidebar-logo img {
+    height: 28px;
   }
 
 }
