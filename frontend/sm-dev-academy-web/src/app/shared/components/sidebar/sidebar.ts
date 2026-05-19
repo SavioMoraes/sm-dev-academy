@@ -27,4 +27,7 @@ export class Sidebar {
 
   navigationItems = navigationItems;
   categoryItems = categoryItems;
+
+  /* ADMIN */
+  isAdmin = false;
 }

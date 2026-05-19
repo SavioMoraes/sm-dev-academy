@@ -31,8 +31,11 @@
   gap: 16px;
 }
 
-.header__actions,
 .header__right {
+  gap: 12px;
+}
+
+.header__actions {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -118,7 +121,7 @@
 .header__search:hover .header__search-input,
 .header__search:focus-within .header__search-input {
   width: min(420px, 32vw);
-  opacity: 1;
+  opacity: 0;
   padding: 0 16px;
 }
 
@@ -461,7 +464,7 @@
   .header__search--active {
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: 9px;
     right: 20px;
     transform: translateY(-50%);
     z-index: 40;
@@ -528,6 +531,7 @@
   .header__search-submit .material-symbols-outlined {
     font-size: 22px;
     color: #ffffff;
+    padding-right: 10px;
   }
 
   .header__search-trigger,
