@@ -114,7 +114,7 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  font-size: 12px;
+  font-size: 17px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.03em;
@@ -162,15 +162,17 @@
 .sidebar-navigation__link {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
   width: 100%;
   min-height: 48px;
   padding: 0 4px;
   border-radius: 14px;
+  cursor: pointer;
   text-decoration: none;
   transition:
     background-color 0.3s ease,
-    transform 0.3s ease;
+    transform 0.3s ease,
+    color 0.3s ease;
 }
 
 .sidebar-navigation__link .material-symbols-outlined {
@@ -182,11 +184,57 @@
   color: #ffffff;
 }
 
+.sidebar__tech-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+  opacity: 1;
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(100%)
+    sepia(0%)
+    saturate(0%)
+    hue-rotate(184deg)
+    brightness(100%)
+    contrast(100%);
+}
+
 .sidebar-navigation__label {
-  font-size: 8px;
+  font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.92);
   white-space: nowrap;
+}
+
+.sidebar-navigation__link--active {
+  background-color: rgba(255, 59, 59, 0.14);
+}
+
+.sidebar-navigation__link--active .sidebar-navigation__label {
+  color: #ff3b3b;
+}
+
+.sidebar-navigation__link--active .material-symbols-outlined {
+  color: #ff3b3b;
+}
+
+.sidebar-navigation__link--active .sidebar__tech-icon {
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(36%)
+    sepia(93%)
+    saturate(2877%)
+    hue-rotate(343deg)
+    brightness(103%)
+    contrast(101%);
 }
 
 /* =========================================================
@@ -200,7 +248,7 @@
   gap: 2px;
   width: 100%;
   padding: 0 0 0 6px;
-  font-size: 8px;
+  font-size: 16px;
   text-align: center;
   transform: scale(0.85);
   transform-origin: center center;
@@ -214,6 +262,7 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  gap: 0;
 }
 
 .sidebar.sidebar-collapsed .sidebar-navigation__label {
@@ -256,7 +305,7 @@
   }
 
   .sidebar.sidebar-collapsed {
-    width: 140px;
+    width: 180px;
   }
 
   .sidebar__mobile-header {
@@ -282,7 +331,7 @@
   }
 
   .sidebar.sidebar-collapsed {
-    width: 140px;
+    width: 150px;
   }
 
   .sidebar__mobile-header {
