@@ -149,13 +149,14 @@
 .sidebar-navigation__list {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 10px;
   margin: 0;
-  padding: 0 12px;
+  padding: 10px 12px 6px 12px;
   list-style: none;
 }
 
 .sidebar-navigation__item {
+  position: relative;
   width: 100%;
 }
 
@@ -180,20 +181,27 @@
   align-items: center;
   justify-content: center;
   min-width: 24px;
-  font-size: 20px;
-  color: #ffffff;
+  font-size: 26px;
+  color: rgba(255, 255, 255, 0.62);
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease,
+    filter 0.25s ease;
 }
 
 .sidebar__tech-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 26px;
-  width: 18px;
-  height: 18px;
+  min-width: 22px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
   flex-shrink: 0;
-  opacity: 1;
+  opacity: 0.62;
+  transition:
+    opacity 0.25s ease,
+    filter 0.25s ease;
   filter:
     brightness(0)
     saturate(100%)
@@ -209,23 +217,49 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.62);
   white-space: nowrap;
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .sidebar-navigation__link--active {
-  background-color: rgba(255, 59, 59, 0.14);
+  position: relative;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 59, 59, 0.12) 0%,
+      rgba(255, 59, 59, 0.06) 100%
+    );
+
+  border:
+    1px solid
+    rgba(255, 59, 59, 0.9);
+
+  box-shadow:
+    0 0 10px rgba(255, 59, 59, 0.45),
+    0 0 22px rgba(255, 59, 59, 0.18);
+
+  backdrop-filter: blur(6px);
 }
 
 .sidebar-navigation__link--active .sidebar-navigation__label {
   color: #ff3b3b;
+  opacity: 1;
 }
 
 .sidebar-navigation__link--active .material-symbols-outlined {
   color: #ff3b3b;
+
+  filter:
+    drop-shadow(0 0 6px rgba(255, 59, 59, 0.85));
 }
 
 .sidebar-navigation__link--active .sidebar__tech-icon {
+  opacity: 1;
+
   filter:
     brightness(0)
     saturate(100%)
@@ -234,7 +268,8 @@
     saturate(2877%)
     hue-rotate(343deg)
     brightness(103%)
-    contrast(101%);
+    contrast(101%)
+    drop-shadow(0 0 6px rgba(255, 59, 59, 0.8));
 }
 
 /* =========================================================
@@ -255,16 +290,21 @@
 }
 
 .sidebar.sidebar-collapsed .sidebar-navigation__list {
-  padding: 0 6px;
+  padding: 10px 0 6px 0;
+  gap: 20px;
 }
 
 .sidebar.sidebar-collapsed .sidebar-navigation__link {
   align-items: center;
   justify-content: center;
-  padding: 0;
   gap: 0;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  margin: 0 auto;
+  border-radius: 12px;
 }
-
 .sidebar.sidebar-collapsed .sidebar-navigation__label {
   display: none;
 }
@@ -284,12 +324,68 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.sidebar.sidebar-collapsed .sidebar-navigation__list {
-  gap: 6px;
-}
-
 .sidebar-navigation__section--collapsed .sidebar-navigation__list {
   display: none;
+}
+
+.sidebar-navigation__link:hover .material-symbols-outlined {
+  color: rgba(255, 255, 255, 1);
+}
+
+.sidebar-navigation__link:hover .sidebar-navigation__label {
+  color: rgba(255, 255, 255, 1);
+}
+
+.sidebar-navigation__link:hover .sidebar__tech-icon {
+  opacity: 1;
+}
+
+.sidebar-navigation__link--active:hover .material-symbols-outlined {
+  color: #ff3b3b;
+}
+
+.sidebar-navigation__link--active:hover .sidebar-navigation__label {
+  color: #ff3b3b;
+}
+
+.sidebar-navigation__link--active:hover .sidebar__tech-icon {
+  opacity: 1;
+
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(36%)
+    sepia(93%)
+    saturate(2877%)
+    hue-rotate(343deg)
+    brightness(103%)
+    contrast(101%)
+    drop-shadow(0 0 6px rgba(255, 59, 59, 0.8));
+}
+
+.sidebar.sidebar-collapsed .sidebar-navigation__item:hover::after {
+  content: attr(data-label);
+
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+
+  transform: translateX(-50%);
+
+  padding: 0 8px;
+  border-radius: 8px;
+
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+
+  color: #ffffff;
+  background-color: rgba(20, 20, 20, 0.95);
+
+  pointer-events: none;
+
+  z-index: 50;
 }
 
 /* =========================================================

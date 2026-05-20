@@ -58,8 +58,10 @@
         <ul class="sidebar-navigation__list">
           <li class="sidebar-navigation__item">
             <a
-              href="#"
               class="sidebar-navigation__link"
+              routerLink="/"
+              routerLinkActive="sidebar-navigation__link--active"
+              [routerLinkActiveOptions]="{ exact: true }"
             >
               <span class="material-symbols-outlined">
                 home
@@ -95,10 +97,11 @@
 
         @if (bibliotecaExpanded) {
           <ul class="sidebar-navigation__list">
-            <li class="sidebar-navigation__item">
+            <li class="sidebar-navigation__item" data-label="Cursos">
               <a
-                href="#"
                 class="sidebar-navigation__link"
+                routerLink="/biblioteca/cursos"
+                routerLinkActive="sidebar-navigation__link--active"
               >
                 <span class="material-symbols-outlined">
                   play_circle
@@ -112,10 +115,11 @@
               </a>
             </li>
 
-            <li class="sidebar-navigation__item">
+            <li class="sidebar-navigation__item" data-label="Meus Cursos">
               <a
-                href="#"
                 class="sidebar-navigation__link"
+                routerLink="/biblioteca/meus-cursos"
+                routerLinkActive="sidebar-navigation__link--active"
               >
                 <span class="material-symbols-outlined">
                   video_library
@@ -129,9 +133,10 @@
               </a>
             </li>
 
-            <li class="sidebar-navigation__item">
+            <li class="sidebar-navigation__item" data-label="Favoritos">
               <a
-                href="#"
+                routerLink="/biblioteca/favoritos"
+                routerLinkActive="sidebar-navigation__link--active"
                 class="sidebar-navigation__link"
               >
                 <span class="material-symbols-outlined">
@@ -146,9 +151,10 @@
               </a>
             </li>
 
-            <li class="sidebar-navigation__item">
+            <li class="sidebar-navigation__item" data-label="Histórico">
               <a
-                href="#"
+                routerLink="/biblioteca/historico"
+                routerLinkActive="sidebar-navigation__link--active"
                 class="sidebar-navigation__link"
               >
                 <span class="material-symbols-outlined">
@@ -187,7 +193,7 @@
         @if (tecnologiasExpanded) {
           <ul class="sidebar-navigation__list">
             <!-- HTML -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="HTML">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/html"
@@ -206,7 +212,7 @@
               </li>
 
               <!-- CSS -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="CSS">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/css"
@@ -225,7 +231,7 @@
               </li>
 
               <!-- JAVASCRIPT -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="JavaScript">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/javascript"
@@ -244,7 +250,7 @@
               </li>
 
               <!-- TYPESCRIPT -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="TypeScript">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/typescript"
@@ -263,7 +269,7 @@
               </li>
 
               <!-- ANGULAR -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="Angular">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/angular"
@@ -282,7 +288,7 @@
               </li>
 
               <!-- REACT -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="React">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/react"
@@ -301,7 +307,7 @@
               </li>
 
               <!-- PYTHON -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="Python">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/python"
@@ -320,7 +326,7 @@
               </li>
 
               <!-- NODE.JS -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="Node.js">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/nodejs"
@@ -339,7 +345,7 @@
               </li>
 
               <!-- NESTJS -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="NestJS">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/nestjs"
@@ -358,7 +364,7 @@
               </li>
 
               <!-- MONGODB -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="MongoDB">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/mongodb"
@@ -377,7 +383,7 @@
               </li>
 
               <!-- MYSQL -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="MySQL">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/mysql"
@@ -396,7 +402,7 @@
               </li>
 
               <!-- POSTGRESQL -->
-              <li class="sidebar-navigation__item">
+              <li class="sidebar-navigation__item" data-label="PostgreSQL">
                 <a
                   class="sidebar-navigation__link"
                   routerLink="/tecnologias/postgresql"
@@ -437,10 +443,11 @@
 
         @if (contaExpanded) {
           <ul class="sidebar-navigation__list">
-            <li class="sidebar-navigation__item">
+            <li class="sidebar-navigation__item" data-label="Perfil">
               <a
-                href="#"
                 class="sidebar-navigation__link"
+                routerLink="/conta/perfil"
+                routerLinkActive="sidebar-navigation__link--active"
               >
                 <span class="material-symbols-outlined">
                   account_circle
@@ -478,8 +485,12 @@
 
           @if (adminExpanded) {
             <ul class="sidebar-navigation__list">
-              <li class="sidebar-navigation__item">
-                <a href="#" class="sidebar-navigation__link">
+              <li class="sidebar-navigation__item" data-label="Dashboard">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/admin/dashboard"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
                   <span class="material-symbols-outlined">
                     dashboard
                   </span>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Footer } from '../footer/footer';
 import { navigationItems } from '../../../core/navigation/navigation-items';
@@ -10,6 +11,8 @@ import { categoryItems } from '../../../core/navigation/category-items';
   imports: [
     MatIconModule,
     Footer,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
