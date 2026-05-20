@@ -28,7 +28,6 @@
 
     <!-- DESKTOP LOGO -->
     <div class="sidebar-logo">
-
       @if (!isCollapsed) {
         <a href="/">
           <img
@@ -46,32 +45,355 @@
       }
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- SIDEBAR NAVIGATION -->
     <nav class="sidebar-navigation">
-      <ul class="navigation-list">
-        @for (item of navigationItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              <span>{{ item.label }}</span>
-            </a>
-          </li>
-        }
-      </ul>
-    </nav>
+      <!-- INÍCIO -->
+      <section class="sidebar-navigation__section">
+        <h2
+          class="sidebar-navigation__title"
+        >
+         <span>Início</span>
+        </h2>
+        
+        <ul class="sidebar-navigation__list">
+          <li class="sidebar-navigation__item">
+            <a
+              href="#"
+              class="sidebar-navigation__link"
+            >
+              <span class="material-symbols-outlined">
+                home
+              </span>
 
-    <!-- CATEGORIES -->
-    <section class="sidebar-categories">
-      <p>Categorias</p>
-      <ul class="categories-list">
-        @for (item of categoryItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              {{ item.label }}
+              @if (!isCollapsed) {
+                <span class="sidebar-navigation__label">
+                  Home
+                </span>
+              }
             </a>
           </li>
+        </ul>
+      </section>
+
+      <!-- BIBLIOTECA -->
+      <section class="sidebar-navigation__section">
+        <button
+          type="button"
+          class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('biblioteca')"
+        >
+          <span>Biblioteca</span>
+
+          <span class="material-symbols-outlined">
+            @if (bibliotecaExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
+
+        @if (bibliotecaExpanded) {
+          <ul class="sidebar-navigation__list">
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  play_circle
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Cursos
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  video_library
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Meus Cursos
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  favorite
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Favoritos
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  history
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Histórico
+                  </span>
+                }
+              </a>
+            </li>
+          </ul>
         }
-      </ul>
-    </section>
+      </section>
+
+      <!-- TECNOLOGIAS -->
+      <section class="sidebar-navigation__section">
+        <button
+          type="button"
+          class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('tecnologias')"
+        >
+          <span>Tecnologias</span>
+
+          <span class="material-symbols-outlined">
+            @if (tecnologiasExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
+
+        @if (tecnologiasExpanded) {
+          <ul class="sidebar-navigation__list">
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  code
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    HTML
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  palette
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    CSS
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  terminal
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    JavaScript
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  data_object
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    TypeScript
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  bolt
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Angular
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  refresh
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    React
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  smart_toy
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Python
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  dns
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Node.js
+                  </span>
+                }
+              </a>
+            </li>
+
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  layers
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    NestJS
+                  </span>
+                }
+              </a>
+            </li>
+          </ul>
+        }  
+      </section>
+
+      <!-- CONTA -->
+      <section class="sidebar-navigation__section">
+        <button
+          type="button"
+          class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('conta')"
+        >
+          <span>Conta</span>
+
+          <span class="material-symbols-outlined">
+            @if (contaExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
+
+        @if (contaExpanded) {
+          <ul class="sidebar-navigation__list">
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  account_circle
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Perfil
+                  </span>
+                }
+              </a>
+            </li>
+          </ul>
+        }  
+      </section>
+
+      @if (isAdmin) {
+        <!-- ADMIN -->
+        <section class="sidebar-navigation__section">
+          <button
+            type="button"
+            class="sidebar-navigation__title sidebar-navigation__toggle"
+            (click)="toggleSection('admin')"
+          >
+            <span>Admin</span>
+
+            <span class="material-symbols-outlined">
+              @if (adminExpanded) {
+                keyboard_arrow_down
+              } @else {
+                keyboard_arrow_right
+              }
+            </span>
+          </button>
+
+          @if (adminExpanded) {
+            <ul class="sidebar-navigation__list">
+              <li class="sidebar-navigation__item">
+                <a href="#" class="sidebar-navigation__link">
+                  <span class="material-symbols-outlined">
+                    dashboard
+                  </span>
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Dashboard
+                    </span>
+                  }
+                </a>
+              </li>
+            </ul>
+          }
+        </section>
+      }
+    </nav>
 
     <!-- FOOTER -->
     <app-footer [isCollapsed]="isCollapsed" />
