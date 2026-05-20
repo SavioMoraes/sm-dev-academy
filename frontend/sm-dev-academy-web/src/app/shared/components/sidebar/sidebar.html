@@ -186,131 +186,233 @@
 
         @if (tecnologiasExpanded) {
           <ul class="sidebar-navigation__list">
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  code
-                </span>
+            <!-- HTML -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/html"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/html5.svg"
+                    alt="HTML"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    HTML
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">HTML</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  palette
-                </span>
+              <!-- CSS -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/css"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/css.svg"
+                    alt="CSS"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    CSS
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">CSS</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  terminal
-                </span>
+              <!-- JAVASCRIPT -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/javascript"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/javascript.svg"
+                    alt="JavaScript"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    JavaScript
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">JavaScript</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  data_object
-                </span>
+              <!-- TYPESCRIPT -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/typescript"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/typescript.svg"
+                    alt="TypeScript"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    TypeScript
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">TypeScript</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  bolt
-                </span>
+              <!-- ANGULAR -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/angular"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/angular.svg"
+                    alt="Angular"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Angular
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">Angular</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  refresh
-                </span>
+              <!-- REACT -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/react"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/react.svg"
+                    alt="React"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    React
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">React</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  smart_toy
-                </span>
+              <!-- PYTHON -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/python"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/python.svg"
+                    alt="Python"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Python
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">Python</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  dns
-                </span>
+              <!-- NODE.JS -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/nodejs"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/nodedotjs.svg"
+                    alt="Node.js"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Node.js
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">Node.js</span>
+                  }
+                </a>
+              </li>
 
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  layers
-                </span>
+              <!-- NESTJS -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/nestjs"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/nestjs.svg"
+                    alt="NestJS"
+                  />
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    NestJS
-                  </span>
-                }
-              </a>
-            </li>
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">NestJS</span>
+                  }
+                </a>
+              </li>
+
+              <!-- MONGODB -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/mongodb"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/mongodb.svg"
+                    alt="MongoDB"
+                  />
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">MongoDB</span>
+                  }
+                </a>
+              </li>
+
+              <!-- MYSQL -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/mysql"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/mysql.svg"
+                    alt="MySQL"
+                  />
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">MySQL</span>
+                  }
+                </a>
+              </li>
+
+              <!-- POSTGRESQL -->
+              <li class="sidebar-navigation__item">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/tecnologias/postgresql"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <img
+                    class="sidebar__tech-icon"
+                    src="assets/svg/postgresql.svg"
+                    alt="PostgreSQL"
+                  />
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">PostgreSQL</span>
+                  }
+                </a>
+              </li>
           </ul>
         }  
       </section>
