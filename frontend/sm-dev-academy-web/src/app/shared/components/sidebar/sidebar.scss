@@ -52,7 +52,7 @@
 .sidebar-navigation__section {
   gap: 0;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 59, 59, 0.5);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-logo::after {
@@ -61,7 +61,7 @@
   right: -24px;
   bottom: 0;
   left: -24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.68);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-logo img {
@@ -89,10 +89,11 @@
   padding: 12px 24px;
   flex: 1;
   min-height: 0;
-  overflow-y: overlay;
+  overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 59, 59, 0.25) transparent;
+  scrollbar-gutter: stable;
 }
 
 .sidebar-navigation::-webkit-scrollbar {
@@ -141,8 +142,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 26.5px;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .sidebar-navigation__list {
@@ -194,8 +195,11 @@
 
 .sidebar.sidebar-collapsed .sidebar-navigation__title {
   justify-content: center;
+  display: flex;
   align-items: center;
-  padding: 0;
+  gap: 2px;
+  width: 100%;
+  padding: 0 0 0 6px;
   font-size: 8px;
   text-align: center;
   transform: scale(0.85);
@@ -228,7 +232,7 @@
   bottom: 0;
   left: -10px;
   height: 1px;
-  background-color: rgba(255, 59, 59, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar.sidebar-collapsed .sidebar-navigation__list {

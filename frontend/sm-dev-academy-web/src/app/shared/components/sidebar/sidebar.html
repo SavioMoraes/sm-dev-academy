@@ -80,227 +80,239 @@
         <button
           type="button"
           class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('biblioteca')"
         >
           <span>Biblioteca</span>
 
           <span class="material-symbols-outlined">
-            keyboard_arrow_down
+            @if (bibliotecaExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
           </span>
         </button>
 
-        <ul class="sidebar-navigation__list">
-          <li class="sidebar-navigation__item">
-            <a
-              href="#"
-              class="sidebar-navigation__link"
-            >
-              <span class="material-symbols-outlined">
-                play_circle
-              </span>
-
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Cursos
+        @if (bibliotecaExpanded) {
+          <ul class="sidebar-navigation__list">
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  play_circle
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a
-              href="#"
-              class="sidebar-navigation__link"
-            >
-              <span class="material-symbols-outlined">
-                video_library
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Cursos
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Meus Cursos
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  video_library
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a
-              href="#"
-              class="sidebar-navigation__link"
-            >
-              <span class="material-symbols-outlined">
-                favorite
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Meus Cursos
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Favoritos
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  favorite
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a
-              href="#"
-              class="sidebar-navigation__link"
-            >
-              <span class="material-symbols-outlined">
-                history
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Favoritos
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Histórico
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  history
                 </span>
-              }
-            </a>
-          </li>
-        </ul>
 
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Histórico
+                  </span>
+                }
+              </a>
+            </li>
+          </ul>
+        }
       </section>
 
       <!-- TECNOLOGIAS -->
-      <section class="sidebar-navigation__section sidebar-navigation__section--collapsed">
+      <section class="sidebar-navigation__section">
         <button
           type="button"
           class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('tecnologias')"
         >
           <span>Tecnologias</span>
 
           <span class="material-symbols-outlined">
-            keyboard_arrow_right
+            @if (tecnologiasExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
           </span>
         </button>
 
-        <ul class="sidebar-navigation__list">
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                code
-              </span>
-
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  HTML
+        @if (tecnologiasExpanded) {
+          <ul class="sidebar-navigation__list">
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  code
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                palette
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    HTML
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  CSS
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  palette
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                terminal
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    CSS
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  JavaScript
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  terminal
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                data_object
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    JavaScript
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  TypeScript
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  data_object
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                bolt
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    TypeScript
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Angular
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  bolt
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                refresh
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Angular
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  React
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  refresh
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                smart_toy
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    React
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Python
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  smart_toy
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                dns
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Python
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Node.js
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  dns
                 </span>
-              }
-            </a>
-          </li>
 
-          <li class="sidebar-navigation__item">
-            <a href="#" class="sidebar-navigation__link">
-              <span class="material-symbols-outlined">
-                layers
-              </span>
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Node.js
+                  </span>
+                }
+              </a>
+            </li>
 
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  NestJS
+            <li class="sidebar-navigation__item">
+              <a href="#" class="sidebar-navigation__link">
+                <span class="material-symbols-outlined">
+                  layers
                 </span>
-              }
-            </a>
-          </li>
-        </ul>
 
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    NestJS
+                  </span>
+                }
+              </a>
+            </li>
+          </ul>
+        }  
       </section>
 
       <!-- CONTA -->
@@ -308,32 +320,39 @@
         <button
           type="button"
           class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('conta')"
         >
           <span>Conta</span>
 
           <span class="material-symbols-outlined">
-            keyboard_arrow_down
+            @if (contaExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
           </span>
         </button>
 
-        <ul class="sidebar-navigation__list">
-          <li class="sidebar-navigation__item">
-            <a
-              href="#"
-              class="sidebar-navigation__link"
-            >
-              <span class="material-symbols-outlined">
-                account_circle
-              </span>
-
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Perfil
+        @if (contaExpanded) {
+          <ul class="sidebar-navigation__list">
+            <li class="sidebar-navigation__item">
+              <a
+                href="#"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  account_circle
                 </span>
-              }
-            </a>
-          </li>
-        </ul>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Perfil
+                  </span>
+                }
+              </a>
+            </li>
+          </ul>
+        }  
       </section>
 
       @if (isAdmin) {
@@ -342,29 +361,36 @@
           <button
             type="button"
             class="sidebar-navigation__title sidebar-navigation__toggle"
+            (click)="toggleSection('admin')"
           >
             <span>Admin</span>
 
             <span class="material-symbols-outlined">
-              keyboard_arrow_down
+              @if (adminExpanded) {
+                keyboard_arrow_down
+              } @else {
+                keyboard_arrow_right
+              }
             </span>
           </button>
 
-          <ul class="sidebar-navigation__list">
-            <li class="sidebar-navigation__item">
-              <a href="#" class="sidebar-navigation__link">
-                <span class="material-symbols-outlined">
-                  dashboard
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Dashboard
+          @if (adminExpanded) {
+            <ul class="sidebar-navigation__list">
+              <li class="sidebar-navigation__item">
+                <a href="#" class="sidebar-navigation__link">
+                  <span class="material-symbols-outlined">
+                    dashboard
                   </span>
-                }
-              </a>
-            </li>
-          </ul>
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Dashboard
+                    </span>
+                  }
+                </a>
+              </li>
+            </ul>
+          }
         </section>
       }
     </nav>

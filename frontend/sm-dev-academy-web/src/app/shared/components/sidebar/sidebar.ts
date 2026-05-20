@@ -15,8 +15,33 @@ import { categoryItems } from '../../../core/navigation/category-items';
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
-
+  /* DESKTOP */
   @Input() isCollapsed = false;
+
+  bibliotecaExpanded = true;
+  tecnologiasExpanded = false;
+  contaExpanded = true;
+  adminExpanded = true;
+
+  toggleSection(section: string): void {
+    switch (section) {
+      case 'biblioteca':
+        this.bibliotecaExpanded = !this.bibliotecaExpanded;
+        break;
+
+      case 'tecnologias':
+        this.tecnologiasExpanded = !this.tecnologiasExpanded;
+        break;
+
+      case 'conta':
+        this.contaExpanded = !this.contaExpanded;
+        break;
+
+      case 'admin':
+        this.adminExpanded = !this.adminExpanded;
+        break;
+    }
+  }
 
   /* MOBILE */
   isMobileMenuOpen = false;
