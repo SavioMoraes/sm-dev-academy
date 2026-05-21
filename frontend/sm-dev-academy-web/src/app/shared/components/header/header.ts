@@ -48,6 +48,11 @@ export class Header implements OnInit {
 
   checkViewport(): void {
     this.isMobileOrTablet = window.innerWidth <= 1023;
+
+    if (!this.isMobileOrTablet) {
+      this.isMobileMenuOpen = false;
+      this.isSearchActive = false;
+    }
   }
 
   toggleMobileMenu(): void {
