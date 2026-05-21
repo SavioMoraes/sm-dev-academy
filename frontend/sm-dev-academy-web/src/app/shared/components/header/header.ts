@@ -1,25 +1,31 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { navigationItems } from '../../../core/navigation/navigation-items';
-import { categoryItems } from '../../../core/navigation/category-items';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
+    RouterLink,
+    RouterLinkActive,
+    MatIconModule,
     Footer,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
 export class Header implements OnInit {
-
   isMobileMenuOpen = false;
   isSearchActive = false;
   isMobileOrTablet = false;
 
-  navigationItems = navigationItems;
-  categoryItems = categoryItems;
+  bibliotecaExpanded = true;
+  tecnologiasExpanded = false;
+  contaExpanded = true;
+  adminExpanded = true;
+
+  isAdmin = true;
 
   ngOnInit(): void {
     this.checkViewport();
@@ -35,6 +41,23 @@ export class Header implements OnInit {
 
   toggleSearch(): void {
     this.isSearchActive = !this.isSearchActive;
+  }
+
+  toggleSection(section: string): void {
+    switch (section) {
+      case 'biblioteca':
+        this.bibliotecaExpanded = !this.bibliotecaExpanded;
+        break;
+      case 'tecnologias':
+        this.tecnologiasExpanded = !this.tecnologiasExpanded;
+        break;
+      case 'conta':
+        this.contaExpanded = !this.contaExpanded;
+        break;
+      case 'admin':
+        this.adminExpanded = !this.adminExpanded;
+        break;
+    }
   }
 
   @HostListener('window:resize')

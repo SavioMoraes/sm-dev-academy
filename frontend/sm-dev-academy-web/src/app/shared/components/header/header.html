@@ -109,15 +109,17 @@
 <div
   class="mobile-menu-overlay"
   [class.mobile-menu-overlay--open]="isMobileMenuOpen"
+  (click)="toggleMobileMenu()"
 >
-  <div class="mobile-menu">
-
+  <div
+    class="mobile-overlay"
+    (click)="$event.stopPropagation()"
+  >
     <!-- MOBILE HEADER -->
     <div class="mobile-menu__header">
-
       <!-- LOGO -->
       <div class="mobile-menu__logo">
-        <a href="/">
+        <a routerLink="/">
           <img
             src="assets/images/logo-sm-dev-academy.png"
             alt="SM Dev Academy"
@@ -135,41 +137,466 @@
           close
         </span>
       </button>
-
     </div>
 
-    <!-- NAVIGATION -->
-    <nav class="mobile-menu__navigation">
-      <ul>
-        @for (item of navigationItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              {{ item.label }}
+    <!-- MOBILE OVERLAY CONTENT -->
+    <div class="mobile-overlay__content">
+      <!-- INÍCIO -->
+      <section class="mobile-overlay__section">
+        <div class="mobile-overlay__section-header">
+          <p class="mobile-overlay__title">
+            Início
+          </p>
+        </div>
+
+        <ul class="mobile-overlay__list">
+          <li class="mobile-overlay__item">
+            <a
+              class="mobile-overlay__link"
+              routerLink="/"
+              routerLinkActive="mobile-overlay__link--active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <span class="material-symbols-outlined">
+                home
+              </span>
+
+              <span class="mobile-overlay__label">
+                Home
+              </span>
             </a>
           </li>
+        </ul>
+      </section>
+
+      <!-- BIBLIOTECA -->
+      <section class="mobile-overlay__section">
+        <button
+          type="button"
+          class="mobile-overlay__section-toggle"
+          (click)="toggleSection('biblioteca')"
+        >
+          <span class="mobile-overlay__title">
+            Biblioteca
+          </span>
+
+          <span class="material-symbols-outlined">
+            @if (bibliotecaExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
+
+        @if (bibliotecaExpanded) {
+          <ul class="mobile-overlay__list">
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/biblioteca/cursos"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  play_circle
+                </span>
+
+                <span class="mobile-overlay__label">
+                  Cursos
+                </span>
+              </a>
+            </li>
+
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/biblioteca/meus-cursos"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  video_library
+                </span>
+
+                <span class="mobile-overlay__label">
+                  Meus Cursos
+                </span>
+              </a>
+            </li>
+
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/biblioteca/favoritos"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  favorite
+                </span>
+
+                <span class="mobile-overlay__label">
+                  Favoritos
+                </span>
+              </a>
+            </li>
+
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/biblioteca/historico"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  history
+                </span>
+
+                <span class="mobile-overlay__label">
+                  Histórico
+                </span>
+              </a>
+            </li>
+          </ul>
         }
-      </ul>
-    </nav>
+      </section>
 
-    <!-- CATEGORIES -->
-    <section class="mobile-menu__categories">
+      <!-- TECNOLOGIAS -->
+      <section class="mobile-overlay__section">
+        <button
+          type="button"
+          class="mobile-overlay__section-toggle"
+          (click)="toggleSection('tecnologias')"
+        >
+          <span class="mobile-overlay__title">
+            Tecnologias
+          </span>
 
-      <p>Categorias</p>
+          <span class="material-symbols-outlined">
+            @if (tecnologiasExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
 
-      <ul>
-        @for (item of categoryItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              {{ item.label }}
-            </a>
-          </li>
+        @if (tecnologiasExpanded) {
+          <ul class="mobile-overlay__list">
+            <!-- HTML -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/html"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/html5.svg"
+                  alt="HTML"
+                >
+
+                <span class="mobile-overlay__label">
+                  HTML
+                </span>
+              </a>
+            </li>
+
+            <!-- CSS -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/css"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/css.svg"
+                  alt="CSS"
+                >
+
+                <span class="mobile-overlay__label">
+                  CSS
+                </span>
+              </a>
+            </li>
+
+            <!-- JAVASCRIPT -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/javascript"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/javascript.svg"
+                  alt="JavaScript"
+                >
+
+                <span class="mobile-overlay__label">
+                  JavaScript
+                </span>
+              </a>
+            </li>
+
+            <!-- TYPESCRIPT -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/typescript"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/typescript.svg"
+                  alt="TypeScript"
+                >
+
+                <span class="mobile-overlay__label">
+                  TypeScript
+                </span>
+              </a>
+            </li>
+
+            <!-- ANGULAR -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/angular"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/angular.svg"
+                  alt="Angular"
+                >
+
+                <span class="mobile-overlay__label">
+                  Angular
+                </span>
+              </a>
+            </li>
+
+            <!-- REACT -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/react"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/react.svg"
+                  alt="React"
+                >
+
+                <span class="mobile-overlay__label">
+                  React
+                </span>
+              </a>
+            </li>
+
+            <!-- PYTHON -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/python"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/python.svg"
+                  alt="Python"
+                >
+
+                <span class="mobile-overlay__label">
+                  Python
+                </span>
+              </a>
+            </li>
+
+            <!-- NODE.JS -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/nodejs"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/nodedotjs.svg"
+                  alt="Node.js"
+                >
+
+                <span class="mobile-overlay__label">
+                  Node.js
+                </span>
+              </a>
+            </li>
+
+            <!-- NESTJS -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/nestjs"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/nestjs.svg"
+                  alt="NestJS"
+                >
+
+                <span class="mobile-overlay__label">
+                  NestJS
+                </span>
+              </a>
+            </li>
+
+            <!-- MONGODB -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/mongodb"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/mongodb.svg"
+                  alt="MongoDB"
+                >
+
+                <span class="mobile-overlay__label">
+                  MongoDB
+                </span>
+              </a>
+            </li>
+
+            <!-- MYSQL -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/mysql"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/mysql.svg"
+                  alt="MySQL"
+                >
+
+                <span class="mobile-overlay__label">
+                  MySQL
+                </span>
+              </a>
+            </li>
+
+            <!-- POSTGRESQL -->
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/tecnologias/postgresql"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <img
+                  class="mobile-overlay__tech-icon"
+                  src="assets/svg/postgresql.svg"
+                  alt="PostgreSQL"
+                >
+
+                <span class="mobile-overlay__label">
+                  PostgreSQL
+                </span>
+              </a>
+            </li>
+          </ul>
         }
-      </ul>
+      </section>
 
-    </section>
+      <!-- CONTA -->
+      <section class="mobile-overlay__section">
+        <button
+          type="button"
+          class="mobile-overlay__section-toggle"
+          (click)="toggleSection('conta')"
+        >
+          <span class="mobile-overlay__title">
+            Conta
+          </span>
 
-    <!-- FOOTER -->
-    <app-footer />
+          <span class="material-symbols-outlined">
+            @if (contaExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
 
+        @if (contaExpanded) {
+          <ul class="mobile-overlay__list">
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/conta/perfil"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  account_circle
+                </span>
+
+                <span class="mobile-overlay__label">
+                  Perfil
+                </span>
+              </a>
+            </li>
+          </ul>
+        }
+      </section>
+
+      @if (isAdmin) {
+        <!-- ADMIN -->
+        <section class="mobile-overlay__section">
+          <button
+            type="button"
+            class="mobile-overlay__section-toggle"
+            (click)="toggleSection('admin')"
+          >
+            <span class="mobile-overlay__title">
+              Admin
+            </span>
+
+            <span class="material-symbols-outlined">
+              @if (adminExpanded) {
+                keyboard_arrow_down
+              } @else {
+                keyboard_arrow_right
+              }
+            </span>
+          </button>
+
+          @if (adminExpanded) {
+            <ul class="mobile-overlay__list">
+              <li class="mobile-overlay__item">
+                <a
+                  class="mobile-overlay__link"
+                  routerLink="/admin/dashboard"
+                  routerLinkActive="mobile-overlay__link--active"
+                >
+                  <span class="material-symbols-outlined">
+                    dashboard
+                  </span>
+
+                  <span class="mobile-overlay__label">
+                    Dashboard
+                  </span>
+                </a>
+              </li>
+            </ul>
+          }
+        </section>
+      }
+
+      <!-- FOOTER -->
+      <app-footer />
+    </div>
   </div>
 </div>

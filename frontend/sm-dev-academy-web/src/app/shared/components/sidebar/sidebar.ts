@@ -2,17 +2,15 @@ import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Footer } from '../footer/footer';
-import { navigationItems } from '../../../core/navigation/navigation-items';
-import { categoryItems } from '../../../core/navigation/category-items';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
-    MatIconModule,
-    Footer,
     RouterLink,
     RouterLinkActive,
+    MatIconModule,
+    Footer,
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
@@ -52,9 +50,6 @@ export class Sidebar {
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
-
-  navigationItems = navigationItems;
-  categoryItems = categoryItems;
 
   /* ADMIN */
   isAdmin = false;
