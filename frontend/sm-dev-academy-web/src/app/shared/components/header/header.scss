@@ -213,19 +213,13 @@
   position: absolute;
   top: 0;
   left: 0;
-
   display: flex;
   flex-direction: column;
-
   width: min(320px, 85vw);
   height: 100dvh;
-
   background-color: #23262f;
-
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-
-  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -234,21 +228,36 @@
 }
 
 .mobile-overlay__content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 14px;
-
-  flex: 1;
-
+  min-height: 0;
   padding: 12px 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 59, 59, 0.25) transparent;
+  scrollbar-gutter: stable;
+}
+
+.mobile-overlay__content::-webkit-scrollbar {
+  width: 2px;
+}
+
+.mobile-overlay__content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-overlay__content::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: rgba(255, 59, 59, 0.25);
 }
 
 .mobile-overlay__section {
   display: flex;
   flex-direction: column;
-
   padding-bottom: 10px;
-
   border-bottom: 3px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -261,14 +270,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   width: 100%;
-
   padding: 0;
-
   border: none;
   background: transparent;
-
   cursor: pointer;
 }
 
@@ -280,28 +285,22 @@
 .mobile-overlay__title {
   display: flex;
   align-items: center;
-
   margin: 0;
   padding: 0;
-
   font-size: 17px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-
   color: rgba(255, 255, 255, 0.62);
 }
 
 .mobile-overlay__list {
   display: flex;
   flex-direction: column;
-
   gap: 10px;
-
   margin: 0;
   padding: 10px 12px 6px 12px;
-
   list-style: none;
 }
 
@@ -312,18 +311,12 @@
 .mobile-overlay__link {
   display: flex;
   align-items: center;
-
   gap: 12px;
-
   width: 100%;
   min-height: 48px;
-
   padding: 0 4px;
-
   border-radius: 14px;
-
   text-decoration: none;
-
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
@@ -333,13 +326,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   min-width: 24px;
-
   font-size: 26px;
-
   color: rgba(255, 255, 255, 0.62);
-
   transition: color 0.25s ease;
 }
 
@@ -347,19 +336,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   min-width: 22px;
   width: 22px;
   height: 22px;
-
   object-fit: contain;
-
   opacity: 0.62;
-
   transition:
     opacity 0.25s ease,
     filter 0.25s ease;
-
   filter:
     brightness(0)
     saturate(100%)
@@ -375,9 +359,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 1;
-
   color: rgba(255, 255, 255, 0.62);
-
   transition: color 0.25s ease;
 }
 
@@ -388,15 +370,12 @@
       rgba(255, 59, 59, 0.12) 0%,
       rgba(255, 59, 59, 0.06) 100%
     );
-
   border:
     1px solid
     rgba(255, 59, 59, 0.9);
-
   box-shadow:
     0 0 10px rgba(255, 59, 59, 0.45),
     0 0 22px rgba(255, 59, 59, 0.18);
-
   backdrop-filter: blur(6px);
 }
 
@@ -406,14 +385,11 @@
 
 .mobile-overlay__link--active .material-symbols-outlined {
   color: #ff3b3b;
-
-  filter:
-    drop-shadow(0 0 6px rgba(255, 59, 59, 0.85));
+  filter: drop-shadow(0 0 6px rgba(255, 59, 59, 0.85));
 }
 
 .mobile-overlay__link--active .mobile-overlay__tech-icon {
   opacity: 1;
-
   filter:
     brightness(0)
     saturate(100%)
