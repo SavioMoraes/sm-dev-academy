@@ -25,7 +25,7 @@ export class Header implements OnInit {
   contaExpanded = true;
   adminExpanded = true;
 
-  isAdmin = true;
+  isAdmin = false;
 
   ngOnInit(): void {
     this.checkViewport();
