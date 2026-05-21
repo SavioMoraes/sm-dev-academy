@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Footer } from '../footer/footer';
 
@@ -27,8 +27,23 @@ export class Header implements OnInit {
 
   isAdmin = false;
 
+  constructor(
+    private readonly router: Router,
+  ) {}
+
   ngOnInit(): void {
     this.checkViewport();
+
+    this.updateExpandedSections(this.router.url);
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isMobileMenuOpen = false;
+        this.isSearchActive = false;
+
+        this.updateExpandedSections(event.urlAfterRedirects);
+      }
+    });
   }
 
   checkViewport(): void {
@@ -41,6 +56,13 @@ export class Header implements OnInit {
 
   toggleSearch(): void {
     this.isSearchActive = !this.isSearchActive;
+  }
+
+  updateExpandedSections(url: string): void {
+    this.bibliotecaExpanded = url.includes('/biblioteca');
+    this.tecnologiasExpanded = url.includes('/tecnologias');
+    this.contaExpanded = url.includes('/conta');
+    this.adminExpanded = url.includes('/admin');
   }
 
   toggleSection(section: string): void {
