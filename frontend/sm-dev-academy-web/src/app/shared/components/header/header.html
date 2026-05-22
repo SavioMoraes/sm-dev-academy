@@ -3,15 +3,14 @@
     <!-- LEFT -->
     <div class="header__left">
       <!-- MOBILE/TABLET HAMBURGUER -->
-      <button
-        type="button"
-        class="header__menu-toggle"
+      <a
+        class="header__menu-toggle header__icon-button"
         (click)="toggleMobileMenu()"
       >
-        <span class="material-symbols-outlined">
+        <i class="material-symbols-outlined">
           density_medium
-        </span>
-      </button>
+        </i>
+      </a>
 
       <!-- LOGO -->
       <div class="header__brand">
@@ -24,15 +23,15 @@
       </div>
 
       <!-- OPEN SEARCH -->
-      <button
-        type="button"
-        class="header__search-trigger"
+      <a
+        class="header__icon-button"
+        aria-label="Pesquisar"
         (click)="toggleSearch(); $event.stopPropagation();"
       >
-        <span class="material-symbols-outlined">
+        <i class="material-symbols-outlined">
           search
-        </span>
-      </button>
+        </i>
+      </a>
     </div>
 
     <!-- DESKTOP/LAPTOP SEARCH -->
@@ -47,24 +46,22 @@
     <!-- RIGHT -->
     <div class="header__right">
       <!-- NOTIFICATIONS -->
-      <button
-        type="button"
+      <a
         class="header__icon-button"
       >
-        <span class="material-symbols-outlined">
+        <i class="material-symbols-outlined">
           notifications
-        </span>
-      </button>
+        </i>
+      </a>
 
       <!-- LOGIN -->
-      <button
-        type="button"
+      <a
         class="header__icon-button"
       >
-        <span class="material-symbols-outlined">
+        <i class="material-symbols-outlined">
           person
-        </span>
-      </button>
+        </i>
+      </a>
     </div>
   </header>
 } @else {
@@ -78,9 +75,9 @@
           class="header-search-mobile__action"
           (click)="toggleSearch()"
         >
-          <span class="material-symbols-outlined">
+          <i class="material-symbols-outlined">
             arrow_back
-          </span>
+          </i>
         </button>
 
         <!-- INPUT -->
@@ -96,9 +93,9 @@
           type="button"
           class="header-search-mobile__action"
         >
-          <span class="material-symbols-outlined">
+          <i class="material-symbols-outlined">
             search
-          </span>
+          </i>
         </button>
       </div>
     </div>
@@ -117,6 +114,10 @@
   >
     <!-- MOBILE HEADER -->
     <div class="mobile-menu__header">
+      <!--GHOST ELEMENT-->
+      <div class="mobile-menu__ghost">
+        &#128123;
+      </div>
       <!-- LOGO -->
       <div class="mobile-menu__logo">
         <a routerLink="/">
@@ -128,15 +129,14 @@
       </div>
 
       <!-- CLOSE -->
-      <button
-        type="button"
-        class="mobile-menu__close"
+      <a
+        class="mobile-menu__close header__icon-button"
         (click)="toggleMobileMenu()"
       >
-        <span class="material-symbols-outlined">
+        <i class="material-symbols-outlined">
           close
-        </span>
-      </button>
+        </i>
+      </a>
     </div>
 
     <!-- MOBILE OVERLAY CONTENT -->
@@ -157,9 +157,9 @@
               routerLinkActive="mobile-overlay__link--active"
               [routerLinkActiveOptions]="{ exact: true }"
             >
-              <span class="material-symbols-outlined">
+              <i class="material-symbols-outlined">
                 home
-              </span>
+              </i>
 
               <span class="mobile-overlay__label">
                 Home
@@ -171,8 +171,7 @@
 
       <!-- BIBLIOTECA -->
       <section class="mobile-overlay__section">
-        <button
-          type="button"
+        <a
           class="mobile-overlay__section-toggle"
           (click)="toggleSection('biblioteca')"
         >
@@ -180,14 +179,14 @@
             Biblioteca
           </span>
 
-          <span class="material-symbols-outlined">
+          <i class="material-symbols-outlined">
             @if (bibliotecaExpanded) {
               keyboard_arrow_down
             } @else {
               keyboard_arrow_right
             }
-          </span>
-        </button>
+          </i>
+        </a>
 
         @if (bibliotecaExpanded) {
           <ul class="mobile-overlay__list">
@@ -197,9 +196,9 @@
                 routerLink="/biblioteca/cursos"
                 routerLinkActive="mobile-overlay__link--active"
               >
-                <span class="material-symbols-outlined">
+                <i class="material-symbols-outlined">
                   play_circle
-                </span>
+                </i>
 
                 <span class="mobile-overlay__label">
                   Cursos
@@ -213,9 +212,9 @@
                 routerLink="/biblioteca/meus-cursos"
                 routerLinkActive="mobile-overlay__link--active"
               >
-                <span class="material-symbols-outlined">
+                <i class="material-symbols-outlined">
                   video_library
-                </span>
+                </i>
 
                 <span class="mobile-overlay__label">
                   Meus Cursos
@@ -229,9 +228,9 @@
                 routerLink="/biblioteca/favoritos"
                 routerLinkActive="mobile-overlay__link--active"
               >
-                <span class="material-symbols-outlined">
+                <i class="material-symbols-outlined">
                   favorite
-                </span>
+                </i>
 
                 <span class="mobile-overlay__label">
                   Favoritos
@@ -245,9 +244,9 @@
                 routerLink="/biblioteca/historico"
                 routerLinkActive="mobile-overlay__link--active"
               >
-                <span class="material-symbols-outlined">
+                <i class="material-symbols-outlined">
                   history
-                </span>
+                </i>
 
                 <span class="mobile-overlay__label">
                   Histórico
@@ -269,13 +268,13 @@
             Tecnologias
           </span>
 
-          <span class="material-symbols-outlined">
+          <i class="material-symbols-outlined">
             @if (tecnologiasExpanded) {
               keyboard_arrow_down
             } @else {
               keyboard_arrow_right
             }
-          </span>
+          </i>
         </button>
 
         @if (tecnologiasExpanded) {
@@ -513,8 +512,7 @@
 
       <!-- CONTA -->
       <section class="mobile-overlay__section">
-        <button
-          type="button"
+        <a
           class="mobile-overlay__section-toggle"
           (click)="toggleSection('conta')"
         >
@@ -522,14 +520,14 @@
             Conta
           </span>
 
-          <span class="material-symbols-outlined">
+          <i class="material-symbols-outlined">
             @if (contaExpanded) {
               keyboard_arrow_down
             } @else {
               keyboard_arrow_right
             }
-          </span>
-        </button>
+          </i>
+        </a>
 
         @if (contaExpanded) {
           <ul class="mobile-overlay__list">
@@ -539,9 +537,9 @@
                 routerLink="/conta/perfil"
                 routerLinkActive="mobile-overlay__link--active"
               >
-                <span class="material-symbols-outlined">
+                <i class="material-symbols-outlined">
                   account_circle
-                </span>
+                </i>
 
                 <span class="mobile-overlay__label">
                   Perfil
@@ -555,7 +553,7 @@
       @if (isAdmin) {
         <!-- ADMIN -->
         <section class="mobile-overlay__section">
-          <button
+          <a
             type="button"
             class="mobile-overlay__section-toggle"
             (click)="toggleSection('admin')"
@@ -564,14 +562,14 @@
               Admin
             </span>
 
-            <span class="material-symbols-outlined">
+            <i class="material-symbols-outlined">
               @if (adminExpanded) {
                 keyboard_arrow_down
               } @else {
                 keyboard_arrow_right
               }
-            </span>
-          </button>
+            </i>
+          </a>
 
           @if (adminExpanded) {
             <ul class="mobile-overlay__list">
@@ -581,9 +579,9 @@
                   routerLink="/admin/dashboard"
                   routerLinkActive="mobile-overlay__link--active"
                 >
-                  <span class="material-symbols-outlined">
+                  <i class="material-symbols-outlined">
                     dashboard
-                  </span>
+                  </i>
 
                   <span class="mobile-overlay__label">
                     Dashboard
