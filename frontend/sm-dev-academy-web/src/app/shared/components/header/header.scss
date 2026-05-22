@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 16px 24px;
+  padding: 16px 0;
   background-color: #23262f;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
 }
@@ -22,6 +22,15 @@
   border-bottom: 3px solid rgba(255, 255, 255, 0.1);
 }
 
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
 .header__left,
 .header__right {
   display: flex;
@@ -29,10 +38,12 @@
 }
 
 .header__left {
+  margin-left: -2.5px;
   gap: 16px;
 }
 
 .header__right {
+  margin-right: -3.75px;
   gap: 4px;
 }
 
@@ -53,27 +64,21 @@
   object-fit: contain;
 }
 
+.material-symbols-outlined {
+  display: inline-block;
+}
+
 .header__icon-button {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
   padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  line-height: 0;
 }
 
 .header__icon-button .material-symbols-outlined {
   font-size: 30px;
   color: #ffffff;
   transition: all 0.3s ease;
-}
-
-.header__icon-button:hover .material-symbols-outlined {
-  transform: scale(1.08);
 }
 
 .header__search {
@@ -167,7 +172,7 @@
   align-items: center;
   justify-content: space-between;
   min-height: 71px;
-  padding: 16px 10px 16px 0;
+  padding: 16px 0 16px 0;
   background-color: #23262f;
 }
 
@@ -202,6 +207,17 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.mobile-menu__ghost {
+  color: transparent;
+  background-color: transparent;
+  font-size: 25px;
+  margin-left: 10px;
+}
+
+.mobile-menu__close {
+  margin-right: 10px;
 }
 
 
@@ -413,6 +429,10 @@
     left: 0;
   }
 
+  .header__content {
+    padding: 0 40px;
+  }
+
   .header__brand {
     display: none;
   }
@@ -505,6 +525,10 @@
     left: 0;
   }
 
+  .header__content {
+    padding: 0 32px;
+  }
+
   .header__brand {
     display: none;
   }
@@ -594,7 +618,11 @@
 
   .header {
     gap: 16px;
-    padding: 16px 20px;
+    padding: 16px 0;
+  }
+
+  .header__content {
+    padding: 0 24px;
   }
 
   .header__left {
@@ -606,14 +634,8 @@
   .header__menu-toggle {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
     padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    line-height: 0;
   }
 
   .header__brand {
@@ -659,16 +681,6 @@
     font-size: 28px;
     color: #ffffff;
     transition: all 0.3s ease;
-  }
-
-  .header__menu-toggle:hover .material-symbols-outlined,
-  .mobile-menu__close:hover .material-symbols-outlined {
-    transform: scale(1.08);
-  }
-
-  .header__menu-toggle:active .material-symbols-outlined,
-  .mobile-menu__close:active .material-symbols-outlined {
-    transform: scale(0.96);
   }
 
   .header__search:hover .header__search-input,
@@ -748,8 +760,12 @@
 
   .header {
     gap: 12px;
-    padding: 14px 16px;
+    padding: 14px 0;
     overflow: hidden;
+  }
+
+  .header__content {
+    padding: 0 16px;
   }
 
   .header__left {
@@ -772,15 +788,8 @@
   .header__menu-toggle {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
     padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
+    line-height: 0;
   }
 
   .header__brand {
@@ -825,16 +834,6 @@
     font-size: 22px;
     color: #ffffff;
     transition: all 0.3s ease;
-  }
-
-  .header__menu-toggle:hover .material-symbols-outlined,
-  .mobile-menu__close:hover .material-symbols-outlined {
-    transform: scale(1.08);
-  }
-
-  .header__menu-toggle:active .material-symbols-outlined,
-  .mobile-menu__close:active .material-symbols-outlined {
-    transform: scale(0.96);
   }
 
   /* =========================================================
@@ -885,9 +884,10 @@
   ========================================================= */
 
   .header__icon-button {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    line-height: 0;
   }
 
   .header__icon-button .material-symbols-outlined {

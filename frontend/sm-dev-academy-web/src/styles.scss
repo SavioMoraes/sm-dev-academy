@@ -1,5 +1,6 @@
-@use './styles/abstracts/variables';
-@use './styles/base/reset';
+@use './styles/abstracts/_variables.scss';
+@use './styles/base/_reset.scss';
+@use './styles/typography/typography.scss';
 
 /* =========================================================
    GLOBAL
