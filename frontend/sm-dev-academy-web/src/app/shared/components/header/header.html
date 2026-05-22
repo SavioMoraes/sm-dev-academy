@@ -1,102 +1,108 @@
 @if (!isSearchActive || !isMobileOrTablet) {
   <header class="header">
-    <!-- LEFT -->
-    <div class="header__left">
-      <!-- MOBILE/TABLET HAMBURGUER -->
-      <a
-        class="header__menu-toggle header__icon-button"
-        (click)="toggleMobileMenu()"
-      >
-        <i class="material-symbols-outlined">
-          density_medium
-        </i>
-      </a>
+    <div class="header__content">
 
-      <!-- LOGO -->
-      <div class="header__brand">
-        <a href="/">
-          <img
-            src="assets/images/logo-sm-dev-academy.png"
-            alt="SM Dev Academy"
-          >
+      <!-- LEFT -->
+      <div class="header__left">
+        <!-- MOBILE/TABLET HAMBURGUER -->
+        <a
+          class="header__menu-toggle header__icon-button"
+          (click)="toggleMobileMenu()"
+        >
+          <i class="material-symbols-outlined">
+            density_medium
+          </i>
+        </a>
+  
+        <!-- LOGO -->
+        <div class="header__brand">
+          <a href="/">
+            <img
+              src="assets/images/logo-sm-dev-academy.png"
+              alt="SM Dev Academy"
+            >
+          </a>
+        </div>
+  
+        <!-- OPEN SEARCH -->
+        <a
+          class="header__icon-button"
+          aria-label="Pesquisar"
+          (click)="toggleSearch(); $event.stopPropagation();"
+        >
+          <i class="material-symbols-outlined">
+            search
+          </i>
         </a>
       </div>
-
-      <!-- OPEN SEARCH -->
-      <a
-        class="header__icon-button"
-        aria-label="Pesquisar"
-        (click)="toggleSearch(); $event.stopPropagation();"
-      >
-        <i class="material-symbols-outlined">
-          search
-        </i>
-      </a>
-    </div>
-
-    <!-- DESKTOP/LAPTOP SEARCH -->
-    <div class="header__search" [class.header__search--active]="isSearchActive">
-      <input
-        type="text"
-        placeholder="Pesquisar"
-        class="header__search-input"
-      >
-    </div>
-
-    <!-- RIGHT -->
-    <div class="header__right">
-      <!-- NOTIFICATIONS -->
-      <a
-        class="header__icon-button"
-      >
-        <i class="material-symbols-outlined">
-          notifications
-        </i>
-      </a>
-
-      <!-- LOGIN -->
-      <a
-        class="header__icon-button"
-      >
-        <i class="material-symbols-outlined">
-          person
-        </i>
-      </a>
+  
+      <!-- DESKTOP/LAPTOP SEARCH -->
+      <div class="header__search" [class.header__search--active]="isSearchActive">
+        <input
+          type="text"
+          placeholder="Pesquisar"
+          class="header__search-input"
+        >
+      </div>
+  
+      <!-- RIGHT -->
+      <div class="header__right">
+        <!-- NOTIFICATIONS -->
+        <a
+          class="header__icon-button"
+        >
+          <i class="material-symbols-outlined">
+            notifications
+          </i>
+        </a>
+  
+        <!-- LOGIN -->
+        <a
+          class="header__icon-button"
+        >
+          <i class="material-symbols-outlined">
+            person
+          </i>
+        </a>
+      </div>
     </div>
   </header>
 } @else {
   <!-- SEARCH HEADER -->
   <header class="header header--search-active header--search-mobile">
-    <div class="header-search-mobile">
-      <div class="header-search-mobile__bar">
-        <!-- BACK -->
-        <button
-          type="button"
-          class="header-search-mobile__action"
-          (click)="toggleSearch()"
-        >
-          <i class="material-symbols-outlined">
-            arrow_back
-          </i>
-        </button>
+    <div class="header__content">
 
-        <!-- INPUT -->
-        <input
-          type="text"
-          placeholder="Pesquisar"
-          class="header-search-mobile__input"
-          autofocus
-        >
-
-        <!-- SEARCH -->
-        <button
-          type="button"
-          class="header-search-mobile__action"
-        >
-          <i class="material-symbols-outlined">
-            search
-          </i>
-        </button>
+      <div class="header-search-mobile">
+        <div class="header-search-mobile__bar">
+          <!-- BACK -->
+          <button
+            type="button"
+            class="header-search-mobile__action"
+            (click)="toggleSearch()"
+          >
+            <i class="material-symbols-outlined">
+              arrow_back
+            </i>
+          </button>
+  
+          <!-- INPUT -->
+          <input
+            type="text"
+            placeholder="Pesquisar"
+            class="header-search-mobile__input"
+            autofocus
+          >
+  
+          <!-- SEARCH -->
+          <button
+            type="button"
+            class="header-search-mobile__action"
+          >
+            <i class="material-symbols-outlined">
+              search
+            </i>
+          </button>
+        </div>
       </div>
     </div>
   </header>
