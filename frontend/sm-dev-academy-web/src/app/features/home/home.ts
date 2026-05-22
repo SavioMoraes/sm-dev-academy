@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 import { PageContainer } from '../../shared/ui/page-container/page-container';
-import { PageHero } from '../../shared/components/page-hero/page-hero';
+import { HomeHero } from '../../shared/components/home-hero/home-hero';
+import { CategoryCard } from '../../shared/components/category-card/category-card';
+import { HighlightCourseCard } from '../../shared/components/highlight-course-card/highlight-course-card';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [
     PageContainer,
-    PageHero,
+    HomeHero,
+    CategoryCard,
+    HighlightCourseCard,
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss',

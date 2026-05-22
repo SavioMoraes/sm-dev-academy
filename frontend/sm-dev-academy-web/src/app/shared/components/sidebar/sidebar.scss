@@ -7,9 +7,9 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  overflow-x: visible;
-  overflow-y: hidden;
-  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100dvh;
   padding: 0;
   background-color: #23262f;
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);

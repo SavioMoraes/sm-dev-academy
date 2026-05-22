@@ -1,9 +1,68 @@
 <app-page-container>
-  <app-page-hero
-    title="SM Dev Academy"
-    description="
-      Aprenda desenvolvimento fullstack com projetos
-      reais, arquitetura moderna e experiências práticas.
-    "
-  />
+  <app-home-hero />
+  <section class="home-categories">
+    <div class="home-section-header">
+      <h2 class="home-section-header__title">
+        Categorias
+      </h2>
+    </div>
+
+    <div class="home-categories__grid">
+      <app-category-card
+        title="Frontend"
+        icon="code"
+      />
+
+      <app-category-card
+        title="Backend"
+        icon="dns"
+      />
+
+      <app-category-card
+        title="Mobile"
+        icon="smartphone"
+      />
+
+      <app-category-card
+        title="DevOps"
+        icon="all_inclusive"
+      />
+
+      <app-category-card
+        title="IA"
+        icon="neurology"
+      />
+    </div>
+  </section>
+
+  <section class="home-highlight-courses">
+    <div class="home-section-header">
+      <h2 class="home-section-header__title">
+        Cursos em Destaque
+      </h2>
+    </div>
+
+    <div class="home-highlight-courses__grid">
+      <app-highlight-course-card
+        title="Angular 21 Completo"
+        category="Frontend"
+        description="Aprenda Angular moderno com arquitetura enterprise, componentes standalone, signals e muito mais."
+        image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop"
+      />
+
+      <app-highlight-course-card
+        title="NestJS API Enterprise"
+        category="Backend"
+        description="Construa APIs escaláveis usando NestJS, Prisma ORM, autenticação JWT e PostgreSQL."
+        image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop"
+      />
+
+      <app-highlight-course-card
+        title="Docker & DevOps Moderno"
+        category="DevOps"
+        description="Containers, CI/CD, deploy cloud e automações modernas para aplicações fullstack."
+        image="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?q=80&w=1600&auto=format&fit=crop"
+      />
+    </div>
+  </section>
 </app-page-container>

@@ -1,0 +1,245 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 32px;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 59, 59, 0.14),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #1b1d23 0%,
+      #23262f 100%
+    );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.home-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-hero__badge {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(255, 59, 59, 0.12);
+  border: 1px solid rgba(255, 59, 59, 0.35);
+  color: #ff3b3b;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.home-hero__title {
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.home-hero__title span {
+  color: #ff3b3b;
+}
+
+.home-hero__description {
+  max-width: 720px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+}
+
+.home-hero__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.home-hero__primary-button,
+.home-hero__secondary-button {
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.home-hero__primary-button {
+  border: none;
+  background: #ff3b3b;
+  color: #ffffff;
+  box-shadow:
+    0 0 18px rgba(255, 59, 59, 0.28);
+}
+
+.home-hero__secondary-button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: #ffffff;
+}
+
+.home-hero__primary-button:hover,
+.home-hero__secondary-button:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1440px) {
+
+  .home-hero {
+    min-height: 420px;
+    padding: 64px;
+  }
+
+  .home-hero__content {
+    gap: 28px;
+  }
+
+  .home-hero__badge {
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+
+  .home-hero__title {
+    max-width: 620px;
+    font-size: 72px;
+  }
+
+  .home-hero__description {
+    font-size: 20px;
+  }
+
+  .home-hero__actions {
+    gap: 18px;
+  }
+
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+
+  .home-hero {
+    min-height: 380px;
+    padding: 56px;
+  }
+
+  .home-hero__content {
+    gap: 24px;
+  }
+
+  .home-hero__badge {
+    padding: 10px 18px;
+    font-size: 12px;
+  }
+
+  .home-hero__title {
+    max-width: 560px;
+    font-size: 60px;
+  }
+
+  .home-hero__description {
+    font-size: 18px;
+  }
+
+  .home-hero__actions {
+    gap: 16px;
+  }
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .home-hero {
+    min-height: 320px;
+    padding: 40px;
+    border-radius: 28px;
+  }
+
+  .home-hero__content {
+    gap: 22px;
+  }
+
+  .home-hero__badge {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+
+  .home-hero__title {
+    max-width: 460px;
+    font-size: 48px;
+  }
+
+  .home-hero__description {
+    font-size: 16px;
+  }
+
+  .home-hero__actions {
+    gap: 14px;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .home-hero {
+    padding: 28px 24px;
+    border-radius: 24px;
+  }
+
+  .home-hero__content {
+    gap: 20px;
+  }
+
+  .home-hero__badge {
+    padding: 7px 14px;
+    font-size: 10px;
+  }
+
+  .home-hero__title {
+    max-width: 100%;
+    font-size: 38px;
+  }
+
+  .home-hero__description {
+    font-size: 15px;
+  }
+
+  .home-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .home-hero__primary-button,
+  .home-hero__secondary-button {
+    width: 100%;
+  }
+
+}
