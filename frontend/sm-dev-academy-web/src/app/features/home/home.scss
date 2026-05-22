@@ -21,6 +21,19 @@
 }
 
 /* =========================================================
+   HIGHLIGHT COURSES
+========================================================= */
+
+.home-highlight-courses {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-highlight-courses__grid {
+  display: grid;
+}
+
+/* =========================================================
    DESKTOP
 ========================================================= */
 
@@ -38,6 +51,15 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 24px;
+  }
+
+  .home-highlight-courses {
+    gap: 28px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
   }
 
 }
@@ -62,6 +84,15 @@
     gap: 20px;
   }
 
+  .home-highlight-courses {
+    gap: 24px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
 }
 
 /* =========================================================
@@ -84,6 +115,15 @@
     gap: 18px;
   }
 
+  .home-highlight-courses {
+    gap: 22px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
 }
 
 /* =========================================================
@@ -104,6 +144,15 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+  }
+
+  .home-highlight-courses {
+    gap: 18px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
 }
