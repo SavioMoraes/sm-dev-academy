@@ -39,39 +39,13 @@
     title="Cursos em Destaque"
     subtitle="Os cursos mais acessados da plataforma"
   >
-    <app-highlight-course-card
-      title="Angular 21 Completo"
-      category="Frontend"
-      description="Aprenda Angular moderno com arquitetura enterprise, componentes standalone, signals e muito mais."
-      image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop"
-    />
-
-    <app-highlight-course-card
-      title="NestJS API Enterprise"
-      category="Backend"
-      description="Construa APIs escaláveis usando NestJS, Prisma ORM, autenticação JWT e PostgreSQL."
-      image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop"
-    />
-
-    <app-highlight-course-card
-      title="Docker & DevOps Moderno"
-      category="DevOps"
-      description="Containers, CI/CD, deploy cloud e automações modernas para aplicações fullstack."
-      image="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?q=80&w=1600&auto=format&fit=crop"
-    />
-
-    <app-highlight-course-card
-      title="React Performance Master"
-      category="Frontend"
-      description="Performance, arquitetura escalável, hooks avançados e aplicações modernas com React."
-      image="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop"
-    />
-
-    <app-highlight-course-card
-      title="PostgreSQL para Fullstack"
-      category="Banco de Dados"
-      description="Modelagem, queries avançadas, performance e integração com aplicações enterprise."
-      image="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&w=1600&auto=format&fit=crop"
-    />
+    @for (course of courses; track course.title) {
+      <app-highlight-course-card
+        [title]="course.title"
+        [category]="course.category"
+        [description]="course.description"
+        [image]="course.image"
+      />
+    }
   </app-stream-section>
 </app-page-container>

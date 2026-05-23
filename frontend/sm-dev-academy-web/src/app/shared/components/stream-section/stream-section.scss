@@ -66,12 +66,31 @@
 ========================================================= */
 
 .stream-section__content {
+  position: relative;
   display: flex;
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-bottom: 4px;
   scroll-behavior: smooth;
   scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 3%,
+      black 97%,
+      transparent 100%
+    );
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 3%,
+      black 97%,
+      transparent 100%
+    );
 }
 
 .stream-section__content::-webkit-scrollbar {
