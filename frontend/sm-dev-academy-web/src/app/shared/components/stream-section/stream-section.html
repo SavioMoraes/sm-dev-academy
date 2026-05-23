@@ -1,0 +1,25 @@
+<section class="stream-section">
+  <!-- HEADER -->
+  <div class="stream-section__header">
+    <div class="stream-section__titles">
+      <h2 class="stream-section__title">
+        {{ title }}
+      </h2>
+
+      @if (subtitle) {
+        <p class="stream-section__subtitle">
+          {{ subtitle }}
+        </p>
+      }
+    </div>
+
+    <button class="stream-section__see-all">
+      Ver tudo
+    </button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="stream-section__content">
+    <ng-content />
+  </div>
+</section>
