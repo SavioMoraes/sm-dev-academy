@@ -14,16 +14,6 @@
           </i>
         </a>
   
-        <!-- LOGO -->
-        <div class="header__brand">
-          <a href="/">
-            <img
-              src="assets/images/logo-sm-dev-academy.png"
-              alt="SM Dev Academy"
-            >
-          </a>
-        </div>
-  
         <!-- OPEN SEARCH -->
         <a
           class="header__icon-button"
@@ -35,14 +25,37 @@
           </i>
         </a>
       </div>
-  
+
       <!-- DESKTOP/LAPTOP SEARCH -->
       <div class="header__search" [class.header__search--active]="isSearchActive">
+        <a class="header__search-back" (click)="toggleSearch()">
+          <i class="material-symbols-outlined">
+            undo
+          </i>
+        </a>
         <input
           type="text"
           placeholder="Pesquisar"
           class="header__search-input"
         >
+
+        <a class="header__search-submit">
+          <i class="material-symbols-outlined">
+            input
+          </i>
+        </a>
+      </div>
+      
+      <div class="header__center">
+        <!-- LOGO -->
+        <div class="header__brand">
+          <a href="/">
+            <img
+              src="assets/images/logo-sm-dev-academy.png"
+              alt="SM Dev Academy"
+            >
+          </a>
+        </div>  
       </div>
   
       <!-- RIGHT -->
@@ -81,7 +94,7 @@
             (click)="toggleSearch()"
           >
             <i class="material-symbols-outlined">
-              arrow_back
+              undo
             </i>
           </button>
   
@@ -99,7 +112,7 @@
             class="header-search-mobile__action"
           >
             <i class="material-symbols-outlined">
-              search
+              input
             </i>
           </button>
         </div>
