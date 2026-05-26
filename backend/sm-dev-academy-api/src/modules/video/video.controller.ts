@@ -11,9 +11,10 @@ export class VideoController {
   @Get()
   async searchVideos(
     @Query('search') search: string,
+    @Query('pageToken') pageToken?: string,
   ) {
 
-    return this.videoService.searchVideos(search);
+    return this.videoService.searchVideos(search, pageToken);
   }
 
 }

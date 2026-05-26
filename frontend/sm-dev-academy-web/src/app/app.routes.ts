@@ -159,6 +159,14 @@ export const routes: Routes = [
           import('./features/admin/dashboard/dashboard')
             .then((m) => m.Dashboard),
       },
+      /* =========================================================
+         TESTE DE VIDEO
+      ========================================================= */
+      {
+        path: 'test-video',
+        loadComponent: () => import('./features/test-video/test-video')
+          .then((m) => m.TestVideo),
+      },
     ],
   },
 
