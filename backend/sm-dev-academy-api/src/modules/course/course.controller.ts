@@ -1,30 +1,30 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-} from '@nestjs/common';
-
-import { CourseService } from './course.service';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../database/prisma.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 
-@Controller('courses')
-export class CourseController {
+@Injectable()
+export class CourseService {
 
   constructor(
-    private readonly courseService: CourseService,
+    private readonly prismaService: PrismaService,
   ) {}
 
-  @Post()
-  async create(
-    @Body() createCourseDto: CreateCourseDto,
-  ) {
-    return this.courseService.create(createCourseDto);
+  async create(createCourseDto: CreateCourseDto) {
+
+    return this.prismaService.course.create({
+      data: createCourseDto,
+    });
+
   }
 
-  @Get()
   async findAll() {
-    return this.courseService.findAll();
+
+    return this.prismaService.course.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
   }
 
 }

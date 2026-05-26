@@ -9,20 +9,22 @@ export class CourseService {
     private readonly prismaService: PrismaService,
   ) {}
 
-  async create(
-    createCourseDto: CreateCourseDto,
-  ) {
+  async create(createCourseDto: CreateCourseDto) {
+
     return this.prismaService.course.create({
       data: createCourseDto,
     });
+
   }
 
   async findAll() {
+
     return this.prismaService.course.findMany({
       orderBy: {
         createdAt: 'desc',
       },
     });
+
   }
 
 }
