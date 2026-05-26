@@ -1,10 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-} from '@nestjs/common';
-
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { CourseService } from './course.service';
 
@@ -24,10 +19,44 @@ export class CourseController {
 
   }
 
-  @Get()
-  async findAll() {
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    example: 1,
+  })
 
-    return this.courseService.findAll();
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    example: 10,
+  })
+
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    example: 'angular',
+  })
+
+  @ApiQuery({
+    name: 'category',
+    required: false,
+    example: 'Frontend',
+  })
+
+  @Get()
+  async findAll(
+    @Query('page') page = '1',
+    @Query('limit') limit = '10',
+    @Query('search') search?: string,
+    @Query('category') category?: string,
+  ) {
+
+    return this.courseService.findAll(
+      Number(page),
+      Number(limit),
+      search,
+      category,
+    );
 
   }
 
