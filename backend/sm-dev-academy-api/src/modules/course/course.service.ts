@@ -26,43 +26,59 @@ export class CourseService {
 
     const skip = (page - 1) * limit;
 
-    return this.prismaService.course.findMany({
+    const where = {
+      AND: [
+        search
+          ? {
+              OR: [
+                {
+                  title: {
+                    contains: search,
+                    mode: 'insensitive' as const,
+                  },
+                },
+                {
+                  description: {
+                    contains: search,
+                    mode: 'insensitive' as const,
+                  },
+                },
+              ],
+            }
+          : {},
+
+        category
+          ? {
+              category,
+            }
+          : {},
+      ],
+    };
+
+    const total = await this.prismaService.course.count({
+      where,
+    });
+
+    const courses = await this.prismaService.course.findMany({
       skip,
       take: limit,
-
-      where: {
-        AND: [
-          search
-            ? {
-                OR: [
-                  {
-                    title: {
-                      contains: search,
-                      mode: 'insensitive',
-                    },
-                  },
-                  {
-                    description: {
-                      contains: search,
-                      mode: 'insensitive',
-                    },
-                  },
-                ],
-              }
-            : {},
-
-          category
-            ? {
-                category,
-              }
-            : {},
-        ],
-      },
+      where,
 
       orderBy: {
         createdAt: 'desc',
       },
     });
+
+    return {
+      data: courses,
+
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
 
   }
 
