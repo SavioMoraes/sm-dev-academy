@@ -17,9 +17,48 @@ export class CourseService {
 
   }
 
-  async findAll() {
+  async findAll(
+    page: number,
+    limit: number,
+    search?: string,
+    category?: string,
+  ) {
+
+    const skip = (page - 1) * limit;
 
     return this.prismaService.course.findMany({
+      skip,
+      take: limit,
+
+      where: {
+        AND: [
+          search
+            ? {
+                OR: [
+                  {
+                    title: {
+                      contains: search,
+                      mode: 'insensitive',
+                    },
+                  },
+                  {
+                    description: {
+                      contains: search,
+                      mode: 'insensitive',
+                    },
+                  },
+                ],
+              }
+            : {},
+
+          category
+            ? {
+                category,
+              }
+            : {},
+        ],
+      },
+
       orderBy: {
         createdAt: 'desc',
       },
