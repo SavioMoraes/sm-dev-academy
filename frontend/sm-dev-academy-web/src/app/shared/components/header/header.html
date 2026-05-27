@@ -160,11 +160,11 @@
 
     <!-- MOBILE OVERLAY CONTENT -->
     <div class="mobile-overlay__content">
-      <!-- INÍCIO -->
+      <!-- HOME PAGE -->
       <section class="mobile-overlay__section">
         <div class="mobile-overlay__section-header">
           <p class="mobile-overlay__title">
-            Início
+            HOME PAGE
           </p>
         </div>
 
@@ -188,18 +188,18 @@
         </ul>
       </section>
 
-      <!-- BIBLIOTECA -->
+      <!-- LEARN -->
       <section class="mobile-overlay__section">
         <a
           class="mobile-overlay__section-toggle"
-          (click)="toggleSection('biblioteca')"
+          (click)="toggleSection('learn')"
         >
           <span class="mobile-overlay__title">
-            Biblioteca
+            Learn
           </span>
 
           <i class="material-symbols-outlined">
-            @if (bibliotecaExpanded) {
+            @if (learnExpanded) {
               keyboard_arrow_down
             } @else {
               keyboard_arrow_right
@@ -207,20 +207,20 @@
           </i>
         </a>
 
-        @if (bibliotecaExpanded) {
+        @if (learnExpanded) {
           <ul class="mobile-overlay__list">
             <li class="mobile-overlay__item">
               <a
                 class="mobile-overlay__link"
-                routerLink="/biblioteca/cursos"
+                routerLink="/learn/courses"
                 routerLinkActive="mobile-overlay__link--active"
               >
                 <i class="material-symbols-outlined">
-                  play_circle
+                  school
                 </i>
 
                 <span class="mobile-overlay__label">
-                  Cursos
+                  Courses
                 </span>
               </a>
             </li>
@@ -228,7 +228,7 @@
             <li class="mobile-overlay__item">
               <a
                 class="mobile-overlay__link"
-                routerLink="/biblioteca/meus-cursos"
+                routerLink="/learn/my-courses"
                 routerLinkActive="mobile-overlay__link--active"
               >
                 <i class="material-symbols-outlined">
@@ -236,7 +236,7 @@
                 </i>
 
                 <span class="mobile-overlay__label">
-                  Meus Cursos
+                  My Courses
                 </span>
               </a>
             </li>
@@ -244,7 +244,7 @@
             <li class="mobile-overlay__item">
               <a
                 class="mobile-overlay__link"
-                routerLink="/biblioteca/favoritos"
+                routerLink="/learn/favorites"
                 routerLinkActive="mobile-overlay__link--active"
               >
                 <i class="material-symbols-outlined">
@@ -252,295 +252,316 @@
                 </i>
 
                 <span class="mobile-overlay__label">
-                  Favoritos
+                  Favorites
                 </span>
               </a>
             </li>
 
+            <!-- TECHNOLOGIES -->
             <li class="mobile-overlay__item">
+
+              <button
+                type="button"
+                class="mobile-overlay__link mobile-overlay__section-toggle"
+                (click)="toggleSection('technologies')"
+              >
+
+              <div class="mobile-overlay__technologies-left">
+
+                <span class="material-symbols-outlined">
+                  terminal
+                </span>
+
+                <span class="mobile-overlay__label">
+                  Technologies
+                </span>
+
+              </div>
+
+                <span class="material-symbols-outlined">
+                  @if (technologiesExpanded) {
+                    keyboard_arrow_down
+                  } @else {
+                    keyboard_arrow_right
+                  }
+                </span>
+                
+
+              </button>
+
+              @if (technologiesExpanded) {
+
+                <ul class="mobile-overlay__technologies-list">
+
+                  <!-- HTML -->
+                  <li class="mobile-overlay__item">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/html"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/html5.svg"
+                        alt="HTML"
+                      />
+
+                       <span class="mobile-overlay__label">
+                        HTML
+                      </span>
+                      
+                    </a>
+                  </li>
+
+                  <!-- CSS -->
+                  <li class="mobile-overlay__item" data-label="CSS">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/css"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/css.svg"
+                        alt="CSS"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        CSS
+                      </span>
+                      
+                    </a>
+                  </li>
+
+                  <!-- JAVASCRIPT -->
+                  <li class="mobile-overlay__item" data-label="JavaScript">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/javascript"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/javascript.svg"
+                        alt="JavaScript"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        JavaScript
+                      </span>
+                      
+                    </a>
+                  </li>
+
+                  <!-- TYPESCRIPT -->
+                  <li class="mobile-overlay__item" data-label="TypeScript">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/typescript"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/typescript.svg"
+                        alt="TypeScript"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        TypeScript
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- ANGULAR -->
+                  <li class="mobile-overlay__item" data-label="Angular">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/angular"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/angular.svg"
+                        alt="Angular"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        Angular
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- REACT -->
+                  <li class="mobile-overlay__item" data-label="React">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/react"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/react.svg"
+                        alt="React"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        React
+                      </span>
+
+                    </a>
+                  </li>
+
+                  <!-- PYTHON -->
+                  <li class="mobile-overlay__item" data-label="Python">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/python"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/python.svg"
+                        alt="Python"
+                      />
+                      <span class="mobile-overlay__label">Python</span>
+                    </a>
+                  </li>
+
+                  <!-- NODE.JS -->
+                  <li class="mobile-overlay__item" data-label="Node.js">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/nodejs"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/nodedotjs.svg"
+                        alt="Node.js"
+                      />
+
+                      <span class="mobile-overlay__label">Node.js</span>
+                    </a>
+                  </li>
+
+                  <!-- NESTJS -->
+                  <li class="mobile-overlay__item" data-label="NestJS">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/nestjs"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/nestjs.svg"
+                        alt="NestJS"
+                      />
+
+                     <span class="mobile-overlay__label">
+                      NestJS
+                    </span>
+                    </a>
+                  </li>
+
+                  <!-- MONGODB -->
+                  <li class="mobile-overlay__item" data-label="MongoDB">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/mongodb"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/mongodb.svg"
+                        alt="MongoDB"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        MongoDB
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- MYSQL -->
+                  <li class="mobile-overlay__item" data-label="MySQL">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/mysql"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/mysql.svg"
+                        alt="MySQL"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        MySQL
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- POSTGRESQL -->
+                  <li class="mobile-overlay__item" data-label="PostgreSQL">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/postgresql"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/postgresql.svg"
+                        alt="PostgreSQL"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        PostgreSQL
+                      </span>
+                    </a>
+                  </li>
+
+                </ul>
+
+              }
+
+            </li>
+
+            <!-- TRAILS -->
+            <li class="mobile-overlay__item" data-label="Trails">
               <a
                 class="mobile-overlay__link"
-                routerLink="/biblioteca/historico"
+                routerLink="/learn/trails"
                 routerLinkActive="mobile-overlay__link--active"
               >
-                <i class="material-symbols-outlined">
-                  history
+
+              <i class="material-symbols-outlined">
+                  share
                 </i>
+              
+                 <span class="mobile-overlay__label">
+                    Trails
+                  </span>
 
-                <span class="mobile-overlay__label">
-                  Histórico
-                </span>
+                
               </a>
             </li>
+
           </ul>
         }
       </section>
 
-      <!-- TECNOLOGIAS -->
-      <section class="mobile-overlay__section">
-        <button
-          type="button"
-          class="mobile-overlay__section-toggle"
-          (click)="toggleSection('tecnologias')"
-        >
-          <span class="mobile-overlay__title">
-            Tecnologias
-          </span>
-
-          <i class="material-symbols-outlined">
-            @if (tecnologiasExpanded) {
-              keyboard_arrow_down
-            } @else {
-              keyboard_arrow_right
-            }
-          </i>
-        </button>
-
-        @if (tecnologiasExpanded) {
-          <ul class="mobile-overlay__list">
-            <!-- HTML -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/html"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/html5.svg"
-                  alt="HTML"
-                >
-
-                <span class="mobile-overlay__label">
-                  HTML
-                </span>
-              </a>
-            </li>
-
-            <!-- CSS -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/css"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/css.svg"
-                  alt="CSS"
-                >
-
-                <span class="mobile-overlay__label">
-                  CSS
-                </span>
-              </a>
-            </li>
-
-            <!-- JAVASCRIPT -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/javascript"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/javascript.svg"
-                  alt="JavaScript"
-                >
-
-                <span class="mobile-overlay__label">
-                  JavaScript
-                </span>
-              </a>
-            </li>
-
-            <!-- TYPESCRIPT -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/typescript"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/typescript.svg"
-                  alt="TypeScript"
-                >
-
-                <span class="mobile-overlay__label">
-                  TypeScript
-                </span>
-              </a>
-            </li>
-
-            <!-- ANGULAR -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/angular"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/angular.svg"
-                  alt="Angular"
-                >
-
-                <span class="mobile-overlay__label">
-                  Angular
-                </span>
-              </a>
-            </li>
-
-            <!-- REACT -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/react"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/react.svg"
-                  alt="React"
-                >
-
-                <span class="mobile-overlay__label">
-                  React
-                </span>
-              </a>
-            </li>
-
-            <!-- PYTHON -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/python"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/python.svg"
-                  alt="Python"
-                >
-
-                <span class="mobile-overlay__label">
-                  Python
-                </span>
-              </a>
-            </li>
-
-            <!-- NODE.JS -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/nodejs"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/nodedotjs.svg"
-                  alt="Node.js"
-                >
-
-                <span class="mobile-overlay__label">
-                  Node.js
-                </span>
-              </a>
-            </li>
-
-            <!-- NESTJS -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/nestjs"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/nestjs.svg"
-                  alt="NestJS"
-                >
-
-                <span class="mobile-overlay__label">
-                  NestJS
-                </span>
-              </a>
-            </li>
-
-            <!-- MONGODB -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/mongodb"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/mongodb.svg"
-                  alt="MongoDB"
-                >
-
-                <span class="mobile-overlay__label">
-                  MongoDB
-                </span>
-              </a>
-            </li>
-
-            <!-- MYSQL -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/mysql"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/mysql.svg"
-                  alt="MySQL"
-                >
-
-                <span class="mobile-overlay__label">
-                  MySQL
-                </span>
-              </a>
-            </li>
-
-            <!-- POSTGRESQL -->
-            <li class="mobile-overlay__item">
-              <a
-                class="mobile-overlay__link"
-                routerLink="/tecnologias/postgresql"
-                routerLinkActive="mobile-overlay__link--active"
-              >
-                <img
-                  class="mobile-overlay__tech-icon"
-                  src="assets/svg/postgresql.svg"
-                  alt="PostgreSQL"
-                >
-
-                <span class="mobile-overlay__label">
-                  PostgreSQL
-                </span>
-              </a>
-            </li>
-          </ul>
-        }
-      </section>
-
-      <!-- CONTA -->
+      <!-- ACCOUNT -->
       <section class="mobile-overlay__section">
         <a
           class="mobile-overlay__section-toggle"
-          (click)="toggleSection('conta')"
+          (click)="toggleSection('account')"
         >
           <span class="mobile-overlay__title">
-            Conta
+            Account
           </span>
 
           <i class="material-symbols-outlined">
-            @if (contaExpanded) {
+            @if (accountExpanded) {
               keyboard_arrow_down
             } @else {
               keyboard_arrow_right
@@ -548,12 +569,12 @@
           </i>
         </a>
 
-        @if (contaExpanded) {
+        @if (accountExpanded) {
           <ul class="mobile-overlay__list">
             <li class="mobile-overlay__item">
               <a
                 class="mobile-overlay__link"
-                routerLink="/conta/perfil"
+                routerLink="/account/profile"
                 routerLinkActive="mobile-overlay__link--active"
               >
                 <i class="material-symbols-outlined">
@@ -561,7 +582,7 @@
                 </i>
 
                 <span class="mobile-overlay__label">
-                  Perfil
+                  Profile
                 </span>
               </a>
             </li>

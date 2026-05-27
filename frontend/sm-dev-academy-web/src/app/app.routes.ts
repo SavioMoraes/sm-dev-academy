@@ -19,134 +19,134 @@ export const routes: Routes = [
       },
 
       /* =========================================================
-         BIBLIOTECA
+         LEARN
       ========================================================= */
 
       {
-        path: 'biblioteca/cursos',
+        path: 'learn/courses',
         loadComponent: () =>
-          import('./features/biblioteca/cursos/cursos')
-            .then((m) => m.Cursos),
+          import('./features/learn/courses/courses')
+            .then((m) => m.Courses),
       },
 
       {
-        path: 'biblioteca/meus-cursos',
+        path: 'learn/my-courses',
         loadComponent: () =>
-          import('./features/biblioteca/meus-cursos/meus-cursos')
-            .then((m) => m.MeusCursos),
+          import('./features/learn/my-courses/my-courses')
+            .then((m) => m.MyCourses),
       },
 
       {
-        path: 'biblioteca/favoritos',
+        path: 'learn/favorites',
         loadComponent: () =>
-          import('./features/biblioteca/favoritos/favoritos')
-            .then((m) => m.Favoritos),
+          import('./features/learn/favorites/favorites')
+            .then((m) => m.Favorites),
       },
 
       {
-        path: 'biblioteca/historico',
+        path: 'learn/trails',
         loadComponent: () =>
-          import('./features/biblioteca/historico/historico')
-            .then((m) => m.Historico),
+          import('./features/learn/trails/trails')
+            .then((m) => m.Trails),
       },
 
       /* =========================================================
-         TECNOLOGIAS
+         TECHNOLOGIES
       ========================================================= */
 
       {
-        path: 'tecnologias/html',
+        path: 'learn/technologies/html',
         loadComponent: () =>
-          import('./features/tecnologias/html/html')
+          import('./features/learn/technologies/html/html')
             .then((m) => m.Html),
       },
 
       {
-        path: 'tecnologias/css',
+        path: 'learn/technologies/css',
         loadComponent: () =>
-          import('./features/tecnologias/css/css')
+          import('./features/learn/technologies/css/css')
             .then((m) => m.Css),
       },
 
       {
-        path: 'tecnologias/javascript',
+        path: 'learn/technologies/javascript',
         loadComponent: () =>
-          import('./features/tecnologias/javascript/javascript')
+          import('./features/learn/technologies/javascript/javascript')
             .then((m) => m.Javascript),
       },
 
       {
-        path: 'tecnologias/typescript',
+        path: 'learn/technologies/typescript',
         loadComponent: () =>
-          import('./features/tecnologias/typescript/typescript')
+          import('./features/learn/technologies/typescript/typescript')
             .then((m) => m.Typescript),
       },
 
       {
-        path: 'tecnologias/angular',
+        path: 'learn/technologies/angular',
         loadComponent: () =>
-          import('./features/tecnologias/angular/angular')
+          import('./features/learn/technologies/angular/angular')
             .then((m) => m.Angular),
       },
 
       {
-        path: 'tecnologias/react',
+        path: 'learn/technologies/react',
         loadComponent: () =>
-          import('./features/tecnologias/react/react')
+          import('./features/learn/technologies/react/react')
             .then((m) => m.React),
       },
 
       {
-        path: 'tecnologias/python',
+        path: 'learn/technologies/python',
         loadComponent: () =>
-          import('./features/tecnologias/python/python')
+          import('./features/learn/technologies/python/python')
             .then((m) => m.Python),
       },
 
       {
-        path: 'tecnologias/nodejs',
+        path: 'learn/technologies/nodejs',
         loadComponent: () =>
-          import('./features/tecnologias/nodejs/nodejs')
+          import('./features/learn/technologies/nodejs/nodejs')
             .then((m) => m.Nodejs),
       },
 
       {
-        path: 'tecnologias/nestjs',
+        path: 'learn/technologies/nestjs',
         loadComponent: () =>
-          import('./features/tecnologias/nestjs/nestjs')
+          import('./features/learn/technologies/nestjs/nestjs')
             .then((m) => m.Nestjs),
       },
 
       {
-        path: 'tecnologias/mongodb',
+        path: 'learn/technologies/mongodb',
         loadComponent: () =>
-          import('./features/tecnologias/mongodb/mongodb')
+          import('./features/learn/technologies/mongodb/mongodb')
             .then((m) => m.Mongodb),
       },
 
       {
-        path: 'tecnologias/mysql',
+        path: 'learn/technologies/mysql',
         loadComponent: () =>
-          import('./features/tecnologias/mysql/mysql')
+          import('./features/learn/technologies/mysql/mysql')
             .then((m) => m.Mysql),
       },
 
       {
-        path: 'tecnologias/postgresql',
+        path: 'learn/technologies/postgresql',
         loadComponent: () =>
-          import('./features/tecnologias/postgresql/postgresql')
+          import('./features/learn/technologies/postgresql/postgresql')
             .then((m) => m.Postgresql),
       },
 
       /* =========================================================
-         CONTA
+         ACCOUNT
       ========================================================= */
 
       {
-        path: 'conta/perfil',
+        path: 'account/profile',
         loadComponent: () =>
-          import('./features/conta/perfil/perfil')
-            .then((m) => m.Perfil),
+          import('./features/account/profile/profile')
+            .then((m) => m.Profile),
       },
 
       /* =========================================================
