@@ -20,9 +20,9 @@ export class Header implements OnInit {
   isSearchActive = false;
   isMobileOrTablet = false;
 
-  bibliotecaExpanded = true;
-  tecnologiasExpanded = false;
-  contaExpanded = true;
+  learnExpanded = true;
+  technologiesExpanded = false;
+  accountExpanded = true;
   adminExpanded = true;
 
   isAdmin = false;
@@ -64,22 +64,22 @@ export class Header implements OnInit {
   }
 
   updateExpandedSections(url: string): void {
-    this.bibliotecaExpanded = url.includes('/biblioteca');
-    this.tecnologiasExpanded = url.includes('/tecnologias');
-    this.contaExpanded = url.includes('/conta');
+    this.learnExpanded = url.includes('/learn');
+    this.technologiesExpanded = url.includes('/technologies');
+    this.accountExpanded = url.includes('/account');
     this.adminExpanded = url.includes('/admin');
   }
 
   toggleSection(section: string): void {
     switch (section) {
-      case 'biblioteca':
-        this.bibliotecaExpanded = !this.bibliotecaExpanded;
+      case 'learn':
+        this.learnExpanded = !this.learnExpanded;
         break;
-      case 'tecnologias':
-        this.tecnologiasExpanded = !this.tecnologiasExpanded;
+      case 'technologies':
+        this.technologiesExpanded = !this.technologiesExpanded;
         break;
-      case 'conta':
-        this.contaExpanded = !this.contaExpanded;
+      case 'account':
+        this.accountExpanded = !this.accountExpanded;
         break;
       case 'admin':
         this.adminExpanded = !this.adminExpanded;

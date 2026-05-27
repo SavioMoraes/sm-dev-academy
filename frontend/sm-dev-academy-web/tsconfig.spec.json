@@ -12,5 +12,5 @@
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-  ]
+, "src/app/features/learn/courses/courses.ts", "src/app/features/account/profile/profile.ts"  ]
 }

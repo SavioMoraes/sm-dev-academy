@@ -343,7 +343,8 @@
 .mobile-overlay__section-toggle {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 0;
   width: 100%;
   padding: 0;
   border: none;
@@ -351,9 +352,29 @@
   cursor: pointer;
 }
 
+.mobile-overlay__section-toggle
+.material-symbols-outlined:last-child {
+  margin-left: 6px;
+}
+
 .mobile-overlay__section-toggle .material-symbols-outlined {
   font-size: 26px;
   color: rgba(255, 255, 255, 0.75);
+}
+
+.mobile-overlay__technologies-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-overlay__technologies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 0 0 42px;
+  list-style: none;
 }
 
 .mobile-overlay__title {
