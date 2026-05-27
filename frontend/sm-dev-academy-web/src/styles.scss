@@ -1,2 +1,74 @@
-@use './styles/abstracts/variables';
-@use './styles/base/reset';
+@use './styles/abstracts/_variables.scss';
+@use './styles/base/_reset.scss';
+@use './styles/typography/typography.scss';
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100dvh;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  background-color: #32363f;
+}
+
+/* =========================================================
+   APP ROOT
+========================================================= */
+
+app-root {
+  display: block;
+  width: 100%;
+  min-height: 100dvh;
+}
+
+/* =========================================================
+   GLOBAL SCROLLBAR
+========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 59, 59, 0.35) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 59, 59, 0.95) 0%,
+      rgba(255, 59, 59, 0.55) 100%
+    );
+  box-shadow:
+    0 0 8px rgba(255, 59, 59, 0.45),
+    0 0 18px rgba(255, 59, 59, 0.18);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 59, 59, 1) 0%,
+      rgba(255, 59, 59, 0.7) 100%
+    );
+}

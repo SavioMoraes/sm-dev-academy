@@ -1,0 +1,172 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.stream-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.stream-section__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.stream-section__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stream-section__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.stream-section__subtitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.stream-section__see-all {
+  flex-shrink: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff3b3b;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.stream-section__see-all:hover {
+  color: #ff5c5c;
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.stream-section__content {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 3%,
+      black 97%,
+      transparent 100%
+    );
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      transparent 0%,
+      black 3%,
+      black 97%,
+      transparent 100%
+    );
+}
+
+.stream-section__content::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1440px) {
+  .stream-section {
+    gap: 28px;
+  }
+
+  .stream-section__title {
+    font-size: 32px;
+  }
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .stream-section__title {
+    font-size: 28px;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .stream-section {
+    gap: 22px;
+  }
+
+  .stream-section__header {
+    align-items: center;
+  }
+
+  .stream-section__title {
+    font-size: 24px;
+  }
+
+  .stream-section__content {
+    gap: 18px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+  .stream-section {
+    gap: 20px;
+  }
+
+  .stream-section__header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .stream-section__title {
+    font-size: 22px;
+  }
+
+  .stream-section__subtitle {
+    font-size: 14px;
+  }
+
+  .stream-section__content {
+    gap: 16px;
+  }
+}

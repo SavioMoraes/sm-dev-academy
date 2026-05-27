@@ -1,0 +1,43 @@
+<section class="test-video" #scrollContainer (scroll)="onScroll($event)">
+
+  <h1>
+    SM Dev Academy Streaming MVP
+  </h1>
+
+  @if (selectedVideoUrl) {
+
+    <div class="player-container">
+
+      <iframe
+        [src]="selectedVideoUrl"
+        title="YouTube video player"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+
+    </div>
+
+  }
+
+  <div class="video-grid">
+
+    @for (video of videos; track video.id.videoId) {
+
+      <article
+        class="video-card"
+        (click)="selectVideo(video.id.videoId)">
+
+        <img
+          [src]="video.snippet.thumbnails.medium.url"
+          [alt]="video.snippet.title">
+
+        <h2>
+          {{ video.snippet.title }}
+        </h2>
+
+      </article>
+
+    }
+
+  </div>
+</section>

@@ -1,0 +1,158 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.home-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.home-section-header__title {
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* =========================================================
+   HIGHLIGHT COURSES
+========================================================= */
+
+.home-highlight-courses {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-highlight-courses__grid {
+  display: grid;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1440px) {
+
+  :host {
+    gap: 56px;
+  }
+
+  .home-section-header__title {
+    font-size: 36px;
+  }
+
+  .home-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+
+  .home-highlight-courses {
+    gap: 28px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+}
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+
+  :host {
+    gap: 48px;
+  }
+
+  .home-section-header__title {
+    font-size: 32px;
+  }
+
+  .home-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  .home-highlight-courses {
+    gap: 24px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  :host {
+    gap: 44px;
+  }
+
+  .home-section-header__title {
+    font-size: 28px;
+  }
+
+  .home-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .home-highlight-courses {
+    gap: 22px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+  :host {
+    gap: 36px;
+  }
+
+  .home-section-header__title {
+    font-size: 24px;
+  }
+
+  .home-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .home-highlight-courses {
+    gap: 18px;
+  }
+
+  .home-highlight-courses__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+}

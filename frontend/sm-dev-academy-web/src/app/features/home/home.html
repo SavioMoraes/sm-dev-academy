@@ -1,0 +1,51 @@
+<app-page-container>
+  <app-home-hero />
+  <section class="home-categories">
+    <div class="home-section-header">
+      <h2 class="home-section-header__title">
+        Categorias
+      </h2>
+    </div>
+
+    <div class="home-categories__grid">
+      <app-category-card
+        title="Frontend"
+        icon="code"
+      />
+
+      <app-category-card
+        title="Backend"
+        icon="dns"
+      />
+
+      <app-category-card
+        title="Mobile"
+        icon="smartphone"
+      />
+
+      <app-category-card
+        title="DevOps"
+        icon="all_inclusive"
+      />
+
+      <app-category-card
+        title="IA"
+        icon="neurology"
+      />
+    </div>
+  </section>
+
+  <app-stream-section
+    title="Cursos em Destaque"
+    subtitle="Os cursos mais acessados da plataforma"
+  >
+    @for (course of courses; track course.title) {
+      <app-highlight-course-card
+        [title]="course.title"
+        [category]="course.category"
+        [description]="course.description"
+        [image]="course.image"
+      />
+    }
+  </app-stream-section>
+</app-page-container>

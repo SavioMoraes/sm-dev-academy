@@ -1,38 +1,640 @@
-<header class="header">
-  <div class="header__left">
-    <div class="header__brand">
-      <a href="/">
-        <img
-          src="assets/images/logo-sm-dev-academy.png"
-          alt="SM Dev Academy"
+@if (!isSearchActive || !isMobileOrTablet) {
+  <header class="header">
+    <div class="header__content">
+
+      <!-- LEFT -->
+      <div class="header__left">
+        <!-- MOBILE/TABLET HAMBURGUER -->
+        <a
+          class="header__menu-toggle header__icon-button"
+          (click)="toggleMobileMenu()"
         >
+          <i class="material-symbols-outlined">
+            density_medium
+          </i>
+        </a>
+  
+        <!-- OPEN SEARCH -->
+        <a
+          class="header__icon-button"
+          aria-label="Pesquisar"
+          (click)="toggleSearch(); $event.stopPropagation();"
+        >
+          <i class="material-symbols-outlined">
+            search
+          </i>
+        </a>
+      </div>
+
+      <!-- DESKTOP/LAPTOP SEARCH -->
+      <div class="header__search" [class.header__search--active]="isSearchActive">
+        <a class="header__search-back" (click)="toggleSearch()">
+          <i class="material-symbols-outlined">
+            undo
+          </i>
+        </a>
+        <input
+          type="text"
+          placeholder="Pesquisar"
+          class="header__search-input"
+        >
+
+        <a class="header__search-submit">
+          <i class="material-symbols-outlined">
+            input
+          </i>
+        </a>
+      </div>
+      
+      <div class="header__center">
+        <!-- LOGO -->
+        <div class="header__brand">
+          <a href="/">
+            <img
+              src="assets/images/logo-sm-dev-academy.png"
+              alt="SM Dev Academy"
+            >
+          </a>
+        </div>  
+      </div>
+  
+      <!-- RIGHT -->
+      <div class="header__right">
+        <!-- NOTIFICATIONS -->
+        <a
+          class="header__icon-button"
+        >
+          <i class="material-symbols-outlined">
+            notifications
+          </i>
+        </a>
+  
+        <!-- LOGIN -->
+        <a
+          class="header__icon-button"
+        >
+          <i class="material-symbols-outlined">
+            person
+          </i>
+        </a>
+      </div>
+    </div>
+  </header>
+} @else {
+  <!-- SEARCH HEADER -->
+  <header class="header header--search-active header--search-mobile">
+    <div class="header__content">
+
+      <div class="header-search-mobile">
+        <div class="header-search-mobile__bar">
+          <!-- BACK -->
+          <button
+            type="button"
+            class="header-search-mobile__action"
+            (click)="toggleSearch()"
+          >
+            <i class="material-symbols-outlined">
+              undo
+            </i>
+          </button>
+  
+          <!-- INPUT -->
+          <input
+            type="text"
+            placeholder="Pesquisar"
+            class="header-search-mobile__input"
+            autofocus
+          >
+  
+          <!-- SEARCH -->
+          <button
+            type="button"
+            class="header-search-mobile__action"
+          >
+            <i class="material-symbols-outlined">
+              input
+            </i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+}
+
+<!-- MOBILE/TABLET MENU -->
+<div
+  class="mobile-menu-overlay"
+  [class.mobile-menu-overlay--open]="isMobileMenuOpen"
+  (click)="toggleMobileMenu()"
+>
+  <div
+    class="mobile-overlay"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- MOBILE HEADER -->
+    <div class="mobile-menu__header">
+      <!--GHOST ELEMENT-->
+      <div class="mobile-menu__ghost">
+        &#128123;
+      </div>
+      <!-- LOGO -->
+      <div class="mobile-menu__logo">
+        <a routerLink="/">
+          <img
+            src="assets/images/logo-sm-dev-academy.png"
+            alt="SM Dev Academy"
+          >
+        </a>
+      </div>
+
+      <!-- CLOSE -->
+      <a
+        class="mobile-menu__close header__icon-button"
+        (click)="toggleMobileMenu()"
+      >
+        <i class="material-symbols-outlined">
+          close
+        </i>
       </a>
     </div>
-  </div>
 
-  <div class="header__center">
-    <div class="header__search">
-      <input
-        type="text"
-        placeholder="Buscar cursos, categorias ou tópicos..."
-        class="header__search-input"
-      >
+    <!-- MOBILE OVERLAY CONTENT -->
+    <div class="mobile-overlay__content">
+      <!-- HOME PAGE -->
+      <section class="mobile-overlay__section">
+        <div class="mobile-overlay__section-header">
+          <p class="mobile-overlay__title">
+            HOME PAGE
+          </p>
+        </div>
+
+        <ul class="mobile-overlay__list">
+          <li class="mobile-overlay__item">
+            <a
+              class="mobile-overlay__link"
+              routerLink="/"
+              routerLinkActive="mobile-overlay__link--active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <i class="material-symbols-outlined">
+                home
+              </i>
+
+              <span class="mobile-overlay__label">
+                Home
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- LEARN -->
+      <section class="mobile-overlay__section">
+        <a
+          class="mobile-overlay__section-toggle"
+          (click)="toggleSection('learn')"
+        >
+          <span class="mobile-overlay__title">
+            Learn
+          </span>
+
+          <i class="material-symbols-outlined">
+            @if (learnExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </i>
+        </a>
+
+        @if (learnExpanded) {
+          <ul class="mobile-overlay__list">
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/learn/courses"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <i class="material-symbols-outlined">
+                  school
+                </i>
+
+                <span class="mobile-overlay__label">
+                  Courses
+                </span>
+              </a>
+            </li>
+
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/learn/my-courses"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <i class="material-symbols-outlined">
+                  video_library
+                </i>
+
+                <span class="mobile-overlay__label">
+                  My Courses
+                </span>
+              </a>
+            </li>
+
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/learn/favorites"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <i class="material-symbols-outlined">
+                  favorite
+                </i>
+
+                <span class="mobile-overlay__label">
+                  Favorites
+                </span>
+              </a>
+            </li>
+
+            <!-- TECHNOLOGIES -->
+            <li class="mobile-overlay__item">
+
+              <button
+                type="button"
+                class="mobile-overlay__link mobile-overlay__section-toggle"
+                (click)="toggleSection('technologies')"
+              >
+
+              <div class="mobile-overlay__technologies-left">
+
+                <span class="material-symbols-outlined">
+                  terminal
+                </span>
+
+                <span class="mobile-overlay__label">
+                  Technologies
+                </span>
+
+              </div>
+
+                <span class="material-symbols-outlined">
+                  @if (technologiesExpanded) {
+                    keyboard_arrow_down
+                  } @else {
+                    keyboard_arrow_right
+                  }
+                </span>
+                
+
+              </button>
+
+              @if (technologiesExpanded) {
+
+                <ul class="mobile-overlay__technologies-list">
+
+                  <!-- HTML -->
+                  <li class="mobile-overlay__item">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/html"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/html5.svg"
+                        alt="HTML"
+                      />
+
+                       <span class="mobile-overlay__label">
+                        HTML
+                      </span>
+                      
+                    </a>
+                  </li>
+
+                  <!-- CSS -->
+                  <li class="mobile-overlay__item" data-label="CSS">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/css"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/css.svg"
+                        alt="CSS"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        CSS
+                      </span>
+                      
+                    </a>
+                  </li>
+
+                  <!-- JAVASCRIPT -->
+                  <li class="mobile-overlay__item" data-label="JavaScript">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/javascript"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/javascript.svg"
+                        alt="JavaScript"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        JavaScript
+                      </span>
+                      
+                    </a>
+                  </li>
+
+                  <!-- TYPESCRIPT -->
+                  <li class="mobile-overlay__item" data-label="TypeScript">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/typescript"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/typescript.svg"
+                        alt="TypeScript"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        TypeScript
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- ANGULAR -->
+                  <li class="mobile-overlay__item" data-label="Angular">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/angular"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/angular.svg"
+                        alt="Angular"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        Angular
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- REACT -->
+                  <li class="mobile-overlay__item" data-label="React">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/react"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/react.svg"
+                        alt="React"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        React
+                      </span>
+
+                    </a>
+                  </li>
+
+                  <!-- PYTHON -->
+                  <li class="mobile-overlay__item" data-label="Python">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/python"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/python.svg"
+                        alt="Python"
+                      />
+                      <span class="mobile-overlay__label">Python</span>
+                    </a>
+                  </li>
+
+                  <!-- NODE.JS -->
+                  <li class="mobile-overlay__item" data-label="Node.js">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/nodejs"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/nodedotjs.svg"
+                        alt="Node.js"
+                      />
+
+                      <span class="mobile-overlay__label">Node.js</span>
+                    </a>
+                  </li>
+
+                  <!-- NESTJS -->
+                  <li class="mobile-overlay__item" data-label="NestJS">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/nestjs"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/nestjs.svg"
+                        alt="NestJS"
+                      />
+
+                     <span class="mobile-overlay__label">
+                      NestJS
+                    </span>
+                    </a>
+                  </li>
+
+                  <!-- MONGODB -->
+                  <li class="mobile-overlay__item" data-label="MongoDB">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/mongodb"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/mongodb.svg"
+                        alt="MongoDB"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        MongoDB
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- MYSQL -->
+                  <li class="mobile-overlay__item" data-label="MySQL">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/mysql"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/mysql.svg"
+                        alt="MySQL"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        MySQL
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- POSTGRESQL -->
+                  <li class="mobile-overlay__item" data-label="PostgreSQL">
+                    <a
+                      class="mobile-overlay__link"
+                      routerLink="/learn/technologies/postgresql"
+                      routerLinkActive="mobile-overlay__link--active"
+                    >
+                      <img
+                        class="mobile-overlay__tech-icon"
+                        src="assets/svg/postgresql.svg"
+                        alt="PostgreSQL"
+                      />
+
+                      <span class="mobile-overlay__label">
+                        PostgreSQL
+                      </span>
+                    </a>
+                  </li>
+
+                </ul>
+
+              }
+
+            </li>
+
+            <!-- TRAILS -->
+            <li class="mobile-overlay__item" data-label="Trails">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/learn/trails"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+
+              <i class="material-symbols-outlined">
+                  share
+                </i>
+              
+                 <span class="mobile-overlay__label">
+                    Trails
+                  </span>
+
+                
+              </a>
+            </li>
+
+          </ul>
+        }
+      </section>
+
+      <!-- ACCOUNT -->
+      <section class="mobile-overlay__section">
+        <a
+          class="mobile-overlay__section-toggle"
+          (click)="toggleSection('account')"
+        >
+          <span class="mobile-overlay__title">
+            Account
+          </span>
+
+          <i class="material-symbols-outlined">
+            @if (accountExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </i>
+        </a>
+
+        @if (accountExpanded) {
+          <ul class="mobile-overlay__list">
+            <li class="mobile-overlay__item">
+              <a
+                class="mobile-overlay__link"
+                routerLink="/account/profile"
+                routerLinkActive="mobile-overlay__link--active"
+              >
+                <i class="material-symbols-outlined">
+                  account_circle
+                </i>
+
+                <span class="mobile-overlay__label">
+                  Profile
+                </span>
+              </a>
+            </li>
+          </ul>
+        }
+      </section>
+
+      @if (isAdmin) {
+        <!-- ADMIN -->
+        <section class="mobile-overlay__section">
+          <a
+            type="button"
+            class="mobile-overlay__section-toggle"
+            (click)="toggleSection('admin')"
+          >
+            <span class="mobile-overlay__title">
+              Admin
+            </span>
+
+            <i class="material-symbols-outlined">
+              @if (adminExpanded) {
+                keyboard_arrow_down
+              } @else {
+                keyboard_arrow_right
+              }
+            </i>
+          </a>
+
+          @if (adminExpanded) {
+            <ul class="mobile-overlay__list">
+              <li class="mobile-overlay__item">
+                <a
+                  class="mobile-overlay__link"
+                  routerLink="/admin/dashboard"
+                  routerLinkActive="mobile-overlay__link--active"
+                >
+                  <i class="material-symbols-outlined">
+                    dashboard
+                  </i>
+
+                  <span class="mobile-overlay__label">
+                    Dashboard
+                  </span>
+                </a>
+              </li>
+            </ul>
+          }
+        </section>
+      }
+
+      <!-- FOOTER -->
+      <app-footer />
     </div>
   </div>
-
-  <div class="header__right">
-    <button
-      type="button"
-      class="header__notifications"
-    >
-      Notificações
-    </button>
-
-    <button
-      type="button"
-      class="header__auth"
-    >
-      Login
-    </button>
-  </div>
-</header>
+</div>

@@ -1,28 +1,11 @@
 <!-- MOBILE HAMBURGUER -->
-<button
-  type="button"
-  class="sidebar__mobile-toggle"
-  (click)="toggleMobileMenu()"
->
-  Menu
-</button>
 <aside
   class="sidebar"
   [class.sidebar-collapsed]="isCollapsed"
   [class.sidebar-mobile-open]="isMobileMenuOpen"
 >
-  <!-- DESKTOP TOGGLE -->
-  <button
-    type="button"
-    class="sidebar__desktop-toggle"
-    (click)="toggleSidebar()"
-  >
-    Toggle
-  </button>
-
   <!-- SIDEBAR CONTENT -->
   <div class="sidebar__content">
-
     <!-- MOBILE HEADER -->
     <div class="sidebar__mobile-header">
       <div class="sidebar-logo">
@@ -62,48 +45,508 @@
       }
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- SIDEBAR NAVIGATION -->
     <nav class="sidebar-navigation">
-      <ul class="navigation-list">
-        @for (item of navigationItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              <span>{{ item.label }}</span>
+      <!-- HOME PAGE -->
+      <section class="sidebar-navigation__section">
+        <h2
+          class="sidebar-navigation__title"
+        >
+         <span>HOME PAGE</span>
+        </h2>
+        
+        <ul class="sidebar-navigation__list">
+          <li class="sidebar-navigation__item">
+            <a
+              class="sidebar-navigation__link"
+              routerLink="/"
+              routerLinkActive="sidebar-navigation__link--active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <span class="material-symbols-outlined">
+                home
+              </span>
+
+              @if (!isCollapsed) {
+                <span class="sidebar-navigation__label">
+                  Home
+                </span>
+              }
             </a>
           </li>
+        </ul>
+      </section>
+
+      <!-- LEARN -->
+      <section class="sidebar-navigation__section">
+        <button
+          type="button"
+          class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('learn')"
+        >
+          <span>LEARN</span>
+
+          <span class="material-symbols-outlined">
+            @if (learnExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
+
+        @if (learnExpanded) {
+          <ul class="sidebar-navigation__list">
+
+            <!-- COURSES -->
+            <li class="sidebar-navigation__item" data-label="Courses">
+              <a
+                class="sidebar-navigation__link"
+                routerLink="/learn/courses"
+                routerLinkActive="sidebar-navigation__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  school
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Courses
+                  </span>
+                }
+              </a>
+            </li>
+
+            <!-- MY COURSES -->
+            <li class="sidebar-navigation__item" data-label="My Courses">
+              <a
+                class="sidebar-navigation__link"
+                routerLink="/learn/my-courses"
+                routerLinkActive="sidebar-navigation__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  video_library
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    My Courses
+                  </span>
+                }
+              </a>
+            </li>
+
+            <!-- FAVORITES -->
+            <li class="sidebar-navigation__item" data-label="Favorites">
+              <a
+                routerLink="/learn/favorites"
+                routerLinkActive="sidebar-navigation__link--active"
+                class="sidebar-navigation__link"
+              >
+                <span class="material-symbols-outlined">
+                  favorite
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Favorites
+                  </span>
+                }
+              </a>
+            </li>
+
+            <!-- TECHNOLOGIES -->
+            <li
+              class="
+                sidebar-navigation__item
+                sidebar-navigation__item--technologies
+              "
+              [attr.data-label]="
+                isCollapsed && !technologiesExpanded
+                  ? 'Technologies'
+                  : null
+              "
+            >
+
+              <button
+                type="button"
+                class="sidebar-navigation__link sidebar-navigation__toggle"
+                (click)="toggleSection('technologies')"
+              >
+
+                <span
+                  class="
+                    material-symbols-outlined
+                    sidebar-navigation__technologies-icon
+                  "
+                >
+                  terminal
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Technologies
+                  </span>
+                }
+
+                <span class="material-symbols-outlined sidebar-technologies-arrow arrow-spacing">
+                  @if (technologiesExpanded) {
+                    keyboard_arrow_down
+                  } @else {
+                    keyboard_arrow_right
+                  }
+                </span>
+                
+
+              </button>
+
+              @if (technologiesExpanded) {
+
+                <ul class="sidebar-navigation__list">
+
+                  <!-- HTML -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="HTML">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/html"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/html5.svg"
+                        alt="HTML"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">HTML</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- CSS -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="CSS">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/css"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/css.svg"
+                        alt="CSS"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">CSS</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- JAVASCRIPT -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="JavaScript">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/javascript"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/javascript.svg"
+                        alt="JavaScript"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">JavaScript</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- TYPESCRIPT -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="TypeScript">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/typescript"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/typescript.svg"
+                        alt="TypeScript"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">TypeScript</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- ANGULAR -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="Angular">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/angular"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/angular.svg"
+                        alt="Angular"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">Angular</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- REACT -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="React">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/react"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/react.svg"
+                        alt="React"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">React</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- PYTHON -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="Python">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/python"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/python.svg"
+                        alt="Python"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">Python</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- NODE.JS -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="Node.js">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/nodejs"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/nodedotjs.svg"
+                        alt="Node.js"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">Node.js</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- NESTJS -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="NestJS">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/nestjs"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/nestjs.svg"
+                        alt="NestJS"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">NestJS</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- MONGODB -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="MongoDB">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/mongodb"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/mongodb.svg"
+                        alt="MongoDB"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">MongoDB</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- MYSQL -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="MySQL">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/mysql"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/mysql.svg"
+                        alt="MySQL"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">MySQL</span>
+                      }
+                    </a>
+                  </li>
+
+                  <!-- POSTGRESQL -->
+                  <li class="sidebar-navigation__item icons-spacing" data-label="PostgreSQL">
+                    <a
+                      class="sidebar-navigation__link"
+                      routerLink="/learn/technologies/postgresql"
+                      routerLinkActive="sidebar-navigation__link--active"
+                    >
+                      <img
+                        class="sidebar__tech-icon"
+                        src="assets/svg/postgresql.svg"
+                        alt="PostgreSQL"
+                      />
+
+                      @if (!isCollapsed) {
+                        <span class="sidebar-navigation__label">PostgreSQL</span>
+                      }
+                    </a>
+                  </li>
+
+                </ul>
+
+              }
+
+            </li>
+
+            <!-- TRAILS -->
+            <li class="sidebar-navigation__item" data-label="Trails">
+              <a
+                class="sidebar-navigation__link"
+                routerLink="/learn/trails"
+                routerLinkActive="sidebar-navigation__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  share
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Trails
+                  </span>
+                }
+              </a>
+            </li>
+
+          </ul>
         }
-      </ul>
+      </section>
+
+      <!-- CONTA -->
+      <section class="sidebar-navigation__section">
+        <button
+          type="button"
+          class="sidebar-navigation__title sidebar-navigation__toggle"
+          (click)="toggleSection('conta')"
+        >
+          <span>ACCOUNT</span>
+
+          <span class="material-symbols-outlined">
+            @if (accountExpanded) {
+              keyboard_arrow_down
+            } @else {
+              keyboard_arrow_right
+            }
+          </span>
+        </button>
+
+        @if (accountExpanded) {
+          <ul class="sidebar-navigation__list">
+            <li class="sidebar-navigation__item" data-label="Profile">
+              <a
+                class="sidebar-navigation__link"
+                routerLink="/account/profile"
+                routerLinkActive="sidebar-navigation__link--active"
+              >
+                <span class="material-symbols-outlined">
+                  account_circle
+                </span>
+
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Profile
+                  </span>
+                }
+              </a>
+            </li>
+          </ul>
+        }  
+      </section>
+
+      @if (isAdmin) {
+        <!-- ADMIN -->
+        <section class="sidebar-navigation__section">
+          <button
+            type="button"
+            class="sidebar-navigation__title sidebar-navigation__toggle"
+            (click)="toggleSection('admin')"
+          >
+            <span>Admin</span>
+
+            <span class="material-symbols-outlined">
+              @if (adminExpanded) {
+                keyboard_arrow_down
+              } @else {
+                keyboard_arrow_right
+              }
+            </span>
+          </button>
+
+          @if (adminExpanded) {
+            <ul class="sidebar-navigation__list">
+              <li class="sidebar-navigation__item" data-label="Dashboard">
+                <a
+                  class="sidebar-navigation__link"
+                  routerLink="/admin/dashboard"
+                  routerLinkActive="sidebar-navigation__link--active"
+                >
+                  <span class="material-symbols-outlined">
+                    dashboard
+                  </span>
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Dashboard
+                    </span>
+                  }
+                </a>
+              </li>
+            </ul>
+          }
+        </section>
+      }
     </nav>
 
-    <!-- CATEGORIES -->
-    <section class="sidebar-categories">
-      <h2>Categorias</h2>
-
-      <ul class="categories-list">
-        @for (item of categoryItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              {{ item.label }}
-            </a>
-          </li>
-        }
-      </ul>
-    </section>
-
     <!-- FOOTER -->
-    <footer class="sidebar-footer">
-      <ul class="footer-links">
-        @for (item of footerItems; track item.label) {
-          <li>
-            <a [href]="item.route">
-              {{ item.label }}
-            </a>
-          </li>
-        }
-      </ul>
-
-      <p>Built by Sávio Moraes</p>
-    </footer>
-
+    <app-footer [isCollapsed]="isCollapsed" />
   </div>
 </aside>

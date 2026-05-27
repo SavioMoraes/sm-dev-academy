@@ -1,10 +1,106 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    MatIconModule,
+    Footer,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {}
+export class Header implements OnInit {
+  isMobileMenuOpen = false;
+  isSearchActive = false;
+  isMobileOrTablet = false;
+
+  learnExpanded = true;
+  technologiesExpanded = false;
+  accountExpanded = true;
+  adminExpanded = true;
+
+  isAdmin = false;
+
+  constructor(
+    private readonly router: Router,
+  ) {}
+
+  ngOnInit(): void {
+    this.checkViewport();
+
+    this.updateExpandedSections(this.router.url);
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isMobileMenuOpen = false;
+        this.isSearchActive = false;
+
+        this.updateExpandedSections(event.urlAfterRedirects);
+      }
+    });
+  }
+
+  checkViewport(): void {
+    this.isMobileOrTablet = window.innerWidth <= 1023;
+
+    if (!this.isMobileOrTablet) {
+      this.isMobileMenuOpen = false;
+      this.isSearchActive = false;
+    }
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toggleSearch(): void {
+    this.isSearchActive = !this.isSearchActive;
+  }
+
+  updateExpandedSections(url: string): void {
+    this.learnExpanded = url.includes('/learn');
+    this.technologiesExpanded = url.includes('/technologies');
+    this.accountExpanded = url.includes('/account');
+    this.adminExpanded = url.includes('/admin');
+  }
+
+  toggleSection(section: string): void {
+    switch (section) {
+      case 'learn':
+        this.learnExpanded = !this.learnExpanded;
+        break;
+      case 'technologies':
+        this.technologiesExpanded = !this.technologiesExpanded;
+        break;
+      case 'account':
+        this.accountExpanded = !this.accountExpanded;
+        break;
+      case 'admin':
+        this.adminExpanded = !this.adminExpanded;
+        break;
+    }
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.checkViewport();
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (
+      !target.closest('.header__search') &&
+      !target.closest('.header-search-mobile')
+    ) {
+      this.isSearchActive = false;
+    }
+  }
+}
