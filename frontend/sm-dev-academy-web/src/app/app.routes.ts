@@ -44,10 +44,10 @@ export const routes: Routes = [
       },
 
       {
-        path: 'learn/trails',
+        path: 'learn/tracks',
         loadComponent: () =>
-          import('./features/learn/trails/trails')
-            .then((m) => m.Trails),
+          import('./features/learn/tracks/tracks')
+            .then((m) => m.Tracks),
       },
 
       /* =========================================================
