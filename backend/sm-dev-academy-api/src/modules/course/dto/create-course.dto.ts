@@ -1,8 +1,13 @@
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUrl,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCourseDto {
-
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -38,4 +43,17 @@ export class CreateCourseDto {
   @IsNotEmpty()
   technology!: string;
 
+  @ApiProperty({ 
+    required: false,
+  })
+  @IsOptional()
+  @IsString() 
+  level?: string;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  featured?: boolean;
 }

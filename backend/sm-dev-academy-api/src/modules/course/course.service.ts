@@ -22,6 +22,8 @@ export class CourseService {
     limit: number,
     search?: string,
     category?: string,
+    technology?: string,
+    featured?: boolean,
   ) {
 
     const skip = (page - 1) * limit;
@@ -50,6 +52,18 @@ export class CourseService {
         category
           ? {
               category,
+            }
+          : {},
+
+        technology
+          ? {
+              technology,
+            }
+          : {},
+
+        featured !== undefined
+          ? {
+              featured,
             }
           : {},
       ],
