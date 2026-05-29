@@ -4,12 +4,14 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { CourseModule } from './modules/course/course.module';
 import { VideoModule } from './modules/video/video.module';
+import { YoutubeModule } from './modules/youtube/youtube.module';
 
 @Module({
   imports: [
     DatabaseModule,
     CourseModule,
     VideoModule,
+    YoutubeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

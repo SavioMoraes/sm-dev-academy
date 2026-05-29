@@ -1,1 +1,51 @@
-<p>courses works!</p>
+<section class="courses">
+
+  <h1>
+    Cursos
+  </h1>
+
+  <p>
+    Total:
+    {{ total }}
+  </p>
+
+  <div class="courses__grid">
+
+    <article
+      class="course-card"
+      *ngFor="let course of courses"
+    >
+
+      <img
+        [src]="course.thumbnail"
+        [alt]="course.title"
+      >
+
+      <div class="course-card__content">
+
+        <span>
+          {{ course.category }}
+        </span>
+
+        <h2>
+          {{ course.title }}
+        </h2>
+
+        <p>
+          {{ course.technology }}
+        </p>
+
+        <a
+          [href]="course.playlistUrl"
+          target="_blank"
+        >
+          Assistir Playlist
+        </a>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>

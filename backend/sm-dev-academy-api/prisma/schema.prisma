@@ -14,9 +14,11 @@ model Course {
   slug        String   @unique
   description String
   thumbnail   String
-  videoUrl    String
+  playlistUrl String
   category    String
   technology  String
+  language    String
+  legend      String
   level       String? 
   featured    Boolean @default(false)
   createdAt   DateTime @default(now())

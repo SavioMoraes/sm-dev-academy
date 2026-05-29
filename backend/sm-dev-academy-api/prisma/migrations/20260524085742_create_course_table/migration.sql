@@ -5,7 +5,7 @@ CREATE TABLE "Course" (
     "slug" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "thumbnail" TEXT NOT NULL,
-    "videoUrl" TEXT NOT NULL,
+    "playlistUrl" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "technology" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

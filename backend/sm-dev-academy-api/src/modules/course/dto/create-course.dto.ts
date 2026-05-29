@@ -4,8 +4,13 @@ import {
   IsOptional,
   IsString,
   IsUrl,
+  IsIn,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { CATEGORIES } from '../../../common/constants/categories';
+import { LANGUAGES } from '../../../common/constants/languages';
+import { LEGENDS } from '../../../common/constants/legends';
+import { TECHNOLOGIES } from '../../../common/constants/technologies';
 
 export class CreateCourseDto {
   @ApiProperty()
@@ -31,23 +36,45 @@ export class CreateCourseDto {
   @ApiProperty()
   @IsString()
   @IsUrl()
-  videoUrl!: string;
+  playlistUrl!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: CATEGORIES,
+  })
   @IsString()
   @IsNotEmpty()
+  @IsIn(CATEGORIES)
   category!: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: TECHNOLOGIES,
+  })
   @IsString()
   @IsNotEmpty()
+  @IsIn(TECHNOLOGIES)
   technology!: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
+    enum: LANGUAGES,
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsIn(LANGUAGES)
+  language!: string;
+
+  @ApiProperty({
+    enum: LEGENDS,
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsIn(LEGENDS)
+  legend!: string;
+
+  @ApiProperty({
     required: false,
   })
   @IsOptional()
-  @IsString() 
+  @IsString()
   level?: string;
 
   @ApiProperty({
