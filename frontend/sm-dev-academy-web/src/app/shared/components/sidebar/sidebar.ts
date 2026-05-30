@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+
+import { AuthService } from '../../../core/services/auth-service/auth.service';
+
 import { Footer } from '../footer/footer';
 
 @Component({
@@ -16,6 +19,7 @@ import { Footer } from '../footer/footer';
   styleUrl: './sidebar.scss',
 })
 export class Sidebar implements OnInit {
+
   /* DESKTOP */
   @Input() isCollapsed = false;
 
@@ -23,52 +27,99 @@ export class Sidebar implements OnInit {
   technologiesExpanded = false;
   accountExpanded = true;
   adminExpanded = true;
-  
+
   /* ADMIN */
   isAdmin = false;
 
   constructor(
     private readonly router: Router,
+    private readonly authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    this.updateExpandedSections(this.router.url);
+
+    this.updateExpandedSections(
+      this.router.url,
+    );
+
+    const user =
+      this.authService.getUser();
+
+    this.isAdmin =
+      user?.role === 'ADMIN';
 
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.updateExpandedSections(event.urlAfterRedirects);
+
+      if (
+        event instanceof NavigationEnd
+      ) {
+
+        this.updateExpandedSections(
+          event.urlAfterRedirects,
+        );
+
       }
+
     });
+
   }
 
-  updateExpandedSections(url: string): void {
-    this.learnExpanded = url.includes('/learn');
-    this.technologiesExpanded = url.includes('/technologies');
-    this.accountExpanded = url.includes('/account');
-    this.adminExpanded = url.includes('/admin');
+  updateExpandedSections(
+    url: string,
+  ): void {
+
+    this.learnExpanded =
+      url.includes('/learn');
+
+    this.technologiesExpanded =
+      url.includes('/technologies');
+
+    this.accountExpanded =
+      url.includes('/account');
+
+    this.adminExpanded =
+      url.includes('/admin');
+
   }
 
-  toggleSection(section: string): void {
+  toggleSection(
+    section: string,
+  ): void {
+
     switch (section) {
+
       case 'learn':
-        this.learnExpanded = !this.learnExpanded;
+        this.learnExpanded =
+          !this.learnExpanded;
         break;
+
       case 'technologies':
-        this.technologiesExpanded = !this.technologiesExpanded;
+        this.technologiesExpanded =
+          !this.technologiesExpanded;
         break;
+
       case 'account':
-        this.accountExpanded = !this.accountExpanded;
+        this.accountExpanded =
+          !this.accountExpanded;
         break;
+
       case 'admin':
-        this.adminExpanded = !this.adminExpanded;
+        this.adminExpanded =
+          !this.adminExpanded;
         break;
+
     }
+
   }
 
   /* MOBILE */
   isMobileMenuOpen = false;
 
   toggleMobileMenu(): void {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+
+    this.isMobileMenuOpen =
+      !this.isMobileMenuOpen;
+
   }
+
 }

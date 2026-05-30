@@ -70,13 +70,25 @@
         </a>
   
         <!-- LOGIN -->
-        <a
-          class="header__icon-button"
-        >
-          <i class="material-symbols-outlined">
-            person
-          </i>
-        </a>
+        @if (!isAuthenticated) {
+          <a
+            class="header__icon-button"
+            routerLink="/account/login"
+          >
+            <i class="material-symbols-outlined">
+              person
+            </i>
+          </a>
+        } @else {
+          <a
+            class="header__icon-button"
+            routerLink="/account/profile"
+          >
+            <i class="material-symbols-outlined">
+              account_circle
+            </i>
+          </a>
+        }
       </div>
     </div>
   </header>
