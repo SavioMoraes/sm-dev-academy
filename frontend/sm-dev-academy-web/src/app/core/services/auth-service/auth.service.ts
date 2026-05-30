@@ -12,7 +12,7 @@ import { LoginResponse } from '../../interfaces/login-response.interface';
 export class AuthService {
 
   private readonly API_URL =
-    'http://localhost:3000';
+  'https://sm-dev-academy.onrender.com';
 
   private readonly TOKEN_KEY =
     'smda_token';
