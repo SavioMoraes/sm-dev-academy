@@ -141,13 +141,19 @@ export const routes: Routes = [
       /* =========================================================
          ACCOUNT
       ========================================================= */
-
+      {
+        path: 'account/login',
+        loadComponent: () =>
+          import('./features/account/login/login')
+            .then((m) => m.Login),
+      },
+      
       {
         path: 'account/profile',
         loadComponent: () =>
           import('./features/account/profile/profile')
             .then((m) => m.Profile),
-      },
+      },      
 
       /* =========================================================
          ADMIN

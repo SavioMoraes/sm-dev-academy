@@ -1,0 +1,39 @@
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="handleSubmit()"
+>
+
+  <h1>
+    Login
+  </h1>
+
+  <div>
+    <label>
+      E-mail
+    </label>
+
+    <input
+      type="email"
+      formControlName="email"
+    >
+  </div>
+
+  <div>
+    <label>
+      Senha
+    </label>
+
+    <input
+      type="password"
+      formControlName="password"
+    >
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="isLoading"
+  >
+    Entrar
+  </button>
+
+</form>

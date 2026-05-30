@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Footer } from '../footer/footer';
+import { AuthService } from '../../../core/services/auth-service/auth.service';
+
 
 @Component({
   selector: 'app-header',
@@ -26,15 +28,26 @@ export class Header implements OnInit {
   adminExpanded = true;
 
   isAdmin = false;
+  isAuthenticated = false;
 
   constructor(
     private readonly router: Router,
+    private readonly authService: AuthService,
   ) {}
 
   ngOnInit(): void {
     this.checkViewport();
 
     this.updateExpandedSections(this.router.url);
+
+    const user =
+      this.authService.getUser();
+
+    this.isAuthenticated =
+      !!user;
+
+    this.isAdmin =
+      user?.role === 'ADMIN';
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -102,5 +115,15 @@ export class Header implements OnInit {
     ) {
       this.isSearchActive = false;
     }
+  }
+
+  logout(): void {
+
+    this.authService.logout();
+
+    this.router.navigate([
+      '/account/login',
+    ]);
+
   }
 }
