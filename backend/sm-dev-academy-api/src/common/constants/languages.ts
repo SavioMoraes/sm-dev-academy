@@ -1,6 +1,7 @@
 export const LANGUAGES = [
 
   'Português',
+  'Inglês',
   'Español',
 
 ] as const;
