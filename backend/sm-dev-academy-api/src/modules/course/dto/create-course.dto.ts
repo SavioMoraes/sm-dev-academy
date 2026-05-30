@@ -9,7 +9,6 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { CATEGORIES } from '../../../common/constants/categories';
 import { LANGUAGES } from '../../../common/constants/languages';
-import { LEGENDS } from '../../../common/constants/legends';
 import { TECHNOLOGIES } from '../../../common/constants/technologies';
 
 export class CreateCourseDto {
@@ -61,14 +60,6 @@ export class CreateCourseDto {
   @IsNotEmpty()
   @IsIn(LANGUAGES)
   language!: string;
-
-  @ApiProperty({
-    enum: LEGENDS,
-  })
-  @IsString()
-  @IsNotEmpty()
-  @IsIn(LEGENDS)
-  legend!: string;
 
   @ApiProperty({
     required: false,

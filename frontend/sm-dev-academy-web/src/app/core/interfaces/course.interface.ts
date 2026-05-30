@@ -7,7 +7,6 @@ export interface Course {
   category: string;
   technology: string;
   language: string;
-  legend: string | null;
   featured: boolean;
 }
 

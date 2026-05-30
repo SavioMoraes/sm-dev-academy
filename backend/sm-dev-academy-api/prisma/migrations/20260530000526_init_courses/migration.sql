@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Course" (
+CREATE TABLE "courses" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
@@ -8,11 +8,14 @@ CREATE TABLE "Course" (
     "playlistUrl" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "technology" TEXT NOT NULL,
+    "language" TEXT NOT NULL,
+    "level" TEXT,
+    "featured" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "courses_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Course_slug_key" ON "Course"("slug");
+CREATE UNIQUE INDEX "courses_slug_key" ON "courses"("slug");

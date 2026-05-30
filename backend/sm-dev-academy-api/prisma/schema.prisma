@@ -18,9 +18,10 @@ model Course {
   category    String
   technology  String
   language    String
-  legend      String
-  level       String? 
-  featured    Boolean @default(false)
+  level       String?
+  featured    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@map("courses")
 }

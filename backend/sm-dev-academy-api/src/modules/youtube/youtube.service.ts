@@ -155,9 +155,6 @@ export class YoutubeService {
               language:
                 'Português',
 
-              legend:
-                null,
-
               featured:
                 false,
 
