@@ -14,11 +14,14 @@ model Course {
   slug        String   @unique
   description String
   thumbnail   String
-  videoUrl    String
+  playlistUrl String
   category    String
   technology  String
-  level       String? 
-  featured    Boolean @default(false)
+  language    String
+  level       String?
+  featured    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@map("courses")
 }
