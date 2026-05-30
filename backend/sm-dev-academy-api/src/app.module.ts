@@ -5,6 +5,7 @@ import { DatabaseModule } from './database/database.module';
 import { CourseModule } from './modules/course/course.module';
 import { VideoModule } from './modules/video/video.module';
 import { YoutubeModule } from './modules/youtube/youtube.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { YoutubeModule } from './modules/youtube/youtube.module';
     CourseModule,
     VideoModule,
     YoutubeModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
