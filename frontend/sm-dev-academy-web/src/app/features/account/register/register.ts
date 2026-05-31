@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -30,6 +30,7 @@ export class Register {
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly changeDetectorRef: ChangeDetectorRef,
   ) {
 
     this.registerForm =
@@ -72,30 +73,37 @@ export class Register {
     event: Event,
   ): void {
 
+    const input =
+      event.target as HTMLInputElement;
+
     const file =
-      (event.target as HTMLInputElement)
-        .files?.[0];
+      input.files?.[0];
 
     if (!file) {
-
       return;
-
     }
 
     const reader =
       new FileReader();
 
     reader.onload =
-      () => {
+      (e) => {
+
+        const result =
+          e.target?.result as string;
 
         this.previewImage =
-          reader.result as string;
+          result;
+
+        this.registerForm.patchValue({
+          avatarUrl: result,
+        });
+
+        this.changeDetectorRef.detectChanges();
 
       };
 
-    reader.readAsDataURL(
-      file,
-    );
+    reader.readAsDataURL(file);
 
   }
 

@@ -29,6 +29,9 @@ export class Header implements OnInit {
 
   isAdmin = false;
   isAuthenticated = false;
+  userAvatarUrl?: string;
+  userInitial = '';
+  isProfileMenuOpen = false;
 
   constructor(
     private readonly router: Router,
@@ -48,6 +51,12 @@ export class Header implements OnInit {
 
     this.isAdmin =
       user?.role === 'ADMIN';
+
+    this.userAvatarUrl =
+      user?.avatarUrl;
+
+    this.userInitial =
+      user?.name?.charAt(0).toUpperCase() || '';
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -124,6 +133,54 @@ export class Header implements OnInit {
     this.router.navigate([
       '/account/login',
     ]);
+  }
+
+  toggleProfileMenu(): void {
+
+    this.isProfileMenuOpen =
+      !this.isProfileMenuOpen;
+
+  }
+
+  goToProfile(): void {
+
+    this.isProfileMenuOpen =
+      false;
+
+    this.router.navigate([
+      '/account/profile',
+    ]);
+
+  }
+
+  handleLogout(): void {
+
+    this.isProfileMenuOpen =
+      false;
+
+    this.logout();
+
+  }
+
+  @HostListener(
+    'document:click',
+    ['$event'],
+  )
+  onDocumentClick(
+    event: MouseEvent,
+  ): void {
+
+    const target =
+      event.target as HTMLElement;
+
+    if (
+      !target.closest('.header-profile')
+    ) {
+
+      this.isProfileMenuOpen =
+        false;
+
+    }
 
   }
 }

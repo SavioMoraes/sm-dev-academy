@@ -382,31 +382,55 @@
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1024px) {
-
-  .login-layout {
-    flex-direction: column;
-  }
+@media (min-width: 1024px) and (max-width: 1439px) {
 
   .login-brand {
-    min-height: 420px;
-  }
+    flex: 0 0 58%;
 
-  .login-panel {
-    width: 100%;
+    padding: 80px 32px 32px;
   }
 
   .brand-logo {
-    width: 380px;
+    width: 320px;
   }
 
   .login-brand h2 {
     font-size: 2rem;
   }
 
+  .login-brand p {
+    font-size: 1rem;
+  }
+
+  .tech-list {
+    gap: 20px;
+  }
+
+  .tech-item {
+    width: 70px;
+
+    gap: 10px;
+  }
+
+  .login-panel {
+    flex: 0 0 42%;
+
+    width: auto;
+
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 28px;
+  }
+
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .login-layout {
+    display: block;
+  }
 
   .login-brand {
     display: none;
@@ -415,11 +439,71 @@
   .login-panel {
     width: 100%;
 
-    padding: 24px;
+    min-height: 100dvh;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    padding: 20px;
   }
 
   .login-card {
+    max-width: 700px;
+
+    margin: 0 auto;
+
     padding: 32px;
+  }
+
+  .login-card h1 {
+    font-size: 2rem;
+  }
+
+  .back-link {
+    top: 16px;
+    left: 16px;
+
+    padding: 10px 14px;
+
+    font-size: .8rem;
+  }
+
+}
+
+@media (max-width: 767px) {
+
+  .login-layout {
+    display: block;
+  }
+
+  .login-brand {
+    display: none;
+  }
+
+  .login-panel {
+    width: 100%;
+
+    min-height: 100dvh;
+
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 24px;
+  }
+
+  .login-card h1 {
+    font-size: 2rem;
+  }
+
+  .back-link {
+    top: 16px;
+    left: 16px;
+
+    padding: 10px 14px;
+
+    font-size: .8rem;
   }
 
 }

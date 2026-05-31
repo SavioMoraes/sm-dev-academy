@@ -69,25 +69,86 @@
           </i>
         </a>
   
-        <!-- LOGIN -->
+        <!-- LOGIN / PROFILE -->
         @if (!isAuthenticated) {
+
           <a
-            class="header__icon-button"
+            class="header-avatar"
             routerLink="/account/login"
           >
+
             <i class="material-symbols-outlined">
               person
             </i>
+
           </a>
+
         } @else {
-          <a
-            class="header__icon-button"
-            routerLink="/account/profile"
-          >
-            <i class="material-symbols-outlined">
-              account_circle
-            </i>
-          </a>
+
+          <div class="header-profile">
+
+            <a
+              class="header-avatar"
+              (click)="toggleProfileMenu()"
+            >
+
+              @if (userAvatarUrl) {
+
+                <img
+                  [src]="userAvatarUrl"
+                  alt="Avatar"
+                >
+
+              } @else {
+
+                <span>
+                  {{ userInitial }}
+                </span>
+
+              }
+
+            </a>
+
+            @if (isProfileMenuOpen) {
+
+              <div class="profile-dropdown">
+
+                <a
+                  class="profile-dropdown__item"
+                  (click)="goToProfile()"
+                >
+
+                  <i class="material-symbols-outlined">
+                    manage_accounts
+                  </i>
+
+                  <span>
+                    Profile
+                  </span>
+
+                </a>
+
+                <a
+                  class="profile-dropdown__item"
+                  (click)="handleLogout()"
+                >
+
+                  <i class="material-symbols-outlined">
+                    logout
+                  </i>
+
+                  <span>
+                    Logout
+                  </span>
+
+                </a>
+
+              </div>
+
+            }
+
+          </div>
+
         }
       </div>
     </div>
@@ -590,7 +651,7 @@
                 routerLinkActive="mobile-overlay__link--active"
               >
                 <i class="material-symbols-outlined">
-                  account_circle
+                  manage_accounts
                 </i>
 
                 <span class="mobile-overlay__label">

@@ -52,7 +52,7 @@
 }
 
 .header__right {
-  margin-right: 0;
+  margin-right: 5px;
   gap: 12px;
 }
 
@@ -495,6 +495,143 @@
     brightness(103%)
     contrast(101%)
     drop-shadow(0 0 6px rgba(255, 59, 59, 0.8));
+}
+
+.mobile-overlay__link--active .mobile-overlay__tech-icon {
+  opacity: 1;
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(36%)
+    sepia(93%)
+    saturate(2877%)
+    hue-rotate(343deg)
+    brightness(103%)
+    contrast(101%)
+    drop-shadow(0 0 6px rgba(255, 59, 59, 0.8));
+}
+
+/* =========================================================
+   HEADER AVATAR
+========================================================= */
+
+.header-avatar {
+  position: relative;
+
+  width: 28px;
+  min-width: 28px;
+
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 16, 39, 0.35);
+
+  background: rgba(255, 16, 39, 0.12);
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+.header-avatar img {
+  display: block;
+
+  width: 28px;
+  min-width: 28px;
+
+  height: 28px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+
+.header-avatar span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  color: #ffffff;
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.header-avatar .material-symbols-outlined {
+  font-size: 24px;
+
+  color: #ffffff;
+}
+
+.header-profile {
+  position: relative;
+}
+
+.profile-dropdown {
+  position: absolute;
+
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 180px;
+
+  padding: 8px;
+
+  border-radius: 14px;
+
+  background: #23262f;
+
+  border: 1px solid rgba(255, 16, 39, 0.2);
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.35);
+
+  z-index: 999;
+}
+
+.profile-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  color: #ffffff;
+
+  transition: .2s;
+}
+
+.profile-dropdown__item:hover {
+  background:
+    rgba(255, 16, 39, 0.08);
+}
+
+.profile-dropdown__item
+.material-symbols-outlined {
+  font-size: 22px;
+}
+
+.profile-dropdown__item span {
+  font-size: .95rem;
 }
 
 /* =========================================================
