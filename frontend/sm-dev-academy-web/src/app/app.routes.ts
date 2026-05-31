@@ -43,13 +43,6 @@ export const routes: Routes = [
             .then((m) => m.Favorites),
       },
 
-      {
-        path: 'learn/tracks',
-        loadComponent: () =>
-          import('./features/learn/tracks/tracks')
-            .then((m) => m.Tracks),
-      },
-
       /* =========================================================
          TECHNOLOGIES
       ========================================================= */
@@ -136,6 +129,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/learn/technologies/postgresql/postgresql')
             .then((m) => m.Postgresql),
+      },
+
+      {
+        path: 'learn/tracks',
+        loadComponent: () =>
+          import('./features/learn/tracks/tracks')
+            .then((m) => m.Tracks),
       },
 
       /* =========================================================
