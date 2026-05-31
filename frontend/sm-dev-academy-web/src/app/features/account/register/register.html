@@ -1,1 +1,205 @@
-<p>register works!</p>
+<div class="login-page">
+
+  <a
+    class="back-link"
+    routerLink="/"
+  >
+    ← Voltar para plataforma
+  </a>
+
+  <div class="login-layout">
+
+    <!-- ESQUERDA -->
+
+    <section class="login-brand">
+
+      <img
+        src="assets/images/logo-sm-dev-academy.png"
+        alt="SM Dev Academy"
+        class="brand-logo"
+      >
+
+      <h2>
+        APRENDA. CONSTRUA.
+        <span>
+          EVOLUA.
+        </span>
+      </h2>
+
+      <p>
+        Domine as tecnologias mais exigidas do mercado
+        e transforme sua carreira em tecnologia.
+      </p>
+
+      <div class="tech-list">
+
+        <div class="tech-item">
+          <img src="/assets/svg/angular.svg" alt="Angular">
+          <span>Angular</span>
+        </div>
+
+        <div class="tech-item">
+          <img src="/assets/svg/react.svg" alt="React">
+          <span>React</span>
+        </div>
+
+        <div class="tech-item">
+          <img src="/assets/svg/nestjs.svg" alt="NestJS">
+          <span>NestJS</span>
+        </div>
+
+        <div class="tech-item">
+          <img src="/assets/svg/nodedotjs.svg" alt="Node">
+          <span>Node.js</span>
+        </div>
+
+        <div class="tech-item">
+          <img src="/assets/svg/typescript.svg" alt="TypeScript">
+          <span>TypeScript</span>
+        </div>
+
+        <div class="tech-item">
+          <img src="/assets/svg/postgresql.svg" alt="PostgreSQL">
+          <span>PostgreSQL</span>
+        </div>
+
+      </div>
+
+      <div class="brand-background"></div>
+
+    </section>
+
+    <!-- DIREITA -->
+
+    <section class="login-panel">
+
+      <form
+        class="login-card register-card"
+        [formGroup]="registerForm"
+        (ngSubmit)="handleSubmit()"
+      >
+
+        <h1>
+          Cadastre-se
+        </h1>
+
+        <!-- FOTO -->
+
+        <div class="avatar-preview">
+
+          @if (previewImage) {
+
+            <img
+              [src]="previewImage"
+              alt="Preview"
+            >
+
+          } @else {
+
+            <span>
+              Foto
+            </span>
+
+          }
+
+        </div>
+
+        <label
+          class="avatar-upload"
+        >
+          Selecionar foto
+
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onImageSelected($event)"
+            hidden
+          >
+        </label>
+
+        <!-- NOME -->
+
+        <div class="form-group">
+
+          <label>
+            Nome
+          </label>
+
+          <input
+            type="text"
+            formControlName="name"
+          >
+
+        </div>
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label>
+            E-mail
+          </label>
+
+          <input
+            type="email"
+            formControlName="email"
+          >
+
+        </div>
+
+        <!-- SENHA -->
+
+        <div class="form-group">
+
+          <label>
+            Senha
+          </label>
+
+          <input
+            type="password"
+            formControlName="password"
+          >
+
+        </div>
+
+        <!-- CONFIRMAR -->
+
+        <div class="form-group">
+
+          <label>
+            Confirmar senha
+          </label>
+
+          <input
+            type="password"
+            formControlName="confirmPassword"
+          >
+
+        </div>
+
+        <button class="confirm-register"
+          type="submit"
+          [disabled]="isLoading"
+        >
+          Criar conta
+        </button>
+
+        <div class="register-link">
+
+          <span>
+            Já possui uma conta?
+          </span>
+
+          <a routerLink="/account/login">
+            Entrar
+          </a>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </div>
+
+</div>

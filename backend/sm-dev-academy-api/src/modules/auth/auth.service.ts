@@ -41,6 +41,7 @@ export class AuthService {
         name: registerDto.name,
         email: registerDto.email,
         password: hashedPassword,
+        avatarUrl: registerDto.avatarUrl,
       });
 
     return {
@@ -50,6 +51,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         role: user.role,
+        avatarUrl: user.avatarUrl,
       },
     };
   }
@@ -104,6 +106,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         role: user.role,
+        avatarUrl: user.avatarUrl,
       },
     };
 

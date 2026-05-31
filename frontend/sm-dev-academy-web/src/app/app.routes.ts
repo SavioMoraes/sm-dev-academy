@@ -2,6 +2,23 @@ import { Routes } from '@angular/router';
 import { Shell } from './layout/shell/shell';
 
 export const routes: Routes = [
+  /* =========================================================
+      ACCOUNT
+  ========================================================= */
+  {
+    path: 'account/login',
+    loadComponent: () =>
+      import('./features/account/login/login')
+        .then((m) => m.Login),
+  },
+
+  {
+    path: 'account/register',
+    loadComponent: () =>
+      import('./features/account/register/register')
+        .then((m) => m.Register),
+  },
+
   {
     path: '',
     component: Shell,
@@ -141,12 +158,6 @@ export const routes: Routes = [
       /* =========================================================
          ACCOUNT
       ========================================================= */
-      {
-        path: 'account/login',
-        loadComponent: () =>
-          import('./features/account/login/login')
-            .then((m) => m.Login),
-      },
       
       {
         path: 'account/profile',

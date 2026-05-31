@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/videos',
+  apiUrl: 'http://localhost:3000',
 };
