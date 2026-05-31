@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://sm-dev-academy.onrender.com/videos',
+  apiUrl: 'https://sm-dev-academy.onrender.com',
 };
 

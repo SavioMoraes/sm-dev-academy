@@ -5,6 +5,7 @@ import { AuthUser } from '../../interfaces/auth-user.interface';
 import { LoginRequest } from '../../interfaces/login-request.interface';
 import { RegisterRequest } from '../../interfaces/register-request.interface';
 import { LoginResponse } from '../../interfaces/login-response.interface';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { LoginResponse } from '../../interfaces/login-response.interface';
 export class AuthService {
 
   private readonly API_URL =
-  'https://sm-dev-academy.onrender.com';
+  environment.apiUrl;
 
   private readonly TOKEN_KEY =
     'smda_token';
