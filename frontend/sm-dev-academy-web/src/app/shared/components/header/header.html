@@ -70,13 +70,25 @@
         </a>
   
         <!-- LOGIN -->
-        <a
-          class="header__icon-button"
-        >
-          <i class="material-symbols-outlined">
-            person
-          </i>
-        </a>
+        @if (!isAuthenticated) {
+          <a
+            class="header__icon-button"
+            routerLink="/account/login"
+          >
+            <i class="material-symbols-outlined">
+              person
+            </i>
+          </a>
+        } @else {
+          <a
+            class="header__icon-button"
+            routerLink="/account/profile"
+          >
+            <i class="material-symbols-outlined">
+              account_circle
+            </i>
+          </a>
+        }
       </div>
     </div>
   </header>
@@ -526,11 +538,11 @@
 
             </li>
 
-            <!-- TRAILS -->
-            <li class="mobile-overlay__item" data-label="Trails">
+            <!-- TRACKS -->
+            <li class="mobile-overlay__item" data-label="Tracks">
               <a
                 class="mobile-overlay__link"
-                routerLink="/learn/trails"
+                routerLink="/learn/tracks"
                 routerLinkActive="mobile-overlay__link--active"
               >
 
@@ -539,7 +551,7 @@
                 </i>
               
                  <span class="mobile-overlay__label">
-                    Trails
+                    Tracks
                   </span>
 
                 

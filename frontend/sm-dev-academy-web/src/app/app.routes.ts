@@ -2,6 +2,23 @@ import { Routes } from '@angular/router';
 import { Shell } from './layout/shell/shell';
 
 export const routes: Routes = [
+  /* =========================================================
+      ACCOUNT
+  ========================================================= */
+  {
+    path: 'account/login',
+    loadComponent: () =>
+      import('./features/account/login/login')
+        .then((m) => m.Login),
+  },
+
+  {
+    path: 'account/register',
+    loadComponent: () =>
+      import('./features/account/register/register')
+        .then((m) => m.Register),
+  },
+
   {
     path: '',
     component: Shell,
@@ -41,13 +58,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/learn/favorites/favorites')
             .then((m) => m.Favorites),
-      },
-
-      {
-        path: 'learn/trails',
-        loadComponent: () =>
-          import('./features/learn/trails/trails')
-            .then((m) => m.Trails),
       },
 
       /* =========================================================
@@ -138,16 +148,23 @@ export const routes: Routes = [
             .then((m) => m.Postgresql),
       },
 
+      {
+        path: 'learn/tracks',
+        loadComponent: () =>
+          import('./features/learn/tracks/tracks')
+            .then((m) => m.Tracks),
+      },
+
       /* =========================================================
          ACCOUNT
       ========================================================= */
-
+      
       {
         path: 'account/profile',
         loadComponent: () =>
           import('./features/account/profile/profile')
             .then((m) => m.Profile),
-      },
+      },      
 
       /* =========================================================
          ADMIN

@@ -20,6 +20,7 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('SM Dev Academy API')
     .setDescription('Backend API for SM Dev Academy platform')
+    .addBearerAuth()
     .setVersion('1.0')
     .build();
 
