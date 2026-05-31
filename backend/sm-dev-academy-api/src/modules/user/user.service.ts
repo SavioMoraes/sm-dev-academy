@@ -26,6 +26,7 @@ export class UserService {
       email: string;
       password: string;
       role?: string;
+      avatarUrl?: string;
     },
   ) {
 
@@ -35,6 +36,7 @@ export class UserService {
         email: data.email,
         password: data.password,
         role: data.role ?? 'USER',
+        avatarUrl: data.avatarUrl,
       },
     });
 

@@ -5,7 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth-service/auth.service';
 
@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/services/auth-service/auth.service';
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -75,9 +76,9 @@ export class Login {
         response.user,
       );
 
-      console.log(
-        this.authService.getUser(),
-      );
+      this.router.navigate([
+        '/',
+      ]);
 
       this.isLoading = false;
 

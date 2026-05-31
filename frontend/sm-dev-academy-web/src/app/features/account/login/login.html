@@ -1,39 +1,177 @@
-<form
-  [formGroup]="loginForm"
-  (ngSubmit)="handleSubmit()"
->
+<div class="login-page">
 
-  <h1>
-    Login
-  </h1>
-
-  <div>
-    <label>
-      E-mail
-    </label>
-
-    <input
-      type="email"
-      formControlName="email"
-    >
-  </div>
-
-  <div>
-    <label>
-      Senha
-    </label>
-
-    <input
-      type="password"
-      formControlName="password"
-    >
-  </div>
-
-  <button
-    type="submit"
-    [disabled]="isLoading"
+  <a
+    class="back-link"
+    routerLink="/"
   >
-    Entrar
-  </button>
+    ← Voltar para plataforma
+  </a>
 
-</form>
+  <div class="login-layout">
+
+    <!-- ESQUERDA -->
+
+    <section class="login-brand">
+
+      <img
+        src="assets/images/logo-sm-dev-academy.png"
+        alt="SM Dev Academy"
+        class="brand-logo"
+      >
+
+      <h2>
+        APRENDA. CONSTRUA.
+        <span>
+          EVOLUA.
+        </span>
+      </h2>
+
+      <p>
+        Domine as tecnologias mais exigidas do mercado
+        e transforme sua carreira em tecnologia.
+      </p>
+
+      <div class="tech-list">
+
+        <div class="tech-item">
+
+          <img
+            src="/assets/svg/angular.svg"
+            alt="Angular"
+          >
+
+          <span>Angular</span>
+
+        </div>
+
+        <div class="tech-item">
+
+          <img
+            src="/assets/svg/react.svg"
+            alt="React"
+          >
+
+          <span>React</span>
+
+        </div>
+
+        <div class="tech-item">
+
+          <img
+            src="/assets/svg/nestjs.svg"
+            alt="NestJS"
+          >
+
+          <span>NestJS</span>
+
+        </div>
+
+        <div class="tech-item">
+
+          <img
+            src="/assets/svg/nodedotjs.svg"
+            alt="Node.js"
+          >
+
+          <span>Node.js</span>
+
+        </div>
+
+        <div class="tech-item">
+
+          <img
+            src="/assets/svg/typescript.svg"
+            alt="TypeScript"
+          >
+
+          <span>TypeScript</span>
+
+        </div>
+
+        <div class="tech-item">
+
+          <img
+            src="/assets/svg/postgresql.svg"
+            alt="PostgreSQL"
+          >
+
+          <span>PostgreSQL</span>
+
+        </div>
+
+      </div>
+
+      <div class="brand-background"></div>
+
+    </section>
+
+    <!-- DIREITA -->
+
+    <section class="login-panel">
+
+      <form
+        class="login-card"
+        [formGroup]="loginForm"
+        (ngSubmit)="handleSubmit()"
+      >
+
+        <h1>
+          Login
+        </h1>
+
+        <p class="subtitle">
+          Bem-vindo de volta!
+        </p>
+
+        <div class="form-group">
+
+          <label>
+            E-mail
+          </label>
+
+          <input
+            type="email"
+            formControlName="email"
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label>
+            Senha
+          </label>
+
+          <input
+            type="password"
+            formControlName="password"
+          >
+
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="isLoading"
+        >
+          Entrar
+        </button>
+
+        <div class="register-link">
+
+          <span>
+            Ainda não possui uma conta?
+          </span>
+
+          <a routerLink="/account/register">
+            Cadastre-se agora
+          </a>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </div>
+
+</div>
