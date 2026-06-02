@@ -92,3 +92,35 @@
 .login-card h1{
   text-align: center;
 }
+
+.login-error {
+  margin-bottom: 20px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background: rgba(255, 16, 39, 0.12);
+
+  border: 1px solid rgba(255, 16, 39, 0.35);
+
+  color: #ff8a95;
+
+  text-align: center;
+}
+
+.login-success {
+  margin-bottom: 20px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background: rgba(0, 255, 128, 0.12);
+
+  border: 1px solid rgba(0, 255, 128, 0.35);
+
+  color: #00ff80;
+
+  text-align: center;
+}

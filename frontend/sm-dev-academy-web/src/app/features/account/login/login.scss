@@ -273,6 +273,32 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
+.login-error {
+  margin-bottom: 20px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 16, 39, 0.12);
+
+  border: 1px solid rgba(255, 16, 39, 0.35);
+
+  color: #ff6675;
+
+  font-size: .9rem;
+
+  text-align: center;
+}
+
+.field-error {
+  margin-top: 6px;
+
+  color: #ff6675;
+
+  font-size: .8rem;
+}
+
 /* =========================================================
    FORM
 ========================================================= */

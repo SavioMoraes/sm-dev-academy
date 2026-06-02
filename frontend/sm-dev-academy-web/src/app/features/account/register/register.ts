@@ -23,7 +23,9 @@ export class Register {
 
   isLoading = false;
   previewImage: string | null = null;
-
+  submitted = false;
+  errorMessage = '';
+  correctMessage = '';
   registerForm;
 
   constructor(
@@ -67,11 +69,18 @@ export class Register {
         ],
       });
 
+      this.registerForm.valueChanges.subscribe(() => {
+        this.errorMessage = '';
+        this.submitted = false;
+      });
+
   }
 
   onImageSelected(
     event: Event,
   ): void {
+
+    this.errorMessage = '';
 
     const input =
       event.target as HTMLInputElement;
@@ -80,6 +89,18 @@ export class Register {
       input.files?.[0];
 
     if (!file) {
+      return;
+    }
+
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (
+      file.size > maxSize
+    ) {
+
+      this.errorMessage =
+        'Imagem muito grande. Escolha uma imagem menor que 5MB.';
+
       return;
     }
 
@@ -108,6 +129,8 @@ export class Register {
   }
 
   handleSubmit(): void {
+    this.submitted = true;
+    this.errorMessage = '';
 
     if (
       this.registerForm.invalid
@@ -124,9 +147,7 @@ export class Register {
       this.registerForm.value.confirmPassword
     ) {
 
-      alert(
-        'As senhas não coincidem.',
-      );
+      this.errorMessage = 'As senhas não coincidem.';
 
       return;
 
@@ -146,24 +167,36 @@ export class Register {
     }).subscribe({
       next: () => {
 
-        alert(
-          'Cadastro realizado com sucesso.',
-        );
+        this.correctMessage = 'Cadastro realizado com sucesso.';
 
         this.router.navigate([
           '/account/login',
         ]);
+
+        this.isLoading = false;
 
       },
       error: (error) => {
 
         console.error(error);
 
-        alert(
-          'Usuário já possui cadastro.',
-        );
+        if (
+          error.status === 409
+        ) {
+
+          this.errorMessage =
+            'Este e-mail já está cadastrado.';
+
+        } else {
+
+          this.errorMessage =
+            'Erro ao realizar cadastro.';
+
+        }
 
         this.isLoading = false;
+
+        this.changeDetectorRef.detectChanges();
 
       },
     });

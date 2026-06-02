@@ -83,9 +83,19 @@
           Cadastre-se
         </h1>
 
+        @if (errorMessage) {
+          <div class="login-error">
+            {{ errorMessage }}
+          </div>
+        } @else if (correctMessage) {
+          <div class="login-success">
+            {{ correctMessage }}
+          </div>
+        }
+
         <!-- FOTO -->
 
-        <div class="avatar-preview">
+        <label class="avatar-preview">
 
           @if (previewImage) {
 
@@ -102,7 +112,15 @@
 
           }
 
-        </div>
+          <input
+            type="file"
+            accept="image/*"
+            (click)="errorMessage = ''"
+            (change)="onImageSelected($event)"
+            hidden
+          >
+
+        </label>
 
         <label
           class="avatar-upload"
@@ -112,6 +130,7 @@
           <input
             type="file"
             accept="image/*"
+            (click)="errorMessage = ''"
             (change)="onImageSelected($event)"
             hidden
           >
@@ -144,6 +163,17 @@
             type="email"
             formControlName="email"
           >
+
+          @if (
+            submitted &&
+            registerForm.controls.email.invalid
+          ) {
+
+            <small class="field-error">
+              Informe um e-mail válido.
+            </small>
+
+          }
 
         </div>
 
