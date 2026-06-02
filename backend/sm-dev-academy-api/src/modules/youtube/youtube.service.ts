@@ -42,7 +42,7 @@ const TECHNOLOGY_CATEGORIES: Record<string, string> = {
   GitHub: 'DevOps',
 
   ChatGPT: 'IA',
-  Copilot: 'IA',
+  'Vs Code Copilot': 'IA',
 };
 
 @Injectable()
@@ -54,53 +54,62 @@ export class YoutubeService {
 
     for (const technology of TECHNOLOGIES) {
 
-      try {
+  try {
 
-        const response =
-          await axios.get(
-            'https://www.googleapis.com/youtube/v3/search',
-            {
-              params: {
+    let nextPageToken:
+      string | undefined;
 
-                key:
-                  process.env.YOUTUBE_API_KEY,
+    do {
 
-                q:
-                  `${technology} curso playlist português`,
+      const response =
+        await axios.get(
+          'https://www.googleapis.com/youtube/v3/search',
+          {
+            params: {
 
-                part:
-                  'snippet',
+              key:
+                process.env.YOUTUBE_API_KEY,
 
-                type:
-                  'playlist',
+              q:
+                technology,
 
-                relevanceLanguage:
-                  'pt',
+              part:
+                'snippet',
 
-                regionCode:
-                  'BR',
+              type:
+                'playlist',
 
-                maxResults:
-                  10,
+              maxResults:
+                50,
 
-              },
+              pageToken:
+                nextPageToken,
+
             },
-          );
-
-        responses.push({
-          technology,
-          response,
-        });
-
-      } catch (error) {
-
-        console.error(
-          `Erro ao buscar ${technology}`,
+          },
         );
 
-      }
+      responses.push({
+        technology,
+        response,
+      });
 
-    }
+      nextPageToken =
+        response.data.nextPageToken;
+
+    } while (nextPageToken);
+
+  } catch (error: any) {
+
+  console.error(
+    `Erro ao buscar ${technology}`,
+    error?.response?.status,
+    error?.response?.data,
+  );
+
+}
+
+}
 
     const courses =
       responses.flatMap(

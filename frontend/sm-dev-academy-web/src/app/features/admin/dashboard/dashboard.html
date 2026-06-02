@@ -16,9 +16,28 @@
 
     <button
       (click)="importCourses()"
+      [disabled]="isLoading"
     >
-      Atualizar Cursos
+      @if (!isLoading) {
+        Sincronizar Cursos
+      } @else {
+        Sincronizando...
+      }
     </button>
+
+    @if (importResult) {
+
+  <div class="admin-result">
+    Found: {{ importResult.found }}
+    <br>
+    Accepted: {{ importResult.accepted }}
+    <br>
+    Saved: {{ importResult.saved }}
+    <br>
+    Duplicates: {{ importResult.duplicates }}
+  </div>
+
+}
 
   </div>
 
