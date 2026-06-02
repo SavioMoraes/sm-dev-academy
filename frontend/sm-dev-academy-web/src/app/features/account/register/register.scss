@@ -166,3 +166,43 @@
 .password-toggle:hover .material-symbols-outlined {
   color: #ffffff;
 }
+
+.mobile-auth-logo {
+  display: none;
+}
+
+.auth-logo-mobile {
+  display: none;
+}
+
+// Tablet //
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .auth-logo-mobile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .auth-logo-mobile img {
+    width: 180px;
+    height: auto;
+  }
+
+}
+
+// Mobile //
+@media (max-width: 767px) {
+
+  .auth-logo-mobile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .auth-logo-mobile img {
+    width: 140px;
+    height: auto;
+  }
+
+}
