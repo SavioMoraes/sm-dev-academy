@@ -14,7 +14,7 @@ model Course {
   slug        String   @unique
   description String
   thumbnail   String
-  playlistUrl String
+  playlistUrl String   @unique
   category    String
   technology  String
   language    String
