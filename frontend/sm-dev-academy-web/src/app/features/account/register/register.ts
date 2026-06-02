@@ -27,6 +27,8 @@ export class Register {
   errorMessage = '';
   correctMessage = '';
   registerForm;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,

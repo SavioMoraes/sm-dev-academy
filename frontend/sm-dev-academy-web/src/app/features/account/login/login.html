@@ -161,10 +161,31 @@
             Senha
           </label>
 
-          <input
-            type="password"
-            formControlName="password"
-          >
+          <div class="password-field">
+
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="showPassword = !showPassword"
+            >
+
+              <i class="material-symbols-outlined">
+
+                @if (showPassword) {
+                  visibility
+                } @else {
+                  visibility_off
+                }
+
+              </i>
+
+            </button>
+          </div>
 
           @if (
             submitted &&

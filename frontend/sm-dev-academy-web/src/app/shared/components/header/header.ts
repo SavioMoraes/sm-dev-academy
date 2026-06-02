@@ -127,12 +127,12 @@ export class Header implements OnInit {
   }
 
   logout(): void {
-
     this.authService.logout();
-
-    this.router.navigate([
-      '/account/login',
-    ]);
+    this.isAuthenticated = false;
+    this.isAdmin = false;
+    this.userAvatarUrl = undefined;
+    this.userInitial = '';
+    this.isProfileMenuOpen = false;
   }
 
   toggleProfileMenu(): void {
@@ -154,12 +154,8 @@ export class Header implements OnInit {
   }
 
   handleLogout(): void {
-
-    this.isProfileMenuOpen =
-      false;
-
+    this.isProfileMenuOpen = false;
     this.logout();
-
   }
 
   @HostListener(

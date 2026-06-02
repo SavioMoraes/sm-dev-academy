@@ -6,8 +6,9 @@
       <div class="header__left">
         <!-- MOBILE/TABLET HAMBURGUER -->
         <a
+          href="javascript:void(0)"
           class="header__menu-toggle header__icon-button"
-          (click)="toggleMobileMenu()"
+          (click)="toggleMobileMenu(); $event.stopPropagation();"
         >
           <i class="material-symbols-outlined">
             density_medium
@@ -62,7 +63,9 @@
       <div class="header__right">
         <!-- NOTIFICATIONS -->
         <a
+          href="javascript:void(0)"
           class="header__icon-button"
+          (click)="$event.preventDefault();"
         >
           <i class="material-symbols-outlined">
             notifications
@@ -73,6 +76,7 @@
         @if (!isAuthenticated) {
 
           <a
+            href="javascript:void(0)"
             class="header-avatar"
             routerLink="/account/login"
           >
@@ -88,8 +92,9 @@
           <div class="header-profile">
 
             <a
+              href="javascript:void(0)"
               class="header-avatar"
-              (click)="toggleProfileMenu()"
+              (click)="toggleProfileMenu(); $event.preventDefault();"
             >
 
               @if (userAvatarUrl) {
@@ -114,8 +119,9 @@
               <div class="profile-dropdown">
 
                 <a
+                  href="javascript:void(0)"
                   class="profile-dropdown__item"
-                  (click)="goToProfile()"
+                  (click)="goToProfile(); $event.preventDefault();"
                 >
 
                   <i class="material-symbols-outlined">
@@ -129,8 +135,9 @@
                 </a>
 
                 <a
+                  href="javascript:void(0)"
                   class="profile-dropdown__item"
-                  (click)="handleLogout()"
+                  (click)="handleLogout(); $event.preventDefault();"
                 >
 
                   <i class="material-symbols-outlined">
