@@ -185,10 +185,54 @@
             Senha
           </label>
 
-          <input
-            type="password"
-            formControlName="password"
-          >
+          <div class="password-field">
+
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="showPassword = !showPassword"
+            >
+
+              <i class="material-symbols-outlined">
+
+                @if (showPassword) {
+                  visibility
+                } @else {
+                  visibility_off
+                }
+
+              </i>
+
+            </button>
+
+          </div>
+
+          @if (
+            submitted &&
+            registerForm.controls.password.hasError('required')
+          ) {
+
+            <small class="field-error">
+              Informe uma senha.
+            </small>
+
+          }
+
+          @if (
+            submitted &&
+            registerForm.controls.password.hasError('minlength')
+          ) {
+
+            <small class="field-error">
+              A senha deve possuir pelo menos 6 caracteres.
+            </small>
+
+          }
 
         </div>
 
@@ -200,10 +244,43 @@
             Confirmar senha
           </label>
 
-          <input
-            type="password"
-            formControlName="confirmPassword"
-          >
+          <div class="password-field">
+
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="showConfirmPassword = !showConfirmPassword"
+            >
+
+              <i class="material-symbols-outlined">
+
+                @if (showConfirmPassword) {
+                  visibility
+                } @else {
+                  visibility_off
+                }
+
+              </i>
+
+            </button>
+
+          </div>
+
+          @if (
+            submitted &&
+            registerForm.controls.confirmPassword.hasError('required')
+          ) {
+
+            <small class="field-error">
+              Confirme sua senha.
+            </small>
+
+          }
 
         </div>
 

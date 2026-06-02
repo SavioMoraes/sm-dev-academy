@@ -634,6 +634,25 @@
   font-size: .95rem;
 }
 
+.header__menu-toggle,
+.header__menu-toggle:focus,
+.header__menu-toggle:active,
+.header__menu-toggle:hover,
+.header__icon-button,
+.header__icon-button:focus,
+.header__icon-button:active,
+.header-avatar,
+.header-avatar:focus,
+.header-avatar:active,
+.profile-dropdown__item,
+.profile-dropdown__item:focus,
+.profile-dropdown__item:active {
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* =========================================================
    DESKTOP
 ========================================================= */

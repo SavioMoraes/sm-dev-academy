@@ -19,6 +19,7 @@ export class Login {
   submitted = false;
   errorMessage = '';
   loginForm;
+  showPassword = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,

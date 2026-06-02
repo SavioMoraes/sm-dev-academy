@@ -404,6 +404,48 @@
   font-weight: 600;
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  min-width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0;
+  border: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.password-toggle:hover {
+  transform: translateY(-50%) !important;
+  box-shadow: none !important;
+}
+
+.password-toggle .material-symbols-outlined {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.password-toggle:hover .material-symbols-outlined {
+  color: #ffffff;
+}
+
 /* =========================================================
    RESPONSIVE
 ========================================================= */
