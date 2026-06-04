@@ -41,12 +41,20 @@ export class Courses implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
 
   loadCourses(): void {
-    this.courseService
-      .getCourses()
-      .subscribe({
-        next: (response) => {
-          this.courses = response.courses;
-          this.visibleCourses = this.courses.slice(0, this.pageSize);
+  this.courseService
+    .getCourses()
+    .subscribe({
+      next: (response) => {
+        this.courses = response.courses;
+
+        this.visibleCourses =
+          this.courses.slice(
+            0,
+            this.pageSize,
+          );
+
+        setTimeout(() => {
+
           this.cdr.detectChanges();
 
           if (
@@ -54,12 +62,16 @@ export class Courses implements OnInit, AfterViewInit {
           ) {
             this.createObserver();
           }
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
-  }
+
+        });
+
+      },
+
+      error: (error) => {
+        console.error(error);
+      },
+    });
+}
 
   private createObserver(): void {
     setTimeout(() => {
