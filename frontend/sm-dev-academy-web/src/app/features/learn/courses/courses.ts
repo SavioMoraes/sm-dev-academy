@@ -73,8 +73,12 @@ export class Courses implements OnInit, AfterViewInit {
       },
 
       error: (error) => {
-        console.error(error);
-      },
+  alert(
+    JSON.stringify(error)
+  );
+
+  console.error(error);
+}
     });
 }
 
