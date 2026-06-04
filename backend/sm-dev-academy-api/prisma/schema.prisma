@@ -10,14 +10,14 @@ datasource db {
 
 model Course {
   id          String   @id @default(uuid())
+  playlistId  String   @unique
   title       String
   slug        String   @unique
   description String
   thumbnail   String
-  playlistUrl String   @unique
+  playlistUrl String
   category    String
   technology  String
-  language    String
   level       String?
   featured    Boolean  @default(false)
   createdAt   DateTime @default(now())

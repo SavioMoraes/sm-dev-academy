@@ -1,51 +1,30 @@
-<section class="courses">
-
-  <h1>
-    Cursos
-  </h1>
-
-  <p>
-    Total:
-    {{ total }}
-  </p>
-
-  <div class="courses__grid">
-
-    <article
-      class="course-card"
-      *ngFor="let course of courses"
-    >
-
-      <img
-        [src]="course.thumbnail"
-        [alt]="course.title"
+<app-page-container>
+  <app-responsive-grid>
+    @for (
+      course of visibleCourses;
+      track course.playlistId
+    ) {
+      <article
+        class="course-card"
+        (click)="openCourse(course.playlistId)"
       >
-
-      <div class="course-card__content">
-
-        <span>
-          {{ course.category }}
-        </span>
-
-        <h2>
-          {{ course.title }}
-        </h2>
-
-        <p>
-          {{ course.technology }}
-        </p>
-
-        <a
-          [href]="course.playlistUrl"
-          target="_blank"
+        <img
+          class="course-card__image"
+          [src]="course.thumbnail"
+          [alt]="course.title"
         >
-          Assistir Playlist
-        </a>
 
-      </div>
+        <div class="course-card__content">
+          <h3 class="course-card__title">
+            {{ course.title }}
+          </h3>
+        </div>
+      </article>
+    }
 
-    </article>
-
-  </div>
-
-</section>
+    <div
+      #sentinel
+      class="courses__sentinel"
+    ></div>
+  </app-responsive-grid>
+</app-page-container>
