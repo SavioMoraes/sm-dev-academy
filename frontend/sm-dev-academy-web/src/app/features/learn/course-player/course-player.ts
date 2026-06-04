@@ -5,6 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PageContainer } from '../../../shared/ui/page-container/page-container';
 import { Course, CourseVideo } from '../../../core/interfaces/course.interface';
 import { CourseService } from '../../../core/services/course-service/course.service';
+import { FavoriteService } from '../../../core/services/favorite-service/favorite.service';
 
 @Component({
   selector: 'app-course-player',
@@ -21,6 +22,7 @@ export class CoursePlayer implements OnInit {
   private readonly courseService = inject(CourseService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly favoriteService = inject(FavoriteService);
 
   course?: Course;
   selectedVideo?: CourseVideo;
@@ -61,10 +63,29 @@ export class CoursePlayer implements OnInit {
   }
 
   favoriteCourse(): void {
-    console.log(
-      'Favoritar:',
-      this.course?.playlistId,
-    );
+
+    if (!this.course) {
+      return;
+    }
+
+    this.favoriteService
+      .create(this.course.id)
+      .subscribe({
+        next: () => {
+
+          console.log(
+            'Curso favoritado.',
+          );
+
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+        },
+      });
+
   }
 
 }
