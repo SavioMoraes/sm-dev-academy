@@ -7,6 +7,7 @@ import { VideoModule } from './modules/video/video.module';
 import { YoutubeModule } from './modules/youtube/youtube.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { FavoriteModule } from './modules/favorite/favorite.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AdminModule } from './modules/admin/admin.module';
     YoutubeModule,
     AuthModule,
     AdminModule,
+    FavoriteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

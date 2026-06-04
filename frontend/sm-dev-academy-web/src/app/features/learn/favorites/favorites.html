@@ -1,1 +1,26 @@
-<p>favorites works!</p>
+<section class="favorites">
+
+  <h1 class="favorites__title">
+    Meus Favoritos
+  </h1>
+
+  <div class="favorites__grid">
+
+    @for (
+      favorite of favorites;
+      track favorite.id
+    ) {
+
+      <app-highlight-course-card
+        [title]="favorite.course.title"
+        [description]="favorite.course.description"
+        [image]="favorite.course.thumbnail"
+        [category]="favorite.course.technology"
+        [playlistId]="favorite.course.playlistId">
+      </app-highlight-course-card>
+
+    }
+
+  </div>
+
+</section>

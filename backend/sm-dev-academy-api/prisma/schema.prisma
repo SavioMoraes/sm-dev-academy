@@ -20,9 +20,8 @@ model Course {
   technology  String
   level       String?
   featured    Boolean @default(false)
-
   videos CourseVideo[]
-
+  favorites Favorite[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -36,9 +35,7 @@ model CourseVideo {
   title     String
   thumbnail String
   position  Int
-
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -52,8 +49,23 @@ model User {
   password  String
   role      String   @default("USER")
   avatarUrl String?
+  favorites Favorite[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+
+model Favorite {
+  id String @id @default(uuid())
+  userId String
+  courseId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([userId, courseId])
+
+  @@map("favorites")
 }
