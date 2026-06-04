@@ -47,135 +47,96 @@ const TECHNOLOGY_CATEGORIES: Record<string, string> = {
 
 @Injectable()
 export class YoutubeService {
+    async getCourses() {
 
-  async getCourses() {
-
-    const responses: any[] = [];
+    const courses: any[] = [];
 
     for (const technology of TECHNOLOGIES) {
 
-  try {
+      try {
 
-    let nextPageToken:
-      string | undefined;
+        const response =
+          await axios.get(
+            'https://www.googleapis.com/youtube/v3/search',
+            {
+              params: {
 
-    do {
+                key:
+                  process.env.YOUTUBE_API_KEY,
 
-      const response =
-        await axios.get(
-          'https://www.googleapis.com/youtube/v3/search',
-          {
-            params: {
+                q:
+                  technology,
 
-              key:
-                process.env.YOUTUBE_API_KEY,
+                part:
+                  'snippet',
 
-              q:
-                technology,
+                type:
+                  'playlist',
 
-              part:
-                'snippet',
+                maxResults:
+                  5,
 
-              type:
-                'playlist',
-
-              maxResults:
-                50,
-
-              pageToken:
-                nextPageToken,
-
+              },
             },
-          },
-        );
-
-      responses.push({
-        technology,
-        response,
-      });
-
-      nextPageToken =
-        response.data.nextPageToken;
-
-    } while (nextPageToken);
-
-  } catch (error: any) {
-
-  console.error(
-    `Erro ao buscar ${technology}`,
-    error?.response?.status,
-    error?.response?.data,
-  );
-
-}
-
-}
-
-    const courses =
-      responses.flatMap(
-        ({ technology, response }) => {
-
-          const playlists =
-            response.data.items || [];
-
-          // const filteredPlaylists =
-          //   playlists.filter(
-          //     (playlist: any) => {
-
-          //       const title =
-          //         playlist.snippet.title.toLowerCase();
-
-          //       return title.includes(
-          //         technology.toLowerCase(),
-          //       );
-
-          //     },
-          //   );
-
-          return playlists.map(
-            (playlist: any) => ({
-
-              id:
-                playlist.id.playlistId,
-
-              title:
-                playlist.snippet.title,
-
-              description:
-                playlist.snippet.description,
-
-              thumbnail:
-                playlist.snippet.thumbnails.high?.url ||
-
-                playlist.snippet.thumbnails.default?.url,
-
-              playlistUrl:
-                `https://www.youtube.com/playlist?list=${playlist.id.playlistId}`,
-
-              category:
-                TECHNOLOGY_CATEGORIES[
-                  technology
-                ] ||
-
-                'Frontend',
-
-              technology,
-
-              language:
-                'Português',
-
-              featured:
-                false,
-
-            }),
           );
 
-        },
-      );
+        const playlists =
+          response.data.items || [];
 
-      courses.sort(
-        () => Math.random() - 0.5,
-      );
+        for (const playlist of playlists) {
+
+          const playlistId =
+            playlist.id?.playlistId;
+
+          if (!playlistId) {
+            continue;
+          }
+
+          courses.push({
+
+            playlistId,
+
+            title:
+              playlist.snippet.title,
+
+            description:
+              playlist.snippet.description,
+
+            thumbnail:
+              playlist.snippet.thumbnails?.high?.url ||
+
+              playlist.snippet.thumbnails?.default?.url ||
+
+              '',
+
+            playlistUrl:
+              `https://www.youtube.com/playlist?list=${playlistId}`,
+
+            category:
+              TECHNOLOGY_CATEGORIES[
+                technology
+              ],
+
+            technology,
+
+            featured:
+              false,
+
+          });
+
+        }
+
+      } catch (error: any) {
+
+        console.error(
+          `Erro ao buscar ${technology}`,
+          error?.response?.status,
+          error?.response?.data,
+        );
+
+      }
+
+    }
 
     return {
 

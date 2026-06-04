@@ -1,25 +1,20 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { environment } from '../../../../environments/environment';
-
 import { AuthService } from '../../../core/services/auth-service/auth.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
 export class Dashboard {
 
-  private readonly API_URL =
-    environment.apiUrl;
+  private readonly API_URL = environment.apiUrl;
 
   isLoading = false;
-
   importResult: any = null;
 
   constructor(

@@ -4,9 +4,9 @@ export interface Course {
   description: string;
   thumbnail: string;
   playlistUrl: string;
+  playlistId: string;
   category: string;
   technology: string;
-  language: string;
   featured: boolean;
 }
 
