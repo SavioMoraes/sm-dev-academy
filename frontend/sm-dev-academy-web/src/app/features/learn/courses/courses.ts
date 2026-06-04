@@ -46,7 +46,7 @@ export class Courses implements OnInit, AfterViewInit {
       .subscribe({
         next: (response) => {
           this.courses = response.courses;
-          this.visibleCourses = this.courses.slice(0, this.pageSize);
+          this.visibleCourses = this.courses;
           setTimeout(() => {
             this.cdr.detectChanges();
           });
