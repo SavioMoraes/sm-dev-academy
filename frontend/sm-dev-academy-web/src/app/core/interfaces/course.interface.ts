@@ -1,3 +1,12 @@
+export interface CourseVideo {
+  id: string;
+  courseId: string;
+  videoId: string;
+  title: string;
+  thumbnail: string;
+  position: number;
+}
+
 export interface Course {
   id: string;
   title: string;
@@ -8,9 +17,13 @@ export interface Course {
   category: string;
   technology: string;
   featured: boolean;
+
+  videos: CourseVideo[];
 }
 
 export interface CoursesResponse {
   total: number;
   courses: Course[];
 }
+
+export type CourseResponse = Course;

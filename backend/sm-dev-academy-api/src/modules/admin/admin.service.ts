@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+
 import { YoutubeService } from '../youtube/youtube.service';
 import { PrismaService } from '../../database/prisma.service';
 
@@ -17,6 +18,7 @@ export class AdminService {
 
     let saved = 0;
     let duplicates = 0;
+    let videosSaved = 0;
 
     for (const course of result.courses) {
 
@@ -36,38 +38,84 @@ export class AdminService {
 
       }
 
-      await this.prismaService.course.create({
-        data: {
+      const createdCourse =
+        await this.prismaService.course.create({
+          data: {
 
-          playlistId:
-            course.playlistId,
+            playlistId:
+              course.playlistId,
 
-          title:
-            course.title,
+            title:
+              course.title,
 
-          slug:
-            course.playlistId,
+            slug:
+              course.playlistId,
 
-          description:
-            course.description,
+            description:
+              course.description,
 
-          thumbnail:
-            course.thumbnail,
+            thumbnail:
+              course.thumbnail,
 
-          playlistUrl:
-            course.playlistUrl,
+            playlistUrl:
+              course.playlistUrl,
 
-          category:
-            course.category,
+            category:
+              course.category,
 
-          technology:
-            course.technology,
+            technology:
+              course.technology,
 
-          featured:
-            false,
+            featured:
+              false,
 
-        },
-      });
+          },
+        });
+
+      const videos =
+        await this.youtubeService.getPlaylistVideos(
+          course.playlistId,
+        );
+
+      for (const video of videos) {
+
+        if (!video.videoId) {
+          continue;
+        }
+
+        await this.prismaService.courseVideo.upsert({
+
+          where: {
+            videoId:
+              video.videoId,
+          },
+
+          update: {},
+
+          create: {
+
+            courseId:
+              createdCourse.id,
+
+            videoId:
+              video.videoId,
+
+            title:
+              video.title,
+
+            thumbnail:
+              video.thumbnail,
+
+            position:
+              video.position,
+
+          },
+
+        });
+
+        videosSaved++;
+
+      }
 
       saved++;
 
@@ -84,6 +132,8 @@ export class AdminService {
       saved,
 
       duplicates,
+
+      videosSaved,
 
     };
 

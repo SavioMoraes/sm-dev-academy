@@ -1,6 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
-import { PrismaService } from '../../database/prisma.service';
+import {
+  PrismaService,
+} from '../../database/prisma.service';
 
 @Injectable()
 export class CourseService {
@@ -13,9 +18,11 @@ export class CourseService {
 
     const courses =
       await this.prismaService.course.findMany({
+
         orderBy: {
           createdAt: 'desc',
         },
+
       });
 
     return {
@@ -26,6 +33,43 @@ export class CourseService {
       courses,
 
     };
+
+  }
+
+  async getCourseByPlaylistId(
+    playlistId: string,
+  ) {
+
+    const course =
+      await this.prismaService.course.findUnique({
+
+        where: {
+          playlistId,
+        },
+
+        include: {
+
+          videos: {
+
+            orderBy: {
+              position: 'asc',
+            },
+
+          },
+
+        },
+
+      });
+
+    if (!course) {
+
+      throw new NotFoundException(
+        'Course not found',
+      );
+
+    }
+
+    return course;
 
   }
 

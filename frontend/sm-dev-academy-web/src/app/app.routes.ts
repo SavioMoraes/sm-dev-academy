@@ -47,6 +47,13 @@ export const routes: Routes = [
       },
 
       {
+        path: 'learn/courses/:playlistId',
+        loadComponent: () =>
+          import('./features/learn/course-player/course-player')
+            .then((m) => m.CoursePlayer),
+      },
+
+      {
         path: 'learn/my-courses',
         loadComponent: () =>
           import('./features/learn/my-courses/my-courses')
@@ -175,14 +182,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/dashboard/dashboard')
             .then((m) => m.Dashboard),
-      },
-      /* =========================================================
-         TESTE DE VIDEO
-      ========================================================= */
-      {
-        path: 'test-video',
-        loadComponent: () => import('./features/test-video/test-video')
-          .then((m) => m.TestVideo),
       },
     ],
   },

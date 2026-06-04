@@ -1,0 +1,47 @@
+<app-page-container>
+  @if (course) {
+    <div class="course-player">
+      <span class="course-player__technology">
+        {{ course.technology }}
+      </span>
+
+      @if (videoUrl) {
+        <iframe
+          class="course-player__video"
+          [src]="videoUrl"
+          allowfullscreen>
+        </iframe>
+      }
+
+      <div class="course-player__actions">
+        <button
+          class="course-player__favorite"
+          (click)="favoriteCourse()">
+          ♥ Favoritar
+        </button>
+      </div>
+
+      <div class="course-player__playlist">
+        @for (
+          video of course.videos;
+          track video.videoId
+        ) {
+          <button
+            type="button"
+            class="course-player__item"
+            [class.course-player__item--active]="selectedVideo?.videoId === video.videoId"
+            (click)="selectVideo(video)">
+
+            <span class="course-player__position">
+              {{ video.position }}
+            </span>
+
+            <span class="course-player__video-title">
+              {{ video.title }}
+            </span>
+          </button>
+        }
+      </div>
+    </div>
+  }
+</app-page-container>

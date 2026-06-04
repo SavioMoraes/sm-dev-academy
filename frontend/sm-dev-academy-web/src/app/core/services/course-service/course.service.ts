@@ -1,14 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CoursesResponse } from '../../interfaces/course.interface';
+import { CoursesResponse, CourseResponse } from '../../interfaces/course.interface';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CourseService {
-
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/learn/courses`;
 
@@ -17,4 +16,11 @@ export class CourseService {
       this.apiUrl,
     );
   }
+
+   getCourseByPlaylistId(playlistId: string): Observable<CourseResponse> {
+    return this.http.get<CourseResponse>(
+      `${this.apiUrl}/${playlistId}`,
+    );
+  }
+  
 }

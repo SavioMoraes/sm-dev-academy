@@ -108,7 +108,7 @@ export class Courses implements OnInit, AfterViewInit {
     playlistId: string,
   ): void {
     this.router.navigate([
-      '/learn/course',
+      '/learn/courses',
       playlistId,
     ]);
   }
