@@ -45,6 +45,11 @@ export class Courses implements OnInit, AfterViewInit {
     .getCourses()
     .subscribe({
       next: (response) => {
+        alert(
+    `Cursos recebidos: ${
+      response.courses?.length ?? 0
+    }`,
+  );
         this.courses = response.courses;
 
         this.visibleCourses =
