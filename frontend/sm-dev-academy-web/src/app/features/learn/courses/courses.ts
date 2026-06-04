@@ -47,11 +47,13 @@ export class Courses implements OnInit, AfterViewInit {
         next: (response) => {
           this.courses = response.courses;
           this.visibleCourses = this.courses.slice(0, this.pageSize);
+          setTimeout(() => {
+            this.cdr.detectChanges();
+          });
+          this.cdr.markForCheck();
           this.cdr.detectChanges();
 
-          if (
-            !this.observer
-          ) {
+          if (!this.observer) {
             this.createObserver();
           }
         },
@@ -95,6 +97,7 @@ export class Courses implements OnInit, AfterViewInit {
       setTimeout(() => {
         this.visibleCourses = nextItems;
         this.currentPage = nextPage;
+        this.cdr.markForCheck();
         this.cdr.detectChanges();
       }, 250);
     }
