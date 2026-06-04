@@ -8,11 +8,7 @@ export class FavoriteService {
     private readonly prismaService: PrismaService,
   ) {}
 
-  async create(
-    userId: string,
-    courseId: string,
-  ) {
-
+  async create(userId: string, courseId: string) {
     const course =
       await this.prismaService.course.findUnique({
         where: {
@@ -44,44 +40,43 @@ export class FavoriteService {
 
   }
 
-  async remove(
-    userId: string,
-    courseId: string,
-  ) {
-
+  async remove(userId: string, courseId: string) {
     return this.prismaService.favorite.deleteMany({
-
-      where: {
-        userId,
-        courseId,
-      },
-
+      where: { userId, courseId },
     });
-
   }
 
-  async getFavorites(
-    userId: string,
-  ) {
-
+  async getFavorites(userId: string) {
     return this.prismaService.favorite.findMany({
-
       where: {
         userId,
       },
 
       include: {
-
         course: true,
-
       },
 
       orderBy: {
         createdAt: 'desc',
       },
-
     });
+  }
 
+  async isFavorite(
+    userId: string,
+    courseId: string,
+  ) {
+    const favorite =
+      await this.prismaService.favorite.findFirst({
+        where: {
+          userId,
+          courseId,
+        },
+      });
+
+    return {
+      isFavorite: !!favorite,
+    };
   }
 
 }
