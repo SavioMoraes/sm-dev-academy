@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
-
 import axios from 'axios';
 
-import { TECHNOLOGIES } from '../../common/constants/technologies';
+const TECHNOLOGIES = [
+  'HTML',
+  'CSS',
+  'SCSS',
+  'Styled-Components',
+];
 
 const TECHNOLOGY_CATEGORIES: Record<string, string> = {
 
@@ -10,44 +14,13 @@ const TECHNOLOGY_CATEGORIES: Record<string, string> = {
   CSS: 'Frontend',
   SCSS: 'Frontend',
   'Styled-Components': 'Frontend',
-  Tailwind: 'Frontend',
-  Bootstrap: 'Frontend',
-  JavaScript: 'Frontend',
-  TypeScript: 'Frontend',
-  React: 'Frontend',
-  Angular: 'Frontend',
-  Vue: 'Frontend',
 
-  Python: 'Backend',
-  'Node.js': 'Backend',
-  NestJS: 'Backend',
-  Java: 'Backend',
-  '.NET': 'Backend',
-  PHP: 'Backend',
-
-  MongoDB: 'Database',
-  MySQL: 'Database',
-  PostgreSQL: 'Database',
-  'SQL Server': 'Database',
-
-  'React Native': 'Mobile',
-  Flutter: 'Mobile',
-
-  Docker: 'DevOps',
-  Git: 'DevOps',
-  'CI/CD': 'DevOps',
-  Kubernetes: 'DevOps',
-  AWS: 'DevOps',
-  Azure: 'DevOps',
-  GitHub: 'DevOps',
-
-  ChatGPT: 'IA',
-  'Vs Code Copilot': 'IA',
 };
 
 @Injectable()
 export class YoutubeService {
-    async getCourses() {
+
+  async getCourses() {
 
     const courses: any[] = [];
 
@@ -74,7 +47,7 @@ export class YoutubeService {
                   'playlist',
 
                 maxResults:
-                  5,
+                  4,
 
               },
             },
@@ -146,6 +119,69 @@ export class YoutubeService {
       courses,
 
     };
+
+  }
+
+  async getPlaylistVideos(
+    playlistId: string,
+  ) {
+
+    const response =
+      await axios.get(
+        'https://www.googleapis.com/youtube/v3/playlistItems',
+        {
+          params: {
+
+            key:
+              process.env.YOUTUBE_API_KEY,
+
+            part:
+              'snippet',
+
+            playlistId,
+
+            maxResults:
+              50,
+
+          },
+        },
+      );
+
+    const videos =
+      response.data.items || [];
+
+    return videos.map(
+      (
+        video: any,
+        index: number,
+      ) => ({
+
+        videoId:
+          video.snippet
+            ?.resourceId
+            ?.videoId,
+
+        title:
+          video.snippet?.title,
+
+        thumbnail:
+          video.snippet
+            ?.thumbnails
+            ?.high
+            ?.url ||
+
+          video.snippet
+            ?.thumbnails
+            ?.default
+            ?.url ||
+
+          '',
+
+        position:
+          index + 1,
+
+      }),
+    );
 
   }
 

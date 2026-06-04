@@ -9,21 +9,40 @@ datasource db {
 }
 
 model Course {
-  id          String   @id @default(uuid())
-  playlistId  String   @unique
+  id          String  @id @default(uuid())
+  playlistId  String  @unique
   title       String
-  slug        String   @unique
+  slug        String  @unique
   description String
   thumbnail   String
   playlistUrl String
   category    String
   technology  String
   level       String?
-  featured    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  featured    Boolean @default(false)
+
+  videos CourseVideo[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("courses")
+}
+
+model CourseVideo {
+  id        String @id @default(uuid())
+  courseId  String
+  videoId   String @unique
+  title     String
+  thumbnail String
+  position  Int
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("course_videos")
 }
 
 model User {
@@ -31,7 +50,7 @@ model User {
   name      String
   email     String   @unique
   password  String
-  role      String @default("USER")
+  role      String   @default("USER")
   avatarUrl String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
