@@ -45,21 +45,9 @@ export class Courses implements OnInit, AfterViewInit {
     .getCourses()
     .subscribe({
       next: (response) => {
-        alert(
-    `Cursos recebidos: ${
-      response.courses?.length ?? 0
-    }`,
-  );
         this.courses = response.courses;
-
-        this.visibleCourses =
-          this.courses.slice(
-            0,
-            this.pageSize,
-          );
-
+        this.visibleCourses = this.courses.slice(0, this.pageSize);
         setTimeout(() => {
-
           this.cdr.detectChanges();
 
           if (
@@ -69,18 +57,13 @@ export class Courses implements OnInit, AfterViewInit {
           }
 
         });
-
       },
 
       error: (error) => {
-  alert(
-    JSON.stringify(error)
-  );
-
-  console.error(error);
-}
+        console.error(error);
+      }
     });
-}
+  }
 
   private createObserver(): void {
     setTimeout(() => {
