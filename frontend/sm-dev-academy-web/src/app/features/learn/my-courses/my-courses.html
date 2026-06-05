@@ -1,1 +1,39 @@
-<p>my-courses works!</p>
+<app-page-container>
+  <div class="courses__hero">
+    <h1 class="courses__title">
+      Meus Cursos
+    </h1>
+  </div>
+
+  <app-responsive-grid>
+    @for (
+      myCourse of visibleMyCourses;
+      track myCourse.id
+    ) {
+      <article
+        class="course-card"
+        (click)="openCourse(
+          myCourse.course.playlistId
+        )"
+      >
+        <img
+          class="course-card__image"
+          [src]="myCourse.course.thumbnail"
+          [alt]="myCourse.course.title"
+        >
+
+        <div class="course-card__content">
+          <h3 class="course-card__title">
+            {{ myCourse.course.title }}
+          </h3>
+        </div>
+      </article>
+    }
+  </app-responsive-grid>
+
+  <div
+    #sentinel
+    class="courses__sentinel">
+  </div>
+
+</app-page-container>

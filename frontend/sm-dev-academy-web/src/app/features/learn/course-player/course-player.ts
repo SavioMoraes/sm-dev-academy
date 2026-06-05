@@ -6,6 +6,7 @@ import { PageContainer } from '../../../shared/ui/page-container/page-container'
 import { Course, CourseVideo } from '../../../core/interfaces/course.interface';
 import { CourseService } from '../../../core/services/course-service/course.service';
 import { FavoriteService } from '../../../core/services/favorite-service/favorite.service';
+import { MyCourseService } from '../../../core/services/my-course-service/my-course.service';
 
 @Component({
   selector: 'app-course-player',
@@ -23,48 +24,105 @@ export class CoursePlayer implements OnInit {
   private readonly sanitizer = inject(DomSanitizer);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly favoriteService = inject(FavoriteService);
+  private readonly myCourseService = inject(MyCourseService);
 
   course?: Course;
   selectedVideo?: CourseVideo;
   videoUrl?: SafeResourceUrl;
   isFavorite = false;
+  isStarted = false;
 
   ngOnInit(): void {
-    const playlistId = this.route.snapshot.paramMap.get('playlistId');
+
+    const playlistId =
+      this.route.snapshot.paramMap.get(
+        'playlistId',
+      );
 
     if (!playlistId) {
       return;
     }
 
     this.courseService
-      .getCourseByPlaylistId(playlistId)
+      .getCourseByPlaylistId(
+        playlistId,
+      )
       .subscribe({
+
         next: (response) => {
-          this.course = response;
-          this.favoriteService
+
+          this.course =
+            response;
+
+          this.myCourseService
             .check(this.course.id)
             .subscribe({
+
               next: (response) => {
-                this.isFavorite = response.isFavorite;
+
+                this.isStarted =
+                  response.isStarted;
+
+                if (
+                  this.isStarted &&
+                  this.course?.videos?.length
+                ) {
+
+                  this.selectVideo(
+                    this.course.videos[0],
+                  );
+
+                }
+
                 this.cdr.detectChanges();
+
               },
 
               error: (error) => {
-                console.error(error);
+
+                console.error(
+                  error,
+                );
+
               },
+
             });
+
+          this.favoriteService
+            .check(this.course.id)
+            .subscribe({
+
+              next: (response) => {
+
+                this.isFavorite =
+                  response.isFavorite;
+
+                this.cdr.detectChanges();
+
+              },
+
+              error: (error) => {
+
+                console.error(
+                  error,
+                );
+
+              },
+
+            });
+
           this.cdr.detectChanges();
 
-          if (this.course.videos?.length) {
-            this.selectVideo(this.course.videos[0]);
-          }
-
-          this.cdr.detectChanges();
         },
 
         error: (error) => {
-          console.error(error);
+
+          console.error(
+            error,
+          );
+
         },
+
       });
 
   }
@@ -110,6 +168,67 @@ export class CoursePlayer implements OnInit {
           console.error(error);
         },
     });
+  }
+
+  startCourse(): void {
+
+    if (!this.course) {
+      return;
+    }
+
+    if (this.isStarted) {
+      return;
+    }
+
+    this.myCourseService
+      .create(this.course.id)
+      .subscribe({
+
+        next: () => {
+
+          this.isStarted = true;
+
+          const firstVideo =
+            this.course?.videos?.[0];
+
+          if (firstVideo) {
+
+            this.selectVideo(
+              firstVideo,
+            );
+
+          }
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (error) => {
+
+          console.error(
+            error,
+          );
+
+        },
+
+      });
+
+  }
+
+  handleVideoClick(
+    video: CourseVideo,
+  ): void {
+
+    if (!this.isStarted) {
+      alert(
+        'Inicie o curso para assistir às aulas.',
+      );
+      return;
+    }
+
+    this.selectVideo(
+      video,
+    );
   }
 
 }
