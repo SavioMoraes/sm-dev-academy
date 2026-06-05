@@ -13,7 +13,7 @@ export class FavoriteService {
   private readonly authService = inject(AuthService);
 
   private readonly apiUrl =
-    `${environment.apiUrl}/favorites`;
+    `${environment.apiUrl}/learn/favorites`;
 
   private getHeaders(): HttpHeaders {
 
@@ -58,6 +58,17 @@ export class FavoriteService {
       },
     );
 
+  }
+
+  check(
+    courseId: string,
+  ): Observable<{ isFavorite: boolean }> {
+    return this.http.get<{ isFavorite: boolean }>(
+      `${this.apiUrl}/check/${courseId}`,
+      {
+        headers: this.getHeaders(),
+      },
+    );
   }
 
 }

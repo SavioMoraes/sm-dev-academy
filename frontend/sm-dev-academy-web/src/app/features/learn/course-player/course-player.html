@@ -5,20 +5,44 @@
         {{ course.technology }}
       </span>
 
-      @if (videoUrl) {
-        <iframe
-          class="course-player__video"
-          [src]="videoUrl"
-          allowfullscreen>
-        </iframe>
-      }
+      <div class="course-player__top">
+        @if (videoUrl) {
+          <iframe
+            class="course-player__video"
+            [src]="videoUrl"
+            allowfullscreen>
+          </iframe>
+        }
 
-      <div class="course-player__actions">
-        <button
-          class="course-player__favorite"
-          (click)="favoriteCourse()">
-          ♥ Favoritar
-        </button>
+        <div class="course-player__sidebar">
+          <div class="sm-dev-academy__logo">
+            <img
+              src="assets/images/logo-sm-dev-academy.png"
+              alt="SM Dev Academy"
+            >
+          </div>
+
+          <p class="course-player__description">
+            {{ course.description }}
+          </p>
+
+          <button type="button" class="course-player__start">
+            Iniciar Curso
+          </button>
+
+          <button
+            type="button"
+            class="course-player__favorite"
+            [class.course-player__favorite--active]="isFavorite"
+            (click)="favoriteCourse()">
+
+            @if (isFavorite) {
+              ❤️ Favoritado
+            } @else {
+              🤍 Favoritar
+            }
+          </button>
+        </div>
       </div>
 
       <div class="course-player__playlist">

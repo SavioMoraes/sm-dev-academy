@@ -27,6 +27,7 @@ export class CoursePlayer implements OnInit {
   course?: Course;
   selectedVideo?: CourseVideo;
   videoUrl?: SafeResourceUrl;
+  isFavorite = false;
 
   ngOnInit(): void {
     const playlistId = this.route.snapshot.paramMap.get('playlistId');
@@ -40,6 +41,18 @@ export class CoursePlayer implements OnInit {
       .subscribe({
         next: (response) => {
           this.course = response;
+          this.favoriteService
+            .check(this.course.id)
+            .subscribe({
+              next: (response) => {
+                this.isFavorite = response.isFavorite;
+                this.cdr.detectChanges();
+              },
+
+              error: (error) => {
+                console.error(error);
+              },
+            });
           this.cdr.detectChanges();
 
           if (this.course.videos?.length) {
@@ -68,24 +81,35 @@ export class CoursePlayer implements OnInit {
       return;
     }
 
+    if (this.isFavorite) {
+      this.favoriteService
+        .remove(this.course.id)
+        .subscribe({
+          next: () => {
+            this.isFavorite = false;
+            this.cdr.detectChanges();
+          },
+
+          error: (error) => {
+            console.error(error);
+          },
+        });
+
+      return;
+    }
+
     this.favoriteService
       .create(this.course.id)
       .subscribe({
         next: () => {
-
-          console.log(
-            'Curso favoritado.',
-          );
-
+          this.isFavorite = true;
+          this.cdr.detectChanges();
         },
 
         error: (error) => {
-
           console.error(error);
-
         },
-      });
-
+    });
   }
 
 }
