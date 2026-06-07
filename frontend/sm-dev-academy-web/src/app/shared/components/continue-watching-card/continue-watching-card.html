@@ -1,0 +1,52 @@
+<div
+  class="continue-card"
+  (click)="continueCourse()"
+>
+
+  <div class="continue-card__thumbnail">
+
+    <img
+      [src]="course.thumbnail"
+      [alt]="course.title"
+    />
+
+  </div>
+
+  <div class="continue-card__content">
+
+    <h3 class="continue-card__title">
+      {{ course.title }}
+    </h3>
+
+    <div class="continue-card__progress-info">
+
+      <span class="continue-card__progress-label">
+        {{ course.progress }}% concluído
+      </span>
+
+    </div>
+
+    <div class="continue-card__progress">
+
+      <div
+        class="continue-card__progress-fill"
+        [style.width.%]="course.progress"
+      ></div>
+
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    class="continue-card__play"
+    (click)="continueCourse(); $event.stopPropagation()"
+  >
+
+    <span class="material-symbols-outlined">
+      play_arrow
+    </span>
+
+  </button>
+
+</div>

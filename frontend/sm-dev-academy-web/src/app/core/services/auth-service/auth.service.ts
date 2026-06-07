@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthUser } from '../../interfaces/auth-user.interface';
 import { LoginRequest } from '../../interfaces/login-request.interface';
 import { RegisterRequest } from '../../interfaces/register-request.interface';
@@ -13,13 +13,23 @@ import { environment } from '../../../../environments/environment';
 export class AuthService {
 
   private readonly API_URL =
-  environment.apiUrl;
+    environment.apiUrl;
 
   private readonly TOKEN_KEY =
     'smda_token';
 
   private readonly USER_KEY =
     'smda_user';
+
+  private readonly authStateSubject =
+    new BehaviorSubject<boolean>(
+      !!localStorage.getItem(
+        'smda_token',
+      ),
+    );
+
+  readonly authState$ =
+    this.authStateSubject.asObservable();
 
   constructor(
     private readonly http: HttpClient,
@@ -62,6 +72,10 @@ export class AuthService {
       JSON.stringify(user),
     );
 
+    this.authStateSubject.next(
+      true,
+    );
+
   }
 
   getToken(): string | null {
@@ -99,6 +113,10 @@ export class AuthService {
 
     localStorage.removeItem(
       this.USER_KEY,
+    );
+
+    this.authStateSubject.next(
+      false,
     );
 
   }

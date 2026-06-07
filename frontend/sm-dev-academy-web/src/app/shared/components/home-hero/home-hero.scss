@@ -19,6 +19,7 @@
       #23262f 100%
     );
   border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 20px;
 }
 
 .home-hero__content {
@@ -29,7 +30,9 @@
 }
 
 .home-hero__badge {
-  width: fit-content;
+  width: 36%;
+  padding: 20px 28px;
+  text-align: center;
   border-radius: 999px;
   background: rgba(255, 59, 59, 0.12);
   border: 1px solid rgba(255, 59, 59, 0.35);
@@ -40,10 +43,10 @@
 }
 
 .home-hero__title {
-  margin: 0;
   color: #ffffff;
   font-weight: 700;
   line-height: 1.1;
+  text-wrap: wrap;
 }
 
 .home-hero__title span {
@@ -51,7 +54,6 @@
 }
 
 .home-hero__description {
-  max-width: 720px;
   margin: 0;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.7;
@@ -65,8 +67,12 @@
 
 .home-hero__primary-button,
 .home-hero__secondary-button {
+  width: 220px;
   height: 52px;
-  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border-radius: 14px;
   font-size: 15px;
   font-weight: 600;
@@ -78,22 +84,27 @@
 }
 
 .home-hero__primary-button {
-  border: none;
-  background: #ff3b3b;
-  color: #ffffff;
-  box-shadow:
-    0 0 18px rgba(255, 59, 59, 0.28);
+  background: rgba(255, 59, 59, 0.75);
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.75);
 }
 
 .home-hero__secondary-button {
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: transparent;
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 59, 59, 0.75);
 }
 
-.home-hero__primary-button:hover,
+.home-hero__primary-button:hover {
+  background: rgb(255, 59, 59);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
 .home-hero__secondary-button:hover {
-  transform: translateY(-2px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: #ffffff;
+  color: rgb(255, 59, 59);
 }
 
 /* =========================================================
@@ -112,12 +123,10 @@
   }
 
   .home-hero__badge {
-    padding: 10px 18px;
     font-size: 13px;
   }
 
   .home-hero__title {
-    max-width: 620px;
     font-size: 72px;
   }
 
@@ -240,6 +249,7 @@
   .home-hero__primary-button,
   .home-hero__secondary-button {
     width: 100%;
+    height: 42px;
   }
 
 }

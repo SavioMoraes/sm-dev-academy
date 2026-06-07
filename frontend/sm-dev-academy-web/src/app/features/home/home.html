@@ -1,12 +1,33 @@
 <app-page-container>
   <app-home-hero />
-  <section class="home-categories">
-    <div class="home-section-header">
-      <h2 class="home-section-header__title">
-        Categorias
-      </h2>
-    </div>
 
+  @if (continueCourse) {
+    <section class="continue-watching">
+      <h2 class="continue-watching__title">
+        Continue Assistindo
+      </h2>
+
+      <app-continue-watching-card
+        [course]="continueCourse"
+      />
+    </section>
+  }
+  
+  <app-stream-section
+    title="Cursos em Destaque"
+    subtitle="Cursos recomendados para você continuar evoluindo"
+  >
+    @for (course of courses; track course.id) {
+      <app-highlight-course-card
+        [title]="course.title"
+        [category]="course.category"
+        [description]="course.description"
+        [image]="course.thumbnail"
+        [playlistId]="course.playlistId"
+      />
+    }
+  </app-stream-section>
+  <section class="home-categories">
     <div class="home-categories__grid">
       <app-category-card
         title="Frontend"
@@ -33,19 +54,5 @@
         icon="neurology"
       />
     </div>
-  </section>
-
-  <app-stream-section
-    title="Cursos em Destaque"
-    subtitle="Os cursos mais acessados da plataforma"
-  >
-    @for (course of courses; track course.title) {
-      <app-highlight-course-card
-        [title]="course.title"
-        [category]="course.category"
-        [description]="course.description"
-        [image]="course.thumbnail"
-      />
-    }
-  </app-stream-section>
+  </section>  
 </app-page-container>
