@@ -59,39 +59,25 @@ export class MyCourseService {
  async getMyCourses(
     userId: string,
   ) {
-
     return this.prismaService.userCourse.findMany({
-
       where: {
         userId,
       },
-
       include: {
-
         course: {
-
           select: {
-
             id: true,
             title: true,
             thumbnail: true,
             playlistId: true,
             category: true,
-
           },
-
         },
-
       },
-
       orderBy: {
-
-        startedAt: 'desc',
-
+        updatedAt: 'desc',
       },
-
     });
-
   }
 
   async isStarted(
