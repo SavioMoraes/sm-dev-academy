@@ -129,7 +129,7 @@ export class CoursePlayer implements OnInit {
 
   selectVideo(video: CourseVideo): void {
     this.selectedVideo = video;
-    const url = `https://www.youtube.com/embed/${video.videoId}?**?controls=0**`;
+    const url = `https://www.youtube.com/embed/${video.videoId}?controls=0`;
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
