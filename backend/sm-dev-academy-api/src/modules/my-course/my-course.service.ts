@@ -56,7 +56,7 @@ export class MyCourseService {
 
   }
 
-  async getMyCourses(
+ async getMyCourses(
     userId: string,
   ) {
 
@@ -70,9 +70,13 @@ export class MyCourseService {
 
         course: {
 
-          include: {
+          select: {
 
-            videos: true,
+            id: true,
+            title: true,
+            thumbnail: true,
+            playlistId: true,
+            category: true,
 
           },
 
