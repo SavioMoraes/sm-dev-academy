@@ -100,7 +100,7 @@ export class Courses implements OnInit, AfterViewInit {
         this.visibleCourses = nextItems;
         this.currentPage = nextPage;
         this.cdr.detectChanges();
-      }, 250);
+      }, 100);
     }
   }
 

@@ -50,9 +50,12 @@ export class CoursePlayer implements OnInit {
       .subscribe({
 
         next: (response) => {
+          
 
           this.course =
             response;
+
+          this.cdr.detectChanges();
 
           this.myCourseService
             .check(this.course.id)
@@ -109,21 +112,19 @@ export class CoursePlayer implements OnInit {
 
               },
 
-            });
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (error) => {
-
-          console.error(
-            error,
-          );
-
-        },
-
-      });
+            });          
+            
+          },
+          
+          error: (error) => {
+            
+            console.error(
+              error,
+            );
+            
+          },
+          
+        });
 
   }
 

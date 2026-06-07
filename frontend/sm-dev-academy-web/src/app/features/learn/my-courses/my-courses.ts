@@ -118,7 +118,7 @@ implements OnInit, AfterViewInit {
         this.visibleMyCourses = nextItems;
         this.currentPage = nextPage;
         this.cdr.detectChanges();
-      }, 250);
+      }, 100);
     }
   }
 

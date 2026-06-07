@@ -107,7 +107,7 @@ export class Favorites implements OnInit, AfterViewInit {
         this.currentPage =
           nextPage;
         this.cdr.detectChanges();
-      }, 250);
+      }, 100);
     }
   }
 
