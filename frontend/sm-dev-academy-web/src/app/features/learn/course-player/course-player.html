@@ -6,7 +6,15 @@
       <span class="course-player__technology">{{ course.technology }}</span>
 
       <div class="course-player__top">
-        @if (!isStartedLoading) {
+        @if (isStartedLoading) {
+          <div class="course-player__video-placeholder">
+            <div class="course-player__video-overlay">
+              <h3>
+                Carregando curso...
+              </h3>
+            </div>
+          </div>
+        } @else {
           @if (isStarted && videoUrl) {
             <iframe
               class="course-player__video"
@@ -69,7 +77,7 @@
         </div>
       </div>
 
-      @if (!isStarted) {
+      @if (!isStartedLoading && !isStarted) {
         <div class="course-player__warning">
           🔒 Inicie o curso para assistir às aulas.
         </div>
