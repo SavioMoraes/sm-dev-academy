@@ -35,6 +35,9 @@ export class Home implements OnInit {
   private readonly myCourseService = inject(MyCourseService);
   protected courses: Course[] = [];
   protected continueCourse: any = null;
+  protected isHomeLoading = true;
+  private coursesLoaded = false;
+  private continueLoaded = false;
   private readonly authService = inject(AuthService);
 
   ngOnInit(): void {
@@ -51,8 +54,11 @@ export class Home implements OnInit {
   private loadCourses(): void {
     this.courseService.getCourses().subscribe({
       next: (response) => {
-        this.courses = [...response.courses].sort(() => Math.random() - 0.5).slice(0, 12);
-
+        this.courses = [...response.courses]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 12);
+        this.coursesLoaded = true;
+        this.checkHomeLoaded();
         this.cdr.detectChanges();
       },
 
@@ -63,16 +69,17 @@ export class Home implements OnInit {
   }
 
   private loadContinueWatching(): void {
-
     if (!localStorage.getItem('smda_token')) {
+      this.continueLoaded = true;
+      this.checkHomeLoaded();
       return;
     }
 
     this.myCourseService.getMyCourses().subscribe({
-
       next: (courses) => {
-
         if (!courses?.length) {
+          this.continueLoaded = true;
+          this.checkHomeLoaded();
           return;
         }
 
@@ -81,14 +88,19 @@ export class Home implements OnInit {
           progress: courses[0].progress,
           lastVideoId: courses[0].lastVideoId,
         };
-
+        this.continueLoaded = true;
+        this.checkHomeLoaded();
         this.cdr.detectChanges();
-
       },
 
       error: () => {},
-
     });
+  }
 
+  private checkHomeLoaded(): void {
+    if ( this.coursesLoaded && this.continueLoaded) {
+      this.isHomeLoading = false;
+      this.cdr.detectChanges();
+    }
   }
 }

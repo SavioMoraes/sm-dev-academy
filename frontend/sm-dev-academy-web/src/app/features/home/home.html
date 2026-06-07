@@ -1,58 +1,60 @@
-<app-page-container>
-  <app-home-hero />
+@if (!isHomeLoading) {
+  <app-page-container>
+    <app-home-hero />
 
-  @if (continueCourse) {
-    <section class="continue-watching">
-      <h2 class="continue-watching__title">
-        Continue Assistindo
-      </h2>
+    @if (continueCourse) {
+      <section class="continue-watching">
+        <h2 class="continue-watching__title">
+          Continue Assistindo
+        </h2>
 
-      <app-continue-watching-card
-        [course]="continueCourse"
-      />
-    </section>
-  }
-  
-  <app-stream-section
-    title="Cursos em Destaque"
-    subtitle="Cursos recomendados para você continuar evoluindo"
-  >
-    @for (course of courses; track course.id) {
-      <app-highlight-course-card
-        [title]="course.title"
-        [category]="course.category"
-        [description]="course.description"
-        [image]="course.thumbnail"
-        [playlistId]="course.playlistId"
-      />
+        <app-continue-watching-card
+          [course]="continueCourse"
+        />
+      </section>
     }
-  </app-stream-section>
-  <section class="home-categories">
-    <div class="home-categories__grid">
-      <app-category-card
-        title="Frontend"
-        icon="code"
-      />
+    
+    <app-stream-section
+      title="Cursos em Destaque"
+      subtitle="Cursos recomendados para você continuar evoluindo"
+    >
+      @for (course of courses; track course.id) {
+        <app-highlight-course-card
+          [title]="course.title"
+          [category]="course.category"
+          [description]="course.description"
+          [image]="course.thumbnail"
+          [playlistId]="course.playlistId"
+        />
+      }
+    </app-stream-section>
+    <section class="home-categories">
+      <div class="home-categories__grid">
+        <app-category-card
+          title="Frontend"
+          icon="code"
+        />
 
-      <app-category-card
-        title="Backend"
-        icon="dns"
-      />
+        <app-category-card
+          title="Backend"
+          icon="dns"
+        />
 
-      <app-category-card
-        title="Mobile"
-        icon="smartphone"
-      />
+        <app-category-card
+          title="Mobile"
+          icon="smartphone"
+        />
 
-      <app-category-card
-        title="DevOps"
-        icon="all_inclusive"
-      />
+        <app-category-card
+          title="DevOps"
+          icon="all_inclusive"
+        />
 
-      <app-category-card
-        title="IA"
-        icon="neurology"
-      />
-    </div>
-  </section>  
-</app-page-container>
+        <app-category-card
+          title="IA"
+          icon="neurology"
+        />
+      </div>
+    </section>  
+  </app-page-container>
+}
