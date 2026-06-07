@@ -6,32 +6,26 @@
       <span class="course-player__technology">{{ course.technology }}</span>
 
       <div class="course-player__top">
-        @if (isStarted && videoUrl) {
+        @if (!isStartedLoading) {
+          @if (isStarted && videoUrl) {
+            <iframe
+              class="course-player__video"
+              [src]="videoUrl"
+              allowfullscreen>
+            </iframe>
+          } @else {
+            <div class="course-player__video-placeholder">
+              <div class="course-player__video-overlay">
+                <h3>
+                  Curso não iniciado
+                </h3>
 
-          <iframe
-            class="course-player__video"
-            [src]="videoUrl"
-            allowfullscreen>
-          </iframe>
-
-        } @else {
-
-          <div class="course-player__video-placeholder">
-
-            <div class="course-player__video-overlay">
-
-              <h3>
-                Curso não iniciado
-              </h3>
-
-              <p>
-                Clique em "Iniciar Curso" para liberar as aulas.
-              </p>
-
+                <p>
+                  Clique em "Iniciar Curso" para liberar as aulas.
+                </p>
+              </div>
             </div>
-
-          </div>
-
+          }
         }
 
         <div class="course-player__sidebar">
@@ -46,17 +40,19 @@
             {{ course.description }}
           </p>
 
-          <button
-            type="button"
-            class="course-player__start"
-            (click)="startCourse()">
-
-            @if (isStarted) {
-              Curso Iniciado
-            } @else {
-              Iniciar Curso
-            }
-          </button>
+          @if (!isStartedLoading) {
+            <button
+              type="button"
+              class="course-player__start"
+              (click)="startCourse()"
+            >
+              @if (isStarted) {
+                Curso Iniciado
+              } @else {
+                Iniciar Curso
+              }
+            </button>
+          }
 
           <button
             type="button"

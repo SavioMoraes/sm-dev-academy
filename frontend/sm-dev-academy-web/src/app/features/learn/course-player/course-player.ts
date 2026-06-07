@@ -31,6 +31,7 @@ export class CoursePlayer implements OnInit {
   videoUrl?: SafeResourceUrl;
   isFavorite = false;
   isStarted = false;
+  isStartedLoading = true;
 
   ngOnInit(): void {
 
@@ -66,6 +67,8 @@ export class CoursePlayer implements OnInit {
                 this.isStarted =
                   response.isStarted;
 
+                this.isStartedLoading = false;
+
                 if (
                   this.isStarted &&
                   this.course?.videos?.length
@@ -82,6 +85,8 @@ export class CoursePlayer implements OnInit {
               },
 
               error: (error) => {
+
+                this.isStartedLoading = false;
 
                 console.error(
                   error,
