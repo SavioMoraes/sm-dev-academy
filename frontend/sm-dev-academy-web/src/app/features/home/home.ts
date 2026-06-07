@@ -39,7 +39,7 @@ export class Home implements OnInit {
 
   ngOnInit(): void {
     this.loadCourses();
-    this.loadContinueWatching();
+    // this.loadContinueWatching();
 
     this.authService.authState$.subscribe(() => {
       this.continueCourse = null;
