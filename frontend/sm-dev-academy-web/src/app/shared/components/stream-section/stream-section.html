@@ -1,7 +1,9 @@
 <section class="stream-section">
-  <!-- HEADER -->
+
   <div class="stream-section__header">
+
     <div class="stream-section__titles">
+
       <h2 class="stream-section__title">
         {{ title }}
       </h2>
@@ -11,15 +13,42 @@
           {{ subtitle }}
         </p>
       }
+
     </div>
 
-    <button class="stream-section__see-all">
-      Ver tudo
-    </button>
   </div>
 
-  <!-- CONTENT -->
-  <div class="stream-section__content">
-    <ng-content />
+  <div class="stream-section__carousel">
+
+    <button
+      type="button"
+      class="stream-section__arrow stream-section__arrow--left"
+      [class.stream-section__arrow--disabled]="!canScrollLeft"
+      (click)="canScrollLeft && scrollLeft()"
+    >
+      <span class="material-symbols-outlined">
+        chevron_left
+      </span>
+    </button>
+
+    <div
+      #scrollContainer
+      class="stream-section__content"
+    >
+      <ng-content />
+    </div>
+
+    <button
+      type="button"
+      class="stream-section__arrow stream-section__arrow--right"
+      [class.stream-section__arrow--disabled]="!canScrollRight"
+      (click)="canScrollRight && scrollRight()"
+    >
+      <span class="material-symbols-outlined">
+        chevron_right
+      </span>
+    </button>
+
   </div>
+
 </section>

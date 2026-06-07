@@ -1,7 +1,9 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -68,6 +70,28 @@ export class MyCourseController {
       courseId,
     );
 
+  }
+
+  @Patch(':courseId/progress')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async updateProgress(
+    @Req()
+    request: any,
+    @Param('courseId')
+    courseId: string,
+    @Body()
+    body: {
+      lastVideoId: string;
+      progress: number;
+    },
+  ) {
+    return this.myCourseService.updateProgress(
+      request.user.sub,
+      courseId,
+      body.lastVideoId,
+      body.progress,
+    );
   }
 
 }

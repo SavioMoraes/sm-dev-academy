@@ -48,4 +48,21 @@ export class MyCourseService {
     );
   }
 
+  updateProgress(
+    courseId: string,
+    lastVideoId: string,
+    progress: number,
+  ): Observable<any> {
+    return this.http.patch(
+      `${this.apiUrl}/${courseId}/progress`,
+      {
+        lastVideoId,
+        progress,
+      },
+      {
+        headers: this.getHeaders(),
+      },
+    );
+  }
+
 }

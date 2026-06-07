@@ -68,7 +68,15 @@ export class MyCourseService {
 
       include: {
 
-        course: true,
+        course: {
+
+          include: {
+
+            videos: true,
+
+          },
+
+        },
 
       },
 
@@ -104,6 +112,26 @@ export class MyCourseService {
 
     };
 
+  }
+
+  async updateProgress(
+    userId: string,
+    courseId: string,
+    lastVideoId: string,
+    progress: number,
+  ) {
+    return this.prismaService.userCourse.update({
+      where: {
+        userId_courseId: {
+          userId,
+          courseId,
+        },
+      },
+      data: {
+        lastVideoId,
+        progress,
+      },
+    });
   }
 
 }

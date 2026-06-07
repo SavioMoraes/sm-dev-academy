@@ -224,7 +224,6 @@ export class CoursePlayer implements OnInit {
   handleVideoClick(
     video: CourseVideo,
   ): void {
-
     if (!this.isStarted) {
       alert(
         'Inicie o curso para assistir às aulas.',
@@ -235,6 +234,38 @@ export class CoursePlayer implements OnInit {
     this.selectVideo(
       video,
     );
+
+    if (!this.course) {
+      return;
+    }
+
+    const totalVideos =
+      this.course.videos.length;
+
+    const currentVideoIndex =
+      this.course.videos.findIndex(
+        current =>
+          current.videoId === video.videoId,
+      );
+
+    const progress =
+      Math.round(
+        ((currentVideoIndex + 1) / totalVideos) * 100,
+      );
+
+    this.myCourseService
+      .updateProgress(
+        this.course.id,
+        video.videoId,
+        progress,
+      )
+      .subscribe({
+        error: (error) => {
+          console.error(
+            error,
+          );
+        },
+      });
   }
 
 }
