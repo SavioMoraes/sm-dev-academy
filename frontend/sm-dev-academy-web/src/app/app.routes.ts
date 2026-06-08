@@ -39,12 +39,20 @@ export const routes: Routes = [
          LEARN
       ========================================================= */
 
+      /* =========================================================
+         LEARN/COURSES
+      ========================================================= */
+
       {
         path: 'learn/courses',
         loadComponent: () =>
           import('./features/learn/courses/courses')
             .then((m) => m.Courses),
       },
+
+      /* =========================================================
+         LEARN/COURSES/CATEGORIES
+      ========================================================= */
 
       {
         path: 'learn/courses/frontend',
@@ -81,12 +89,132 @@ export const routes: Routes = [
             .then((m) => m.ArtificialIntelligence),
       },
 
+      /* =========================================================
+         LEARN/COURSES/CATEGORIES/TECHNOLOGIES
+      ========================================================= */
+
+      /* =========================================================
+         FRONTEND
+      ========================================================= */
+
+      {
+        path: 'learn/courses/frontend/html',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/html/html')
+            .then((m) => m.Html),
+      },
+
+      {
+        path: 'learn/courses/frontend/css',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/css/css')
+            .then((m) => m.Css),
+      },
+
+      {
+        path: 'learn/courses/frontend/javascript',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/javascript/javascript')
+            .then((m) => m.Javascript),
+      },
+
+      {
+        path: 'learn/courses/frontend/typescript',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/typescript/typescript')
+            .then((m) => m.Typescript),
+      },
+
+      {
+        path: 'learn/courses/frontend/angular',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/angular/angular')
+            .then((m) => m.Angular),
+      },
+
+      {
+        path: 'learn/courses/frontend/react',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/react/react')
+            .then((m) => m.React),
+      },
+
+      /* =========================================================
+         BACKEND
+      ========================================================= */
+
+      {
+        path: 'learn/courses/backend/python',
+        loadComponent: () =>
+          import('./features/learn/courses/backend/python/python')
+            .then((m) => m.Python),
+      },
+
+      {
+        path: 'learn/courses/backend/nodejs',
+        loadComponent: () =>
+          import('./features/learn/courses/backend/nodejs/nodejs')
+            .then((m) => m.Nodejs),
+      },
+
+      {
+        path: 'learn/courses/backend/nestjs',
+        loadComponent: () =>
+          import('./features/learn/courses/backend/nestjs/nestjs')
+            .then((m) => m.Nestjs),
+      },
+
+      /* =========================================================
+         BANCO DE DADOS
+      ========================================================= */
+
+      {
+        path: 'learn/courses/banco-de-dados/mongodb',
+        loadComponent: () =>
+          import('./features/learn/courses/banco-de-dados/mongodb/mongodb')
+            .then((m) => m.Mongodb),
+      },
+
+      {
+        path: 'learn/courses/banco-de-dados/mysql',
+        loadComponent: () =>
+          import('./features/learn/courses/banco-de-dados/mysql/mysql')
+            .then((m) => m.Mysql),
+      },
+
+      {
+        path: 'learn/courses/banco-de-dados/postgresql',
+        loadComponent: () =>
+          import('./features/learn/courses/banco-de-dados/postgresql/postgresql')
+            .then((m) => m.Postgresql),
+      },
+
+      /* =========================================================
+         MOBILE
+      ========================================================= */
+
+      /* =========================================================
+         DEVOPS
+      ========================================================= */
+
+      /* =========================================================
+         ARTIFICIAL INTELLIGENCE
+      ========================================================= */
+
+      /* =========================================================
+         PLAY LIST ID
+      ========================================================= */
+
       {
         path: 'learn/courses/:playlistId',
         loadComponent: () =>
           import('./features/learn/course-player/course-player')
             .then((m) => m.CoursePlayer),
       },
+
+      /* =========================================================
+         MY COURSES
+      ========================================================= */
 
       {
         path: 'learn/my-courses',
@@ -95,100 +223,20 @@ export const routes: Routes = [
             .then((m) => m.MyCourses),
       },
 
+      /* =========================================================
+         FAVORITES
+      ========================================================= */
+
       {
         path: 'learn/favorites',
         loadComponent: () =>
           import('./features/learn/favorites/favorites')
             .then((m) => m.Favorites),
-      },
-
+      },  
+      
       /* =========================================================
-         TECHNOLOGIES
+         TRACKS
       ========================================================= */
-
-      {
-        path: 'learn/technologies/html',
-        loadComponent: () =>
-          import('./features/learn/technologies/html/html')
-            .then((m) => m.Html),
-      },
-
-      {
-        path: 'learn/technologies/css',
-        loadComponent: () =>
-          import('./features/learn/technologies/css/css')
-            .then((m) => m.Css),
-      },
-
-      {
-        path: 'learn/technologies/javascript',
-        loadComponent: () =>
-          import('./features/learn/technologies/javascript/javascript')
-            .then((m) => m.Javascript),
-      },
-
-      {
-        path: 'learn/technologies/typescript',
-        loadComponent: () =>
-          import('./features/learn/technologies/typescript/typescript')
-            .then((m) => m.Typescript),
-      },
-
-      {
-        path: 'learn/technologies/angular',
-        loadComponent: () =>
-          import('./features/learn/technologies/angular/angular')
-            .then((m) => m.Angular),
-      },
-
-      {
-        path: 'learn/technologies/react',
-        loadComponent: () =>
-          import('./features/learn/technologies/react/react')
-            .then((m) => m.React),
-      },
-
-      {
-        path: 'learn/technologies/python',
-        loadComponent: () =>
-          import('./features/learn/technologies/python/python')
-            .then((m) => m.Python),
-      },
-
-      {
-        path: 'learn/technologies/nodejs',
-        loadComponent: () =>
-          import('./features/learn/technologies/nodejs/nodejs')
-            .then((m) => m.Nodejs),
-      },
-
-      {
-        path: 'learn/technologies/nestjs',
-        loadComponent: () =>
-          import('./features/learn/technologies/nestjs/nestjs')
-            .then((m) => m.Nestjs),
-      },
-
-      {
-        path: 'learn/technologies/mongodb',
-        loadComponent: () =>
-          import('./features/learn/technologies/mongodb/mongodb')
-            .then((m) => m.Mongodb),
-      },
-
-      {
-        path: 'learn/technologies/mysql',
-        loadComponent: () =>
-          import('./features/learn/technologies/mysql/mysql')
-            .then((m) => m.Mysql),
-      },
-
-      {
-        path: 'learn/technologies/postgresql',
-        loadComponent: () =>
-          import('./features/learn/technologies/postgresql/postgresql')
-            .then((m) => m.Postgresql),
-      },
 
       {
         path: 'learn/tracks',
