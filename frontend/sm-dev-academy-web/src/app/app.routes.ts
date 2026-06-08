@@ -139,6 +139,41 @@ export const routes: Routes = [
             .then((m) => m.React),
       },
 
+      {
+        path: 'learn/courses/frontend/scss',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/scss/scss')
+            .then((m) => m.Scss),
+      },
+
+      {
+        path: 'learn/courses/frontend/styled-components',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/styled-components/styled-components')
+            .then((m) => m.StyledComponents),
+      },
+
+      {
+        path: 'learn/courses/frontend/tailwind',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/tailwind/tailwind')
+            .then((m) => m.Tailwind),
+      },
+
+      {
+        path: 'learn/courses/frontend/bootstrap',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/bootstrap/bootstrap')
+            .then((m) => m.Bootstrap),
+      },
+
+      {
+        path: 'learn/courses/frontend/vue',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/vue/vue')
+            .then((m) => m.Vue),
+      },
+
       /* =========================================================
          BACKEND
       ========================================================= */
@@ -162,6 +197,27 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/learn/courses/backend/nestjs/nestjs')
             .then((m) => m.Nestjs),
+      },
+
+      {
+        path: 'learn/courses/backend/java',
+        loadComponent: () =>
+          import('./features/learn/courses/backend/java/java')
+            .then((m) => m.Java),
+      },
+
+      {
+        path: 'learn/courses/backend/dotnet',
+        loadComponent: () =>
+          import('./features/learn/courses/backend/dot-net/dot-net')
+            .then((m) => m.DotNet),
+      },
+
+      {
+        path: 'learn/courses/backend/php',
+        loadComponent: () =>
+          import('./features/learn/courses/backend/php/php')
+            .then((m) => m.Php),
       },
 
       /* =========================================================
@@ -189,17 +245,101 @@ export const routes: Routes = [
             .then((m) => m.Postgresql),
       },
 
+      {
+        path: 'learn/courses/banco-de-dados/sql-server',
+        loadComponent: () =>
+          import('./features/learn/courses/banco-de-dados/sql-server/sql-server')
+            .then((m) => m.SqlServer),
+      },
+
       /* =========================================================
          MOBILE
       ========================================================= */
+
+      {
+        path: 'learn/courses/mobile/react-native',
+        loadComponent: () =>
+          import('./features/learn/courses/mobile/react-native/react-native')
+            .then((m) => m.ReactNative),
+      },
+
+      {
+        path: 'learn/courses/mobile/flutter',
+        loadComponent: () =>
+          import('./features/learn/courses/mobile/flutter/flutter')
+            .then((m) => m.Flutter),
+      },
 
       /* =========================================================
          DEVOPS
       ========================================================= */
 
+      {
+        path: 'learn/courses/devops/docker',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/docker/docker')
+            .then((m) => m.Docker),
+      },
+
+      {
+        path: 'learn/courses/devops/aws',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/aws/aws')
+            .then((m) => m.Aws),
+      },
+
+      {
+        path: 'learn/courses/devops/azure',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/azure/azure')
+            .then((m) => m.Azure),
+      },
+
+      {
+        path: 'learn/courses/devops/ci-cd',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/ci-cd/ci-cd')
+            .then((m) => m.CiCd),
+      },
+
+      {
+        path: 'learn/courses/devops/git',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/git/git')
+            .then((m) => m.Git),
+      },
+
+      {
+        path: 'learn/courses/devops/git-hub',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/git-hub/git-hub')
+            .then((m) => m.GitHub),
+      },
+
+      {
+        path: 'learn/courses/devops/kubernetes',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/kubernetes/kubernetes')
+            .then((m) => m.Kubernetes),
+      },
+
       /* =========================================================
          ARTIFICIAL INTELLIGENCE
       ========================================================= */
+
+      {
+        path: 'learn/courses/artificial-intelligence/chat-gpt',
+        loadComponent: () =>
+          import('./features/learn/courses/artificial-intelligence/chat-gpt/chat-gpt')
+            .then((m) => m.ChatGpt),
+      },
+
+      {
+        path: 'learn/courses/artificial-intelligence/deep-seek',
+        loadComponent: () =>
+          import('./features/learn/courses/artificial-intelligence/deep-seek/deep-seek')
+            .then((m) => m.DeepSeek),
+      },
 
       /* =========================================================
          PLAY LIST ID
