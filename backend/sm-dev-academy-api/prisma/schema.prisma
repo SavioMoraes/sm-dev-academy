@@ -84,5 +84,6 @@ model UserCourse {
   updatedAt   DateTime @updatedAt
 
   @@unique([userId, courseId])
+  @@index([userId, updatedAt])
   @@map("user_courses")
 }
