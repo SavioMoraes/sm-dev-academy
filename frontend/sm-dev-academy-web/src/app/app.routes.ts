@@ -47,6 +47,41 @@ export const routes: Routes = [
       },
 
       {
+        path: 'learn/courses/frontend',
+        loadComponent: () =>
+          import('./features/learn/courses/frontend/frontend')
+            .then((m) => m.Frontend),
+      },
+
+      {
+        path: 'learn/courses/backend',
+        loadComponent: () =>
+          import('./features/learn/courses/backend/backend')
+            .then((m) => m.Backend),
+      },
+
+      {
+        path: 'learn/courses/mobile',
+        loadComponent: () =>
+          import('./features/learn/courses/mobile/mobile')
+            .then((m) => m.Mobile),
+      },
+
+      {
+        path: 'learn/courses/devops',
+        loadComponent: () =>
+          import('./features/learn/courses/devops/devops')
+            .then((m) => m.Devops),
+      },
+
+      {
+        path: 'learn/courses/artificial-intelligence',
+        loadComponent: () =>
+          import('./features/learn/courses/artificial-intelligence/artificial-intelligence')
+            .then((m) => m.ArtificialIntelligence),
+      },
+
+      {
         path: 'learn/courses/:playlistId',
         loadComponent: () =>
           import('./features/learn/course-player/course-player')
