@@ -48,7 +48,7 @@ export const TECHNOLOGIES = [
   // IA
 
   'ChatGPT',
-  'Vs Code Copilot',
+  'Deep Seek',
 
 ] as const;
 
