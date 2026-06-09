@@ -95,6 +95,35 @@ export class Sidebar implements OnInit {
     }
   }
 
+  isCoursesParentActive(): boolean {
+    return this.router.url.startsWith('/learn/courses/')
+      && this.router.url !== '/learn/courses';
+  }
+
+  isFrontendParentActive(): boolean {
+    return this.router.url.startsWith('/learn/courses/frontend/');
+  }
+
+  isBackendParentActive(): boolean {
+    return this.router.url.startsWith('/learn/courses/backend/');
+  }
+
+  isDatabaseParentActive(): boolean {
+    return this.router.url.startsWith('/learn/courses/banco-de-dados/');
+  }
+
+  isMobileParentActive(): boolean {
+    return this.router.url.startsWith('/learn/courses/mobile/');
+  }
+
+  isDevopsParentActive(): boolean {
+    return this.router.url.startsWith('/learn/courses/devops/');
+  }
+
+  isArtificialIntelligenceParentActive(): boolean {
+    return this.router.url.startsWith('/learn/courses/artificial-intelligence/');
+  }
+
   /* MOBILE */
   isMobileMenuOpen = false;
 

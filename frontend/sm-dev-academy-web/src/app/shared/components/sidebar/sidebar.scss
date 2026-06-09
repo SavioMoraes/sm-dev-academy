@@ -131,7 +131,6 @@
 .sidebar-navigation__toggle {
   display: flex;
   align-items: center;
-  gap: 16px;
   width: 100%;
   padding: 0;
   border: none;
@@ -139,11 +138,40 @@
   cursor: pointer;
 }
 
+.sidebar:not(.sidebar-collapsed)
+.sidebar-navigation__toggle {
+  justify-content: flex-start;
+}
+
+.sidebar:not(.sidebar-collapsed)
+.sidebar-navigation__toggle
+.material-symbols-outlined {
+  margin-left: auto;
+  padding-left: 2px;
+  padding-right: 120px;
+}
+
+.sidebar.sidebar-collapsed
+.sidebar-navigation__toggle {
+  position: relative;
+  justify-content: center;
+}
+
+.sidebar.sidebar-collapsed
+.sidebar-navigation__toggle
+.material-symbols-outlined {
+  position: absolute;
+  right: -4px;
+}
+
+.sidebar-navigation__item > .sidebar-navigation__link {
+  padding-right: 50px;
+}
+
 .sidebar-navigation__toggle .material-symbols-outlined {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26.5px;
   color: rgba(255, 255, 255, 0.75);
 }
 
@@ -197,11 +225,18 @@
 
   padding: 0;
   margin-left: auto;
-
+  margin-right: 8px;
   border: none;
   background: transparent;
 
   cursor: pointer;
+  transform: scale(0.85);
+}
+
+.sidebar-navigation__list
+.sidebar-navigation__list
+.sidebar-navigation__expand-button {
+  margin-right: -80px;
 }
 
 .sidebar-navigation__expand-button .material-symbols-outlined {
@@ -224,6 +259,7 @@
 
 .sidebar-navigation__technologies-arrow {
   margin-left: auto;
+  font-size: inherit;
 }
 
 .sidebar__tech-icon {
@@ -339,7 +375,7 @@
   align-items: center;
   justify-content: center;
 
-  width: 100%;
+  width: 44px;
   height: 40px;
   min-height: 40px;
 
@@ -356,19 +392,6 @@
 .sidebar.sidebar-collapsed .sidebar-navigation__section {
   position: relative;
   border-bottom: none;
-}
-
-.sidebar.sidebar-collapsed
-.sidebar-navigation__toggle {
-
-  position: relative;
-
-  justify-content: center;
-}
-
-.sidebar.sidebar-collapsed
-.sidebar-navigation__toggle {
-  position: relative;
 }
 
 .sidebar.sidebar-collapsed
@@ -403,6 +426,18 @@
   z-index: 20;
 }
 
+/* COURSES */
+.sidebar.sidebar-collapsed
+.sidebar-navigation__expand-button--courses {
+  left: calc(50% + 45px);
+}
+
+/* CATEGORIAS */
+.sidebar.sidebar-collapsed
+.sidebar-navigation__expand-button--category {
+  left: calc(50% + 55px);
+}
+
 .sidebar.sidebar-collapsed
 .sidebar-navigation__link-content {
   display: flex;
@@ -416,22 +451,8 @@
 .sidebar.sidebar-collapsed
 .sidebar-navigation__expand-button
 .material-symbols-outlined {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.sidebar:not(.sidebar-collapsed)
-.sidebar-navigation__link {
-  display: flex;
-  align-items: center;
-}
-
-.sidebar:not(.sidebar-collapsed)
-.sidebar-navigation__link-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .sidebar.sidebar-collapsed .sidebar-navigation__section::after {
@@ -518,48 +539,20 @@
   display: none;
 }
 
-.sidebar-navigation__link--expanded
-.sidebar-navigation__label {
-  color: rgb(255, 255, 255);
+.sidebar-navigation__link--expanded:not(.sidebar-navigation__link--active) {
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-.sidebar-navigation__link--expanded
-.material-symbols-outlined {
-  color: rgb(255, 255, 255);
-}
-
-.sidebar-navigation__link--expanded
+.sidebar-navigation__link--expanded:not(.sidebar-navigation__link--active)
+.sidebar-navigation__label,
+.sidebar-navigation__link--expanded:not(.sidebar-navigation__link--active)
+.material-symbols-outlined,
+.sidebar-navigation__link--expanded:not(.sidebar-navigation__link--active)
 .sidebar__tech-icon {
   opacity: 1;
-}
-
-.sidebar-navigation__link-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-height: 48px;
-  text-decoration: none;
-}
-
-.sidebar-navigation__expand-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 32px;
-  min-width: 32px;
-  height: 32px;
-
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.sidebar-navigation__expand-button
-.material-symbols-outlined {
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.62);
+  color: #ffffff;
 }
 
 .sidebar-navigation__link--active
@@ -586,6 +579,25 @@
     brightness(103%)
     contrast(101%)
     drop-shadow(0 0 6px rgba(255, 59, 59, 0.8));
+}
+
+.sidebar-navigation__link--active
+.sidebar-navigation__expand-button
+.material-symbols-outlined {
+  color: #ff3b3b;
+}
+
+.sidebar-navigation__category {
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 59, 59, 0.22);
+
+  box-shadow:
+    0 1px 6px
+    rgba(255, 59, 59, 0.12);
 }
 
 /* =========================================================
