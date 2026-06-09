@@ -104,11 +104,15 @@
               data-label="Courses"
             >
 
-              <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="coursesExpanded" routerLinkActive="sidebar-navigation__link--active">
+              <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="
+                coursesExpanded
+              ">
 
                 <a
                   class="sidebar-navigation__link-content"
                   routerLink="/learn/courses"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [routerLinkActiveOptions]="{ exact: true }"
                 >
 
                   <span
@@ -130,7 +134,7 @@
 
                 <button
                   type="button"
-                  class="sidebar-navigation__expand-button"
+                  class="sidebar-navigation__expand-button sidebar-navigation__expand-button--courses"
                   (click)="toggleSection('courses')"
                 >
                   <span
@@ -154,13 +158,15 @@
                 <ul class="sidebar-navigation__list">
 
                   <!-- FRONTEND -->
-                  <li class="sidebar-navigation__item">
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="frontendExpanded" routerLinkActive="sidebar-navigation__link--active">
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="frontendExpanded && coursesExpanded">
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/frontend"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
                       >
 
                         <img
@@ -179,7 +185,7 @@
 
                       <button
                         type="button"
-                        class="sidebar-navigation__expand-button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
                         (click)="toggleSection('frontend')"
                       >
                         <span
@@ -201,13 +207,15 @@
                   </li>
 
                   <!-- BACKEND -->
-                  <li class="sidebar-navigation__item">
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="backendExpanded" routerLinkActive="sidebar-navigation__link--active">
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="backendExpanded && coursesExpanded">
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/backend"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
                       >
 
                         <img
@@ -226,7 +234,7 @@
 
                       <button
                         type="button"
-                        class="sidebar-navigation__expand-button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
                         (click)="toggleSection('backend')"
                       >
                         <span
@@ -248,13 +256,15 @@
                   </li>
 
                   <!-- BANCO DE DADOS -->
-                  <li class="sidebar-navigation__item">
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="databaseExpanded" routerLinkActive="sidebar-navigation__link--active">
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="databaseExpanded && coursesExpanded">
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/banco-de-dados"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
                       >
 
                         <img
@@ -273,7 +283,7 @@
 
                       <button
                         type="button"
-                        class="sidebar-navigation__expand-button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
                         (click)="toggleSection('banco-de-dados')"
                       >
                         <span
@@ -295,13 +305,15 @@
                   </li>
 
                   <!-- MOBILE -->
-                  <li class="sidebar-navigation__item">
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="mobileExpanded" routerLinkActive="sidebar-navigation__link--active">
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="mobileExpanded && coursesExpanded">
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/mobile"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
                       >
 
                         <img
@@ -320,7 +332,7 @@
 
                       <button
                         type="button"
-                        class="sidebar-navigation__expand-button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
                         (click)="toggleSection('mobile')"
                       >
                         <span
@@ -342,13 +354,15 @@
                   </li>
 
                   <!-- DEVOPS -->
-                  <li class="sidebar-navigation__item">
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="devopsExpanded" routerLinkActive="sidebar-navigation__link--active">
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="devopsExpanded && coursesExpanded">
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/devops"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
                       >
 
                         <img
@@ -367,7 +381,7 @@
 
                       <button
                         type="button"
-                        class="sidebar-navigation__expand-button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
                         (click)="toggleSection('devops')"
                       >
                         <span
@@ -389,13 +403,15 @@
                   </li>
 
                   <!-- IA -->
-                  <li class="sidebar-navigation__item">
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="artificialIntelligenceExpanded" routerLinkActive="sidebar-navigation__link--active">
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="artificialIntelligenceExpanded && coursesExpanded">
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/artificial-intelligence"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
                       >
 
                         <img
@@ -414,7 +430,7 @@
 
                       <button
                         type="button"
-                        class="sidebar-navigation__expand-button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
                         (click)="toggleSection('artificial-intelligence')"
                       >
                         <span
