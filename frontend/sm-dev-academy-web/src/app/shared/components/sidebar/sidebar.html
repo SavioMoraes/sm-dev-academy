@@ -99,22 +99,346 @@
           <ul class="sidebar-navigation__list">
 
             <!-- COURSES -->
-            <li class="sidebar-navigation__item" data-label="Courses">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/learn/courses"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  school
-                </span>
+            <li
+              class="sidebar-navigation__item"
+              data-label="Courses"
+            >
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Courses
+              <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="coursesExpanded" routerLinkActive="sidebar-navigation__link--active">
+
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/learn/courses"
+                >
+
+                  <span
+                    class="
+                      material-symbols-outlined
+                      sidebar-navigation__technologies-icon
+                    "
+                  >
+                    school
                   </span>
-                }
-              </a>
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Courses
+                    </span>
+                  }
+
+                </a>
+
+                <button
+                  type="button"
+                  class="sidebar-navigation__expand-button"
+                  (click)="toggleSection('courses')"
+                >
+                  <span
+                    class="
+                      material-symbols-outlined
+                      sidebar-navigation__technologies-arrow
+                    "
+                  >
+                    @if (coursesExpanded) {
+                      keyboard_arrow_down
+                    } @else {
+                      keyboard_arrow_right
+                    }
+                  </span>
+                </button>
+
+              </div>
+
+              @if (coursesExpanded) {
+
+                <ul class="sidebar-navigation__list">
+
+                  <!-- FRONTEND -->
+                  <li class="sidebar-navigation__item">
+
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="frontendExpanded" routerLinkActive="sidebar-navigation__link--active">
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/frontend"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/frontend.svg"
+                          alt="Frontend"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Frontend
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button"
+                        (click)="toggleSection('frontend')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                        >
+                          @if (frontendExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+
+                    </div>
+
+                  </li>
+
+                  <!-- BACKEND -->
+                  <li class="sidebar-navigation__item">
+
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="backendExpanded" routerLinkActive="sidebar-navigation__link--active">
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/backend"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/backend.svg"
+                          alt="Backend"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Backend
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button"
+                        (click)="toggleSection('backend')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                        >
+                          @if (backendExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+
+                    </div>
+
+                  </li>
+
+                  <!-- BANCO DE DADOS -->
+                  <li class="sidebar-navigation__item">
+
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="databaseExpanded" routerLinkActive="sidebar-navigation__link--active">
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/banco-de-dados"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/banco-de-dados.svg"
+                          alt="Banco de Dados"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Banco de Dados
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button"
+                        (click)="toggleSection('banco-de-dados')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                        >
+                          @if (databaseExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+
+                    </div>
+
+                  </li>
+
+                  <!-- MOBILE -->
+                  <li class="sidebar-navigation__item">
+
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="mobileExpanded" routerLinkActive="sidebar-navigation__link--active">
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/mobile"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/mobile.svg"
+                          alt="Mobile"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Mobile
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button"
+                        (click)="toggleSection('mobile')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                        >
+                          @if (mobileExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+
+                    </div>
+
+                  </li>
+
+                  <!-- DEVOPS -->
+                  <li class="sidebar-navigation__item">
+
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="devopsExpanded" routerLinkActive="sidebar-navigation__link--active">
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/devops"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/devops.svg"
+                          alt="DevOps"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            DevOps
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button"
+                        (click)="toggleSection('devops')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                        >
+                          @if (devopsExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+
+                    </div>
+
+                  </li>
+
+                  <!-- IA -->
+                  <li class="sidebar-navigation__item">
+
+                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="artificialIntelligenceExpanded" routerLinkActive="sidebar-navigation__link--active">
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/artificial-intelligence"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/ia.svg"
+                          alt="IA"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            IA
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button"
+                        (click)="toggleSection('artificial-intelligence')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                        >
+                          @if (artificialIntelligenceExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+
+                    </div>
+
+                  </li>
+
+                </ul>
+
+              }
+
             </li>
 
             <!-- MY COURSES -->
@@ -155,289 +479,6 @@
               </a>
             </li>
 
-            <!-- TECHNOLOGIES -->
-            <li
-              class="
-                sidebar-navigation__item
-                sidebar-navigation__item--technologies
-              "
-              [attr.data-label]="
-                isCollapsed && !technologiesExpanded
-                  ? 'Technologies'
-                  : null
-              "
-            >
-
-              <button
-                type="button"
-                class="sidebar-navigation__link sidebar-navigation__toggle"
-                (click)="toggleSection('technologies')"
-              >
-
-                <span
-                  class="
-                    material-symbols-outlined
-                    sidebar-navigation__technologies-icon
-                  "
-                >
-                  terminal
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Technologies
-                  </span>
-                }
-
-                <span class="material-symbols-outlined sidebar-technologies-arrow arrow-spacing">
-                  @if (technologiesExpanded) {
-                    keyboard_arrow_down
-                  } @else {
-                    keyboard_arrow_right
-                  }
-                </span>
-                
-
-              </button>
-
-              @if (technologiesExpanded) {
-
-                <ul class="sidebar-navigation__list">
-
-                  <!-- HTML -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="HTML">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/html"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/html5.svg"
-                        alt="HTML"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">HTML</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- CSS -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="CSS">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/css"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/css.svg"
-                        alt="CSS"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">CSS</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- JAVASCRIPT -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="JavaScript">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/javascript"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/javascript.svg"
-                        alt="JavaScript"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">JavaScript</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- TYPESCRIPT -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="TypeScript">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/typescript"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/typescript.svg"
-                        alt="TypeScript"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">TypeScript</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- ANGULAR -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="Angular">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/angular"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/angular.svg"
-                        alt="Angular"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">Angular</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- REACT -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="React">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/react"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/react.svg"
-                        alt="React"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">React</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- PYTHON -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="Python">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/python"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/python.svg"
-                        alt="Python"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">Python</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- NODE.JS -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="Node.js">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/nodejs"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/nodedotjs.svg"
-                        alt="Node.js"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">Node.js</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- NESTJS -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="NestJS">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/nestjs"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/nestjs.svg"
-                        alt="NestJS"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">NestJS</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- MONGODB -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="MongoDB">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/mongodb"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/mongodb.svg"
-                        alt="MongoDB"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">MongoDB</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- MYSQL -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="MySQL">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/mysql"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/mysql.svg"
-                        alt="MySQL"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">MySQL</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- POSTGRESQL -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="PostgreSQL">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/postgresql"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/postgresql.svg"
-                        alt="PostgreSQL"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">PostgreSQL</span>
-                      }
-                    </a>
-                  </li>
-
-                </ul>
-
-              }
-
-            </li>
-
             <!-- TRACKS -->
             <li class="sidebar-navigation__item" data-label="Tracks">
               <a
@@ -456,7 +497,6 @@
                 }
               </a>
             </li>
-
           </ul>
         }
       </section>
