@@ -57,31 +57,40 @@
         
         <ul class="sidebar-navigation__list">
           <li class="sidebar-navigation__item">
-            <a
-              class="sidebar-navigation__link"
-              routerLink="/"
-              routerLinkActive="sidebar-navigation__link--active"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              <span class="material-symbols-outlined">
-                home
-              </span>
-
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Home
+            <div class="sidebar-navigation__link">
+              <a
+                class="sidebar-navigation__link-content"
+                routerLink="/"
+                routerLinkActive="sidebar-navigation__link--active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [matTooltip]="isCollapsed ? 'Home' : ''"
+                matTooltipPosition="below"
+                matTooltipClass="sidebar-tooltip"
+              >
+                <span class="material-symbols-outlined">
+                  home
                 </span>
-              }
-            </a>
+  
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Home
+                  </span>
+                }
+              </a>
+            </div>   
           </li>
         </ul>
       </section>
 
       <!-- LEARN -->
-      <section class="sidebar-navigation__section">
+      <section
+        class="sidebar-navigation__section"
+        [class.sidebar-navigation__section--expanded]="learnExpanded"
+      >
         <button
           type="button"
           class="sidebar-navigation__title sidebar-navigation__toggle"
+          [class.sidebar-navigation__title--expanded]="learnExpanded"
           (click)="toggleSection('learn')"
         >
           <span>LEARN</span>
@@ -104,15 +113,19 @@
               data-label="Courses"
             >
 
-              <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="
-                coursesExpanded
-              ">
+              <div
+                class="sidebar-navigation__link"
+                [class.sidebar-navigation__link--expanded]="coursesExpanded && !isCoursesActive()"
+              >
 
                 <a
                   class="sidebar-navigation__link-content"
                   routerLink="/learn/courses"
                   routerLinkActive="sidebar-navigation__link--active"
                   [routerLinkActiveOptions]="{ exact: true }"
+                  [matTooltip]="isCollapsed ? 'Courses' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
                 >
 
                   <span
@@ -142,6 +155,8 @@
                       material-symbols-outlined
                       sidebar-navigation__technologies-arrow
                     "
+                    [class.sidebar-navigation__technologies-arrow--active]="isCoursesActive()"
+                    [class.sidebar-navigation__technologies-arrow--expanded]="coursesExpanded && !isCoursesActive()"
                   >
                     @if (coursesExpanded) {
                       keyboard_arrow_down
@@ -160,13 +175,19 @@
                   <!-- FRONTEND -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="frontendExpanded && coursesExpanded">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="frontendExpanded && !isFrontendActive()"
+                    >
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/frontend"
                         routerLinkActive="sidebar-navigation__link--active"
                         [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Frontend' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip" 
                       >
 
                         <img
@@ -193,6 +214,8 @@
                             material-symbols-outlined
                             sidebar-navigation__technologies-arrow
                           "
+                          [class.sidebar-navigation__technologies-arrow--active]="isFrontendActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="frontendExpanded && !isFrontendActive()"
                         >
                           @if (frontendExpanded) {
                             keyboard_arrow_down
@@ -209,13 +232,19 @@
                   <!-- BACKEND -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="backendExpanded && coursesExpanded">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="backendExpanded && !isBackendActive()"
+                    >
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/backend"
                         routerLinkActive="sidebar-navigation__link--active"
                         [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Backend' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
                       >
 
                         <img
@@ -242,6 +271,8 @@
                             material-symbols-outlined
                             sidebar-navigation__technologies-arrow
                           "
+                          [class.sidebar-navigation__technologies-arrow--active]="isBackendActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="backendExpanded && !isBackendActive()"
                         >
                           @if (backendExpanded) {
                             keyboard_arrow_down
@@ -258,13 +289,19 @@
                   <!-- BANCO DE DADOS -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="databaseExpanded && coursesExpanded">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="databaseExpanded && !isDatabaseActive()"
+                    >
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/banco-de-dados"
                         routerLinkActive="sidebar-navigation__link--active"
                         [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Banco de Dados' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
                       >
 
                         <img
@@ -291,6 +328,8 @@
                             material-symbols-outlined
                             sidebar-navigation__technologies-arrow
                           "
+                          [class.sidebar-navigation__technologies-arrow--active]="isDatabaseActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="databaseExpanded && !isDatabaseActive()"
                         >
                           @if (databaseExpanded) {
                             keyboard_arrow_down
@@ -307,13 +346,19 @@
                   <!-- MOBILE -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="mobileExpanded && coursesExpanded">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="mobileExpanded && !isMobileActive()"
+                    >
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/mobile"
                         routerLinkActive="sidebar-navigation__link--active"
                         [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Mobile' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip" 
                       >
 
                         <img
@@ -340,6 +385,8 @@
                             material-symbols-outlined
                             sidebar-navigation__technologies-arrow
                           "
+                          [class.sidebar-navigation__technologies-arrow--active]="isMobileActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="mobileExpanded && !isMobileActive()"
                         >
                           @if (mobileExpanded) {
                             keyboard_arrow_down
@@ -356,13 +403,19 @@
                   <!-- DEVOPS -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="devopsExpanded && coursesExpanded">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="devopsExpanded && !isDevopsActive()"
+                    >
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/devops"
                         routerLinkActive="sidebar-navigation__link--active"
                         [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'DevOps' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
                       >
 
                         <img
@@ -389,6 +442,8 @@
                             material-symbols-outlined
                             sidebar-navigation__technologies-arrow
                           "
+                          [class.sidebar-navigation__technologies-arrow--active]="isDevopsActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="devopsExpanded && !isDevopsActive()"
                         >
                           @if (devopsExpanded) {
                             keyboard_arrow_down
@@ -405,13 +460,19 @@
                   <!-- IA -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
 
-                    <div class="sidebar-navigation__link" [class.sidebar-navigation__link--expanded]="artificialIntelligenceExpanded && coursesExpanded">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="artificialIntelligenceExpanded && !isArtificialIntelligenceActive()"
+                    >
 
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/artificial-intelligence"
                         routerLinkActive="sidebar-navigation__link--active"
                         [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'IA' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
                       >
 
                         <img
@@ -438,6 +499,8 @@
                             material-symbols-outlined
                             sidebar-navigation__technologies-arrow
                           "
+                          [class.sidebar-navigation__technologies-arrow--active]="isArtificialIntelligenceActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="artificialIntelligenceExpanded && !isArtificialIntelligenceActive()"
                         >
                           @if (artificialIntelligenceExpanded) {
                             keyboard_arrow_down
@@ -459,69 +522,88 @@
 
             <!-- MY COURSES -->
             <li class="sidebar-navigation__item" data-label="My Courses">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/learn/my-courses"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  video_library
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    My Courses
+              <div class="sidebar-navigation__link">
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/learn/my-courses"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [matTooltip]="isCollapsed ? 'MyCourses' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+                  <span class="material-symbols-outlined">
+                    video_library
                   </span>
-                }
-              </a>
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      My Courses
+                    </span>
+                  }
+                </a>
+              </div>
             </li>
 
             <!-- FAVORITES -->
             <li class="sidebar-navigation__item" data-label="Favorites">
-              <a
-                routerLink="/learn/favorites"
-                routerLinkActive="sidebar-navigation__link--active"
-                class="sidebar-navigation__link"
-              >
-                <span class="material-symbols-outlined">
-                  favorite
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Favorites
+              <div class="sidebar-navigation__link">
+                <a
+                  routerLink="/learn/favorites"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  class="sidebar-navigation__link-content"
+                  [matTooltip]="isCollapsed ? 'Favorites' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+                  <span class="material-symbols-outlined">
+                    favorite
                   </span>
-                }
-              </a>
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Favorites
+                    </span>
+                  }
+                </a>
+              </div>
             </li>
 
             <!-- TRACKS -->
             <li class="sidebar-navigation__item" data-label="Tracks">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/learn/tracks"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  share
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Tracks
+              <div class="sidebar-navigation__link">
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/learn/tracks"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [matTooltip]="isCollapsed ? 'Tracks' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+                  <span class="material-symbols-outlined">
+                    share
                   </span>
-                }
-              </a>
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Tracks
+                    </span>
+                  }
+                </a>
+              </div>
             </li>
           </ul>
         }
       </section>
 
       <!-- ACCOUNT -->
-      <section class="sidebar-navigation__section">
+      <section
+        class="sidebar-navigation__section"
+        [class.sidebar-navigation__section--expanded]="accountExpanded"
+      >
         <button
           type="button"
           class="sidebar-navigation__title sidebar-navigation__toggle"
+          [class.sidebar-navigation__title--expanded]="accountExpanded"
           (click)="toggleSection('account')"
         >
           <span>ACCOUNT</span>
@@ -538,21 +620,26 @@
         @if (accountExpanded) {
           <ul class="sidebar-navigation__list">
             <li class="sidebar-navigation__item" data-label="Profile">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/account/profile"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  manage_accounts
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Profile
+              <div class="sidebar-navigation__link">
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/account/profile"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [matTooltip]="isCollapsed ? 'Profile' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+                  <span class="material-symbols-outlined">
+                    manage_accounts
                   </span>
-                }
-              </a>
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Profile
+                    </span>
+                  }
+                </a>
+              </div>
             </li>
           </ul>
         }  
@@ -560,10 +647,14 @@
 
       @if (isAdmin) {
         <!-- ADMIN -->
-        <section class="sidebar-navigation__section">
+        <section
+          class="sidebar-navigation__section"
+          [class.sidebar-navigation__section--expanded]="adminExpanded"
+        >
           <button
             type="button"
             class="sidebar-navigation__title sidebar-navigation__toggle"
+            [class.sidebar-navigation__title--expanded]="adminExpanded"
             (click)="toggleSection('admin')"
           >
             <span>Admin</span>
@@ -580,21 +671,26 @@
           @if (adminExpanded) {
             <ul class="sidebar-navigation__list">
               <li class="sidebar-navigation__item" data-label="Dashboard">
-                <a
-                  class="sidebar-navigation__link"
-                  routerLink="/admin/dashboard"
-                  routerLinkActive="sidebar-navigation__link--active"
-                >
-                  <span class="material-symbols-outlined">
-                    dashboard
-                  </span>
-
-                  @if (!isCollapsed) {
-                    <span class="sidebar-navigation__label">
-                      Dashboard
+                <div class="sidebar-navigation__link">
+                  <a
+                    class="sidebar-navigation__link-content"
+                    routerLink="/admin/dashboard"
+                    routerLinkActive="sidebar-navigation__link--active"
+                    [matTooltip]="isCollapsed ? 'Dashboard' : ''"
+                    matTooltipPosition="below"
+                    matTooltipClass="sidebar-tooltip" 
+                  >
+                    <span class="material-symbols-outlined">
+                      dashboard
                     </span>
-                  }
-                </a>
+  
+                    @if (!isCollapsed) {
+                      <span class="sidebar-navigation__label">
+                        Dashboard
+                      </span>
+                    }
+                  </a>
+                </div>
               </li>
             </ul>
           }
