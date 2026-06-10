@@ -1,13 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../core/services/auth-service/auth.service';
 import { Footer } from '../footer/footer';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [MatIconModule, RouterLink, RouterLinkActive, Footer],
+  imports: [
+    MatIconModule,
+    MatTooltipModule,
+    RouterLink,
+    RouterLinkActive,
+    Footer
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
@@ -34,10 +41,53 @@ export class Sidebar implements OnInit {
     private readonly authService: AuthService,
   ) {}
 
+  // HELPERS
+  private isLearnRoute(url: string): boolean {
+    return url.startsWith('/learn');
+  }
+
+  private isCoursesRoute(url: string): boolean {
+    return url.startsWith('/learn/courses');
+  }
+
+  private isFrontendRoute(url: string): boolean {
+    return url.startsWith('/learn/courses/frontend');
+  }
+
+  private isBackendRoute(url: string): boolean {
+    return url.startsWith('/learn/courses/backend');
+  }
+
+  private isDatabaseRoute(url: string): boolean {
+    return url.startsWith('/learn/courses/banco-de-dados');
+  }
+
+  private isMobileRoute(url: string): boolean {
+    return url.startsWith('/learn/courses/mobile');
+  }
+
+  private isDevopsRoute(url: string): boolean {
+    return url.startsWith('/learn/courses/devops');
+  }
+
+  private isArtificialIntelligenceRoute(url: string): boolean {
+    return url.startsWith('/learn/courses/artificial-intelligence');
+  }
+
+  private isAccountRoute(url: string): boolean {
+    return url.startsWith('/account');
+  }
+
+  private isAdminRoute(url: string): boolean {
+    return url.startsWith('/admin');
+  }
+
   ngOnInit(): void {
     this.updateExpandedSections(this.router.url);
+
     const user = this.authService.getUser();
     this.isAdmin = user?.role === 'ADMIN';
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateExpandedSections(event.urlAfterRedirects);
@@ -46,9 +96,45 @@ export class Sidebar implements OnInit {
   }
 
   private updateExpandedSections(url: string): void {
-    this.learnExpanded = url.includes('/learn');
-    this.accountExpanded = url.includes('/account');
-    this.adminExpanded = url.includes('/admin');
+    if (this.isLearnRoute(url)) {
+      this.learnExpanded = true;
+    }
+
+    if (this.isAccountRoute(url)) {
+      this.accountExpanded = true;
+    }
+
+    if (this.isAdminRoute(url)) {
+      this.adminExpanded = true;
+    }
+
+    // if (this.isCoursesRoute(url)) {
+    //   this.coursesExpanded = true;
+    // }
+
+    // if (this.isFrontendRoute(url)) {
+    //   this.frontendExpanded = true;
+    // }
+
+    // if (this.isBackendRoute(url)) {
+    //   this.backendExpanded = true;
+    // }
+
+    // if (this.isDatabaseRoute(url)) {
+    //   this.databaseExpanded = true;
+    // }
+
+    // if (this.isMobileRoute(url)) {
+    //   this.mobileExpanded = true;
+    // }
+
+    // if (this.isDevopsRoute(url)) {
+    //   this.devopsExpanded = true;
+    // }
+
+    // if (this.isArtificialIntelligenceRoute(url)) {
+    //   this.artificialIntelligenceExpanded = true;
+    // }
   }
 
   toggleSection(section: string): void {
@@ -95,9 +181,48 @@ export class Sidebar implements OnInit {
     }
   }
 
+  isCoursesActive(): boolean {
+    return this.router.url === '/learn/courses';
+  }
+
+  isFrontendActive(): boolean {
+    return this.router.url === '/learn/courses/frontend';
+  }
+
+  isBackendActive(): boolean {
+    return this.router.url === '/learn/courses/backend';
+  }
+
+  isDatabaseActive(): boolean {
+    return this.router.url === '/learn/courses/banco-de-dados';
+  }
+
+  isMobileActive(): boolean {
+    return this.router.url === '/learn/courses/mobile';
+  }
+
+  isDevopsActive(): boolean {
+    return this.router.url === '/learn/courses/devops';
+  }
+
+  isArtificialIntelligenceActive(): boolean {
+    return this.router.url === '/learn/courses/artificial-intelligence';
+  }
+
+  isLearnParentActive(): boolean {
+    return this.router.url.startsWith('/learn/');
+  }
+
+  isAccountParentActive(): boolean {
+    return this.router.url.startsWith('/account/');
+  }
+
+  isAdminParentActive(): boolean {
+    return this.router.url.startsWith('/admin/');
+  }
+
   isCoursesParentActive(): boolean {
-    return this.router.url.startsWith('/learn/courses/')
-      && this.router.url !== '/learn/courses';
+    return this.router.url.startsWith('/learn/courses/') && this.router.url !== '/learn/courses';
   }
 
   isFrontendParentActive(): boolean {

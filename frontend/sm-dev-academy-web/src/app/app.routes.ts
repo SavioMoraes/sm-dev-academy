@@ -62,6 +62,13 @@ export const routes: Routes = [
       },
 
       {
+        path: 'learn/courses/banco-de-dados',
+        loadComponent: () =>
+          import('./features/learn/courses/banco-de-dados/banco-de-dados')
+            .then((m) => m.BancoDeDados),
+      },
+
+      {
         path: 'learn/courses/backend',
         loadComponent: () =>
           import('./features/learn/courses/backend/backend')
