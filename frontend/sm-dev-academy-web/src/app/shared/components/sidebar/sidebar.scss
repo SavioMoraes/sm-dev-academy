@@ -114,7 +114,7 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.03em;
@@ -228,7 +228,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  transform: scale(0.85);
+  // transform: scale(0.85);
 }
 
 .sidebar-navigation__list
@@ -299,7 +299,7 @@
 }
 
 .sidebar-navigation__label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1;
   color: rgba(255, 255, 255, 0.62);
@@ -369,10 +369,10 @@
   gap: 2px;
   width: 100%;
   padding: 0;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
-  transform: scale(0.85);
-  transform-origin: center center;
+  // transform: scale(0.85);
+  // transform-origin: center center;
 }
 
 .sidebar.sidebar-collapsed .sidebar-navigation__list {
@@ -559,6 +559,21 @@
 .sidebar-navigation__toggle
 .material-symbols-outlined {
   color: #ffffff;
+}
+
+.sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+.sidebar-navigation__label {
+  color: #ffffff;
+}
+
+.sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+.material-symbols-outlined {
+  color: #ffffff;
+}
+
+.sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+.sidebar__tech-icon {
+  opacity: 1;
 }
 
 // .sidebar.sidebar-collapsed .sidebar-navigation__item:hover::after {
