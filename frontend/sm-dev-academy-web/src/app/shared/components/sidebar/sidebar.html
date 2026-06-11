@@ -227,6 +227,48 @@
 
                     </div>
 
+                    @if (frontendExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.frontend;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/frontend',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'frontend',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
+
                   </li>
 
                   <!-- BACKEND -->
@@ -281,9 +323,48 @@
                           }
                         </span>
                       </button>
-
                     </div>
 
+                    @if (backendExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.backend;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/backend',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'backend',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
                   </li>
 
                   <!-- BANCO DE DADOS -->
@@ -338,19 +419,57 @@
                           }
                         </span>
                       </button>
-
                     </div>
 
+                    @if (databaseExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.database;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/banco-de-dados',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'banco-de-dados',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
                   </li>
 
                   <!-- MOBILE -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
-
                     <div
                       class="sidebar-navigation__link"
                       [class.sidebar-navigation__link--expanded]="mobileExpanded && !isMobileActive()"
                     >
-
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/mobile"
@@ -360,7 +479,6 @@
                         matTooltipPosition="below"
                         matTooltipClass="sidebar-tooltip" 
                       >
-
                         <img
                           class="sidebar__tech-icon"
                           src="assets/svg/mobile.svg"
@@ -372,7 +490,6 @@
                             Mobile
                           </span>
                         }
-
                       </a>
 
                       <button
@@ -395,19 +512,57 @@
                           }
                         </span>
                       </button>
-
                     </div>
 
+                    @if (mobileExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.mobile;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/mobile',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'mobile',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
                   </li>
 
                   <!-- DEVOPS -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
-
                     <div
                       class="sidebar-navigation__link"
                       [class.sidebar-navigation__link--expanded]="devopsExpanded && !isDevopsActive()"
                     >
-
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/devops"
@@ -417,7 +572,6 @@
                         matTooltipPosition="below"
                         matTooltipClass="sidebar-tooltip"
                       >
-
                         <img
                           class="sidebar__tech-icon"
                           src="assets/svg/devops.svg"
@@ -429,7 +583,6 @@
                             DevOps
                           </span>
                         }
-
                       </a>
 
                       <button
@@ -452,19 +605,57 @@
                           }
                         </span>
                       </button>
-
                     </div>
 
+                    @if (devopsExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.devops;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/devops',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'devops',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
                   </li>
 
                   <!-- IA -->
                   <li class="sidebar-navigation__item sidebar-navigation__category">
-
                     <div
                       class="sidebar-navigation__link"
                       [class.sidebar-navigation__link--expanded]="artificialIntelligenceExpanded && !isArtificialIntelligenceActive()"
                     >
-
                       <a
                         class="sidebar-navigation__link-content"
                         routerLink="/learn/courses/artificial-intelligence"
@@ -474,7 +665,6 @@
                         matTooltipPosition="below"
                         matTooltipClass="sidebar-tooltip"
                       >
-
                         <img
                           class="sidebar__tech-icon"
                           src="assets/svg/ia.svg"
@@ -486,7 +676,6 @@
                             IA
                           </span>
                         }
-
                       </a>
 
                       <button
@@ -509,15 +698,52 @@
                           }
                         </span>
                       </button>
-
                     </div>
 
+                    @if (artificialIntelligenceExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.artificialIntelligence;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/artificial-intelligence',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'artificial-intelligence',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
                   </li>
-
                 </ul>
-
               }
-
             </li>
 
             <!-- MY COURSES -->

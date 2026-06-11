@@ -4,17 +4,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../core/services/auth-service/auth.service';
 import { Footer } from '../footer/footer';
+import { TECHNOLOGIES } from '../../../core/constants/technologies';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    MatIconModule,
-    MatTooltipModule,
-    RouterLink,
-    RouterLinkActive,
-    Footer
-  ],
+  imports: [MatIconModule, MatTooltipModule, RouterLink, RouterLinkActive, Footer],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
@@ -22,7 +17,7 @@ export class Sidebar implements OnInit {
   /* DESKTOP */
   @Input() isCollapsed = false;
 
-  learnExpanded = true;
+  learnExpanded = false;
   coursesExpanded = false;
   frontendExpanded = false;
   backendExpanded = false;
@@ -30,11 +25,13 @@ export class Sidebar implements OnInit {
   mobileExpanded = false;
   devopsExpanded = false;
   artificialIntelligenceExpanded = false;
-  accountExpanded = true;
-  adminExpanded = true;
+  accountExpanded = false;
+  adminExpanded = false;
 
   /* ADMIN */
   isAdmin = false;
+
+  readonly technologies = TECHNOLOGIES;
 
   constructor(
     private readonly router: Router,
@@ -80,6 +77,23 @@ export class Sidebar implements OnInit {
 
   private isAdminRoute(url: string): boolean {
     return url.startsWith('/admin');
+  }
+
+  private currentCourseCategory: string | null = null;
+  private currentCourseTechnology: string | null = null;
+
+  isTechnologyRoute(category: string, technology: string): boolean {
+    return this.router.url === `/learn/courses/${category}/${technology}`;
+  }
+
+  isTechnologyCourseActive(technology: string): boolean {
+    return this.currentCourseTechnology?.toLowerCase() === technology.toLowerCase();
+  }
+
+  isTechnologyActive(category: string, technology: string): boolean {
+    return (
+      this.isTechnologyRoute(category, technology) || this.isTechnologyCourseActive(technology)
+    );
   }
 
   ngOnInit(): void {
