@@ -67,16 +67,6 @@ export class Nodejs implements OnInit, AfterViewInit {
 
         next: (response) => {
 
-          const technologies =
-        [...new Set(
-          response.courses.map(
-            (course) => course.technology,
-          ),
-        )];
-
-      console.log(technologies);
-
-
           this.courses =
             response.courses.filter(
               (course) =>
