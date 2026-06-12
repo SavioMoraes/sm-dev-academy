@@ -257,6 +257,7 @@
 
 .sidebar-navigation__technologies-arrow {
   margin-left: auto;
+  margin-right: -10px;
   font-size: inherit;
   color: rgba(255, 255, 255, 0.62) !important;
 }
@@ -561,17 +562,35 @@
   color: #ffffff;
 }
 
-.sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+// .sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+// .sidebar-navigation__label {
+//   color: #ffffff;
+// }
+
+// .sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+// .material-symbols-outlined {
+//   color: #ffffff;
+// }
+
+// .sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+// .sidebar__tech-icon {
+//   opacity: 1;
+// }
+
+.sidebar-navigation__link:hover
+.sidebar-navigation__link-content:not(.sidebar-navigation__link--active)
 .sidebar-navigation__label {
   color: #ffffff;
 }
 
-.sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+.sidebar-navigation__link:hover
+.sidebar-navigation__link-content:not(.sidebar-navigation__link--active)
 .material-symbols-outlined {
   color: #ffffff;
 }
 
-.sidebar-navigation__link:hover:not(.sidebar-navigation__link--active)
+.sidebar-navigation__link:hover
+.sidebar-navigation__link-content:not(.sidebar-navigation__link--active)
 .sidebar__tech-icon {
   opacity: 1;
 }
