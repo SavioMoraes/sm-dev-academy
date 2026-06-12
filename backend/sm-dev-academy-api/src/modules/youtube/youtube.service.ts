@@ -2,18 +2,18 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 const TECHNOLOGIES = [
-  'Node.js',
-  'NestJS',
-  'Java',
-  '.NET',
+  'SQL Server',
+  'React Native',
+  'Flutter',
+  'PostgreSQL',
 ];
 
 const TECHNOLOGY_CATEGORIES: Record<string, string> = {
 
-  'Node.js': 'Backend',
-  NestJS: 'Backend',
-  Java: 'Backend',
-  '.NET': 'Backend',
+  'SQL Server': 'Database',
+  'React Native': 'Mobile',
+  Flutter: 'Mobile',
+  Docker: 'DevOps',
 
 };
 
