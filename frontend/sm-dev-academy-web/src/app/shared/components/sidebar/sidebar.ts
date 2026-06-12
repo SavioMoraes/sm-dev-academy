@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthService } from '../../../core/services/auth-service/auth.service';
 import { Footer } from '../footer/footer';
 import { TECHNOLOGIES } from '../../../core/constants/technologies';
+import { CourseContextService } from '../../../core/services/course-context-service/course-context.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -36,6 +37,8 @@ export class Sidebar implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
+    private readonly courseContextService: CourseContextService,
+    private readonly cdr: ChangeDetectorRef,
   ) {}
 
   // HELPERS
@@ -102,6 +105,57 @@ export class Sidebar implements OnInit {
     const user = this.authService.getUser();
     this.isAdmin = user?.role === 'ADMIN';
 
+    this.courseContextService.currentCourse$.subscribe((course) => {
+      this.currentCourseCategory = course?.category ?? null;
+
+      this.currentCourseTechnology = course?.technology ?? null;
+
+      if (!course) {
+        return;
+      }
+
+      this.learnExpanded = true;
+      this.coursesExpanded = true;
+      this.frontendExpanded = false;
+      this.backendExpanded = false;
+      this.databaseExpanded = false;
+      this.mobileExpanded = false;
+      this.devopsExpanded = false;
+      this.artificialIntelligenceExpanded = false;
+
+      switch (course.category) {
+        case 'Frontend':
+          this.frontendExpanded = true;
+          break;
+
+        case 'Backend':
+          this.backendExpanded = true;
+          break;
+
+        case 'Database':
+          this.databaseExpanded = true;
+          break;
+
+        case 'Mobile':
+          this.mobileExpanded = true;
+          break;
+
+        case 'DevOps':
+          this.devopsExpanded = true;
+          break;
+
+        case 'IA':
+          this.artificialIntelligenceExpanded = true;
+          break;
+      }
+
+      this.updateExpandedSections(
+        this.router.url,
+      );
+
+      this.cdr.detectChanges();
+    });
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateExpandedSections(event.urlAfterRedirects);
@@ -122,9 +176,9 @@ export class Sidebar implements OnInit {
       this.adminExpanded = true;
     }
 
-    // if (this.isCoursesRoute(url)) {
-    //   this.coursesExpanded = true;
-    // }
+    if (this.isCoursesRoute(url)) {
+      this.coursesExpanded = true;
+    }
 
     // if (this.isFrontendRoute(url)) {
     //   this.frontendExpanded = true;
@@ -193,6 +247,10 @@ export class Sidebar implements OnInit {
         this.adminExpanded = !this.adminExpanded;
         break;
     }
+  }
+
+  isLearnActive(): boolean {
+    return this.router.url === '/learn';
   }
 
   isCoursesActive(): boolean {
