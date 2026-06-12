@@ -12,6 +12,6 @@ import { RouterLink } from '@angular/router';
 })
 export class CategoryCard {
   @Input() title: string = '';
-  @Input() icon: string = '';
+  @Input() src: string = '';
   @Input() route: string = '';
 }

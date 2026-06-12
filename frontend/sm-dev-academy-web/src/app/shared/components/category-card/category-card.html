@@ -3,10 +3,11 @@
   [routerLink]="route"
 >
   <div class="category-card__icon">
-    <span class="material-symbols-outlined">
-      {{ icon }}
-    </span>
-  </div>
+    <img
+      [src]="src"
+      alt="title + ' icon'"
+    />
+</div>
 
   <h3 class="category-card__title">
     {{ title }}
