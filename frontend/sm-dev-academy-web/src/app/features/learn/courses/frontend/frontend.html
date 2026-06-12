@@ -1,1 +1,51 @@
-<p>frontend works!</p>
+<app-page-container>
+
+  <section class="frontend-hero">
+
+    <h1 class="frontend-hero__title">
+      Conheça nossos cursos de Frontend
+    </h1>
+
+    <p class="frontend-hero__description">
+      Explore conteúdos de HTML, CSS, JavaScript, TypeScript, Angular, React,
+      Vue e outras tecnologias essenciais para se tornar um desenvolvedor
+      Frontend completo.
+    </p>
+
+  </section>
+
+  @for (
+    technology of technologies;
+    track technology.slug
+  ) {
+
+    @if (getCoursesByTechnology(technology.label).length > 0) {
+
+      <app-stream-section
+        [title]="technology.label"
+      >
+
+        @for (
+          course of getCoursesByTechnology(
+            technology.label
+          );
+          track course.id
+        ) {
+
+          <app-highlight-course-card
+            [title]="course.title"
+            [category]="course.category"
+            [description]="course.description"
+            [image]="course.thumbnail"
+            [playlistId]="course.playlistId"
+          />
+
+        }
+
+      </app-stream-section>
+
+    }
+
+  }
+
+</app-page-container>

@@ -39,9 +39,20 @@
   justify-content: center;
 }
 
-.category-card__icon .material-symbols-outlined {
-  font-size: 54px;
-  color: #ff3b3b;
+.category-card__icon img {
+  width: 64px;
+  height: 64px;
+  color: #ff3b3b !important;
+
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(36%)
+    sepia(93%)
+    saturate(2877%)
+    hue-rotate(343deg)
+    brightness(103%)
+    contrast(101%);
 }
 
 .category-card__title {
@@ -63,9 +74,10 @@
     padding: 20px;
     border-radius: 20px;
   }
-
-  .category-card__icon .material-symbols-outlined {
-    font-size: 44px;
+  
+  .category-card__icon img {
+    width: 44px;
+    height: 44px;
   }
 
   .category-card__title {
