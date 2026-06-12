@@ -1,1 +1,51 @@
-<p>tracks works!</p>
+<app-page-container>
+  <section class="tracks-hero">
+    <h1 class="tracks-hero__title">
+      Trilhas de Aprendizagem
+    </h1>
+
+    <p class="tracks-hero__subtitle">
+      Siga jornadas completas de estudo organizadas por carreira e acelere sua evolução como desenvolvedor.
+    </p>
+  </section>
+  @for (
+    item of tracks;
+    track item.track.slug
+  ) {
+    <app-stream-section
+      [title]="item.track.title"
+      [subtitle]="
+        item.track.technologies.join(
+          ' • '
+        )
+      "
+    >
+      @for (
+        course of item.courses;
+        track course.id
+      ) {
+        <app-highlight-course-card
+          [title]="course.title"
+          [description]="course.description"
+          [image]="course.thumbnail"
+          [category]="course.technology"
+          [playlistId]="course.playlistId"
+        />
+      }
+    </app-stream-section>
+
+    <div class="track-progress">
+      <div class="track-progress__bar">
+        <div
+          class="track-progress__fill"
+        ></div>
+      </div>
+
+      <span
+        class="track-progress__label"
+      >
+        0%
+      </span>
+    </div>
+  }
+</app-page-container>

@@ -50,7 +50,15 @@ export class Header implements OnInit {
   }
 
   isTechnologyCourseActive(technology: string): boolean {
-    return this.currentCourseTechnology?.toLowerCase() === technology.toLowerCase();
+    const normalize = (value: string | null | undefined): string =>
+      (value ?? '')
+        .toLowerCase()
+        .replaceAll('.', '')
+        .replaceAll('-', '')
+        .replaceAll('/', '')
+        .replaceAll(' ', '');
+
+    return normalize(this.currentCourseTechnology) === normalize(technology);
   }
 
   isTechnologyActive(category: string, technology: string): boolean {
@@ -65,7 +73,6 @@ export class Header implements OnInit {
     this.updateExpandedSections(this.router.url);
 
     this.courseContextService.currentCourse$.subscribe((course) => {
-      
       this.currentCourseCategory = course?.category ?? null;
 
       this.currentCourseTechnology = course?.technology ?? null;
