@@ -16,6 +16,17 @@ export const TRACKS: Track[] = [
       'GitHub',
       'MongoDB',
     ],
+    courses: [
+      'PLMbclvogjXZWgHgQcY5H4MvKtEW8q53cC',
+      'PLr6-GrHUlVf8JIgLcu3sHigvQjTw_aC9C',
+      'PL4-IK0AVhVjOJs_UjdQeyEZ_cmEV3uJvx',
+      'PLx4x_zx8csUg_AxxbVWHEyAJ6cBdsYc0T',
+      'PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3',
+      'PLinedj3B30sDby4Al-i13hQJGQoRQDfPo',
+      'PLDyvV36pndZFHXjXuwA_NywNrVQO0aQqb',
+      'PLpaKFn4Q4GMOhOuffvi7VagNib0P325AV',
+      'PL1BztTYDF-QPwd9Qg-nxQk1UYtorhzXLc',
+    ],
   },
 
   {
@@ -31,6 +42,16 @@ export const TRACKS: Track[] = [
       'MySQL',
       'AWS',
     ],
+    courses: [
+      'PLfqMhTWNBTe0PY9xunOzsP5kmYIz2Hu7i',
+      'PL4cUxeGkcC9gQeDH6xYhmO-db2mhoTSrT',
+      'PL7zl8TDRnbulsGX8znjV0SA1cDBVzCwga',
+      'PLNCSWIsR6ADIl3wauyqaYprM5KzOOZDS5',
+      'PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl',
+      'PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3',
+      'PLfvOpw8k80WoSXjfGFci23SPob_PdvpHx',
+      'PLdpzxOOAlwvLNOxX0RfndiYSt1Le9azze',
+    ],
   },
 
   {
@@ -39,13 +60,24 @@ export const TRACKS: Track[] = [
     technologies: [
       'HTML',
       'CSS',
-      'Tailwind CSS',
+      'Tailwind',
       'JavaScript',
-      'Vue.js',
+      'Vue',
       'Java',
       'SQL Server',
       'Azure',
       'ChatGPT',
+    ],
+    courses: [
+      'PLPt6-BtUI22oveeGAyckbAXRSmTBGLZP4',
+      'PLP9IO4UYNF0UCaUSF3XNZ1U9f01E5h5PM',
+      'PL-Hkw4CrSVq-Oc898YeSkcHTAAS2K2S3f',
+      'PLsFVybaG4mODFwCuV06yLitVTikKF09sy',
+      'PL4cUxeGkcC9hYYGbV60Vq3IXYNfDk8At1',
+      'PLNCSWIsR6ADI_wMAx9F-Iu8Hs9HHxj4sb',
+      'PLLbQNZHBOJtZ1oAbve_kacS5nm9u1ULou',
+      'PLz3hnOImntANgM1EyWSGkY4v-7dhWURWt',
+      'PLltHgIJnfTsAraUYcKaW3cgnU_AiTFRfT',
     ],
   },
 
@@ -64,6 +96,18 @@ export const TRACKS: Track[] = [
       'GitHub',
       'DeepSeek',
     ],
+    courses: [
+      'PLWKjhJtqVAbnSe1qUNMG7AbPmjIG54u88',
+      'PL0Zuz27SZ-6Mx9fd9elt80G1bPcySmWit',
+      'PLnDvRpP8Bnexu5wvxogy6N49_S5Xk8Cze',
+      'PL2Fdisxwzt_d590u3uad46W-kHA0PTjjw',
+      'PLnDvRpP8Bnex2GQEN0768_AxZg_RaIGmw',
+      'PLEI5qdfLBErZuMSareAo-TLTFYU9hGDsR',
+      'PLDqAb8tE7SQZzMWvPG4PYevQAW1cDsbD0',
+      'PLHz_AreHm4dm7ZULPAmadvNhH6vk9oNZA',
+      'PLylCwvNCtoanYEIC4OBMO2hfB-ihCSv9Y',
+      'PL65dNk2ar6Fgq1916XHMFRzFWBKpQrNzl',
+    ],
   },
 
   {
@@ -81,6 +125,18 @@ export const TRACKS: Track[] = [
       'Docker',
       'ChatGPT',
     ],
+    courses: [
+      'PLHJ9lQEt-ZKPKt9XZks5y3hfe1xB2S6zZ',
+      'PLpDyZ4xZcDg_gyII__1jtnE2FEgqpfJU8',
+      'PLb0ENDTKBLSUt5nROX6Q5_YTkljmXm297',
+      'PLb2HQ45KP0Wsk-p_0c6ImqBAEFEY-LU9H',
+      'PLNCSWIsR6ADJuQd4x6LVIC4VFMYArdg3M',
+      'PL9tY_tDo_Q0C0hs1aGgtJbEH1EBlyzZdG',
+      'PLhnVDNT5zYN_PfPXedWpMy_UTeYNExbfR',
+      'PLfvOpw8k80WpKTtloa7fMbfPWL7D6X5cC',
+      'PLViOsriojeLrdw5VByn96gphHFxqH3O_N',
+      'PLl9p_cO-hdIuFa_2TmTJLR6ZXol-1HQi6',
+    ],
   },
 
   {
@@ -89,10 +145,18 @@ export const TRACKS: Track[] = [
     technologies: [
       'HTML',
       'CSS',
-      'Tailwind CSS',
+      'Tailwind',
       'JavaScript',
       'React',
       'Git',
+    ],
+    courses: [
+      'PLr6-GrHUlVf_ZNmuQSXdS197Oyr1L9sPB',
+      'PL2Fdisxwzt_f5C7Mv0kg1EAHhy2VJLf1c',
+      'PL4cUxeGkcC9gpXORlEHjc5bgnIi5HEGhw',
+      'PLHz_AreHm4dlsK3Nr9GVvXCbpQyHQl1o1',
+      'PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8',
+      'PLcoYAcR89n-qbO7YAVj5S0alABLis_QVU',
     ],
   },
 
@@ -106,6 +170,12 @@ export const TRACKS: Track[] = [
       'TypeScript',
       'Angular',
     ],
+    courses: [
+      'PLP9IO4UYNF0VdAajP_5pYG-jG2JRrG72s',
+      'PLmnsJI3O-fYskJJ2nK1kGPXPzCYOTJAOb',
+      'PLa3uqHCcweTicGuLMh9ZS7l0uYOuiXr-b',
+      'PLGxZ4Rq3BOBoSRcKWEdQACbUCNWLczg2G',
+    ],
   },
 
   {
@@ -116,8 +186,15 @@ export const TRACKS: Track[] = [
       'CSS',
       'SCSS',
       'TypeScript',
-      'Vue.js',
+      'Vue',
       'GitHub',
+    ],
+    courses: [
+      'PLHz_AreHm4dkZ9-atkcmcBaMZdmLHft8n',
+      'PL6gx4Cwl9DGBxQO2r_kmxn-0UqL_Rkj0t',
+      'PL9aKtVrF05DxIrtD3CuXGnzq8Q0IZ-t8J',
+      'PLDyJYA6aTY1lwiVmcFFb7g0dRehAXmWUn',
+      'PLygIEirBzJi5PB0OPSsKuAkP7LgNSxEtG',
     ],
   },
 
@@ -131,6 +208,13 @@ export const TRACKS: Track[] = [
       'NestJS',
       'MySQL',
     ],
+    courses: [
+      'PLf-O3X2-mxDn1VpyU2q3fuI6YYeIWp5rR',
+      'PLnex8IkmReXwCyR-cGkyy8tCVAW7fGZow',
+      'PLj8JhcdUB95awioM24Os3__p4dakaQBm3',
+      'PLR8JXremim5AdjhggWtqzgSXPYZ_V9x2b',
+      'PLucm8g_ezqNrWAQH2B_0AnrFY5dJcgOLR',
+    ],
   },
 
   {
@@ -143,6 +227,13 @@ export const TRACKS: Track[] = [
       'CI/CD',
       'SQL Server',
     ],
+    courses: [
+      'PLNCSWIsR6ADKRq-XBvAcRd4XtqLj3f_mf',
+      'PLHz_AreHm4dlKP6QQCekuIPky1CiwmdI6',
+      'PLz3hnOImntAPoJZ2JAWtOzc34X1EI_ge7',
+      'PLvJurMzpDLA5ad-Sl1q4qAQhJujpa2lzf',
+      'PLucm8g_ezqNqI5cW3alteV5olcMCcHYRK',
+    ],
   },
 
   {
@@ -154,6 +245,13 @@ export const TRACKS: Track[] = [
       'CI/CD',
       'PostgreSQL',
       'DeepSeek',
+    ],
+    courses: [
+      'PL9wKVHxY5DoNy-D4errvry9sVktl9YNcA',
+      'PLGPluF_nhP9p6zWTN88ZJ1q9J_ZK148-f',
+      'PLy7NrYWoggjzSIlwxeBbcgfAdYoxCIrM2',
+      'PLucm8g_ezqNoAkYKXN_zWupyH6hQCAwxY',
+      'PLPTV0NXA_ZSiOpKKlHCyOq9lnp-dLvlms',
     ],
   },
 

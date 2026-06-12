@@ -90,7 +90,15 @@ export class Sidebar implements OnInit {
   }
 
   isTechnologyCourseActive(technology: string): boolean {
-    return this.currentCourseTechnology?.toLowerCase() === technology.toLowerCase();
+    const normalize = (value: string | null | undefined): string =>
+      (value ?? '')
+        .toLowerCase()
+        .replaceAll('.', '')
+        .replaceAll('-', '')
+        .replaceAll('/', '')
+        .replaceAll(' ', '');
+
+    return normalize(this.currentCourseTechnology) === normalize(technology);
   }
 
   isTechnologyActive(category: string, technology: string): boolean {
@@ -149,9 +157,7 @@ export class Sidebar implements OnInit {
           break;
       }
 
-      this.updateExpandedSections(
-        this.router.url,
-      );
+      this.updateExpandedSections(this.router.url);
 
       this.cdr.detectChanges();
     });
