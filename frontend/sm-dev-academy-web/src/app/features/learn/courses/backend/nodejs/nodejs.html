@@ -1,1 +1,53 @@
-<p>nodejs works!</p>
+<app-page-container>
+
+  <div class="courses__hero">
+
+    <h1 class="courses__title">
+      Node.js
+    </h1>
+
+    <p class="courses__subtitle">
+      Explore nossos cursos de Node.js e aprenda desenvolvimento backend, APIs REST, Express, autenticação, bancos de dados e aplicações escaláveis com JavaScript.
+    </p>
+
+  </div>
+
+  <app-responsive-grid>
+
+    @for (
+      course of visibleCourses;
+      track course.playlistId
+    ) {
+
+      <article
+        class="course-card"
+        (click)="openCourse(course.playlistId)"
+      >
+
+        <img
+          class="course-card__image"
+          loading="lazy"
+          [src]="course.thumbnail"
+          [alt]="course.title"
+        >
+
+        <div class="course-card__content">
+
+          <h3 class="course-card__title">
+            {{ course.title }}
+          </h3>
+
+        </div>
+
+      </article>
+
+    }
+
+    <div
+      #sentinel
+      class="courses__sentinel"
+    ></div>
+
+  </app-responsive-grid>
+
+</app-page-container>
