@@ -1,0 +1,51 @@
+<app-page-container>
+
+  <section class="artificial-intelligence-hero">
+
+    <h1 class="artificial-intelligence-hero__title">
+      Conheça nossos cursos de Inteligência Artificial
+    </h1>
+
+    <p class="artificial-intelligence-hero__description">
+      Explore conteúdos de Machine Learning, Deep Learning, Processamento de
+      Linguagem Natural, Visão Computacional e outras tecnologias essenciais
+      para se tornar um especialista em Inteligência Artificial.
+    </p>
+
+  </section>
+
+  @for (
+    technology of technologies;
+    track technology.slug
+  ) {
+
+    @if (getCoursesByTechnology(technology.label).length > 0) {
+
+      <app-stream-section
+        [title]="technology.label"
+      >
+
+        @for (
+          course of getCoursesByTechnology(
+            technology.label
+          );
+          track course.id
+        ) {
+
+          <app-highlight-course-card
+            [title]="course.title"
+            [category]="course.category"
+            [description]="course.description"
+            [image]="course.thumbnail"
+            [playlistId]="course.playlistId"
+          />
+
+        }
+
+      </app-stream-section>
+
+    }
+
+  }
+
+</app-page-container>

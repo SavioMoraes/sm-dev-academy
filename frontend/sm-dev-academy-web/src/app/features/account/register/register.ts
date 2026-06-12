@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -23,13 +23,18 @@ export class Register {
 
   isLoading = false;
   previewImage: string | null = null;
-
+  submitted = false;
+  errorMessage = '';
+  correctMessage = '';
   registerForm;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly changeDetectorRef: ChangeDetectorRef,
   ) {
 
     this.registerForm =
@@ -66,40 +71,68 @@ export class Register {
         ],
       });
 
+      this.registerForm.valueChanges.subscribe(() => {
+        this.errorMessage = '';
+        this.submitted = false;
+      });
+
   }
 
   onImageSelected(
     event: Event,
   ): void {
 
+    this.errorMessage = '';
+
+    const input =
+      event.target as HTMLInputElement;
+
     const file =
-      (event.target as HTMLInputElement)
-        .files?.[0];
+      input.files?.[0];
 
     if (!file) {
+      return;
+    }
+
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (
+      file.size > maxSize
+    ) {
+
+      this.errorMessage =
+        'Imagem muito grande. Escolha uma imagem menor que 5MB.';
 
       return;
-
     }
 
     const reader =
       new FileReader();
 
     reader.onload =
-      () => {
+      (e) => {
+
+        const result =
+          e.target?.result as string;
 
         this.previewImage =
-          reader.result as string;
+          result;
+
+        this.registerForm.patchValue({
+          avatarUrl: result,
+        });
+
+        this.changeDetectorRef.detectChanges();
 
       };
 
-    reader.readAsDataURL(
-      file,
-    );
+    reader.readAsDataURL(file);
 
   }
 
   handleSubmit(): void {
+    this.submitted = true;
+    this.errorMessage = '';
 
     if (
       this.registerForm.invalid
@@ -116,9 +149,7 @@ export class Register {
       this.registerForm.value.confirmPassword
     ) {
 
-      alert(
-        'As senhas não coincidem.',
-      );
+      this.errorMessage = 'As senhas não coincidem.';
 
       return;
 
@@ -138,24 +169,36 @@ export class Register {
     }).subscribe({
       next: () => {
 
-        alert(
-          'Cadastro realizado com sucesso.',
-        );
+        this.correctMessage = 'Cadastro realizado com sucesso.';
 
         this.router.navigate([
           '/account/login',
         ]);
+
+        this.isLoading = false;
 
       },
       error: (error) => {
 
         console.error(error);
 
-        alert(
-          'Usuário já possui cadastro.',
-        );
+        if (
+          error.status === 409
+        ) {
+
+          this.errorMessage =
+            'Este e-mail já está cadastrado.';
+
+        } else {
+
+          this.errorMessage =
+            'Erro ao realizar cadastro.';
+
+        }
 
         this.isLoading = false;
+
+        this.changeDetectorRef.detectChanges();
 
       },
     });

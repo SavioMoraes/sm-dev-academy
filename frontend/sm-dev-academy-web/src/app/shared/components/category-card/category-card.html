@@ -1,11 +1,15 @@
-<div class="category-card">
+<a
+  class="category-card"
+  [routerLink]="route"
+>
   <div class="category-card__icon">
-    <span class="material-symbols-outlined">
-      {{ icon }}
-    </span>
-  </div>
+    <img
+      [src]="src"
+      alt="title + ' icon'"
+    />
+</div>
 
   <h3 class="category-card__title">
     {{ title }}
   </h3>
-</div>
+</a>

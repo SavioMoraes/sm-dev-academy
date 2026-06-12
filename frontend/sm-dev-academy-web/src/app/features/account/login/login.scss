@@ -211,7 +211,7 @@
       rgba(5, 7, 12, 0.15),
       rgba(5, 7, 12, 0.35)
     ),
-    url('/assets/images/banner-sm-dev-academy.png');
+    url('/assets/images/banner-sm-dev-academy.webp');
 
   background-size: cover;
   background-position: center bottom;
@@ -271,6 +271,32 @@
   margin-bottom: 40px;
 
   color: rgba(255, 255, 255, 0.75);
+}
+
+.login-error {
+  margin-bottom: 20px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 16, 39, 0.12);
+
+  border: 1px solid rgba(255, 16, 39, 0.35);
+
+  color: #ff6675;
+
+  font-size: .9rem;
+
+  text-align: center;
+}
+
+.field-error {
+  margin-top: 6px;
+
+  color: #ff6675;
+
+  font-size: .8rem;
 }
 
 /* =========================================================
@@ -378,35 +404,105 @@
   font-weight: 600;
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  min-width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0;
+  border: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.password-toggle:hover {
+  transform: translateY(-50%) !important;
+  box-shadow: none !important;
+}
+
+.password-toggle .material-symbols-outlined {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.password-toggle:hover .material-symbols-outlined {
+  color: #ffffff;
+}
+
+.auth-logo-mobile {
+  display: none;
+}
+
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1024px) {
-
-  .login-layout {
-    flex-direction: column;
-  }
+@media (min-width: 1024px) and (max-width: 1439px) {
 
   .login-brand {
-    min-height: 420px;
-  }
+    flex: 0 0 58%;
 
-  .login-panel {
-    width: 100%;
+    padding: 80px 32px 32px;
   }
 
   .brand-logo {
-    width: 380px;
+    width: 320px;
   }
 
   .login-brand h2 {
     font-size: 2rem;
   }
 
+  .login-brand p {
+    font-size: 1rem;
+  }
+
+  .tech-list {
+    gap: 20px;
+  }
+
+  .tech-item {
+    width: 70px;
+
+    gap: 10px;
+  }
+
+  .login-panel {
+    flex: 0 0 42%;
+
+    width: auto;
+
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 28px;
+  }
+
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .login-layout {
+    display: block;
+  }
 
   .login-brand {
     display: none;
@@ -415,11 +511,95 @@
   .login-panel {
     width: 100%;
 
-    padding: 24px;
+    min-height: 100dvh;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    padding: 20px;
   }
 
   .login-card {
+    max-width: 700px;
+
+    margin: 0 auto;
+
     padding: 32px;
   }
+
+  .login-card h1 {
+    font-size: 2rem;
+  }
+
+  .back-link {
+    top: 16px;
+    left: 16px;
+
+    padding: 10px 14px;
+
+    font-size: .8rem;
+  }
+
+   .auth-logo-mobile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .auth-logo-mobile img {
+    width: 180px;
+    height: auto;
+  }
+
+
+}
+
+@media (max-width: 767px) {
+
+  .login-layout {
+    display: block;
+  }
+
+  .login-brand {
+    display: none;
+  }
+
+  .login-panel {
+    width: 100%;
+
+    min-height: 100dvh;
+
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 24px;
+  }
+
+  .login-card h1 {
+    font-size: 2rem;
+  }
+
+  .back-link {
+    top: 16px;
+    left: 16px;
+
+    padding: 10px 14px;
+
+    font-size: .8rem;
+  }
+
+   .auth-logo-mobile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .auth-logo-mobile img {
+    width: 140px;
+    height: auto;
+  }
+
 
 }

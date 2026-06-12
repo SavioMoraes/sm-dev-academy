@@ -11,7 +11,7 @@
       <div class="sidebar-logo">
         <a href="/">
           <img
-            src="assets/images/logo-sm-dev-academy.png"
+            src="assets/images/logo-sm-dev-academy.webp"
             alt="Logo"
           >
         </a>
@@ -31,14 +31,14 @@
       @if (!isCollapsed) {
         <a href="/">
           <img
-            src="assets/images/logo-sm-dev-academy.png"
+            src="assets/images/logo-sm-dev-academy.webp"
             alt="Logo"
           >
         </a>
       } @else {
         <a href="/">
           <img
-            src="assets/images/icon-sm-dev-academy.png"
+            src="assets/images/icon-sm-dev-academy.webp"
             alt="Ícone"
           >
         </a>
@@ -57,31 +57,40 @@
         
         <ul class="sidebar-navigation__list">
           <li class="sidebar-navigation__item">
-            <a
-              class="sidebar-navigation__link"
-              routerLink="/"
-              routerLinkActive="sidebar-navigation__link--active"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              <span class="material-symbols-outlined">
-                home
-              </span>
-
-              @if (!isCollapsed) {
-                <span class="sidebar-navigation__label">
-                  Home
+            <div class="sidebar-navigation__link">
+              <a
+                class="sidebar-navigation__link-content"
+                routerLink="/"
+                routerLinkActive="sidebar-navigation__link--active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [matTooltip]="isCollapsed ? 'Home' : ''"
+                matTooltipPosition="below"
+                matTooltipClass="sidebar-tooltip"
+              >
+                <span class="material-symbols-outlined">
+                  home
                 </span>
-              }
-            </a>
+  
+                @if (!isCollapsed) {
+                  <span class="sidebar-navigation__label">
+                    Home
+                  </span>
+                }
+              </a>
+            </div>   
           </li>
         </ul>
       </section>
 
       <!-- LEARN -->
-      <section class="sidebar-navigation__section">
+      <section
+        class="sidebar-navigation__section"
+        [class.sidebar-navigation__section--expanded]="learnExpanded"
+      >
         <button
           type="button"
           class="sidebar-navigation__title sidebar-navigation__toggle"
+          [class.sidebar-navigation__title--expanded]="learnExpanded"
           (click)="toggleSection('learn')"
         >
           <span>LEARN</span>
@@ -99,373 +108,728 @@
           <ul class="sidebar-navigation__list">
 
             <!-- COURSES -->
-            <li class="sidebar-navigation__item" data-label="Courses">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/learn/courses"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  school
-                </span>
+            <li
+              class="sidebar-navigation__item"
+              data-label="Courses"
+            >
 
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Courses
+              <div
+                class="sidebar-navigation__link"
+                [class.sidebar-navigation__link--expanded]="coursesExpanded && !isCoursesActive()"
+              >
+
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/learn/courses"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  [matTooltip]="isCollapsed ? 'Courses' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+
+                  <span
+                    class="
+                      material-symbols-outlined
+                      sidebar-navigation__technologies-icon
+                    "
+                  >
+                    school
                   </span>
-                }
-              </a>
+
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Courses
+                    </span>
+                  }
+
+                </a>
+
+                <button
+                  type="button"
+                  class="sidebar-navigation__expand-button sidebar-navigation__expand-button--courses"
+                  (click)="toggleSection('courses')"
+                >
+                  <span
+                    class="
+                      material-symbols-outlined
+                      sidebar-navigation__technologies-arrow
+                    "
+                    [class.sidebar-navigation__technologies-arrow--active]="isCoursesActive()"
+                    [class.sidebar-navigation__technologies-arrow--expanded]="coursesExpanded && !isCoursesActive()"
+                  >
+                    @if (coursesExpanded) {
+                      keyboard_arrow_down
+                    } @else {
+                      keyboard_arrow_right
+                    }
+                  </span>
+                </button>
+
+              </div>
+
+              @if (coursesExpanded) {
+
+                <ul class="sidebar-navigation__list">
+
+                  <!-- FRONTEND -->
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
+
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="frontendExpanded && !isFrontendActive()"
+                    >
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/frontend"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Frontend' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip" 
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/frontend.svg"
+                          alt="Frontend"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Frontend
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
+                        (click)="toggleSection('frontend')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                          [class.sidebar-navigation__technologies-arrow--active]="isFrontendActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="frontendExpanded && !isFrontendActive()"
+                        >
+                          @if (frontendExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+
+                    </div>
+
+                    @if (frontendExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.frontend;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/frontend',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'frontend',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
+
+                  </li>
+
+                  <!-- BACKEND -->
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
+
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="backendExpanded && !isBackendActive()"
+                    >
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/backend"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Backend' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/backend.svg"
+                          alt="Backend"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Backend
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
+                        (click)="toggleSection('backend')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                          [class.sidebar-navigation__technologies-arrow--active]="isBackendActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="backendExpanded && !isBackendActive()"
+                        >
+                          @if (backendExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+                    </div>
+
+                    @if (backendExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.backend;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/backend',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'backend',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </li>
+
+                  <!-- BANCO DE DADOS -->
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
+
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="databaseExpanded && !isDatabaseActive()"
+                    >
+
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/banco-de-dados"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Banco de Dados' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
+                      >
+
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/banco-de-dados.svg"
+                          alt="Banco de Dados"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Banco de Dados
+                          </span>
+                        }
+
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
+                        (click)="toggleSection('banco-de-dados')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                          [class.sidebar-navigation__technologies-arrow--active]="isDatabaseActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="databaseExpanded && !isDatabaseActive()"
+                        >
+                          @if (databaseExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+                    </div>
+
+                    @if (databaseExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.database;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/banco-de-dados',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'banco-de-dados',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </li>
+
+                  <!-- MOBILE -->
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="mobileExpanded && !isMobileActive()"
+                    >
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/mobile"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'Mobile' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip" 
+                      >
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/mobile.svg"
+                          alt="Mobile"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            Mobile
+                          </span>
+                        }
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
+                        (click)="toggleSection('mobile')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                          [class.sidebar-navigation__technologies-arrow--active]="isMobileActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="mobileExpanded && !isMobileActive()"
+                        >
+                          @if (mobileExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+                    </div>
+
+                    @if (mobileExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.mobile;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/mobile',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'mobile',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </li>
+
+                  <!-- DEVOPS -->
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="devopsExpanded && !isDevopsActive()"
+                    >
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/devops"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'DevOps' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
+                      >
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/devops.svg"
+                          alt="DevOps"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            DevOps
+                          </span>
+                        }
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
+                        (click)="toggleSection('devops')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                          [class.sidebar-navigation__technologies-arrow--active]="isDevopsActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="devopsExpanded && !isDevopsActive()"
+                        >
+                          @if (devopsExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+                    </div>
+
+                    @if (devopsExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.devops;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/devops',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'devops',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </li>
+
+                  <!-- IA -->
+                  <li class="sidebar-navigation__item sidebar-navigation__category">
+                    <div
+                      class="sidebar-navigation__link"
+                      [class.sidebar-navigation__link--expanded]="artificialIntelligenceExpanded && !isArtificialIntelligenceActive()"
+                    >
+                      <a
+                        class="sidebar-navigation__link-content"
+                        routerLink="/learn/courses/artificial-intelligence"
+                        routerLinkActive="sidebar-navigation__link--active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        [matTooltip]="isCollapsed ? 'IA' : ''"
+                        matTooltipPosition="below"
+                        matTooltipClass="sidebar-tooltip"
+                      >
+                        <img
+                          class="sidebar__tech-icon"
+                          src="assets/svg/ia.svg"
+                          alt="IA"
+                        />
+
+                        @if (!isCollapsed) {
+                          <span class="sidebar-navigation__label">
+                            IA
+                          </span>
+                        }
+                      </a>
+
+                      <button
+                        type="button"
+                        class="sidebar-navigation__expand-button sidebar-navigation__expand-button--category"
+                        (click)="toggleSection('artificial-intelligence')"
+                      >
+                        <span
+                          class="
+                            material-symbols-outlined
+                            sidebar-navigation__technologies-arrow
+                          "
+                          [class.sidebar-navigation__technologies-arrow--active]="isArtificialIntelligenceActive()"
+                          [class.sidebar-navigation__technologies-arrow--expanded]="artificialIntelligenceExpanded && !isArtificialIntelligenceActive()"
+                        >
+                          @if (artificialIntelligenceExpanded) {
+                            keyboard_arrow_down
+                          } @else {
+                            keyboard_arrow_right
+                          }
+                        </span>
+                      </button>
+                    </div>
+
+                    @if (artificialIntelligenceExpanded) {
+                      <ul class="sidebar-navigation__list">
+                        @for (
+                          technology of technologies.artificialIntelligence;
+                          track technology.slug
+                        ) {
+                          <li class="sidebar-navigation__item">
+                            <div class="sidebar-navigation__link">
+                              <a
+                                class="sidebar-navigation__link-content"
+                                [routerLink]="[
+                                  '/learn/courses/artificial-intelligence',
+                                  technology.slug
+                                ]"
+                                [class.sidebar-navigation__link--active]="
+                                  isTechnologyActive(
+                                    'artificial-intelligence',
+                                    technology.slug
+                                  )
+                                "
+                                [matTooltip]="isCollapsed ? technology.label : ''"
+                                matTooltipPosition="below"
+                                matTooltipClass="sidebar-tooltip"
+                              >
+                                <img
+                                  class="sidebar__tech-icon"
+                                  [src]="technology.icon"
+                                  [alt]="technology.label"
+                                />
+
+                                @if (!isCollapsed) {
+                                  <span class="sidebar-navigation__label">
+                                    {{ technology.label }}
+                                  </span>
+                                }
+                              </a>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </li>
+                </ul>
+              }
             </li>
 
             <!-- MY COURSES -->
             <li class="sidebar-navigation__item" data-label="My Courses">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/learn/my-courses"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  video_library
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    My Courses
+              <div class="sidebar-navigation__link">
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/learn/my-courses"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [matTooltip]="isCollapsed ? 'MyCourses' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+                  <span class="material-symbols-outlined">
+                    video_library
                   </span>
-                }
-              </a>
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      My Courses
+                    </span>
+                  }
+                </a>
+              </div>
             </li>
 
             <!-- FAVORITES -->
             <li class="sidebar-navigation__item" data-label="Favorites">
-              <a
-                routerLink="/learn/favorites"
-                routerLinkActive="sidebar-navigation__link--active"
-                class="sidebar-navigation__link"
-              >
-                <span class="material-symbols-outlined">
-                  favorite
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Favorites
-                  </span>
-                }
-              </a>
-            </li>
-
-            <!-- TECHNOLOGIES -->
-            <li
-              class="
-                sidebar-navigation__item
-                sidebar-navigation__item--technologies
-              "
-              [attr.data-label]="
-                isCollapsed && !technologiesExpanded
-                  ? 'Technologies'
-                  : null
-              "
-            >
-
-              <button
-                type="button"
-                class="sidebar-navigation__link sidebar-navigation__toggle"
-                (click)="toggleSection('technologies')"
-              >
-
-                <span
-                  class="
-                    material-symbols-outlined
-                    sidebar-navigation__technologies-icon
-                  "
+              <div class="sidebar-navigation__link">
+                <a
+                  routerLink="/learn/favorites"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  class="sidebar-navigation__link-content"
+                  [matTooltip]="isCollapsed ? 'Favorites' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
                 >
-                  terminal
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Technologies
+                  <span class="material-symbols-outlined">
+                    favorite
                   </span>
-                }
-
-                <span class="material-symbols-outlined sidebar-technologies-arrow arrow-spacing">
-                  @if (technologiesExpanded) {
-                    keyboard_arrow_down
-                  } @else {
-                    keyboard_arrow_right
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Favorites
+                    </span>
                   }
-                </span>
-                
-
-              </button>
-
-              @if (technologiesExpanded) {
-
-                <ul class="sidebar-navigation__list">
-
-                  <!-- HTML -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="HTML">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/html"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/html5.svg"
-                        alt="HTML"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">HTML</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- CSS -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="CSS">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/css"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/css.svg"
-                        alt="CSS"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">CSS</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- JAVASCRIPT -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="JavaScript">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/javascript"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/javascript.svg"
-                        alt="JavaScript"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">JavaScript</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- TYPESCRIPT -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="TypeScript">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/typescript"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/typescript.svg"
-                        alt="TypeScript"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">TypeScript</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- ANGULAR -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="Angular">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/angular"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/angular.svg"
-                        alt="Angular"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">Angular</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- REACT -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="React">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/react"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/react.svg"
-                        alt="React"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">React</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- PYTHON -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="Python">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/python"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/python.svg"
-                        alt="Python"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">Python</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- NODE.JS -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="Node.js">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/nodejs"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/nodedotjs.svg"
-                        alt="Node.js"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">Node.js</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- NESTJS -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="NestJS">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/nestjs"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/nestjs.svg"
-                        alt="NestJS"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">NestJS</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- MONGODB -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="MongoDB">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/mongodb"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/mongodb.svg"
-                        alt="MongoDB"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">MongoDB</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- MYSQL -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="MySQL">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/mysql"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/mysql.svg"
-                        alt="MySQL"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">MySQL</span>
-                      }
-                    </a>
-                  </li>
-
-                  <!-- POSTGRESQL -->
-                  <li class="sidebar-navigation__item icons-spacing" data-label="PostgreSQL">
-                    <a
-                      class="sidebar-navigation__link"
-                      routerLink="/learn/technologies/postgresql"
-                      routerLinkActive="sidebar-navigation__link--active"
-                    >
-                      <img
-                        class="sidebar__tech-icon"
-                        src="assets/svg/postgresql.svg"
-                        alt="PostgreSQL"
-                      />
-
-                      @if (!isCollapsed) {
-                        <span class="sidebar-navigation__label">PostgreSQL</span>
-                      }
-                    </a>
-                  </li>
-
-                </ul>
-
-              }
-
+                </a>
+              </div>
             </li>
 
             <!-- TRACKS -->
             <li class="sidebar-navigation__item" data-label="Tracks">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/learn/tracks"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  share
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Tracks
+              <div class="sidebar-navigation__link">
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/learn/tracks"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [matTooltip]="isCollapsed ? 'Tracks' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+                  <span class="material-symbols-outlined">
+                    share
                   </span>
-                }
-              </a>
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Tracks
+                    </span>
+                  }
+                </a>
+              </div>
             </li>
-
           </ul>
         }
       </section>
 
       <!-- ACCOUNT -->
-      <section class="sidebar-navigation__section">
+      <section
+        class="sidebar-navigation__section"
+        [class.sidebar-navigation__section--expanded]="accountExpanded"
+      >
         <button
           type="button"
           class="sidebar-navigation__title sidebar-navigation__toggle"
+          [class.sidebar-navigation__title--expanded]="accountExpanded"
           (click)="toggleSection('account')"
         >
           <span>ACCOUNT</span>
@@ -482,21 +846,26 @@
         @if (accountExpanded) {
           <ul class="sidebar-navigation__list">
             <li class="sidebar-navigation__item" data-label="Profile">
-              <a
-                class="sidebar-navigation__link"
-                routerLink="/account/profile"
-                routerLinkActive="sidebar-navigation__link--active"
-              >
-                <span class="material-symbols-outlined">
-                  account_circle
-                </span>
-
-                @if (!isCollapsed) {
-                  <span class="sidebar-navigation__label">
-                    Profile
+              <div class="sidebar-navigation__link">
+                <a
+                  class="sidebar-navigation__link-content"
+                  routerLink="/account/profile"
+                  routerLinkActive="sidebar-navigation__link--active"
+                  [matTooltip]="isCollapsed ? 'Profile' : ''"
+                  matTooltipPosition="below"
+                  matTooltipClass="sidebar-tooltip" 
+                >
+                  <span class="material-symbols-outlined">
+                    manage_accounts
                   </span>
-                }
-              </a>
+  
+                  @if (!isCollapsed) {
+                    <span class="sidebar-navigation__label">
+                      Profile
+                    </span>
+                  }
+                </a>
+              </div>
             </li>
           </ul>
         }  
@@ -504,10 +873,14 @@
 
       @if (isAdmin) {
         <!-- ADMIN -->
-        <section class="sidebar-navigation__section">
+        <section
+          class="sidebar-navigation__section"
+          [class.sidebar-navigation__section--expanded]="adminExpanded"
+        >
           <button
             type="button"
             class="sidebar-navigation__title sidebar-navigation__toggle"
+            [class.sidebar-navigation__title--expanded]="adminExpanded"
             (click)="toggleSection('admin')"
           >
             <span>Admin</span>
@@ -524,21 +897,26 @@
           @if (adminExpanded) {
             <ul class="sidebar-navigation__list">
               <li class="sidebar-navigation__item" data-label="Dashboard">
-                <a
-                  class="sidebar-navigation__link"
-                  routerLink="/admin/dashboard"
-                  routerLinkActive="sidebar-navigation__link--active"
-                >
-                  <span class="material-symbols-outlined">
-                    dashboard
-                  </span>
-
-                  @if (!isCollapsed) {
-                    <span class="sidebar-navigation__label">
-                      Dashboard
+                <div class="sidebar-navigation__link">
+                  <a
+                    class="sidebar-navigation__link-content"
+                    routerLink="/admin/dashboard"
+                    routerLinkActive="sidebar-navigation__link--active"
+                    [matTooltip]="isCollapsed ? 'Dashboard' : ''"
+                    matTooltipPosition="below"
+                    matTooltipClass="sidebar-tooltip" 
+                  >
+                    <span class="material-symbols-outlined">
+                      dashboard
                     </span>
-                  }
-                </a>
+  
+                    @if (!isCollapsed) {
+                      <span class="sidebar-navigation__label">
+                        Dashboard
+                      </span>
+                    }
+                  </a>
+                </div>
               </li>
             </ul>
           }

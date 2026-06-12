@@ -1,0 +1,50 @@
+<app-page-container>
+
+  <section class="devops-hero">
+
+    <h1 class="devops-hero__title">
+      Conheça nossos cursos de DevOps
+    </h1>
+
+    <p class="devops-hero__description">
+      Explore conteúdos de DevOps, incluindo CI/CD, Docker, Kubernetes e outras tecnologias essenciais para se tornar um profissional
+      DevOps completo.
+    </p>
+
+  </section>
+
+  @for (
+    technology of technologies;
+    track technology.slug
+  ) {
+
+    @if (getCoursesByTechnology(technology.label).length > 0) {
+
+      <app-stream-section
+        [title]="technology.label"
+      >
+
+        @for (
+          course of getCoursesByTechnology(
+            technology.label
+          );
+          track course.id
+        ) {
+
+          <app-highlight-course-card
+            [title]="course.title"
+            [category]="course.category"
+            [description]="course.description"
+            [image]="course.thumbnail"
+            [playlistId]="course.playlistId"
+          />
+
+        }
+
+      </app-stream-section>
+
+    }
+
+  }
+
+</app-page-container>

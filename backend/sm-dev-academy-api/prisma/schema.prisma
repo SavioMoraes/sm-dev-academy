@@ -9,32 +9,81 @@ datasource db {
 }
 
 model Course {
-  id          String   @id @default(uuid())
+  id          String        @id @default(uuid())
+  playlistId  String        @unique
   title       String
-  slug        String   @unique
+  slug        String        @unique
   description String
   thumbnail   String
   playlistUrl String
   category    String
   technology  String
-  language    String
   level       String?
-  featured    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  featured    Boolean       @default(false)
+  videos      CourseVideo[]
+  favorites   Favorite[]
+  userCourses UserCourse[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
   @@map("courses")
 }
 
-model User {
+model CourseVideo {
   id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      String @default("USER")
-  avatarUrl String?
+  courseId  String
+  videoId   String   @unique
+  title     String
+  thumbnail String
+  position  Int
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@map("course_videos")
+}
+
+model User {
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  password    String
+  role        String       @default("USER")
+  avatarUrl   String?
+  favorites   Favorite[]
+  userCourses UserCourse[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
   @@map("users")
+}
+
+model Favorite {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@map("favorites")
+}
+
+model UserCourse {
+  id          String   @id @default(uuid())
+  userId      String
+  courseId    String
+  startedAt   DateTime @default(now())
+  lastVideoId String?
+  progress    Int      @default(0)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([userId, updatedAt])
+  @@map("user_courses")
 }

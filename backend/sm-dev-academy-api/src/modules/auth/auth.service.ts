@@ -1,4 +1,4 @@
-import { BadRequestException, UnauthorizedException, Injectable } from '@nestjs/common';
+import { ConflictException, UnauthorizedException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
@@ -24,7 +24,7 @@ export class AuthService {
 
     if (existingUser) {
 
-      throw new BadRequestException(
+      throw new ConflictException(
         'E-mail já cadastrado.',
       );
 

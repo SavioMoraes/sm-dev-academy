@@ -11,6 +11,10 @@ import { YoutubeService } from './youtube.service';
   providers: [
     YoutubeService,
   ],
+
+  exports: [
+    YoutubeService,
+  ],
 })
 export class YoutubeModule {}
 

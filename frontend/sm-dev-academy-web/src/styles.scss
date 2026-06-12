@@ -72,3 +72,22 @@ app-root {
       rgba(255, 59, 59, 0.7) 100%
     );
 }
+
+/* =========================================================
+   COLLAPSED SIDEBAR
+========================================================= */
+
+.sidebar-tooltip {
+  font-size: 5px !important;
+  min-height: auto !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  position: absolute !important;
+  top: -14px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: max-content !important;
+  border-radius: 25px !important;
+}

@@ -1,0 +1,49 @@
+<app-page-container>
+
+  <section class="backend-hero">
+
+    <h1 class="backend-hero__title">
+      Conheça nossos cursos de Backend
+    </h1>
+
+    <p class="backend-hero__description">
+      Explore conteúdos de Node.js, Express, MongoDB, SQL, Python, Java e outras tecnologias essenciais para se tornar um desenvolvedor Backend completo.
+    </p>
+
+  </section>
+
+  @for (
+    technology of technologies;
+    track technology.slug
+  ) {
+
+    @if (getCoursesByTechnology(technology.label).length > 0) {
+
+      <app-stream-section
+        [title]="technology.label"
+      >
+
+        @for (
+          course of getCoursesByTechnology(
+            technology.label
+          );
+          track course.id
+        ) {
+
+          <app-highlight-course-card
+            [title]="course.title"
+            [category]="course.category"
+            [description]="course.description"
+            [image]="course.thumbnail"
+            [playlistId]="course.playlistId"
+          />
+
+        }
+
+      </app-stream-section>
+
+    }
+
+  }
+
+</app-page-container>

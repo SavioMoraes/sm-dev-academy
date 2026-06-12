@@ -1,1 +1,50 @@
-<p>favorites works!</p>
+<app-page-container>
+  <div class="courses__hero">
+    <h1 class="courses__title">
+      Meus Favoritos
+    </h1>
+  </div>
+
+  <app-responsive-grid>
+    @for (
+      favorite of visibleFavorites;
+      track favorite.id
+    ) {
+      <article
+        class="course-card"
+        (click)="openCourse(favorite.course.playlistId)"
+      >
+        <button
+          type="button"
+          class="course-card__favorite"
+          title="Remover dos favoritos"
+          (click)="removeFavorite(
+            $event,
+            favorite.course.id
+          ); $event.stopPropagation()"
+        >
+          <span class="course-card__favorite-icon">
+            ❤️
+          </span>
+        </button>
+
+        <img
+          class="course-card__image"
+          loading="lazy"
+          [src]="favorite.course.thumbnail"
+          [alt]="favorite.course.title"
+        >
+
+        <div class="course-card__content">
+          <h3 class="course-card__title">
+            {{ favorite.course.title }}
+          </h3>
+        </div>
+      </article>
+    }
+  </app-responsive-grid>
+   <div
+    #sentinel
+    class="courses__sentinel">
+  </div>
+</app-page-container>

@@ -1,6 +1,5 @@
 export const CATEGORIES = [
 
-  'Fullstack',
   'Frontend',
   'Backend',
   'Database',

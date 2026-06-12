@@ -1,0 +1,49 @@
+<app-page-container>
+
+  <section class="banco-de-dados-hero">
+
+    <h1 class="banco-de-dados-hero__title">
+      Conheça nossos cursos de Banco de Dados
+    </h1>
+
+    <p class="banco-de-dados-hero__description">
+      Explore conteúdos de SQL, NoSQL, modelagem de dados, administração de bancos de dados e outras tecnologias essenciais para se tornar um especialista em Banco de Dados.
+    </p>
+
+  </section>
+
+  @for (
+    technology of technologies;
+    track technology.slug
+  ) {
+
+    @if (getCoursesByTechnology(technology.label).length > 0) {
+
+      <app-stream-section
+        [title]="technology.label"
+      >
+
+        @for (
+          course of getCoursesByTechnology(
+            technology.label
+          );
+          track course.id
+        ) {
+
+          <app-highlight-course-card
+            [title]="course.title"
+            [category]="course.category"
+            [description]="course.description"
+            [image]="course.thumbnail"
+            [playlistId]="course.playlistId"
+          />
+
+        }
+
+      </app-stream-section>
+
+    }
+
+  }
+
+</app-page-container>

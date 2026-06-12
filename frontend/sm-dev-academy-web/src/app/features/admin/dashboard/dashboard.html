@@ -1,1 +1,44 @@
-<p>dashboard works!</p>
+<div class="admin-dashboard">
+
+  <h1>
+    Administração
+  </h1>
+
+  <div class="admin-card">
+
+    <h2>
+      Gestão de Cursos
+    </h2>
+
+    <p>
+      Atualiza a base de cursos a partir da integração do YouTube.
+    </p>
+
+    <button
+      (click)="importCourses()"
+      [disabled]="isLoading"
+    >
+      @if (!isLoading) {
+        Sincronizar Cursos
+      } @else {
+        Sincronizando...
+      }
+    </button>
+
+    @if (importResult) {
+
+  <div class="admin-result">
+    Found: {{ importResult.found }}
+    <br>
+    Accepted: {{ importResult.accepted }}
+    <br>
+    Saved: {{ importResult.saved }}
+    <br>
+    Duplicates: {{ importResult.duplicates }}
+  </div>
+
+}
+
+  </div>
+
+</div>

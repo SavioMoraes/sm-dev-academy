@@ -14,7 +14,7 @@
     <section class="login-brand">
 
       <img
-        src="assets/images/logo-sm-dev-academy.png"
+        src="assets/images/logo-sm-dev-academy.webp"
         alt="SM Dev Academy"
         class="brand-logo"
       >
@@ -79,13 +79,30 @@
         (ngSubmit)="handleSubmit()"
       >
 
+        <div class="auth-logo-mobile">
+          <img
+            src="assets/images/logo-sm-dev-academy.webp"
+            alt="SM Dev Academy"
+          >
+        </div>
+
         <h1>
           Cadastre-se
         </h1>
 
+        @if (errorMessage) {
+          <div class="login-error">
+            {{ errorMessage }}
+          </div>
+        } @else if (correctMessage) {
+          <div class="login-success">
+            {{ correctMessage }}
+          </div>
+        }
+
         <!-- FOTO -->
 
-        <div class="avatar-preview">
+        <label class="avatar-preview">
 
           @if (previewImage) {
 
@@ -102,7 +119,15 @@
 
           }
 
-        </div>
+          <input
+            type="file"
+            accept="image/*"
+            (click)="errorMessage = ''"
+            (change)="onImageSelected($event)"
+            hidden
+          >
+
+        </label>
 
         <label
           class="avatar-upload"
@@ -112,6 +137,7 @@
           <input
             type="file"
             accept="image/*"
+            (click)="errorMessage = ''"
             (change)="onImageSelected($event)"
             hidden
           >
@@ -145,6 +171,17 @@
             formControlName="email"
           >
 
+          @if (
+            submitted &&
+            registerForm.controls.email.invalid
+          ) {
+
+            <small class="field-error">
+              Informe um e-mail válido.
+            </small>
+
+          }
+
         </div>
 
         <!-- SENHA -->
@@ -155,10 +192,54 @@
             Senha
           </label>
 
-          <input
-            type="password"
-            formControlName="password"
-          >
+          <div class="password-field">
+
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="showPassword = !showPassword"
+            >
+
+              <i class="material-symbols-outlined">
+
+                @if (showPassword) {
+                  visibility_off
+                } @else {
+                  visibility
+                }
+
+              </i>
+
+            </button>
+
+          </div>
+
+          @if (
+            submitted &&
+            registerForm.controls.password.hasError('required')
+          ) {
+
+            <small class="field-error">
+              Informe uma senha.
+            </small>
+
+          }
+
+          @if (
+            submitted &&
+            registerForm.controls.password.hasError('minlength')
+          ) {
+
+            <small class="field-error">
+              A senha deve possuir pelo menos 6 caracteres.
+            </small>
+
+          }
 
         </div>
 
@@ -170,10 +251,43 @@
             Confirmar senha
           </label>
 
-          <input
-            type="password"
-            formControlName="confirmPassword"
-          >
+          <div class="password-field">
+
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="showConfirmPassword = !showConfirmPassword"
+            >
+
+              <i class="material-symbols-outlined">
+
+                @if (showConfirmPassword) {
+                  visibility
+                } @else {
+                  visibility_off
+                }
+
+              </i>
+
+            </button>
+
+          </div>
+
+          @if (
+            submitted &&
+            registerForm.controls.confirmPassword.hasError('required')
+          ) {
+
+            <small class="field-error">
+              Confirme sua senha.
+            </small>
+
+          }
 
         </div>
 
