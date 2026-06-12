@@ -15,7 +15,7 @@ import { ResponsiveGrid } from '../../../shared/ui/responsive-grid/responsive-gr
     ResponsiveGrid,
   ],
   templateUrl: './courses.html',
-  styleUrl: './courses.scss',
+  // styleUrl: './courses.scss', -> usando o global!
 })
 export class Courses implements OnInit, AfterViewInit {
   private readonly courseService = inject(CourseService);
