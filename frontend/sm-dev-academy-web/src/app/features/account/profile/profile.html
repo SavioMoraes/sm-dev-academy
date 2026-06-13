@@ -1,1 +1,87 @@
-<p>profile works!</p>
+<app-page-container>
+  <div class="profile">
+    <section class="profile-hero">
+      <div class="profile-avatar" (click)="avatarInput.click()">
+        @if (user?.avatarUrl) {
+          <img [src]="user.avatarUrl" [alt]="user.name" />
+        } @else {
+          <span>
+            {{ getInitial() }}
+          </span>
+        }
+      </div>
+
+      <input #avatarInput type="file" accept="image/*" hidden (change)="onAvatarSelected($event)" />
+
+      <h1 class="profile-name">
+        {{ user?.name }}
+      </h1>
+
+      <p class="profile-email">
+        {{ user?.email }}
+      </p>
+
+      <div class="profile-role">
+        {{ user?.role }}
+      </div>
+
+      <span class="profile-avatar-hint"> Clique no avatar para alterar </span>
+    </section>
+
+    <section class="profile-stats">
+      <div class="stat-card">
+        <span class="stat-value">
+          {{ myCoursesCount }}
+        </span>
+
+        <span class="stat-label"> Meus Cursos </span>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-value">
+          {{ favoritesCount }}
+        </span>
+
+        <span class="stat-label"> Favoritos </span>
+      </div>
+    </section>
+
+    <section class="profile-section">
+      <h2>Editar Cadastro</h2>
+
+      <div class="edit-card">
+        <div class="edit-card__content">
+          <span class="edit-card__label"> Nome </span>
+
+          <span class="edit-card__value">
+            {{ user?.name }}
+          </span>
+        </div>
+
+        <button class="edit-card__button" (click)="editName()">Editar</button>
+      </div>
+
+      <div class="edit-card">
+        <div class="edit-card__content">
+          <span class="edit-card__label"> Email </span>
+
+          <span class="edit-card__value">
+            {{ user?.email }}
+          </span>
+        </div>
+
+        <button class="edit-card__button" (click)="editEmail()">Editar</button>
+      </div>
+
+      <div class="edit-card">
+        <div class="edit-card__content">
+          <span class="edit-card__label"> Senha </span>
+
+          <span class="edit-card__value"> ******** </span>
+        </div>
+
+        <button class="edit-card__button" (click)="changePassword()">Alterar</button>
+      </div>
+    </section>
+  </div>
+</app-page-container>
