@@ -3,33 +3,23 @@ import { PrismaService } from '../../database/prisma.service';
 
 @Injectable()
 export class UserService {
+  constructor(private readonly prismaService: PrismaService) {}
 
-  constructor(
-    private readonly prismaService: PrismaService,
-  ) {}
-
-  async findByEmail(
-    email: string,
-  ) {
-
+  async findByEmail(email: string) {
     return this.prismaService.user.findUnique({
       where: {
         email,
       },
     });
-
   }
 
-  async create(
-    data: {
-      name: string;
-      email: string;
-      password: string;
-      role?: string;
-      avatarUrl?: string;
-    },
-  ) {
-
+  async create(data: {
+    name: string;
+    email: string;
+    password: string;
+    role?: string;
+    avatarUrl?: string;
+  }) {
     return this.prismaService.user.create({
       data: {
         name: data.name,
@@ -39,7 +29,41 @@ export class UserService {
         avatarUrl: data.avatarUrl,
       },
     });
-
   }
 
+  async findById(id: string) {
+    return this.prismaService.user.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async updateProfile(
+    userId: string,
+    data: {
+      name?: string;
+      email?: string;
+    },
+  ) {
+    return this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+
+      data,
+    });
+  }
+
+  async updatePassword(userId: string, password: string) {
+    return this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+
+      data: {
+        password,
+      },
+    });
+  }
 }

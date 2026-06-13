@@ -41,6 +41,8 @@ export class Favorites implements OnInit, AfterViewInit {
       .getFavorites()
       .subscribe({
         next: (response) => {
+          console.log('FAVORITES', response);
+
           this.favorites = response;
           this.visibleFavorites =
             this.favorites.slice(

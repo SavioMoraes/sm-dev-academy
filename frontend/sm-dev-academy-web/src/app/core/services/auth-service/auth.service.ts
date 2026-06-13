@@ -11,114 +11,71 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly API_URL = environment.apiUrl;
 
-  private readonly API_URL =
-    environment.apiUrl;
+  private readonly TOKEN_KEY = 'smda_token';
 
-  private readonly TOKEN_KEY =
-    'smda_token';
+  private readonly USER_KEY = 'smda_user';
 
-  private readonly USER_KEY =
-    'smda_user';
+  private readonly authStateSubject = new BehaviorSubject<boolean>(
+    !!localStorage.getItem('smda_token'),
+  );
 
-  private readonly authStateSubject =
-    new BehaviorSubject<boolean>(
-      !!localStorage.getItem(
-        'smda_token',
-      ),
-    );
+  readonly authState$ = this.authStateSubject.asObservable();
 
-  readonly authState$ =
-    this.authStateSubject.asObservable();
+  constructor(private readonly http: HttpClient) {}
 
-  constructor(
-    private readonly http: HttpClient,
-  ) {}
-
-  login(
-    data: LoginRequest,
-  ): Observable<LoginResponse> {
-
-    return this.http.post<LoginResponse>(
-      `${this.API_URL}/auth/login`,
-      data,
-    );
-
+  login(data: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.API_URL}/auth/login`, data);
   }
 
-  register(
-    data: RegisterRequest,
-  ): Observable<void> {
-
-    return this.http.post<void>(
-      `${this.API_URL}/auth/register`,
-      data,
-    );
-
+  register(data: RegisterRequest): Observable<void> {
+    return this.http.post<void>(`${this.API_URL}/auth/register`, data);
   }
 
-  setAuth(
-    token: string,
-    user: AuthUser,
-  ): void {
+  setAuth(token: string, user: AuthUser): void {
+    localStorage.setItem(this.TOKEN_KEY, token);
 
-    localStorage.setItem(
-      this.TOKEN_KEY,
-      token,
-    );
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
 
-    localStorage.setItem(
-      this.USER_KEY,
-      JSON.stringify(user),
-    );
-
-    this.authStateSubject.next(
-      true,
-    );
-
+    this.authStateSubject.next(true);
   }
 
   getToken(): string | null {
-
-    return localStorage.getItem(
-      this.TOKEN_KEY,
-    );
-
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
   getUser(): AuthUser | null {
+    const user = localStorage.getItem(this.USER_KEY);
 
-    const user =
-      localStorage.getItem(
-        this.USER_KEY,
-      );
-
-    return user
-      ? JSON.parse(user) as AuthUser
-      : null;
-
+    return user ? (JSON.parse(user) as AuthUser) : null;
   }
 
   isAuthenticated(): boolean {
-
     return !!this.getToken();
-
   }
 
   logout(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
 
-    localStorage.removeItem(
-      this.TOKEN_KEY,
-    );
+    localStorage.removeItem(this.USER_KEY);
 
-    localStorage.removeItem(
-      this.USER_KEY,
-    );
-
-    this.authStateSubject.next(
-      false,
-    );
-
+    this.authStateSubject.next(false);
   }
 
+  updateProfile(data: { name?: string; email?: string }) {
+    return this.http.patch(`${this.API_URL}/auth/profile`, data, {
+      headers: {
+        Authorization: `Bearer ${this.getToken()}`,
+      },
+    });
+  }
+
+  changePassword(data: { currentPassword: string; newPassword: string }) {
+    return this.http.patch(`${this.API_URL}/auth/change-password`, data, {
+      headers: {
+        Authorization: `Bearer ${this.getToken()}`,
+      },
+    });
+  }
 }

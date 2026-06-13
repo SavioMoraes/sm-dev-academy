@@ -38,13 +38,14 @@
       <div class="track-progress__bar">
         <div
           class="track-progress__fill"
+          [style.width.%]="item.progress"
         ></div>
       </div>
 
       <span
         class="track-progress__label"
       >
-        0%
+        {{ item.progress }}%
       </span>
     </div>
   }
