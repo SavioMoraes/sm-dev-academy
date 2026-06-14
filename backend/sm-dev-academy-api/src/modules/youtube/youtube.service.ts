@@ -2,18 +2,18 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 const TECHNOLOGIES = [
-  'Node.js',
-  'NestJS',
-  'Java',
-  '.NET',
+  'GitHub',
+  'ChatGPT',
+  'Deep Seek',
+  'HTML',
 ];
 
 const TECHNOLOGY_CATEGORIES: Record<string, string> = {
 
-  'Node.js': 'Backend',
-  NestJS: 'Backend',
-  Java: 'Backend',
-  '.NET': 'Backend',
+  GitHub: 'DevOps',
+  ChatGPT: 'IA',
+  'Deep Seek': 'IA',
+  HTML: 'Frontend',
 
 };
 

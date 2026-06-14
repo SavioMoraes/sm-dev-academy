@@ -1,19 +1,9 @@
-<article
-  class="highlight-course-card"
-  (click)="openCourse()">
-
+<article class="highlight-course-card" (click)="openCourse()">
   <div class="highlight-course-card__image-wrapper">
-
-    <img
-      class="highlight-course-card__image"
-      [src]="image"
-      [alt]="title"
-    />
-
+    <img class="highlight-course-card__image" [src]="image" [alt]="title" />
   </div>
 
   <div class="highlight-course-card__content">
-
     <span class="highlight-course-card__category">
       {{ category }}
     </span>
@@ -21,11 +11,5 @@
     <h3 class="highlight-course-card__title">
       {{ title }}
     </h3>
-
-    <p class="highlight-course-card__description">
-      {{ description }}
-    </p>
-
   </div>
-
 </article>

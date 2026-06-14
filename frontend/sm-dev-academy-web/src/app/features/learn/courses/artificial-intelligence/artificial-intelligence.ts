@@ -25,7 +25,7 @@ export class ArtificialIntelligence implements OnInit {
   ngOnInit(): void {
     this.courseService.getCourses().subscribe({
       next: (response) => {
-        this.artificialIntelligenceCourses = response.courses.filter((course) => course.category === 'Inteligência Artificial');
+        this.artificialIntelligenceCourses = response.courses.filter((course) => course.category === 'IA');
         this.cdr.detectChanges();
       },
 

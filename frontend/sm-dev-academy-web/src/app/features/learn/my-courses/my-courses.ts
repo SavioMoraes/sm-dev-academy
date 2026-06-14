@@ -51,6 +51,7 @@ implements OnInit, AfterViewInit {
       .getMyCourses()
       .subscribe({
         next: (response) => {
+          console.log('MY COURSES', response)
           this.myCourses = response;
           this.visibleMyCourses =
             this.myCourses.slice(

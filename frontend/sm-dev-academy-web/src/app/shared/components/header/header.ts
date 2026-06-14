@@ -50,7 +50,15 @@ export class Header implements OnInit {
   }
 
   isTechnologyCourseActive(technology: string): boolean {
-    return this.currentCourseTechnology?.toLowerCase() === technology.toLowerCase();
+    const normalize = (value: string | null | undefined): string =>
+      (value ?? '')
+        .toLowerCase()
+        .replaceAll('.', '')
+        .replaceAll('-', '')
+        .replaceAll('/', '')
+        .replaceAll(' ', '');
+
+    return normalize(this.currentCourseTechnology) === normalize(technology);
   }
 
   isTechnologyActive(category: string, technology: string): boolean {
@@ -65,7 +73,6 @@ export class Header implements OnInit {
     this.updateExpandedSections(this.router.url);
 
     this.courseContextService.currentCourse$.subscribe((course) => {
-      
       this.currentCourseCategory = course?.category ?? null;
 
       this.currentCourseTechnology = course?.technology ?? null;
@@ -123,6 +130,17 @@ export class Header implements OnInit {
 
     this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
 
+    this.authService.authState$.subscribe(() => {
+      const user = this.authService.getUser();
+
+      this.isAuthenticated = !!user;
+      this.isAdmin = user?.role === 'ADMIN';
+      this.userAvatarUrl = user?.avatarUrl;
+      this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
+
+      this.cdr.detectChanges();
+    });
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isMobileMenuOpen = false;
@@ -155,13 +173,15 @@ export class Header implements OnInit {
     this.learnExpanded = url.includes('/learn');
     this.accountExpanded = url.includes('/account');
     this.adminExpanded = url.includes('/admin');
-    // this.coursesExpanded = url.includes('/learn/courses');
-    // this.frontendExpanded = url.includes('/learn/courses/frontend');
-    // this.backendExpanded = url.includes('/learn/courses/backend');
-    // this.databaseExpanded = url.includes('/learn/courses/banco-de-dados');
-    // this.mobileExpanded = url.includes('/learn/courses/mobile');
-    // this.devopsExpanded = url.includes('/learn/courses/devops');
-    // this.artificialIntelligenceExpanded = url.includes('/learn/courses/artificial-intelligence');
+
+    this.coursesExpanded = url.startsWith('/learn/courses/');
+
+    this.frontendExpanded = url.startsWith('/learn/courses/frontend/');
+    this.backendExpanded = url.startsWith('/learn/courses/backend/');
+    this.databaseExpanded = url.startsWith('/learn/courses/banco-de-dados/');
+    this.mobileExpanded = url.startsWith('/learn/courses/mobile/');
+    this.devopsExpanded = url.startsWith('/learn/courses/devops/');
+    this.artificialIntelligenceExpanded = url.startsWith('/learn/courses/artificial-intelligence/');
   }
 
   toggleSection(section: string): void {

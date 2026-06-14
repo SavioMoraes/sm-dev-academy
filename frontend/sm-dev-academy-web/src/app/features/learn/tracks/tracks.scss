@@ -1,0 +1,62 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.tracks-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.tracks-hero__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.tracks-hero__subtitle {
+  max-width: 900px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.track-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: -24px;
+  margin-bottom: 40px;
+}
+
+.track-progress__bar {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
+}
+
+.track-progress__fill {
+  width: 0%;
+  height: 100%;
+  background: #ff1027;
+}
+
+.track-progress__label {
+  min-width: 42px;
+  color: #ff1027;
+  font-size: 13px;
+  font-weight: 700;
+}
