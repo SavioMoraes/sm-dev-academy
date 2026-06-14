@@ -130,6 +130,17 @@ export class Header implements OnInit {
 
     this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
 
+    this.authService.authState$.subscribe(() => {
+      const user = this.authService.getUser();
+
+      this.isAuthenticated = !!user;
+      this.isAdmin = user?.role === 'ADMIN';
+      this.userAvatarUrl = user?.avatarUrl;
+      this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
+
+      this.cdr.detectChanges();
+    });
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isMobileMenuOpen = false;

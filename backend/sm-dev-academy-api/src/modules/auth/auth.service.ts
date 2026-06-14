@@ -84,11 +84,17 @@ export class AuthService {
   }
 
   async updateProfile(userId: string, updateProfileDto: UpdateProfileDto) {
-    const user = await this.userService.updateProfile(userId, {
+    const data: any = {
       name: updateProfileDto.name,
-
       email: updateProfileDto.email,
-    });
+      avatarUrl: updateProfileDto.avatarUrl,
+    };
+
+    if (updateProfileDto.password) {
+      data.password = await bcrypt.hash(updateProfileDto.password, 10);
+    }
+
+    const user = await this.userService.updateProfile(userId, data);
 
     return {
       message: 'Perfil atualizado com sucesso.',
