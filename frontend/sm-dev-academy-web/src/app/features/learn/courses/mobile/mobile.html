@@ -1,37 +1,20 @@
 <app-page-container>
-
   <section class="mobile-hero">
-
-    <h1 class="mobile-hero__title">
-      Conheça nossos cursos de Mobile
-    </h1>
+    <h1 class="mobile-hero__title">Conheça nossos cursos de Mobile</h1>
 
     <p class="mobile-hero__description">
-      Explore conteúdos de desenvolvimento mobile, incluindo Android, iOS, Flutter,
-      React Native e outras tecnologias essenciais para se tornar um desenvolvedor
-      Mobile completo.
+      Explore conteúdos de desenvolvimento mobile, incluindo Android, iOS, Flutter, React Native e
+      outras tecnologias essenciais para se tornar um desenvolvedor Mobile completo.
     </p>
-
   </section>
 
-  @for (
-    technology of technologies;
-    track technology.slug
-  ) {
-
+  @for (technology of technologies; track technology.slug) {
     @if (getCoursesByTechnology(technology.label).length > 0) {
-
       <app-stream-section
         [title]="technology.label"
+        [titleLink]="'/learn/courses/mobile/' + technology.slug"
       >
-
-        @for (
-          course of getCoursesByTechnology(
-            technology.label
-          );
-          track course.id
-        ) {
-
+        @for (course of getCoursesByTechnology(technology.label); track course.id) {
           <app-highlight-course-card
             [title]="course.title"
             [category]="course.category"
@@ -39,13 +22,8 @@
             [image]="course.thumbnail"
             [playlistId]="course.playlistId"
           />
-
         }
-
       </app-stream-section>
-
     }
-
   }
-
 </app-page-container>

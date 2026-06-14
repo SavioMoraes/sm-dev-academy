@@ -186,29 +186,29 @@ export class Sidebar implements OnInit {
       this.coursesExpanded = true;
     }
 
-    // if (this.isFrontendRoute(url)) {
-    //   this.frontendExpanded = true;
-    // }
+    if (url.startsWith('/learn/courses/frontend/')) {
+      this.frontendExpanded = true;
+    }
 
-    // if (this.isBackendRoute(url)) {
-    //   this.backendExpanded = true;
-    // }
+    if (url.startsWith('/learn/courses/backend/')) {
+      this.backendExpanded = true;
+    }
 
-    // if (this.isDatabaseRoute(url)) {
-    //   this.databaseExpanded = true;
-    // }
+    if (url.startsWith('/learn/courses/banco-de-dados/')) {
+      this.databaseExpanded = true;
+    }
 
-    // if (this.isMobileRoute(url)) {
-    //   this.mobileExpanded = true;
-    // }
+    if (url.startsWith('/learn/courses/mobile/')) {
+      this.mobileExpanded = true;
+    }
 
-    // if (this.isDevopsRoute(url)) {
-    //   this.devopsExpanded = true;
-    // }
+    if (url.startsWith('/learn/courses/devops/')) {
+      this.devopsExpanded = true;
+    }
 
-    // if (this.isArtificialIntelligenceRoute(url)) {
-    //   this.artificialIntelligenceExpanded = true;
-    // }
+    if (url.startsWith('/learn/courses/artificial-intelligence/')) {
+      this.artificialIntelligenceExpanded = true;
+    }
   }
 
   toggleSection(section: string): void {

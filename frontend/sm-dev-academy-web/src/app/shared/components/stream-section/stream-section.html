@@ -1,40 +1,36 @@
 <section class="stream-section">
-
   <div class="stream-section__header">
-
     <div class="stream-section__titles">
-
-      <h2 class="stream-section__title">
-        {{ title }}
-      </h2>
+      @if (titleLink) {
+        <a class="stream-section__title stream-section__title--link" [routerLink]="titleLink">
+          {{ title }}
+          <span class="material-symbols-outlined"> chevron_right </span>
+        </a>
+      } @else {
+        <h2 class="stream-section__title">
+          {{ title }}
+        </h2>
+      }
 
       @if (subtitle) {
         <p class="stream-section__subtitle">
           {{ subtitle }}
         </p>
       }
-
     </div>
-
   </div>
 
   <div class="stream-section__carousel">
-
     <button
       type="button"
       class="stream-section__arrow stream-section__arrow--left"
       [class.stream-section__arrow--disabled]="!canScrollLeft"
       (click)="canScrollLeft && scrollLeft()"
     >
-      <span class="material-symbols-outlined">
-        chevron_left
-      </span>
+      <span class="material-symbols-outlined"> chevron_left </span>
     </button>
 
-    <div
-      #scrollContainer
-      class="stream-section__content"
-    >
+    <div #scrollContainer class="stream-section__content">
       <ng-content />
     </div>
 
@@ -44,11 +40,7 @@
       [class.stream-section__arrow--disabled]="!canScrollRight"
       (click)="canScrollRight && scrollRight()"
     >
-      <span class="material-symbols-outlined">
-        chevron_right
-      </span>
+      <span class="material-symbols-outlined"> chevron_right </span>
     </button>
-
   </div>
-
 </section>
