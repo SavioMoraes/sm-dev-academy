@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-stream-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './stream-section.html',
   styleUrl: './stream-section.scss',
 })
@@ -12,6 +13,7 @@ export class StreamSection {
 
   @Input() title: string = '';
   @Input() subtitle: string = '';
+  @Input() titleLink: string | null = null;
 
   @ViewChild('scrollContainer')
   private scrollContainer?: ElementRef<HTMLDivElement>;

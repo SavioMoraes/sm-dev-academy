@@ -173,13 +173,15 @@ export class Header implements OnInit {
     this.learnExpanded = url.includes('/learn');
     this.accountExpanded = url.includes('/account');
     this.adminExpanded = url.includes('/admin');
-    // this.coursesExpanded = url.includes('/learn/courses');
-    // this.frontendExpanded = url.includes('/learn/courses/frontend');
-    // this.backendExpanded = url.includes('/learn/courses/backend');
-    // this.databaseExpanded = url.includes('/learn/courses/banco-de-dados');
-    // this.mobileExpanded = url.includes('/learn/courses/mobile');
-    // this.devopsExpanded = url.includes('/learn/courses/devops');
-    // this.artificialIntelligenceExpanded = url.includes('/learn/courses/artificial-intelligence');
+
+    this.coursesExpanded = url.startsWith('/learn/courses/');
+
+    this.frontendExpanded = url.startsWith('/learn/courses/frontend/');
+    this.backendExpanded = url.startsWith('/learn/courses/backend/');
+    this.databaseExpanded = url.startsWith('/learn/courses/banco-de-dados/');
+    this.mobileExpanded = url.startsWith('/learn/courses/mobile/');
+    this.devopsExpanded = url.startsWith('/learn/courses/devops/');
+    this.artificialIntelligenceExpanded = url.startsWith('/learn/courses/artificial-intelligence/');
   }
 
   toggleSection(section: string): void {
