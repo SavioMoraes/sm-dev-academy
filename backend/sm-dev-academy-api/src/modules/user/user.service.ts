@@ -44,6 +44,8 @@ export class UserService {
     data: {
       name?: string;
       email?: string;
+      avatarUrl?: string;
+      password?: string;
     },
   ) {
     return this.prismaService.user.update({

@@ -12,18 +12,16 @@ import { environment } from '../../../../environments/environment';
 })
 export class AuthService {
   private readonly API_URL = environment.apiUrl;
-
   private readonly TOKEN_KEY = 'smda_token';
-
   private readonly USER_KEY = 'smda_user';
-
   private readonly authStateSubject = new BehaviorSubject<boolean>(
     !!localStorage.getItem('smda_token'),
   );
-
   readonly authState$ = this.authStateSubject.asObservable();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient
+  ) {}
 
   login(data: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.API_URL}/auth/login`, data);
@@ -35,9 +33,7 @@ export class AuthService {
 
   setAuth(token: string, user: AuthUser): void {
     localStorage.setItem(this.TOKEN_KEY, token);
-
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
-
     this.authStateSubject.next(true);
   }
 
@@ -47,7 +43,6 @@ export class AuthService {
 
   getUser(): AuthUser | null {
     const user = localStorage.getItem(this.USER_KEY);
-
     return user ? (JSON.parse(user) as AuthUser) : null;
   }
 
@@ -57,13 +52,11 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
-
     localStorage.removeItem(this.USER_KEY);
-
     this.authStateSubject.next(false);
   }
 
-  updateProfile(data: { name?: string; email?: string }) {
+  updateProfile(data: { name?: string; email?: string; avatarUrl?: string; password?: string;}) {
     return this.http.patch(`${this.API_URL}/auth/profile`, data, {
       headers: {
         Authorization: `Bearer ${this.getToken()}`,
