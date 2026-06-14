@@ -4,6 +4,19 @@ import { profileUnsavedGuard } from './core/guards/profile-unsaved.guard';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+    /* =========================================================
+         ACCOUNT
+      ========================================================= */
+  {
+    path: 'account/login',
+    loadComponent: () => import('./features/account/login/login').then((m) => m.Login),
+  },
+
+  {
+    path: 'account/register',
+    loadComponent: () => import('./features/account/register/register').then((m) => m.Register),
+  },
+
   {
     path: '',
     component: Shell,
@@ -341,19 +354,6 @@ export const routes: Routes = [
       {
         path: 'learn/tracks',
         loadComponent: () => import('./features/learn/tracks/tracks').then((m) => m.Tracks),
-      },
-
-      /* =========================================================
-         ACCOUNT
-      ========================================================= */
-      {
-        path: 'account/login',
-        loadComponent: () => import('./features/account/login/login').then((m) => m.Login),
-      },
-
-      {
-        path: 'account/register',
-        loadComponent: () => import('./features/account/register/register').then((m) => m.Register),
       },
 
       {
