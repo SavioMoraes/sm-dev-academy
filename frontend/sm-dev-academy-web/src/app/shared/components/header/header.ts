@@ -5,11 +5,14 @@ import { Footer } from '../footer/footer';
 import { AuthService } from '../../../core/services/auth-service/auth.service';
 import { TECHNOLOGIES } from '../../../core/constants/technologies';
 import { CourseContextService } from '../../../core/services/course-context-service/course-context.service';
+import { FormsModule } from '@angular/forms';
+import { CourseService } from '../../../core/services/course-service/course.service';
+import { Course } from '../../../core/interfaces/course.interface';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, MatIconModule, Footer],
+  imports: [RouterLink, RouterLinkActive, MatIconModule, Footer, FormsModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
@@ -38,10 +41,17 @@ export class Header implements OnInit {
   userInitial = '';
   isProfileMenuOpen = false;
 
+  searchTerm = '';
+  allCourses: Course[] = [];
+  searchResults: Course[] = [];
+  isSearchDropdownOpen = false;
+  hasLoadedCourses = false;
+
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
     private readonly courseContextService: CourseContextService,
+    private readonly courseService: CourseService,
     private readonly cdr: ChangeDetectorRef,
   ) {}
 
@@ -69,12 +79,10 @@ export class Header implements OnInit {
 
   ngOnInit(): void {
     this.checkViewport();
-
     this.updateExpandedSections(this.router.url);
 
     this.courseContextService.currentCourse$.subscribe((course) => {
       this.currentCourseCategory = course?.category ?? null;
-
       this.currentCourseTechnology = course?.technology ?? null;
 
       if (!course) {
@@ -83,7 +91,6 @@ export class Header implements OnInit {
 
       this.learnExpanded = true;
       this.coursesExpanded = true;
-
       this.frontendExpanded = false;
       this.backendExpanded = false;
       this.databaseExpanded = false;
@@ -121,32 +128,24 @@ export class Header implements OnInit {
     });
 
     const user = this.authService.getUser();
-
     this.isAuthenticated = !!user;
-
     this.isAdmin = user?.role === 'ADMIN';
-
     this.userAvatarUrl = user?.avatarUrl;
-
     this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
 
     this.authService.authState$.subscribe(() => {
       const user = this.authService.getUser();
-
       this.isAuthenticated = !!user;
       this.isAdmin = user?.role === 'ADMIN';
       this.userAvatarUrl = user?.avatarUrl;
       this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
-
       this.cdr.detectChanges();
     });
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isMobileMenuOpen = false;
-
         this.isSearchActive = false;
-
         this.updateExpandedSections(event.urlAfterRedirects);
       }
     });
@@ -165,17 +164,39 @@ export class Header implements OnInit {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
+  // toggleSearch(): void {
+  //   this.isSearchActive = !this.isSearchActive;
+
+  //   if (!this.isSearchActive) {
+  //     this.searchTerm = '';
+  //     this.searchResults = [];
+  //     this.isSearchDropdownOpen = false;
+  //   }
+  // }
+
   toggleSearch(): void {
     this.isSearchActive = !this.isSearchActive;
+
+    if (this.isSearchActive) {
+      setTimeout(() => {
+        const input = document.querySelector(
+          '.header__search-input, .header-search-mobile__input',
+        ) as HTMLInputElement | null;
+
+        input?.focus();
+      });
+    } else {
+      this.searchTerm = '';
+      this.searchResults = [];
+      this.isSearchDropdownOpen = false;
+    }
   }
 
   updateExpandedSections(url: string): void {
     this.learnExpanded = url.includes('/learn');
     this.accountExpanded = url.includes('/account');
     this.adminExpanded = url.includes('/admin');
-
     this.coursesExpanded = url.startsWith('/learn/courses/');
-
     this.frontendExpanded = url.startsWith('/learn/courses/frontend/');
     this.backendExpanded = url.startsWith('/learn/courses/backend/');
     this.databaseExpanded = url.startsWith('/learn/courses/banco-de-dados/');
@@ -300,6 +321,72 @@ export class Header implements OnInit {
     return this.router.url.startsWith('/learn/courses/artificial-intelligence/');
   }
 
+  private loadCourses(): void {
+    if (this.hasLoadedCourses) {
+      return;
+    }
+
+    this.courseService.getCourses().subscribe({
+      next: (response) => {
+        this.allCourses = response.courses ?? [];
+        this.hasLoadedCourses = true;
+      },
+    });
+  }
+
+  onSearchInput(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+
+    if (term.length === 1) {
+      this.loadCourses();
+    }
+
+    if (term.length < 3) {
+      this.searchResults = [];
+      this.isSearchDropdownOpen = false;
+      return;
+    }
+
+    this.searchResults = this.allCourses.filter((course) => {
+      const title = course.title.toLowerCase();
+      const technology = course.technology.toLowerCase();
+      const titleWords = title.split(/\s+/);
+      const technologyWords = technology.split(/\s+/);
+
+      return (
+        titleWords.some((word) => word.startsWith(term)) ||
+        technologyWords.some((word) => word.startsWith(term))
+      );
+    });
+
+    this.isSearchDropdownOpen = true;
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
+    this.searchResults = [];
+    this.isSearchDropdownOpen = false;
+  }
+
+  openCourse(course: Course): void {
+    this.router.navigate(['/learn/courses', course.playlistId]);
+    this.clearSearch();
+  }
+
+  submitSearch(): void {
+    this.searchTerm = '';
+
+    setTimeout(() => {
+      const input = document.querySelector(
+        '.header__search-input, .header-search-mobile__input',
+      ) as HTMLInputElement | null;
+
+      console.log(input);
+
+      input?.focus();
+    });
+  }
+
   @HostListener('window:resize')
   onResize(): void {
     this.checkViewport();
@@ -311,6 +398,13 @@ export class Header implements OnInit {
 
     if (!target.closest('.header__search') && !target.closest('.header-search-mobile')) {
       this.isSearchActive = false;
+      this.searchResults = [];
+      this.isSearchDropdownOpen = false;
+      this.searchTerm = '';
+    }
+
+    if (!target.closest('.header-profile')) {
+      this.isProfileMenuOpen = false;
     }
   }
 
@@ -329,21 +423,11 @@ export class Header implements OnInit {
 
   goToProfile(): void {
     this.isProfileMenuOpen = false;
-
     this.router.navigate(['/account/profile']);
   }
 
   handleLogout(): void {
     this.isProfileMenuOpen = false;
     this.logout();
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-
-    if (!target.closest('.header-profile')) {
-      this.isProfileMenuOpen = false;
-    }
   }
 }
