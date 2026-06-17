@@ -98,6 +98,12 @@ export class AdminService {
       },
     });
 
+    await this.prismaService.notification.create({
+      data: {
+        title: `O curso ${course.title} foi removido da plataforma.`,
+      },
+    });
+
     await this.prismaService.course.delete({
       where: {
         id: course.id,
@@ -172,6 +178,12 @@ export class AdminService {
       }
 
       saved++;
+
+      await this.prismaService.notification.create({
+        data: {
+          title: `Novo curso disponível: ${course.title}.`,
+        },
+      });
     }
 
     return {

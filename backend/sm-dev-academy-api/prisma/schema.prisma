@@ -87,3 +87,10 @@ model UserCourse {
   @@index([userId, updatedAt])
   @@map("user_courses")
 }
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

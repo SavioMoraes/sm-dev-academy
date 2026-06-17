@@ -796,6 +796,116 @@
 }
 
 /* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+.header-notifications {
+  position: relative;
+}
+
+.header-notifications__badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #ff1027;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.header-notifications__dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 380px;
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 16, 39, 0.2);
+  border-radius: 16px;
+  background: #23262f;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+}
+
+.header-notifications__title {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.header-notifications__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.header-notifications__item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.header-notifications__item:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-notifications__item--read {
+  opacity: 0.6;
+}
+
+.header-notifications__item:not(.header-notifications__item--read) {
+  background: rgba(255, 16, 39, 0.05);
+}
+
+.header-notifications__text {
+  flex: 1;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.header-notifications__delete {
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+  border: none;
+  background: transparent;
+  color: #b5b8c5;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.header-notifications__delete:hover {
+  color: #ff1027;
+}
+
+.header-notifications__empty {
+  padding: 24px;
+  text-align: center;
+  color: #b5b8c5;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .header-notifications__dropdown {
+    right: -60px;
+    width: min(360px, calc(100vw - 24px));
+  }
+}
+
+/* =========================================================
    DESKTOP
 ========================================================= */
 
