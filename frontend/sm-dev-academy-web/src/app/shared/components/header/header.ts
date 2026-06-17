@@ -348,15 +348,11 @@ export class Header implements OnInit {
     }
 
     this.searchResults = this.allCourses.filter((course) => {
-      const title = course.title.toLowerCase();
-      const technology = course.technology.toLowerCase();
-      const titleWords = title.split(/\s+/);
-      const technologyWords = technology.split(/\s+/);
+      const normalizedTerm = term.replace(/[\s.-]/g, '');
+      const title = course.title.toLowerCase().replace(/[\s.-]/g, '');
+      const technology = course.technology.toLowerCase().replace(/[\s.-]/g, '');
 
-      return (
-        titleWords.some((word) => word.startsWith(term)) ||
-        technologyWords.some((word) => word.startsWith(term))
-      );
+      return title.includes(normalizedTerm) || technology.includes(normalizedTerm);
     });
 
     this.isSearchDropdownOpen = true;
@@ -380,8 +376,6 @@ export class Header implements OnInit {
       const input = document.querySelector(
         '.header__search-input, .header-search-mobile__input',
       ) as HTMLInputElement | null;
-
-      console.log(input);
 
       input?.focus();
     });
