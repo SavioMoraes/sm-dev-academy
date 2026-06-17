@@ -192,6 +192,7 @@ export class Dashboard implements OnInit {
       .subscribe({
         next: (response) => {
           this.importResult = response;
+          this.loadDashboard();
           this.isLoading = false;
           this.cdr.detectChanges();
         },

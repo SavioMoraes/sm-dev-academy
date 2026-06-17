@@ -8,6 +8,8 @@ import { CourseContextService } from '../../../core/services/course-context-serv
 import { FormsModule } from '@angular/forms';
 import { CourseService } from '../../../core/services/course-service/course.service';
 import { Course } from '../../../core/interfaces/course.interface';
+import { NotificationService } from '../../../core/services/notification-service/notification.service';
+import { Notification } from '../../../core/interfaces/notification.interface';
 
 @Component({
   selector: 'app-header',
@@ -47,12 +49,20 @@ export class Header implements OnInit {
   isSearchDropdownOpen = false;
   hasLoadedCourses = false;
 
+  notifications: Notification[] = [];
+  isNotificationsOpen = false;
+
+  get unreadNotificationsCount(): number {
+    return this.notifications.filter((notification) => !notification.read).length;
+  }
+
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
     private readonly courseContextService: CourseContextService,
     private readonly courseService: CourseService,
     private readonly cdr: ChangeDetectorRef,
+    private readonly notificationService: NotificationService,
   ) {}
 
   isTechnologyRoute(category: string, technology: string): boolean {
@@ -80,6 +90,7 @@ export class Header implements OnInit {
   ngOnInit(): void {
     this.checkViewport();
     this.updateExpandedSections(this.router.url);
+    this.loadNotifications();
 
     this.courseContextService.currentCourse$.subscribe((course) => {
       this.currentCourseCategory = course?.category ?? null;
@@ -163,16 +174,6 @@ export class Header implements OnInit {
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
-
-  // toggleSearch(): void {
-  //   this.isSearchActive = !this.isSearchActive;
-
-  //   if (!this.isSearchActive) {
-  //     this.searchTerm = '';
-  //     this.searchResults = [];
-  //     this.isSearchDropdownOpen = false;
-  //   }
-  // }
 
   toggleSearch(): void {
     this.isSearchActive = !this.isSearchActive;
@@ -400,6 +401,10 @@ export class Header implements OnInit {
     if (!target.closest('.header-profile')) {
       this.isProfileMenuOpen = false;
     }
+
+    if (!target.closest('.header-notifications')) {
+      this.isNotificationsOpen = false;
+    }
   }
 
   logout(): void {
@@ -423,5 +428,46 @@ export class Header implements OnInit {
   handleLogout(): void {
     this.isProfileMenuOpen = false;
     this.logout();
+  }
+
+  loadNotifications(): void {
+    this.notificationService.getNotifications().subscribe({
+      next: (notifications) => {
+        this.notifications = notifications;
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+  toggleNotifications(): void {
+    this.isNotificationsOpen = !this.isNotificationsOpen;
+  }
+
+  markNotificationAsRead(notification: Notification): void {
+    if (notification.read) {
+      return;
+    }
+
+    this.notificationService.markAsRead(notification.id).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.loadNotifications();
+          this.cdr.detectChanges();
+        }, 300);
+      },
+    });
+  }
+
+  deleteNotification(notificationId: string, event: Event): void {
+    event.stopPropagation();
+
+    this.notificationService.deleteNotification(notificationId).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.loadNotifications();
+          this.cdr.detectChanges();
+        }, 300);
+      },
+    });
   }
 }
