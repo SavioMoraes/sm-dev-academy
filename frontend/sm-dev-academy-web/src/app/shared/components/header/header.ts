@@ -92,6 +92,10 @@ export class Header implements OnInit {
     this.updateExpandedSections(this.router.url);
     this.loadNotifications();
 
+    window.addEventListener('notifications-updated', () => {
+      this.loadNotifications();
+    });
+
     this.courseContextService.currentCourse$.subscribe((course) => {
       this.currentCourseCategory = course?.category ?? null;
       this.currentCourseTechnology = course?.technology ?? null;
