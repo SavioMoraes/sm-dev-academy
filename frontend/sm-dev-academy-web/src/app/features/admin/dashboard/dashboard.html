@@ -1,44 +1,130 @@
-<div class="admin-dashboard">
+<app-page-container>
+  <div class="admin-dashboard">
+    <h1>Administração</h1>
 
-  <h1>
-    Administração
-  </h1>
+    <div class="admin-stats">
+      <div class="admin-stat-card">
+        <span class="admin-stat-card__value">
+          {{ dashboard?.totalCourses ?? 0 }}
+        </span>
 
-  <div class="admin-card">
+        <span class="admin-stat-card__label"> Cursos </span>
+      </div>
 
-    <h2>
-      Gestão de Cursos
-    </h2>
+      <div class="admin-stat-card">
+        <span class="admin-stat-card__value">
+          {{ dashboard?.totalUsers ?? 0 }}
+        </span>
 
-    <p>
-      Atualiza a base de cursos a partir da integração do YouTube.
-    </p>
+        <span class="admin-stat-card__label"> Usuários </span>
+      </div>
 
-    <button
-      (click)="importCourses()"
-      [disabled]="isLoading"
-    >
-      @if (!isLoading) {
-        Sincronizar Cursos
-      } @else {
-        Sincronizando...
+      <div class="admin-stat-card">
+        <span class="admin-stat-card__value">
+          {{ dashboard?.totalAdmins ?? 0 }}
+        </span>
+
+        <span class="admin-stat-card__label"> Admins </span>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Gestão de Cursos</h2>
+
+      <p>Atualiza a base de cursos a partir da integração do YouTube.</p>
+
+      <button (click)="importCourses()" [disabled]="isLoading">
+        @if (!isLoading) {
+          Sincronizar Cursos
+        } @else {
+          Sincronizando...
+        }
+      </button>
+
+      @if (importResult) {
+        <div class="admin-result">
+          Found: {{ importResult.found }}
+          <br />
+          Accepted: {{ importResult.accepted }}
+          <br />
+          Saved: {{ importResult.saved }}
+          <br />
+          Duplicates: {{ importResult.duplicates }}
+        </div>
       }
-    </button>
+    </div>
 
-    @if (importResult) {
+    <div class="admin-card">
+      <h2>Usuários</h2>
 
-  <div class="admin-result">
-    Found: {{ importResult.found }}
-    <br>
-    Accepted: {{ importResult.accepted }}
-    <br>
-    Saved: {{ importResult.saved }}
-    <br>
-    Duplicates: {{ importResult.duplicates }}
+      <table class="admin-users-table">
+        <thead>
+          <tr>
+            <th>Avatar</th>
+
+            <th>Nome</th>
+
+            <th>Email</th>
+
+            <th>Role</th>
+
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (user of users; track user.id) {
+            <tr>
+              <td>
+                <img [src]="user.avatarUrl" [alt]="user.name" class="admin-user-avatar" />
+              </td>
+
+              <td>
+                {{ user.name }}
+              </td>
+
+              <td>
+                {{ user.email }}
+              </td>
+
+              <td>
+                {{ user.role }}
+              </td>
+
+              <td class="admin-users-actions">
+                @if (user.role === 'USER') {
+                  <button (click)="promoteUser(user.id)">Tornar Admin</button>
+                } @else {
+                  <button (click)="demoteUser(user.id)">Remover Admin</button>
+                }
+
+                <button (click)="deleteUser(user.id)">Excluir</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="admin-card">
+      <h2>Excluir Curso</h2>
+
+      <p>Informe o Playlist ID do curso.</p>
+
+      <input
+        type="text"
+        [(ngModel)]="playlistIdToDelete"
+        placeholder="Playlist ID"
+        class="admin-input"
+      />
+
+      <button (click)="deleteCourse()" [disabled]="isDeletingCourse">
+        @if (!isDeletingCourse) {
+          Excluir Curso
+        } @else {
+          Excluindo...
+        }
+      </button>
+    </div>
   </div>
-
-}
-
-  </div>
-
-</div>
+</app-page-container>
