@@ -193,6 +193,9 @@ export class Dashboard implements OnInit {
         next: (response) => {
           this.importResult = response;
           this.loadDashboard();
+
+          window.dispatchEvent(new CustomEvent('notifications-updated'));
+
           this.isLoading = false;
           this.cdr.detectChanges();
         },
@@ -239,6 +242,9 @@ export class Dashboard implements OnInit {
           this.playlistIdToDelete = '';
           this.isDeletingCourse = false;
           this.loadDashboard();
+
+          window.dispatchEvent(new CustomEvent('notifications-updated'));
+
           this.cdr.detectChanges();
         },
         error: () => {
