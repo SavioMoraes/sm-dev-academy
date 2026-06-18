@@ -90,7 +90,7 @@ export class Header implements OnInit {
   ngOnInit(): void {
     this.checkViewport();
     this.updateExpandedSections(this.router.url);
-    this.loadNotifications();
+    // this.loadNotifications();
 
     window.addEventListener('notifications-updated', () => {
       this.loadNotifications();
@@ -147,6 +147,10 @@ export class Header implements OnInit {
     this.isAdmin = user?.role === 'ADMIN';
     this.userAvatarUrl = user?.avatarUrl;
     this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
+
+    if (this.isAuthenticated) {
+      this.loadNotifications();
+    }
 
     this.authService.authState$.subscribe(() => {
       const user = this.authService.getUser();
