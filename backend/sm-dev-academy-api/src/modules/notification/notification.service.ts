@@ -6,7 +6,7 @@ export class NotificationService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async getNotifications(userId: string) {
-    return this.prismaService.notificationUser.findMany({
+    const notifications = await this.prismaService.notificationUser.findMany({
       where: {
         userId,
       },
@@ -19,6 +19,13 @@ export class NotificationService {
         createdAt: 'desc',
       },
     });
+
+    return notifications.map((item) => ({
+      id: item.notificationId,
+      title: item.notification.title,
+      read: item.read,
+      createdAt: item.notification.createdAt,
+    }));
   }
 
   async markAsRead(userId: string, notificationId: string) {
