@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-
 import { YoutubeService } from '../youtube/youtube.service';
 import { PrismaService } from '../../database/prisma.service';
 
@@ -98,10 +97,23 @@ export class AdminService {
       },
     });
 
-    await this.prismaService.notification.create({
+    const notification = await this.prismaService.notification.create({
       data: {
         title: `O curso ${course.title} foi removido da plataforma.`,
       },
+    });
+
+    const users = await this.prismaService.user.findMany({
+      select: {
+        id: true,
+      },
+    });
+
+    await this.prismaService.notificationUser.createMany({
+      data: users.map((user) => ({
+        userId: user.id,
+        notificationId: notification.id,
+      })),
     });
 
     await this.prismaService.course.delete({
@@ -179,10 +191,23 @@ export class AdminService {
 
       saved++;
 
-      await this.prismaService.notification.create({
+      const notification = await this.prismaService.notification.create({
         data: {
           title: `Novo curso disponível: ${course.title}.`,
         },
+      });
+
+      const users = await this.prismaService.user.findMany({
+        select: {
+          id: true,
+        },
+      });
+
+      await this.prismaService.notificationUser.createMany({
+        data: users.map((user) => ({
+          userId: user.id,
+          notificationId: notification.id,
+        })),
       });
     }
 
