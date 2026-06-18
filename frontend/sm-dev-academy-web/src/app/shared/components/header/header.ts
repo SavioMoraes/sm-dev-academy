@@ -150,10 +150,18 @@ export class Header implements OnInit {
 
     this.authService.authState$.subscribe(() => {
       const user = this.authService.getUser();
+
       this.isAuthenticated = !!user;
       this.isAdmin = user?.role === 'ADMIN';
       this.userAvatarUrl = user?.avatarUrl;
       this.userInitial = user?.name?.charAt(0).toUpperCase() || '';
+
+      if (this.isAuthenticated) {
+        this.loadNotifications();
+      } else {
+        this.notifications = [];
+      }
+
       this.cdr.detectChanges();
     });
 
@@ -435,6 +443,11 @@ export class Header implements OnInit {
   }
 
   loadNotifications(): void {
+    if (!this.isAuthenticated) {
+      this.notifications = [];
+      return;
+    }
+
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
         this.notifications = notifications;
