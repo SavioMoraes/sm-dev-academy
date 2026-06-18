@@ -52,6 +52,7 @@ model User {
   avatarUrl   String?
   favorites   Favorite[]
   userCourses UserCourse[]
+  notifications NotificationUser[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 
@@ -89,8 +90,22 @@ model UserCourse {
 }
 
 model Notification {
-  id        String   @id @default(cuid())
+  id        String             @id @default(cuid())
   title     String
-  read      Boolean  @default(false)
-  createdAt DateTime @default(now())
+  createdAt DateTime           @default(now())
+
+  users NotificationUser[]
+}
+
+model NotificationUser {
+  id             String   @id @default(cuid())
+  userId         String
+  notificationId String
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, notificationId])
+  @@map("notification_users")
 }

@@ -88,52 +88,53 @@
       <!-- RIGHT -->
       <div class="header__right">
         <!-- NOTIFICATIONS -->
-        <!-- NOTIFICATIONS -->
-        <div class="header-notifications">
-          <a
-            href="javascript:void(0)"
-            class="header__icon-button"
-            (click)="toggleNotifications(); $event.preventDefault()"
-          >
-            <i class="material-symbols-outlined"> notifications </i>
+        @if (isAuthenticated) {
+          <div class="header-notifications">
+            <a
+              href="javascript:void(0)"
+              class="header__icon-button"
+              (click)="toggleNotifications(); $event.preventDefault()"
+            >
+              <i class="material-symbols-outlined"> notifications </i>
 
-            @if (unreadNotificationsCount > 0) {
-              <span class="header-notifications__badge">
-                {{ unreadNotificationsCount }}
-              </span>
-            }
-          </a>
-
-          @if (isNotificationsOpen) {
-            <div class="header-notifications__dropdown">
-              <div class="header-notifications__title">Notifications</div>
-
-              @if (notifications.length > 0) {
-                @for (notification of notifications; track notification.id) {
-                  <div
-                    class="header-notifications__item"
-                    [class.header-notifications__item--read]="notification.read"
-                    (click)="markNotificationAsRead(notification)"
-                  >
-                    <span class="header-notifications__text">
-                      {{ notification.title }}
-                    </span>
-
-                    <button
-                      type="button"
-                      class="header-notifications__delete"
-                      (click)="deleteNotification(notification.id, $event)"
-                    >
-                      ×
-                    </button>
-                  </div>
-                }
-              } @else {
-                <div class="header-notifications__empty">No notifications.</div>
+              @if (unreadNotificationsCount > 0) {
+                <span class="header-notifications__badge">
+                  {{ unreadNotificationsCount }}
+                </span>
               }
-            </div>
-          }
-        </div>
+            </a>
+
+            @if (isNotificationsOpen) {
+              <div class="header-notifications__dropdown">
+                <div class="header-notifications__title">Notifications</div>
+
+                @if (notifications.length > 0) {
+                  @for (notification of notifications; track notification.id) {
+                    <div
+                      class="header-notifications__item"
+                      [class.header-notifications__item--read]="notification.read"
+                      (click)="markNotificationAsRead(notification)"
+                    >
+                      <span class="header-notifications__text">
+                        {{ notification.title }}
+                      </span>
+
+                      <button
+                        type="button"
+                        class="header-notifications__delete"
+                        (click)="deleteNotification(notification.id, $event)"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  }
+                } @else {
+                  <div class="header-notifications__empty">No notifications.</div>
+                }
+              </div>
+            }
+          </div>
+        }
 
         <!-- LOGIN / PROFILE -->
         @if (!isAuthenticated) {

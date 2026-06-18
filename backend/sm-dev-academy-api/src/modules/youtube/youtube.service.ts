@@ -2,18 +2,18 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 const TECHNOLOGIES = [
-  'Tailwind',
-  'Bootstrap',
-  'JavaScript',
-  'TypeScript',
+  'React',
+  'Angular',
+  'Vue',
+  'Python',
 ];
 
 const TECHNOLOGY_CATEGORIES: Record<string, string> = {
 
-  Tailwind: 'Frontend',
-  Bootstrap: 'Frontend',
-  JavaScript: 'Frontend',
-  TypeScript: 'Frontend',
+  React: 'Frontend',
+  Angular: 'Frontend',
+  Vue: 'Frontend',
+  Python: 'Backend',
 
 };
 

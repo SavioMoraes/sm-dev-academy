@@ -5,29 +5,44 @@ import { PrismaService } from '../../database/prisma.service';
 export class NotificationService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getNotifications() {
-    return this.prismaService.notification.findMany({
+  async getNotifications(userId: string) {
+    return this.prismaService.notificationUser.findMany({
+      where: {
+        userId,
+      },
+
+      include: {
+        notification: true,
+      },
+
       orderBy: {
         createdAt: 'desc',
       },
     });
   }
 
-  async markAsRead(id: string) {
-    return this.prismaService.notification.update({
+  async markAsRead(userId: string, notificationId: string) {
+    return this.prismaService.notificationUser.update({
       where: {
-        id,
+        userId_notificationId: {
+          userId,
+          notificationId,
+        },
       },
+
       data: {
         read: true,
       },
     });
   }
 
-  async deleteNotification(id: string) {
-    return this.prismaService.notification.delete({
+  async deleteNotification(userId: string, notificationId: string) {
+    return this.prismaService.notificationUser.delete({
       where: {
-        id,
+        userId_notificationId: {
+          userId,
+          notificationId,
+        },
       },
     });
   }
