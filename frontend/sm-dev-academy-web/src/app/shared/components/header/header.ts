@@ -430,6 +430,7 @@ export class Header implements OnInit {
     this.userAvatarUrl = undefined;
     this.userInitial = '';
     this.isProfileMenuOpen = false;
+    this.router.navigate(['/']);
   }
 
   toggleProfileMenu(): void {

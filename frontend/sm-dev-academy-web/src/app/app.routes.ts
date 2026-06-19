@@ -333,6 +333,7 @@ export const routes: Routes = [
 
       {
         path: 'learn/my-courses',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/learn/my-courses/my-courses').then((m) => m.MyCourses),
       },
@@ -343,6 +344,7 @@ export const routes: Routes = [
 
       {
         path: 'learn/favorites',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/learn/favorites/favorites').then((m) => m.Favorites),
       },
@@ -355,6 +357,10 @@ export const routes: Routes = [
         path: 'learn/tracks',
         loadComponent: () => import('./features/learn/tracks/tracks').then((m) => m.Tracks),
       },
+
+       /* =========================================================
+         PROFILE
+      ========================================================= */
 
       {
         path: 'account/profile',
@@ -369,6 +375,7 @@ export const routes: Routes = [
 
       {
         path: 'admin/dashboard',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/admin/dashboard/dashboard').then((m) => m.Dashboard),
       },

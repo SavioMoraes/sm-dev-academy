@@ -1,94 +1,63 @@
 <div class="login-page">
-
-  <a
-    class="back-link"
-    routerLink="/"
-  >
-    ← Voltar para plataforma
-  </a>
+  <a class="back-link" routerLink="/"> ← Voltar para plataforma </a>
 
   <div class="login-layout">
-
     <!-- ESQUERDA -->
 
     <section class="login-brand">
-
-      <img
-        src="assets/images/logo-sm-dev-academy.webp"
-        alt="SM Dev Academy"
-        class="brand-logo"
-      >
+      <img src="assets/images/logo-sm-dev-academy.webp" alt="SM Dev Academy" class="brand-logo" />
 
       <h2>
         APRENDA. CONSTRUA.
-        <span>
-          EVOLUA.
-        </span>
+        <span> EVOLUA. </span>
       </h2>
 
-      <p>
-        Domine as tecnologias mais exigidas do mercado
-        e transforme sua carreira em tecnologia.
-      </p>
+      <p>Domine as tecnologias mais exigidas do mercado e transforme sua carreira em tecnologia.</p>
 
       <div class="tech-list">
-
         <div class="tech-item">
-          <img src="/assets/svg/angular.svg" alt="Angular">
+          <img src="/assets/svg/angular.svg" alt="Angular" />
           <span>Angular</span>
         </div>
 
         <div class="tech-item">
-          <img src="/assets/svg/react.svg" alt="React">
+          <img src="/assets/svg/react.svg" alt="React" />
           <span>React</span>
         </div>
 
         <div class="tech-item">
-          <img src="/assets/svg/nestjs.svg" alt="NestJS">
+          <img src="/assets/svg/nestjs.svg" alt="NestJS" />
           <span>NestJS</span>
         </div>
 
         <div class="tech-item">
-          <img src="/assets/svg/nodedotjs.svg" alt="Node">
+          <img src="/assets/svg/nodedotjs.svg" alt="Node" />
           <span>Node.js</span>
         </div>
 
         <div class="tech-item">
-          <img src="/assets/svg/typescript.svg" alt="TypeScript">
+          <img src="/assets/svg/typescript.svg" alt="TypeScript" />
           <span>TypeScript</span>
         </div>
 
         <div class="tech-item">
-          <img src="/assets/svg/postgresql.svg" alt="PostgreSQL">
+          <img src="/assets/svg/postgresql.svg" alt="PostgreSQL" />
           <span>PostgreSQL</span>
         </div>
-
       </div>
 
       <div class="brand-background"></div>
-
     </section>
 
     <!-- DIREITA -->
 
     <section class="login-panel">
-
-      <form
-        class="login-card register-card"
-        [formGroup]="registerForm"
-        (ngSubmit)="handleSubmit()"
-      >
-
+      <form class="login-card register-card" [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
         <div class="auth-logo-mobile">
-          <img
-            src="assets/images/logo-sm-dev-academy.webp"
-            alt="SM Dev Academy"
-          >
+          <img src="assets/images/logo-sm-dev-academy.webp" alt="SM Dev Academy" />
         </div>
 
-        <h1>
-          Cadastre-se
-        </h1>
+        <h1>Cadastre-se</h1>
 
         @if (errorMessage) {
           <div class="login-error">
@@ -103,20 +72,10 @@
         <!-- FOTO -->
 
         <label class="avatar-preview">
-
           @if (previewImage) {
-
-            <img
-              [src]="previewImage"
-              alt="Preview"
-            >
-
+            <img [src]="previewImage" alt="Preview" />
           } @else {
-
-            <span>
-              Foto
-            </span>
-
+            <span> Foto </span>
           }
 
           <input
@@ -125,13 +84,10 @@
             (click)="errorMessage = ''"
             (change)="onImageSelected($event)"
             hidden
-          >
-
+          />
         </label>
 
-        <label
-          class="avatar-upload"
-        >
+        <label class="avatar-upload">
           Selecionar foto
 
           <input
@@ -140,180 +96,96 @@
             (click)="errorMessage = ''"
             (change)="onImageSelected($event)"
             hidden
-          >
+          />
         </label>
 
         <!-- NOME -->
 
         <div class="form-group">
+          <label> Nome </label>
 
-          <label>
-            Nome
-          </label>
-
-          <input
-            type="text"
-            formControlName="name"
-          >
-
+          <input type="text" formControlName="name" />
         </div>
 
         <!-- EMAIL -->
 
         <div class="form-group">
+          <label> E-mail </label>
 
-          <label>
-            E-mail
-          </label>
+          <input type="email" formControlName="email" />
 
-          <input
-            type="email"
-            formControlName="email"
-          >
-
-          @if (
-            submitted &&
-            registerForm.controls.email.invalid
-          ) {
-
-            <small class="field-error">
-              Informe um e-mail válido.
-            </small>
-
+          @if (submitted && registerForm.controls.email.invalid) {
+            <small class="field-error"> Informe um e-mail válido. </small>
           }
-
         </div>
 
         <!-- SENHA -->
 
         <div class="form-group">
-
-          <label>
-            Senha
-          </label>
+          <label> Senha </label>
 
           <div class="password-field">
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" />
 
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              formControlName="password"
-            >
-
-            <button
-              type="button"
-              class="password-toggle"
-              (click)="showPassword = !showPassword"
-            >
-
+            <button type="button" class="password-toggle" (click)="showPassword = !showPassword">
               <i class="material-symbols-outlined">
-
                 @if (showPassword) {
                   visibility_off
                 } @else {
                   visibility
                 }
-
               </i>
-
             </button>
-
           </div>
 
-          @if (
-            submitted &&
-            registerForm.controls.password.hasError('required')
-          ) {
-
-            <small class="field-error">
-              Informe uma senha.
-            </small>
-
+          @if (submitted && registerForm.controls.password.hasError('required')) {
+            <small class="field-error"> Informe uma senha. </small>
           }
 
-          @if (
-            submitted &&
-            registerForm.controls.password.hasError('minlength')
-          ) {
-
-            <small class="field-error">
-              A senha deve possuir pelo menos 6 caracteres.
-            </small>
-
+          @if (submitted && registerForm.controls.password.hasError('minlength')) {
+            <small class="field-error"> A senha deve possuir pelo menos 6 caracteres. </small>
           }
-
         </div>
 
         <!-- CONFIRMAR -->
 
         <div class="form-group">
-
-          <label>
-            Confirmar senha
-          </label>
+          <label> Confirmar senha </label>
 
           <div class="password-field">
-
             <input
               [type]="showConfirmPassword ? 'text' : 'password'"
               formControlName="confirmPassword"
-            >
+            />
 
             <button
               type="button"
               class="password-toggle"
               (click)="showConfirmPassword = !showConfirmPassword"
             >
-
               <i class="material-symbols-outlined">
-
                 @if (showConfirmPassword) {
-                  visibility
-                } @else {
                   visibility_off
+                } @else {
+                  visibility
                 }
-
               </i>
-
             </button>
-
           </div>
 
-          @if (
-            submitted &&
-            registerForm.controls.confirmPassword.hasError('required')
-          ) {
-
-            <small class="field-error">
-              Confirme sua senha.
-            </small>
-
+          @if (submitted && registerForm.controls.confirmPassword.hasError('required')) {
+            <small class="field-error"> Confirme sua senha. </small>
           }
-
         </div>
 
-        <button class="confirm-register"
-          type="submit"
-          [disabled]="isLoading"
-        >
-          Criar conta
-        </button>
+        <button class="confirm-register" type="submit" [disabled]="isLoading">Criar conta</button>
 
         <div class="register-link">
+          <span> Já possui uma conta? </span>
 
-          <span>
-            Já possui uma conta?
-          </span>
-
-          <a routerLink="/account/login">
-            Entrar
-          </a>
-
+          <a routerLink="/account/login"> Entrar </a>
         </div>
-
       </form>
-
     </section>
-
   </div>
-
 </div>

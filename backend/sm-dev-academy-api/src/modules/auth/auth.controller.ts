@@ -16,6 +16,7 @@ import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './guards/roles.guard';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -74,5 +75,23 @@ export class AuthController {
     changePasswordDto: ChangePasswordDto,
   ) {
     return this.authService.changePassword(request.user.sub, changePasswordDto);
+  }
+
+  @Post('check-email')
+  async checkEmail(
+    @Body()
+    body: {
+      email: string;
+    },
+  ) {
+    return this.authService.checkEmail(body.email);
+  }
+
+  @Patch('reset-password')
+  async resetPassword(
+    @Body()
+    resetPasswordDto: ResetPasswordDto,
+  ) {
+    return this.authService.resetPassword(resetPasswordDto);
   }
 }

@@ -19,9 +19,7 @@ export class AuthService {
   );
   readonly authState$ = this.authStateSubject.asObservable();
 
-  constructor(
-    private readonly http: HttpClient
-  ) {}
+  constructor(private readonly http: HttpClient) {}
 
   login(data: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.API_URL}/auth/login`, data);
@@ -56,7 +54,7 @@ export class AuthService {
     this.authStateSubject.next(false);
   }
 
-  updateProfile(data: { name?: string; email?: string; avatarUrl?: string; password?: string;}) {
+  updateProfile(data: { name?: string; email?: string; avatarUrl?: string; password?: string }) {
     return this.http.patch(`${this.API_URL}/auth/profile`, data, {
       headers: {
         Authorization: `Bearer ${this.getToken()}`,
@@ -70,5 +68,15 @@ export class AuthService {
         Authorization: `Bearer ${this.getToken()}`,
       },
     });
+  }
+
+  checkEmail(email: string) {
+    return this.http.post(`${this.API_URL}/auth/check-email`, {
+      email,
+    });
+  }
+
+  resetPassword(data: { email: string; password: string }) {
+    return this.http.patch(`${this.API_URL}/auth/reset-password`, data);
   }
 }
