@@ -10,6 +10,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -126,8 +127,34 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(changePasswordDto.newPassword, 10);
-
     await this.userService.updatePassword(userId, hashedPassword);
+
+    return {
+      message: 'Senha alterada com sucesso.',
+    };
+  }
+
+  async checkEmail(email: string) {
+    const user = await this.userService.findByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException('E-mail não cadastrado na plataforma.');
+    }
+
+    return {
+      exists: true,
+    };
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    const user = await this.userService.findByEmail(resetPasswordDto.email);
+
+    if (!user) {
+      throw new UnauthorizedException('E-mail não encontrado.');
+    }
+
+    const hashedPassword = await bcrypt.hash(resetPasswordDto.password, 10);
+    await this.userService.updatePassword(user.id, hashedPassword);
 
     return {
       message: 'Senha alterada com sucesso.',
