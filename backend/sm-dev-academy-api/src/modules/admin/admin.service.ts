@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { YoutubeService } from '../youtube/youtube.service';
 import { PrismaService } from '../../database/prisma.service';
+import * as bcrypt from 'bcrypt';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AdminService {
   constructor(
     private readonly youtubeService: YoutubeService,
     private readonly prismaService: PrismaService,
+    private readonly userService: UserService,
   ) {}
 
   async getDashboard() {
@@ -35,6 +38,15 @@ export class AdminService {
         email: true,
         role: true,
         avatarUrl: true,
+        userCourses: {
+          include: {
+            course: {
+              select: {
+                title: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         createdAt: 'desc',
@@ -218,5 +230,10 @@ export class AdminService {
       duplicates,
       videosSaved,
     };
+  }
+
+  async resetPassword(userId: string, password: string) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    return this.userService.updatePassword(userId, hashedPassword);
   }
 }

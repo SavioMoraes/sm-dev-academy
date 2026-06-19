@@ -28,6 +28,15 @@ export class Dashboard implements OnInit {
   playlistIdToDelete = '';
   isDeletingCourse = false;
 
+  resetPasswordModalOpen = false;
+  selectedUserId = '';
+  newPassword = '';
+  confirmPassword = '';
+  passwordError = '';
+
+  selectedUserCourses: any[] = [];
+  coursesModalOpen = false;
+
   constructor(
     private readonly http: HttpClient,
     private readonly authService: AuthService,
@@ -251,5 +260,89 @@ export class Dashboard implements OnInit {
           this.isDeletingCourse = false;
         },
       });
+  }
+
+  openResetPasswordModal(userId: string): void {
+    this.selectedUserId = userId;
+    this.newPassword = '';
+    this.confirmPassword = '';
+    this.resetPasswordModalOpen = true;
+  }
+
+  resetPassword(): void {
+    this.passwordError = '';
+
+    if (!this.newPassword.trim()) {
+      this.passwordError = 'Informe uma nova senha.';
+      return;
+    }
+
+    if (this.newPassword.length < 6) {
+      this.passwordError = 'A senha deve possuir pelo menos 6 caracteres.';
+      return;
+    }
+
+    if (!this.confirmPassword.trim()) {
+      this.passwordError = 'Confirme a senha.';
+      return;
+    }
+
+    if (this.newPassword !== this.confirmPassword) {
+      this.passwordError = 'As senhas não coincidem.';
+      return;
+    }
+
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    this.http
+      .patch(
+        `${this.API_URL}/admin/users/${this.selectedUserId}/reset-password`,
+        {
+          password: this.newPassword,
+        },
+        {
+          headers,
+        },
+      )
+      .subscribe({
+        next: () => {
+          this.resetPasswordModalOpen = false;
+          this.selectedUserId = '';
+          this.newPassword = '';
+          this.confirmPassword = '';
+          this.passwordError = '';
+          this.cdr.detectChanges();
+
+          alert('Senha alterada com sucesso.');
+        },
+
+        error: (error) => {
+          console.error(error);
+          this.passwordError = error?.error?.message || 'Erro ao alterar senha.';
+          this.cdr.detectChanges();
+        },
+      });
+  }
+
+  closeResetPasswordModal(): void {
+    this.resetPasswordModalOpen = false;
+    this.selectedUserId = '';
+    this.newPassword = '';
+    this.confirmPassword = '';
+    this.passwordError = '';
+  }
+
+  openCoursesModal(userCourses: any[]): void {
+    this.selectedUserCourses = userCourses;
+    this.coursesModalOpen = true;
+  }
+
+  closeCoursesModal(): void {
+    this.coursesModalOpen = false;
+    this.selectedUserCourses = [];
   }
 }

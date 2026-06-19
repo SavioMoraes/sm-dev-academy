@@ -68,6 +68,8 @@
 
             <th>Role</th>
 
+            <th>Cursos</th>
+
             <th>Ações</th>
           </tr>
         </thead>
@@ -91,12 +93,25 @@
                 {{ user.role }}
               </td>
 
+              <td>
+                @if (user.userCourses.length) {
+                  <button class="admin-view-courses" (click)="openCoursesModal(user.userCourses)">
+                    {{ user.userCourses.length }}
+                    curso(s)
+                  </button>
+                } @else {
+                  <span class="admin-user-courses-empty"> Nenhum </span>
+                }
+              </td>
+
               <td class="admin-users-actions">
                 @if (user.role === 'USER') {
                   <button (click)="promoteUser(user.id)">Tornar Admin</button>
                 } @else {
                   <button (click)="demoteUser(user.id)">Remover Admin</button>
                 }
+
+                <button (click)="openResetPasswordModal(user.id)">Resetar Senha</button>
 
                 <button (click)="deleteUser(user.id)">Excluir</button>
               </td>
@@ -127,4 +142,53 @@
       </button>
     </div>
   </div>
+  @if (resetPasswordModalOpen) {
+    <div class="admin-modal-backdrop">
+      <div class="admin-modal">
+        <h2>Resetar Senha</h2>
+
+        <input
+          type="password"
+          [(ngModel)]="newPassword"
+          placeholder="Nova senha"
+          class="admin-input"
+        />
+
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirmar senha"
+          class="admin-input"
+        />
+
+        @if (passwordError) {
+          <div class="login-error">
+            {{ passwordError }}
+          </div>
+        }
+
+        <button class="admin-modal-save" (click)="resetPassword()">Salvar Senha</button>
+
+        <button class="admin-modal-cancel" (click)="resetPasswordModalOpen = false">Cancelar</button>
+      </div>
+    </div>
+  }
+
+  @if (coursesModalOpen) {
+    <div class="admin-modal-backdrop">
+      <div class="admin-modal">
+        <h2>Cursos em andamento</h2>
+
+        <div class="admin-courses-list">
+          @for (userCourse of selectedUserCourses; track userCourse.course.title) {
+            <div class="admin-course-item">
+              {{ userCourse.course.title }}
+            </div>
+          }
+        </div>
+
+        <button class="admin-modal-cancel" (click)="closeCoursesModal()">Fechar</button>
+      </div>
+    </div>
+  }
 </app-page-container>
