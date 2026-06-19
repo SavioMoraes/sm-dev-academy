@@ -169,6 +169,137 @@
   border-color: #ff1027;
 }
 
+.admin-user-courses {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-user-courses div {
+  color: #b5b8c5;
+  font-size: 13px;
+}
+
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.admin-modal {
+  width: 100%;
+  max-width: 460px;
+  padding: 24px;
+  border-radius: 16px;
+  background: #23262f;
+  border: 1px solid rgba(255, 16, 39, 0.25);
+}
+
+.admin-modal h2 {
+  margin: 0 0 24px;
+  color: #ffffff;
+}
+
+.admin-modal .admin-input {
+  margin-bottom: 12px;
+}
+
+.admin-modal-cancel {
+  margin-top: 12px;
+  background: #ffffff !important;
+  color: #23262f !important;
+}
+
+.admin-modal-save {
+  width: 100%;
+  height: 48px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #ff1027;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-modal-cancel {
+  width: 100%;
+  height: 48px;
+  margin-top: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.admin-modal-save:hover,
+.admin-modal-cancel:hover {
+  transform: translateY(-1px);
+}
+
+.admin-user-courses-count {
+  color: #ff1027;
+  font-weight: 600;
+}
+
+.admin-user-courses-empty {
+  color: #b5b8c5;
+}
+
+.admin-view-courses {
+  min-width: 110px !important;
+  width: 110px !important;
+  height: 38px !important;
+  padding: 0 !important;
+  border: none;
+  border-radius: 10px;
+  background: #ff1027;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.admin-course-item {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 16, 39, 0.08);
+  border: 1px solid rgba(255, 16, 39, 0.15);
+  color: #ffffff;
+}
+
+.login-error {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 16, 39, 0.12);
+  border: 1px solid rgba(255, 16, 39, 0.35);
+  color: #ff8a95;
+  text-align: center;
+}
+
+.login-success {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(0, 255, 128, 0.12);
+  border: 1px solid rgba(0, 255, 128, 0.35);
+  color: #00ff80;
+  text-align: center;
+}
+
 @media (max-width: 1024px) {
   .admin-users-actions {
     flex-direction: column;

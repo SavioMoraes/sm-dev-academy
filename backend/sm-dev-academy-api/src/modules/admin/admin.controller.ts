@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -60,6 +61,20 @@ export class AdminController {
   @Patch('users/:id/demote')
   demoteUser(@Param('id') id: string) {
     return this.adminService.demoteUser(id);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  @Patch('users/:id/reset-password')
+  resetPassword(
+    @Param('id') id: string,
+    @Body()
+    body: {
+      password: string;
+    },
+  ) {
+    return this.adminService.resetPassword(id, body.password);
   }
 
   @ApiBearerAuth()
