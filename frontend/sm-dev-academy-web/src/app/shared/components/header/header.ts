@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Footer } from '../footer/footer';
@@ -36,6 +36,8 @@ export class Header implements OnInit {
   readonly technologies = TECHNOLOGIES;
   private currentCourseCategory: string | null = null;
   private currentCourseTechnology: string | null = null;
+
+  private notificationsInterval?: number;
 
   isAdmin = false;
   isAuthenticated = false;
@@ -202,6 +204,8 @@ export class Header implements OnInit {
     if (this.isAuthenticated) {
       this.loadNotifications();
     }
+
+    this.startNotificationsPolling();
 
     this.authService.authState$.subscribe(() => {
       const user = this.authService.getUser();
@@ -475,6 +479,10 @@ export class Header implements OnInit {
   }
 
   logout(): void {
+    if (this.notificationsInterval) {
+      clearInterval(this.notificationsInterval);
+    }
+    
     this.authService.logout();
     this.isAuthenticated = false;
     this.isAdmin = false;
@@ -639,5 +647,23 @@ export class Header implements OnInit {
 
       this.cdr.detectChanges();
     });
+  }
+
+  private startNotificationsPolling(): void {
+    if (!this.isAuthenticated) {
+      return;
+    }
+
+    this.notificationsInterval = window.setInterval(() => {
+      this.loadNotifications();
+    }, 3000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.notificationsInterval) {
+      clearInterval(this.notificationsInterval);
+    }
+
+    this.courseContextService.clear();
   }
 }
