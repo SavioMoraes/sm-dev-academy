@@ -158,14 +158,18 @@
 
 .favorite-modal__cancel {
   border: 1px solid #4b4f5c;
-  background: transparent;
+  background: #ff1027;
   color: #ffffff;
+  padding: 4px 0;
+  border-radius: 4px;
 }
 
 .favorite-modal__confirm {
-  border: none;
-  background: #ff1027;
+  padding: 4px 0;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: #08c527;
   color: #ffffff;
+  border-radius: 4px;
 }
 
 @media (max-width: 767px) {
