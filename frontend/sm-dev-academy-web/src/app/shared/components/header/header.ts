@@ -482,7 +482,7 @@ export class Header implements OnInit {
     if (this.notificationsInterval) {
       clearInterval(this.notificationsInterval);
     }
-    
+
     this.authService.logout();
     this.isAuthenticated = false;
     this.isAdmin = false;
@@ -506,6 +506,20 @@ export class Header implements OnInit {
     this.logout();
   }
 
+  // loadNotifications(): void {
+  //   if (!this.isAuthenticated) {
+  //     this.notifications = [];
+  //     return;
+  //   }
+
+  //   this.notificationService.getNotifications().subscribe({
+  //     next: (notifications) => {
+  //       this.notifications = notifications;
+  //       this.cdr.detectChanges();
+  //     },
+  //   });
+  // }
+
   loadNotifications(): void {
     if (!this.isAuthenticated) {
       this.notifications = [];
@@ -514,6 +528,8 @@ export class Header implements OnInit {
 
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
+        console.log('notifications', notifications.length, notifications);
+
         this.notifications = notifications;
         this.cdr.detectChanges();
       },
