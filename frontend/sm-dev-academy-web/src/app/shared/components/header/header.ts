@@ -10,6 +10,7 @@ import { CourseService } from '../../../core/services/course-service/course.serv
 import { Course } from '../../../core/interfaces/course.interface';
 import { NotificationService } from '../../../core/services/notification-service/notification.service';
 import { Notification } from '../../../core/interfaces/notification.interface';
+import { NotificationSocketService } from '../../../core/services/notification-socket-service/notification-socket.service';
 
 @Component({
   selector: 'app-header',
@@ -36,8 +37,6 @@ export class Header implements OnInit {
   readonly technologies = TECHNOLOGIES;
   private currentCourseCategory: string | null = null;
   private currentCourseTechnology: string | null = null;
-
-  private notificationsInterval?: number;
 
   isAdmin = false;
   isAuthenticated = false;
@@ -116,6 +115,7 @@ export class Header implements OnInit {
     private readonly courseService: CourseService,
     private readonly cdr: ChangeDetectorRef,
     private readonly notificationService: NotificationService,
+    private readonly notificationSocketService: NotificationSocketService,
   ) {}
 
   isTechnologyRoute(category: string, technology: string): boolean {
@@ -205,7 +205,19 @@ export class Header implements OnInit {
       this.loadNotifications();
     }
 
-    this.startNotificationsPolling();
+    this.notificationSocketService.connect();
+
+    this.notificationSocketService.onNotificationCreated(() => {
+      this.loadNotifications();
+    });
+
+    this.notificationSocketService.onNotificationUpdated(() => {
+      this.loadNotifications();
+    });
+
+    this.notificationSocketService.onNotificationDeleted(() => {
+      this.loadNotifications();
+    });
 
     this.authService.authState$.subscribe(() => {
       const user = this.authService.getUser();
@@ -479,10 +491,6 @@ export class Header implements OnInit {
   }
 
   logout(): void {
-    if (this.notificationsInterval) {
-      clearInterval(this.notificationsInterval);
-    }
-
     this.authService.logout();
     this.isAuthenticated = false;
     this.isAdmin = false;
@@ -609,24 +617,6 @@ export class Header implements OnInit {
     });
   }
 
-  // toggleNotificationReadStatus(notification: Notification): void {
-  //   if (notification.read) {
-  //     this.notificationService.markAsUnread(notification.id).subscribe(() => {
-  //       notification.read = false;
-
-  //       this.cdr.detectChanges();
-  //     });
-
-  //     return;
-  //   }
-
-  //   this.notificationService.markAsRead(notification.id).subscribe(() => {
-  //     notification.read = true;
-
-  //     this.cdr.detectChanges();
-  //   });
-  // }
-
   toggleNotificationReadStatus(notification: Notification): void {
     const previousValue = notification.read;
     notification.read = !notification.read;
@@ -644,21 +634,7 @@ export class Header implements OnInit {
     });
   }
 
-  private startNotificationsPolling(): void {
-    if (!this.isAuthenticated) {
-      return;
-    }
-
-    this.notificationsInterval = window.setInterval(() => {
-      this.loadNotifications();
-    }, 3000);
-  }
-
   ngOnDestroy(): void {
-    if (this.notificationsInterval) {
-      clearInterval(this.notificationsInterval);
-    }
-
     this.courseContextService.clear();
   }
 }

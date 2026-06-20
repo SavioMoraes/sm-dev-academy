@@ -3,6 +3,7 @@ import { YoutubeService } from '../youtube/youtube.service';
 import { PrismaService } from '../../database/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../user/user.service';
+import { NotificationGateway } from '../notification/notification.gateway';
 
 @Injectable()
 export class AdminService {
@@ -10,6 +11,7 @@ export class AdminService {
     private readonly youtubeService: YoutubeService,
     private readonly prismaService: PrismaService,
     private readonly userService: UserService,
+    private readonly notificationGateway: NotificationGateway,
   ) {}
 
   async getDashboard() {
@@ -130,6 +132,8 @@ export class AdminService {
       })),
     });
 
+    this.notificationGateway.emitNotificationCreated();
+
     await this.prismaService.course.delete({
       where: {
         id: course.id,
@@ -225,6 +229,8 @@ export class AdminService {
           notificationId: notification.id,
         })),
       });
+
+      this.notificationGateway.emitNotificationCreated();
     }
 
     return {
