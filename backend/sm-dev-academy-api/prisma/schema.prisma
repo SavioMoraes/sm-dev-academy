@@ -90,9 +90,10 @@ model UserCourse {
 }
 
 model Notification {
-  id        String             @id @default(cuid())
-  title     String
+  id         String             @id @default(cuid())
+  title      String
   playlistId String?
+  action     String            @default("ADDED")
   createdAt DateTime           @default(now())
 
   users NotificationUser[]

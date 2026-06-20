@@ -24,6 +24,7 @@ export class NotificationService {
       id: item.notificationId,
       title: item.notification.title,
       playlistId: item.notification.playlistId,
+      action: item.notification.action,
       read: item.read,
       createdAt: item.notification.createdAt,
     }));

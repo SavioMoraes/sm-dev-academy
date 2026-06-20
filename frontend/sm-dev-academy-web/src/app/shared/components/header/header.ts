@@ -56,6 +56,57 @@ export class Header implements OnInit {
     return this.notifications.filter((notification) => !notification.read).length;
   }
 
+  get todayNotifications(): Notification[] {
+    const today = new Date();
+
+    return this.notifications.filter((notification) => {
+      const date = new Date(notification.createdAt);
+
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      );
+    });
+  }
+
+  get yesterdayNotifications(): Notification[] {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    return this.notifications.filter((notification) => {
+      const date = new Date(notification.createdAt);
+
+      return (
+        date.getDate() === yesterday.getDate() &&
+        date.getMonth() === yesterday.getMonth() &&
+        date.getFullYear() === yesterday.getFullYear()
+      );
+    });
+  }
+
+  get olderNotifications(): Notification[] {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    return this.notifications.filter((notification) => {
+      const date = new Date(notification.createdAt);
+
+      const isToday =
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+
+      const isYesterday =
+        date.getDate() === yesterday.getDate() &&
+        date.getMonth() === yesterday.getMonth() &&
+        date.getFullYear() === yesterday.getFullYear();
+
+      return !isToday && !isYesterday;
+    });
+  }
+
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
@@ -469,7 +520,17 @@ export class Header implements OnInit {
     const createdAt = new Date(date);
     const now = new Date();
     const diffMs = now.getTime() - createdAt.getTime();
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+
+    if (diffMinutes < 60) {
+      if (diffMinutes <= 1) {
+        return '1 minuto';
+      }
+
+      return `${diffMinutes} minutos`;
+    }
+
+    const diffHours = Math.floor(diffMinutes / 60);
 
     if (diffHours < 24) {
       if (diffHours <= 1) {

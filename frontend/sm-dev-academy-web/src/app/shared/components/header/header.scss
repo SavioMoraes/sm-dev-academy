@@ -825,39 +825,35 @@
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
-  width: 380px;
-  max-height: 500px;
+  width: 420px;
+  max-height: 550px;
   overflow-y: auto;
-  border: 1px solid rgba(255, 16, 39, 0.2);
-  border-radius: 16px;
-  background: #23262f;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  border: 1px solid #dcdcdc;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
   z-index: 1000;
 }
 
 .header-notifications__title {
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 700;
+  border-bottom: 1px solid #ececec;
+  color: #23262f;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .header-notifications__item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 20px;
-  cursor: pointer;
+  position: relative;
+  padding: 16px 20px;
+  cursor: default;
   transition: background-color 0.2s ease;
-}
-
-.header-notifications__item:hover {
-  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 -1px 0 #d1d5db;
 }
 
 .header-notifications__item:not(:last-child) {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid #ececec;
 }
 
 .header-notifications__item--read {
@@ -865,7 +861,25 @@
 }
 
 .header-notifications__item:not(.header-notifications__item--read) {
-  background: rgba(255, 16, 39, 0.05);
+  background: rgba(255, 16, 39, 0.04);
+}
+
+.header-notifications__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header-notifications__type {
+  color: #ff1027;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.header-notifications__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-notifications__text {
@@ -876,13 +890,12 @@
 }
 
 .header-notifications__delete {
-  width: 24px !important;
-  min-width: 24px !important;
-  height: 24px !important;
-  padding: 0 !important;
-  border: none;
+  position: absolute;
+  top: 12px;
+  right: 16px;
   background: transparent;
-  color: #b5b8c5;
+  border: none;
+  color: #23262f;
   font-size: 18px;
   cursor: pointer;
 }
@@ -892,10 +905,93 @@
 }
 
 .header-notifications__empty {
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px;
   text-align: center;
-  color: #b5b8c5;
+  color: #6b7280;
   font-size: 13px;
+}
+
+.header-notifications__group-title {
+  padding: 12px 20px;
+  color: #23262f;
+  font-size: 12px;
+  font-weight: 700;
+  background: #fafafa;
+  box-shadow:
+    inset 0 1px 0 #d1d5db,
+    inset 0 -1px 0 #d1d5db;
+}
+
+.header-notifications__course {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #23262f;
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.header-notifications__course:hover {
+  color: #ff1027;
+}
+
+.header-notifications__date {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 12px;
+  cursor: default;
+  pointer-events: none;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.header-notifications__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header-notifications__action {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.header-notifications__read-toggle {
+  border: 1px solid #dcdcdc;
+  background: transparent;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header-notifications__read-toggle--read {
+  color: #000000;
+  background: rgba(0, 180, 0, 0.329);
+}
+
+.header-notifications__read-toggle--unread {
+  color: #ff1027;
+  background: rgba(255, 16, 39, 0.12);
+}
+
+.header-notifications__item--read:hover {
+  background: rgba(0, 180, 0, 0.2);
+}
+
+.header-notifications__item:not(.header-notifications__item--read):hover {
+  background: rgba(255, 16, 39, 0.1);
 }
 
 @media (max-width: 768px) {

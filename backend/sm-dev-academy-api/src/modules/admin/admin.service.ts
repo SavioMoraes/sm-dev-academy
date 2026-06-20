@@ -113,6 +113,7 @@ export class AdminService {
       data: {
         title: course.title,
         playlistId: course.playlistId,
+        action: 'REMOVED',
       },
     });
 
@@ -208,6 +209,7 @@ export class AdminService {
         data: {
           title: course.title,
           playlistId: course.playlistId,
+          action: 'ADDED',
         },
       });
 
