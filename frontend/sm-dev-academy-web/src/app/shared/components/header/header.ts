@@ -11,6 +11,7 @@ import { Course } from '../../../core/interfaces/course.interface';
 import { NotificationService } from '../../../core/services/notification-service/notification.service';
 import { Notification } from '../../../core/interfaces/notification.interface';
 import { NotificationSocketService } from '../../../core/services/notification-socket-service/notification-socket.service';
+import { NavigationHistoryService } from '../../../core/services/navigation-history-service/navigation-history.service';
 
 @Component({
   selector: 'app-header',
@@ -116,6 +117,7 @@ export class Header implements OnInit {
     private readonly cdr: ChangeDetectorRef,
     private readonly notificationService: NotificationService,
     private readonly notificationSocketService: NotificationSocketService,
+    private readonly navigationHistoryService: NavigationHistoryService,
   ) {}
 
   isTechnologyRoute(category: string, technology: string): boolean {

@@ -1,13 +1,10 @@
 .not-found {
   min-height: 70vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   gap: 24px;
-
   text-align: center;
 }
 
@@ -22,6 +19,14 @@
 .not-found p {
   max-width: 500px;
   opacity: 0.8;
+}
+
+.not-found__code {
+  color: #ff1027;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .not-found__button {
