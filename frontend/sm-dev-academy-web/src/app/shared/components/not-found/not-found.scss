@@ -1,0 +1,30 @@
+.not-found {
+  min-height: 70vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 24px;
+
+  text-align: center;
+}
+
+.not-found i {
+  font-size: 96px;
+}
+
+.not-found h1 {
+  margin: 0;
+}
+
+.not-found p {
+  max-width: 500px;
+  opacity: 0.8;
+}
+
+.not-found__button {
+  padding: 12px 24px;
+  border-radius: 8px;
+}

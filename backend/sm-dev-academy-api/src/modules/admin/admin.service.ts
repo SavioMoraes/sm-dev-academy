@@ -111,7 +111,9 @@ export class AdminService {
 
     const notification = await this.prismaService.notification.create({
       data: {
-        title: `O curso ${course.title} foi removido da plataforma.`,
+        title: course.title,
+        playlistId: course.playlistId,
+        action: 'REMOVED',
       },
     });
 
@@ -205,7 +207,9 @@ export class AdminService {
 
       const notification = await this.prismaService.notification.create({
         data: {
-          title: `Novo curso disponível: ${course.title}.`,
+          title: course.title,
+          playlistId: course.playlistId,
+          action: 'ADDED',
         },
       });
 

@@ -56,6 +56,57 @@ export class Header implements OnInit {
     return this.notifications.filter((notification) => !notification.read).length;
   }
 
+  get todayNotifications(): Notification[] {
+    const today = new Date();
+
+    return this.notifications.filter((notification) => {
+      const date = new Date(notification.createdAt);
+
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      );
+    });
+  }
+
+  get yesterdayNotifications(): Notification[] {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    return this.notifications.filter((notification) => {
+      const date = new Date(notification.createdAt);
+
+      return (
+        date.getDate() === yesterday.getDate() &&
+        date.getMonth() === yesterday.getMonth() &&
+        date.getFullYear() === yesterday.getFullYear()
+      );
+    });
+  }
+
+  get olderNotifications(): Notification[] {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    return this.notifications.filter((notification) => {
+      const date = new Date(notification.createdAt);
+
+      const isToday =
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+
+      const isYesterday =
+        date.getDate() === yesterday.getDate() &&
+        date.getMonth() === yesterday.getMonth() &&
+        date.getFullYear() === yesterday.getFullYear();
+
+      return !isToday && !isYesterday;
+    });
+  }
+
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
@@ -465,6 +516,55 @@ export class Header implements OnInit {
     this.isNotificationsOpen = !this.isNotificationsOpen;
   }
 
+  getRelativeDate(date: string): string {
+    const createdAt = new Date(date);
+    const now = new Date();
+    const diffMs = now.getTime() - createdAt.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+
+    if (diffMinutes < 60) {
+      if (diffMinutes <= 1) {
+        return '1 minuto';
+      }
+
+      return `${diffMinutes} minutos`;
+    }
+
+    const diffHours = Math.floor(diffMinutes / 60);
+
+    if (diffHours < 24) {
+      if (diffHours <= 1) {
+        return 'há 1 hora';
+      }
+
+      return `há ${diffHours} horas`;
+    }
+
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffDays <= 1) {
+      return 'há 1 dia';
+    }
+
+    return `há ${diffDays} dias`;
+  }
+
+  openNotificationCourse(notification: Notification): void {
+    if (!notification.read) {
+      notification.read = true;
+      this.notificationService.markAsRead(notification.id).subscribe();
+    }
+
+    this.isNotificationsOpen = false;
+
+    if (!notification.playlistId) {
+      this.router.navigate(['/not-found']);
+      return;
+    }
+
+    this.router.navigate(['/learn/courses', notification.playlistId]);
+  }
+
   markNotificationAsRead(notification: Notification): void {
     if (notification.read) {
       return;
@@ -472,10 +572,8 @@ export class Header implements OnInit {
 
     this.notificationService.markAsRead(notification.id).subscribe({
       next: () => {
-        setTimeout(() => {
-          this.loadNotifications();
-          this.cdr.detectChanges();
-        }, 300);
+        this.loadNotifications();
+        this.cdr.detectChanges();
       },
     });
   }
@@ -485,11 +583,27 @@ export class Header implements OnInit {
 
     this.notificationService.deleteNotification(notificationId).subscribe({
       next: () => {
-        setTimeout(() => {
-          this.loadNotifications();
-          this.cdr.detectChanges();
-        }, 300);
+        this.loadNotifications();
+        this.cdr.detectChanges();
       },
+    });
+  }
+
+  toggleNotificationReadStatus(notification: Notification): void {
+    if (notification.read) {
+      this.notificationService.markAsUnread(notification.id).subscribe(() => {
+        notification.read = false;
+
+        this.cdr.detectChanges();
+      });
+
+      return;
+    }
+
+    this.notificationService.markAsRead(notification.id).subscribe(() => {
+      notification.read = true;
+
+      this.cdr.detectChanges();
     });
   }
 }

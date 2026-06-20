@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PageContainer } from '../../../shared/ui/page-container/page-container';
 import { Course, CourseVideo } from '../../../core/interfaces/course.interface';
@@ -18,6 +18,7 @@ import { CourseContextService } from '../../../core/services/course-context-serv
 })
 export class CoursePlayer implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly courseService = inject(CourseService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -32,12 +33,83 @@ export class CoursePlayer implements OnInit, OnDestroy {
   isStarted = false;
   isStartedLoading = true;
 
-  ngOnInit(): void {
-    const playlistId = this.route.snapshot.paramMap.get('playlistId');
+  // ngOnInit(): void {
+  //   const playlistId = this.route.snapshot.paramMap.get('playlistId');
 
-    if (!playlistId) {
-      return;
-    }
+  //   if (!playlistId) {
+  //     return;
+  //   }
+
+  //   this.courseService.getCourseByPlaylistId(playlistId).subscribe({
+  //     next: (response) => {
+  //       this.course = response;
+
+  //       this.courseContextService.setCurrentCourse({
+  //         category: this.course.category,
+  //         technology: this.course.technology,
+  //       });
+
+  //       this.cdr.detectChanges();
+
+  //       this.myCourseService.check(this.course.id).subscribe({
+  //         next: (response) => {
+  //           this.isStarted = response.isStarted;
+
+  //           this.isStartedLoading = false;
+
+  //           if (this.isStarted && this.course?.videos?.length) {
+  //             this.selectVideo(this.course.videos[0]);
+  //           }
+
+  //           this.cdr.detectChanges();
+  //         },
+
+  //         error: (error) => {
+  //           this.isStartedLoading = false;
+
+  //           console.error(error);
+  //         },
+  //       });
+
+  //       this.favoriteService.check(this.course.id).subscribe({
+  //         next: (response) => {
+  //           this.isFavorite = response.isFavorite;
+
+  //           this.cdr.detectChanges();
+  //         },
+
+  //         error: (error) => {
+  //           console.error(error);
+  //         },
+  //       });
+  //     },
+
+  //     error: (error) => {
+  //       console.error(error);
+  //     },
+  //   });
+  // }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const playlistId = params.get('playlistId');
+
+      if (!playlistId) {
+        this.router.navigate(['/not-found']);
+        return;
+      }
+
+      this.loadCourse(playlistId);
+    });
+  }
+
+  private loadCourse(playlistId: string): void {
+    this.course = undefined;
+    this.selectedVideo = undefined;
+    this.videoUrl = undefined;
+    this.isFavorite = false;
+    this.isStarted = false;
+    this.isStartedLoading = true;
 
     this.courseService.getCourseByPlaylistId(playlistId).subscribe({
       next: (response) => {
@@ -53,7 +125,6 @@ export class CoursePlayer implements OnInit, OnDestroy {
         this.myCourseService.check(this.course.id).subscribe({
           next: (response) => {
             this.isStarted = response.isStarted;
-
             this.isStartedLoading = false;
 
             if (this.isStarted && this.course?.videos?.length) {
@@ -63,28 +134,21 @@ export class CoursePlayer implements OnInit, OnDestroy {
             this.cdr.detectChanges();
           },
 
-          error: (error) => {
+          error: () => {
             this.isStartedLoading = false;
-
-            console.error(error);
           },
         });
 
         this.favoriteService.check(this.course.id).subscribe({
           next: (response) => {
             this.isFavorite = response.isFavorite;
-
             this.cdr.detectChanges();
-          },
-
-          error: (error) => {
-            console.error(error);
           },
         });
       },
 
-      error: (error) => {
-        console.error(error);
+      error: () => {
+        this.router.navigate(['/not-found']);
       },
     });
   }

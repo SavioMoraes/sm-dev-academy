@@ -106,30 +106,199 @@
 
             @if (isNotificationsOpen) {
               <div class="header-notifications__dropdown">
-                <div class="header-notifications__title">Notifications</div>
+                <div class="header-notifications__title">Notificações</div>
 
                 @if (notifications.length > 0) {
-                  @for (notification of notifications; track notification.id) {
-                    <div
-                      class="header-notifications__item"
-                      [class.header-notifications__item--read]="notification.read"
-                      (click)="markNotificationAsRead(notification)"
-                    >
-                      <span class="header-notifications__text">
-                        {{ notification.title }}
-                      </span>
+                  @if (todayNotifications.length > 0) {
+                    <div class="header-notifications__group-title">Hoje</div>
 
-                      <button
-                        type="button"
-                        class="header-notifications__delete"
-                        (click)="deleteNotification(notification.id, $event)"
+                    @for (notification of todayNotifications; track notification.id) {
+                      <div
+                        class="header-notifications__item"
+                        [class.header-notifications__item--read]="notification.read"
                       >
-                        ×
-                      </button>
-                    </div>
+                        <div class="header-notifications__content">
+                          <div class="header-notifications__type">
+                            @if (notification.action === 'ADDED') {
+                              Novo curso disponível
+                            } @else {
+                              Curso removido da plataforma
+                            }
+                          </div>
+
+                          <a
+                            class="header-notifications__course"
+                            [title]="notification.title"
+                            (click)="openNotificationCourse(notification)"
+                          >
+                            {{ notification.title }}
+                          </a>
+
+                          <span class="header-notifications__date">
+                            {{ getRelativeDate(notification.createdAt) }}
+                          </span>
+
+                          <div class="header-notifications__footer">
+                            <button
+                              type="button"
+                              class="header-notifications__read-toggle"
+                              [class.header-notifications__read-toggle--read]="notification.read"
+                              [class.header-notifications__read-toggle--unread]="!notification.read"
+                              [title]="
+                                notification.read ? 'Marcar como não lido' : 'Marcar como lido'
+                              "
+                              (click)="toggleNotificationReadStatus(notification)"
+                            >
+                              @if (notification.read) {
+                                Lido
+                              } @else {
+                                Não lido
+                              }
+                            </button>
+
+                            <button
+                              type="button"
+                              class="header-notifications__delete"
+                              title="Excluir notificação"
+                              (click)="deleteNotification(notification.id, $event)"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+
+                  @if (yesterdayNotifications.length > 0) {
+                    <div class="header-notifications__group-title">Ontem</div>
+
+                    @for (notification of yesterdayNotifications; track notification.id) {
+                      <div
+                        class="header-notifications__item"
+                        [class.header-notifications__item--read]="notification.read"
+                      >
+                        <div class="header-notifications__content">
+                          <div class="header-notifications__type">
+                            @if (notification.action === 'ADDED') {
+                              Novo curso disponível
+                            } @else {
+                              Curso removido da plataforma
+                            }
+                          </div>
+
+                          <a
+                            class="header-notifications__course"
+                            [title]="notification.title"
+                            (click)="openNotificationCourse(notification)"
+                          >
+                            {{ notification.title }}
+                          </a>
+
+                          <span class="header-notifications__date">
+                            {{ getRelativeDate(notification.createdAt) }}
+                          </span>
+
+                          <div class="header-notifications__footer">
+                            <button
+                              type="button"
+                              class="header-notifications__read-toggle"
+                              [class.header-notifications__read-toggle--read]="notification.read"
+                              [class.header-notifications__read-toggle--unread]="!notification.read"
+                              [title]="
+                                notification.read ? 'Marcar como não lido' : 'Marcar como lido'
+                              "
+                              (click)="toggleNotificationReadStatus(notification)"
+                            >
+                              @if (notification.read) {
+                                Lido
+                              } @else {
+                                Não lido
+                              }
+                            </button>
+
+                            <button
+                              type="button"
+                              class="header-notifications__delete"
+                              title="Excluir notificação"
+                              (click)="deleteNotification(notification.id, $event)"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+
+                  @if (olderNotifications.length > 0) {
+                    <div class="header-notifications__group-title">Anteriores</div>
+
+                    @for (notification of olderNotifications; track notification.id) {
+                      <div
+                        class="header-notifications__item"
+                        [class.header-notifications__item--read]="notification.read"
+                      >
+                        <div class="header-notifications__content">
+                          <div class="header-notifications__type">
+                            @if (notification.action === 'ADDED') {
+                              Novo curso disponível
+                            } @else {
+                              Curso removido da plataforma
+                            }
+                          </div>
+
+                          <a
+                            class="header-notifications__course"
+                            [title]="notification.title"
+                            (click)="openNotificationCourse(notification)"
+                          >
+                            {{ notification.title }}
+                          </a>
+
+                          <span class="header-notifications__date">
+                            {{ getRelativeDate(notification.createdAt) }}
+                          </span>
+
+                          <div class="header-notifications__footer">
+                            <button
+                              type="button"
+                              class="header-notifications__read-toggle"
+                              [class.header-notifications__read-toggle--read]="notification.read"
+                              [class.header-notifications__read-toggle--unread]="!notification.read"
+                              [title]="
+                                notification.read ? 'Marcar como não lido' : 'Marcar como lido'
+                              "
+                              (click)="toggleNotificationReadStatus(notification)"
+                            >
+                              @if (notification.read) {
+                                Lido
+                              } @else {
+                                Não lido
+                              }
+                            </button>
+
+                            <button
+                              type="button"
+                              class="header-notifications__delete"
+                              title="Excluir notificação"
+                              (click)="deleteNotification(notification.id, $event)"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    }
                   }
                 } @else {
-                  <div class="header-notifications__empty">No notifications.</div>
+                  <div class="header-notifications__empty">
+                    <i class="material-symbols-outlined"> notifications </i>
+
+                    <span> Você está em dia. </span>
+
+                    <small> Nenhuma notificação disponível. </small>
+                  </div>
                 }
               </div>
             }
