@@ -506,20 +506,6 @@ export class Header implements OnInit {
     this.logout();
   }
 
-  // loadNotifications(): void {
-  //   if (!this.isAuthenticated) {
-  //     this.notifications = [];
-  //     return;
-  //   }
-
-  //   this.notificationService.getNotifications().subscribe({
-  //     next: (notifications) => {
-  //       this.notifications = notifications;
-  //       this.cdr.detectChanges();
-  //     },
-  //   });
-  // }
-
   loadNotifications(): void {
     if (!this.isAuthenticated) {
       this.notifications = [];
@@ -589,19 +575,6 @@ export class Header implements OnInit {
     this.router.navigate(['/learn/courses', notification.playlistId]);
   }
 
-  // markNotificationAsRead(notification: Notification): void {
-  //   if (notification.read) {
-  //     return;
-  //   }
-
-  //   this.notificationService.markAsRead(notification.id).subscribe({
-  //     next: () => {
-  //       this.loadNotifications();
-  //       this.cdr.detectChanges();
-  //     },
-  //   });
-  // }
-
   markNotificationAsRead(notification: Notification): void {
     if (notification.read) {
       return;
@@ -617,17 +590,6 @@ export class Header implements OnInit {
       },
     });
   }
-
-  // deleteNotification(notificationId: string, event: Event): void {
-  //   event.stopPropagation();
-
-  //   this.notificationService.deleteNotification(notificationId).subscribe({
-  //     next: () => {
-  //       this.loadNotifications();
-  //       this.cdr.detectChanges();
-  //     },
-  //   });
-  // }
 
   deleteNotification(notificationId: string, event: Event): void {
     event.stopPropagation();
@@ -647,21 +609,38 @@ export class Header implements OnInit {
     });
   }
 
+  // toggleNotificationReadStatus(notification: Notification): void {
+  //   if (notification.read) {
+  //     this.notificationService.markAsUnread(notification.id).subscribe(() => {
+  //       notification.read = false;
+
+  //       this.cdr.detectChanges();
+  //     });
+
+  //     return;
+  //   }
+
+  //   this.notificationService.markAsRead(notification.id).subscribe(() => {
+  //     notification.read = true;
+
+  //     this.cdr.detectChanges();
+  //   });
+  // }
+
   toggleNotificationReadStatus(notification: Notification): void {
-    if (notification.read) {
-      this.notificationService.markAsUnread(notification.id).subscribe(() => {
-        notification.read = false;
+    const previousValue = notification.read;
+    notification.read = !notification.read;
+    this.cdr.detectChanges();
 
+    const request = notification.read
+      ? this.notificationService.markAsRead(notification.id)
+      : this.notificationService.markAsUnread(notification.id);
+
+    request.subscribe({
+      error: () => {
+        notification.read = previousValue;
         this.cdr.detectChanges();
-      });
-
-      return;
-    }
-
-    this.notificationService.markAsRead(notification.id).subscribe(() => {
-      notification.read = true;
-
-      this.cdr.detectChanges();
+      },
     });
   }
 
