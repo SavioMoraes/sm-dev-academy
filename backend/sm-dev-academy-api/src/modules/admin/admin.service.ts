@@ -132,13 +132,25 @@ export class AdminService {
       })),
     });
 
-    this.notificationGateway.emitNotificationCreated();
+    // this.notificationGateway.emitNotificationCreated();
+
+    // await this.prismaService.course.delete({
+    //   where: {
+    //     id: course.id,
+    //   },
+    // });
+
+    // return {
+    //   success: true,
+    // };
 
     await this.prismaService.course.delete({
       where: {
         id: course.id,
       },
     });
+
+    this.notificationGateway.emitNotificationDeleted();
 
     return {
       success: true,
