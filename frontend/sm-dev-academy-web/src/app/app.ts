@@ -1,19 +1,3 @@
-// import { Component } from '@angular/core';
-// import { RouterOutlet } from '@angular/router';
-
-// @Component({
-//   selector: 'app-root',
-//   standalone: true,
-//   imports: [
-//     RouterOutlet,
-//   ],
-//   template: `
-//     <router-outlet />
-//   `,
-//   styleUrl: './app.scss',
-// })
-// export class App {}
-
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavigationHistoryService } from './core/services/navigation-history-service/navigation-history.service';

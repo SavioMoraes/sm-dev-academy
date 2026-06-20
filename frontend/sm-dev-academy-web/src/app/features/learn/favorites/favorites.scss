@@ -107,6 +107,67 @@
   pointer-events: none;
 }
 
+.favorite-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.favorite-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.favorite-modal__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(420px, calc(100vw - 32px));
+  transform: translate(-50%, -50%);
+  padding: 32px;
+  border-radius: 16px;
+  background: #23262f;
+  text-align: center;
+}
+
+.favorite-modal__icon {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 48px;
+}
+
+.favorite-modal__content h2 {
+  margin: 0 0 12px;
+  color: #ffffff;
+}
+
+.favorite-modal__content p {
+  margin: 0 0 24px;
+  color: #bdbdbd;
+}
+
+.favorite-modal__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.favorite-modal__actions button {
+  flex: 1;
+}
+
+.favorite-modal__cancel {
+  border: 1px solid #4b4f5c;
+  background: transparent;
+  color: #ffffff;
+}
+
+.favorite-modal__confirm {
+  border: none;
+  background: #ff1027;
+  color: #ffffff;
+}
+
 @media (max-width: 767px) {
   .courses__title {
     font-size: 12px;

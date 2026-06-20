@@ -1,31 +1,18 @@
 <app-page-container>
   <div class="courses__hero">
-    <h1 class="courses__title">
-      Meus Favoritos
-    </h1>
+    <h1 class="courses__title">Meus Favoritos</h1>
   </div>
 
   <app-responsive-grid>
-    @for (
-      favorite of visibleFavorites;
-      track favorite.id
-    ) {
-      <article
-        class="course-card"
-        (click)="openCourse(favorite.course.playlistId)"
-      >
+    @for (favorite of visibleFavorites; track favorite.id) {
+      <article class="course-card" (click)="openCourse(favorite.course.playlistId)">
         <button
           type="button"
           class="course-card__favorite"
           title="Remover dos favoritos"
-          (click)="removeFavorite(
-            $event,
-            favorite.course.id
-          ); $event.stopPropagation()"
+          (click)="openRemoveFavoriteModal($event, favorite)"
         >
-          <span class="course-card__favorite-icon">
-            ❤️
-          </span>
+          <span class="course-card__favorite-icon"> ❤️ </span>
         </button>
 
         <img
@@ -33,7 +20,7 @@
           loading="lazy"
           [src]="favorite.course.thumbnail"
           [alt]="favorite.course.title"
-        >
+        />
 
         <div class="course-card__content">
           <h3 class="course-card__title">
@@ -43,8 +30,29 @@
       </article>
     }
   </app-responsive-grid>
-   <div
-    #sentinel
-    class="courses__sentinel">
-  </div>
+  <div #sentinel class="courses__sentinel"></div>
+
+  @if (favoriteToRemove) {
+    <div class="favorite-modal">
+      <div class="favorite-modal__backdrop"></div>
+
+      <div class="favorite-modal__content">
+        <span class="favorite-modal__icon"> 💔 </span>
+
+        <h2>Remover dos favoritos?</h2>
+
+        <p>Deseja remover este curso da sua lista de favoritos?</p>
+
+        <div class="favorite-modal__actions">
+          <button type="button" class="favorite-modal__cancel" (click)="cancelRemoveFavorite()">
+            Não
+          </button>
+
+          <button type="button" class="favorite-modal__confirm" (click)="confirmRemoveFavorite()">
+            Sim, remover
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </app-page-container>
