@@ -1,9 +1,14 @@
 <div class="not-found">
+  <span class="not-found__code"> Erro 404 </span>
+
   <i class="material-symbols-outlined"> school </i>
 
   <h1>Curso não encontrado</h1>
 
-  <p>O curso relacionado a esta notificação foi removido da plataforma.</p>
+  <p>
+    O curso relacionado a esta notificação foi removido da plataforma ou o endereço informado não
+    existe.
+  </p>
 
-  <a routerLink="/" class="not-found__button"> Voltar para Home </a>
+  <button type="button" class="not-found__button" (click)="goBack()">Voltar</button>
 </div>

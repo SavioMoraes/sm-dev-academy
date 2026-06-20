@@ -33,63 +33,6 @@ export class CoursePlayer implements OnInit, OnDestroy {
   isStarted = false;
   isStartedLoading = true;
 
-  // ngOnInit(): void {
-  //   const playlistId = this.route.snapshot.paramMap.get('playlistId');
-
-  //   if (!playlistId) {
-  //     return;
-  //   }
-
-  //   this.courseService.getCourseByPlaylistId(playlistId).subscribe({
-  //     next: (response) => {
-  //       this.course = response;
-
-  //       this.courseContextService.setCurrentCourse({
-  //         category: this.course.category,
-  //         technology: this.course.technology,
-  //       });
-
-  //       this.cdr.detectChanges();
-
-  //       this.myCourseService.check(this.course.id).subscribe({
-  //         next: (response) => {
-  //           this.isStarted = response.isStarted;
-
-  //           this.isStartedLoading = false;
-
-  //           if (this.isStarted && this.course?.videos?.length) {
-  //             this.selectVideo(this.course.videos[0]);
-  //           }
-
-  //           this.cdr.detectChanges();
-  //         },
-
-  //         error: (error) => {
-  //           this.isStartedLoading = false;
-
-  //           console.error(error);
-  //         },
-  //       });
-
-  //       this.favoriteService.check(this.course.id).subscribe({
-  //         next: (response) => {
-  //           this.isFavorite = response.isFavorite;
-
-  //           this.cdr.detectChanges();
-  //         },
-
-  //         error: (error) => {
-  //           console.error(error);
-  //         },
-  //       });
-  //     },
-
-  //     error: (error) => {
-  //       console.error(error);
-  //     },
-  //   });
-  // }
-
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const playlistId = params.get('playlistId');
