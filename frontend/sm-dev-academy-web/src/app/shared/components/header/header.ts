@@ -565,25 +565,59 @@ export class Header implements OnInit {
     this.router.navigate(['/learn/courses', notification.playlistId]);
   }
 
+  // markNotificationAsRead(notification: Notification): void {
+  //   if (notification.read) {
+  //     return;
+  //   }
+
+  //   this.notificationService.markAsRead(notification.id).subscribe({
+  //     next: () => {
+  //       this.loadNotifications();
+  //       this.cdr.detectChanges();
+  //     },
+  //   });
+  // }
+
   markNotificationAsRead(notification: Notification): void {
     if (notification.read) {
       return;
     }
 
+    notification.read = true;
+    this.cdr.detectChanges();
+
     this.notificationService.markAsRead(notification.id).subscribe({
-      next: () => {
-        this.loadNotifications();
+      error: () => {
+        notification.read = false;
         this.cdr.detectChanges();
       },
     });
   }
 
+  // deleteNotification(notificationId: string, event: Event): void {
+  //   event.stopPropagation();
+
+  //   this.notificationService.deleteNotification(notificationId).subscribe({
+  //     next: () => {
+  //       this.loadNotifications();
+  //       this.cdr.detectChanges();
+  //     },
+  //   });
+  // }
+
   deleteNotification(notificationId: string, event: Event): void {
     event.stopPropagation();
+    const previousNotifications = [...this.notifications];
+
+    this.notifications = this.notifications.filter(
+      (notification) => notification.id !== notificationId,
+    );
+
+    this.cdr.detectChanges();
 
     this.notificationService.deleteNotification(notificationId).subscribe({
-      next: () => {
-        this.loadNotifications();
+      error: () => {
+        this.notifications = previousNotifications;
         this.cdr.detectChanges();
       },
     });
