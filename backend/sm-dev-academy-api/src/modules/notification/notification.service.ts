@@ -23,6 +23,7 @@ export class NotificationService {
     return notifications.map((item) => ({
       id: item.notificationId,
       title: item.notification.title,
+      playlistId: item.notification.playlistId,
       read: item.read,
       createdAt: item.notification.createdAt,
     }));
@@ -50,6 +51,21 @@ export class NotificationService {
           userId,
           notificationId,
         },
+      },
+    });
+  }
+
+  async markAsUnread(userId: string, notificationId: string) {
+    return this.prismaService.notificationUser.update({
+      where: {
+        userId_notificationId: {
+          userId,
+          notificationId,
+        },
+      },
+
+      data: {
+        read: false,
       },
     });
   }

@@ -4,7 +4,7 @@ import { profileUnsavedGuard } from './core/guards/profile-unsaved.guard';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-    /* =========================================================
+  /* =========================================================
          ACCOUNT
       ========================================================= */
   {
@@ -358,7 +358,7 @@ export const routes: Routes = [
         loadComponent: () => import('./features/learn/tracks/tracks').then((m) => m.Tracks),
       },
 
-       /* =========================================================
+      /* =========================================================
          PROFILE
       ========================================================= */
 
@@ -380,6 +380,15 @@ export const routes: Routes = [
           import('./features/admin/dashboard/dashboard').then((m) => m.Dashboard),
       },
     ],
+  },
+
+  /* =========================================================
+     NOT FOUND
+  ========================================================= */
+
+  {
+    path: 'not-found',
+    loadComponent: () => import('./shared/components/not-found/not-found').then((m) => m.NotFound),
   },
 
   /* =========================================================

@@ -42,4 +42,14 @@ export class NotificationService {
       headers: this.getHeaders(),
     });
   }
+
+  markAsUnread(id: string): Observable<Notification> {
+    return this.http.patch<Notification>(
+      `${this.apiUrl}/${id}/unread`,
+      {},
+      {
+        headers: this.getHeaders(),
+      },
+    );
+  }
 }
