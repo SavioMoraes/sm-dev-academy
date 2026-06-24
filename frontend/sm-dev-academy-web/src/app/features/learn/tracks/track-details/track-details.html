@@ -11,42 +11,66 @@
     </section>
 
     <section class="track-details-courses">
-      @for (course of trackCourses; track course.id) {
+      @for (item of trackCourses; track $index) {
         <article class="track-course-card">
-          <a class="track-course-card__thumbnail-link"[routerLink]="['/learn/courses', course.playlistId]">
+          <a
+            class="track-course-card__thumbnail-link"
+            [routerLink]="['/learn/courses', item.course.playlistId]"
+          >
             <img
               class="track-course-card__thumbnail"
-              [src]="course.thumbnail"
-              [alt]="course.title"
+              [src]="item.course.thumbnail"
+              [alt]="item.course.title"
             />
           </a>
 
           <div class="track-course-card__content">
             <span class="track-course-card__technology">
-              {{ course.technology }}
+              {{ item.course.technology }}
             </span>
 
             <h2 class="track-course-card__title">
-              <a  class="track-course-card__title-link" [routerLink]="['/learn/courses', course.playlistId]">
-                {{ course.title }}
+              <a
+                class="track-course-card__title-link"
+                [routerLink]="['/learn/courses', item.course.playlistId]"
+              >
+                {{ item.course.title }}
               </a>
             </h2>
 
             <p class="track-course-card__description">
               <a
                 class="track-course-card__description-link"
-                [routerLink]="['/learn/courses', course.playlistId]"
+                [routerLink]="['/learn/courses', item.course.playlistId]"
               >
-                <p class="track-course-card__description">
-                  {{ course.description }}
-                </p>
+                {{ item.course.description }}
               </a>
             </p>
 
             <div class="track-course-card__rating">★★★★★</div>
+
+            <div class="track-course-progress">
+              <div class="track-course-progress__bar">
+                <div class="track-course-progress__fill" [style.width]="item.progress + '%'"></div>
+              </div>
+
+              <span class="track-course-progress__label"> {{ item.progress }}% </span>
+            </div>
           </div>
         </article>
       }
+    </section>
+
+    <section class="track-total-progress">
+      <h2 class="track-total-progress__title">Progresso Total da Trilha</h2>
+
+      <div class="track-total-progress__content">
+        <div class="track-total-progress__bar">
+          <div class="track-total-progress__fill" [style.width]="trackProgress + '%'"></div>
+        </div>
+
+        <span class="track-total-progress__label"> {{ trackProgress }}% </span>
+      </div>
     </section>
   }
 </app-page-container>

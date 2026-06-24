@@ -111,6 +111,79 @@
   font-weight: 700;
 }
 
+.track-course-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.track-course-progress__bar {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.track-course-progress__fill {
+  height: 100%;
+  background: #ff1027;
+  transition: width 0.3s ease;
+}
+
+.track-course-progress__label {
+  min-width: 42px;
+  color: #ff1027;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.track-total-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  margin-top: 32px;
+  border: 1px solid rgba(255, 16, 39, 0.25);
+  border-radius: 16px;
+  background: #23262f;
+}
+
+.track-total-progress__title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.track-total-progress__content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.track-total-progress__bar {
+  flex: 1;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.track-total-progress__fill {
+  height: 100%;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.track-total-progress__label {
+  min-width: 42px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 @media (max-width: 768px) {
   .track-course-card {
     flex-direction: column;
