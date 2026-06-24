@@ -12,7 +12,17 @@
           title="Remover dos favoritos"
           (click)="openRemoveFavoriteModal($event, favorite)"
         >
-          <span class="course-card__favorite-icon"> ❤️ </span>
+          <img
+            class="course-card__favorite-icon course-card__favorite-icon--heart"
+            src="assets/svg/heart.svg"
+            alt="Favorito"
+          />
+
+          <img
+            class="course-card__favorite-icon course-card__favorite-icon--broken"
+            src="assets/svg/broken-heart.svg"
+            alt="Remover dos favoritos"
+          />
         </button>
 
         <img
@@ -37,7 +47,11 @@
       <div class="favorite-modal__backdrop"></div>
 
       <div class="favorite-modal__content">
-        <span class="favorite-modal__icon"> 💔 </span>
+        <img
+          class="favorite-modal__icon"
+          src="assets/svg/broken-heart.svg"
+          alt="Remover dos favoritos"
+        />
 
         <h2>Remover dos favoritos?</h2>
 

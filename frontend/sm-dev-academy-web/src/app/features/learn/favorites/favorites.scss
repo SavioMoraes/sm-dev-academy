@@ -22,19 +22,14 @@
 .course-card__favorite {
   position: absolute;
   top: 12px;
-  right: 12px;
+  right: 6px;
+  width: 36px;
+  height: 36px;
   border: none;
   background: transparent;
   padding: 0;
   cursor: pointer;
-  font-size: 28px;
   z-index: 2;
-  transition: all .2s ease;
-}
-
-.course-card__favorite:hover {
-  background: transparent;
-  transform: scale(1.85);
 }
 
 .course-card__image {
@@ -74,28 +69,37 @@
 }
 
 .course-card__favorite-icon {
-  transition: all .2s ease;
+  width: 36px;
+  height: 36px;
+  transition: opacity 0.2s ease;
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(18%)
+    sepia(96%)
+    saturate(7498%)
+    hue-rotate(350deg)
+    brightness(102%)
+    contrast(113%);
 }
 
-.course-card__favorite:hover
-.course-card__favorite-icon {
-  opacity: 0;
-}
-
-.course-card__favorite::after {
-  content: '';
+.course-card__favorite-icon--heart {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  opacity: 0;
-  transition: all .2s ease;
+  opacity: 1;
 }
 
-.course-card__favorite:hover::after {
-  content: '💔';
+.course-card__favorite-icon--broken {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.course-card__favorite:hover .course-card__favorite-icon--heart {
+  opacity: 0;
+}
+
+.course-card__favorite:hover .course-card__favorite-icon--broken {
   opacity: 1;
 }
 
@@ -133,8 +137,18 @@
 
 .favorite-modal__icon {
   display: block;
-  margin-bottom: 16px;
-  font-size: 48px;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(18%)
+    sepia(96%)
+    saturate(7498%)
+    hue-rotate(350deg)
+    brightness(102%)
+    contrast(113%);
 }
 
 .favorite-modal__content h2 {
