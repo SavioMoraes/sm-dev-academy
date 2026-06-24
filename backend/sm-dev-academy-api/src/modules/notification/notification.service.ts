@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
+import { NotificationGateway } from './notification.gateway';
 
 @Injectable()
 export class NotificationService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly notificationGateway: NotificationGateway,
+  ) {}
 
   async getNotifications(userId: string) {
     const notifications = await this.prismaService.notificationUser.findMany({
@@ -31,7 +35,7 @@ export class NotificationService {
   }
 
   async markAsRead(userId: string, notificationId: string) {
-    return this.prismaService.notificationUser.update({
+    const notification = await this.prismaService.notificationUser.update({
       where: {
         userId_notificationId: {
           userId,
@@ -43,10 +47,14 @@ export class NotificationService {
         read: true,
       },
     });
+
+    this.notificationGateway.emitNotificationUpdated();
+
+    return notification;
   }
 
   async deleteNotification(userId: string, notificationId: string) {
-    return this.prismaService.notificationUser.delete({
+    const notification = await this.prismaService.notificationUser.delete({
       where: {
         userId_notificationId: {
           userId,
@@ -54,10 +62,14 @@ export class NotificationService {
         },
       },
     });
+
+    this.notificationGateway.emitNotificationDeleted();
+
+    return notification;
   }
 
   async markAsUnread(userId: string, notificationId: string) {
-    return this.prismaService.notificationUser.update({
+    const notification = await this.prismaService.notificationUser.update({
       where: {
         userId_notificationId: {
           userId,
@@ -69,5 +81,9 @@ export class NotificationService {
         read: false,
       },
     });
+
+    this.notificationGateway.emitNotificationUpdated();
+
+    return notification;
   }
 }
