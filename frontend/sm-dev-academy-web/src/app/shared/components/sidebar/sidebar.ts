@@ -184,7 +184,7 @@ export class Sidebar implements OnInit {
       this.adminExpanded = true;
     }
 
-    if (this.isCoursesRoute(url)) {
+    if (this.isCoursesParentActive()) {
       this.coursesExpanded = true;
     }
 

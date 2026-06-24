@@ -39,16 +39,19 @@ export class Favorites implements OnInit, AfterViewInit {
     this.loadFavorites();
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
 
   loadFavorites(): void {
     this.favoriteService.getFavorites().subscribe({
       next: (response) => {
         this.favorites = response;
         this.visibleFavorites = this.favorites.slice(0, this.pageSize);
-        setTimeout(() => {
-          this.cdr.detectChanges();
 
+        this.cdr.detectChanges();
+
+        setTimeout(() => {
           if (!this.observer) {
             this.createObserver();
           }
