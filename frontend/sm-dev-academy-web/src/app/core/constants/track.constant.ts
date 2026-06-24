@@ -19,7 +19,7 @@ export const TRACKS: Track[] = [
     courses: [
       'PLMbclvogjXZWgHgQcY5H4MvKtEW8q53cC',
       'PLr6-GrHUlVf8JIgLcu3sHigvQjTw_aC9C',
-      'PL4-IK0AVhVjOJs_UjdQeyEZ_cmEV3uJvx',
+      'PLLAZ4kZ9dFpOMcA70cU3gZZAXeCR9CNS9',
       'PLx4x_zx8csUg_AxxbVWHEyAJ6cBdsYc0T',
       'PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3',
       'PLinedj3B30sDby4Al-i13hQJGQoRQDfPo',
@@ -128,7 +128,7 @@ export const TRACKS: Track[] = [
     courses: [
       'PLHJ9lQEt-ZKPKt9XZks5y3hfe1xB2S6zZ',
       'PLpDyZ4xZcDg_gyII__1jtnE2FEgqpfJU8',
-      'PLb0ENDTKBLSUt5nROX6Q5_YTkljmXm297',
+      'PL4cUxeGkcC9jxJX7vojNVK-o8ubDZEcNb',
       'PLb2HQ45KP0Wsk-p_0c6ImqBAEFEY-LU9H',
       'PLNCSWIsR6ADJuQd4x6LVIC4VFMYArdg3M',
       'PL9tY_tDo_Q0C0hs1aGgtJbEH1EBlyzZdG',

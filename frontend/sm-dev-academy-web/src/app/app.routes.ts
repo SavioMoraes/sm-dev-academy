@@ -358,6 +358,12 @@ export const routes: Routes = [
         loadComponent: () => import('./features/learn/tracks/tracks').then((m) => m.Tracks),
       },
 
+      {
+        path: 'learn/tracks/:slug',
+        loadComponent: () =>
+          import('./features/learn/tracks/track-details/track-details').then((m) => m.TrackDetails),
+      },
+
       /* =========================================================
          PROFILE
       ========================================================= */

@@ -1,0 +1,76 @@
+<app-page-container>
+  @if (track) {
+    <section class="track-details-hero">
+      <h1 class="track-details-hero__title">
+        {{ track.title }}
+      </h1>
+
+      <p class="track-details-hero__technologies">
+        {{ track.technologies.join(' • ') }}
+      </p>
+    </section>
+
+    <section class="track-details-courses">
+      @for (item of trackCourses; track $index) {
+        <article class="track-course-card">
+          <a
+            class="track-course-card__thumbnail-link"
+            [routerLink]="['/learn/courses', item.course.playlistId]"
+          >
+            <img
+              class="track-course-card__thumbnail"
+              [src]="item.course.thumbnail"
+              [alt]="item.course.title"
+            />
+          </a>
+
+          <div class="track-course-card__content">
+            <span class="track-course-card__technology">
+              {{ item.course.technology }}
+            </span>
+
+            <h2 class="track-course-card__title">
+              <a
+                class="track-course-card__title-link"
+                [routerLink]="['/learn/courses', item.course.playlistId]"
+              >
+                {{ item.course.title }}
+              </a>
+            </h2>
+
+            <p class="track-course-card__description">
+              <a
+                class="track-course-card__description-link"
+                [routerLink]="['/learn/courses', item.course.playlistId]"
+              >
+                {{ item.course.description }}
+              </a>
+            </p>
+
+            <div class="track-course-card__rating">★★★★★</div>
+
+            <div class="track-course-progress">
+              <div class="track-course-progress__bar">
+                <div class="track-course-progress__fill" [style.width]="item.progress + '%'"></div>
+              </div>
+
+              <span class="track-course-progress__label"> {{ item.progress }}% </span>
+            </div>
+          </div>
+        </article>
+      }
+    </section>
+
+    <section class="track-total-progress">
+      <h2 class="track-total-progress__title">Progresso Total da Trilha</h2>
+
+      <div class="track-total-progress__content">
+        <div class="track-total-progress__bar">
+          <div class="track-total-progress__fill" [style.width]="trackProgress + '%'"></div>
+        </div>
+
+        <span class="track-total-progress__label"> {{ trackProgress }}% </span>
+      </div>
+    </section>
+  }
+</app-page-container>

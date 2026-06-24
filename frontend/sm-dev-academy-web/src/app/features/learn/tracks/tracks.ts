@@ -8,10 +8,15 @@ import { TRACKS } from '../../../core/constants/track.constant';
 import { CourseService } from '../../../core/services/course-service/course.service';
 import { MyCourseService } from '../../../core/services/my-course-service/my-course.service';
 
+
 @Component({
   selector: 'app-tracks',
   standalone: true,
-  imports: [PageContainer, StreamSection, HighlightCourseCard],
+  imports: [
+    PageContainer, 
+    StreamSection, 
+    HighlightCourseCard,
+  ],
   templateUrl: './tracks.html',
   styleUrl: './tracks.scss',
 })
