@@ -26,6 +26,21 @@
   line-height: 1.7;
 }
 
+.track-details-link {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 16px;
+  color: #ff1027;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.track-details-link:hover {
+  opacity: 0.8;
+}
+
 .track-progress {
   display: flex;
   align-items: center;

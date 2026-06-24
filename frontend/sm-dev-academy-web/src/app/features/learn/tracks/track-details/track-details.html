@@ -1,0 +1,52 @@
+<app-page-container>
+  @if (track) {
+    <section class="track-details-hero">
+      <h1 class="track-details-hero__title">
+        {{ track.title }}
+      </h1>
+
+      <p class="track-details-hero__technologies">
+        {{ track.technologies.join(' • ') }}
+      </p>
+    </section>
+
+    <section class="track-details-courses">
+      @for (course of trackCourses; track course.id) {
+        <article class="track-course-card">
+          <a class="track-course-card__thumbnail-link"[routerLink]="['/learn/courses', course.playlistId]">
+            <img
+              class="track-course-card__thumbnail"
+              [src]="course.thumbnail"
+              [alt]="course.title"
+            />
+          </a>
+
+          <div class="track-course-card__content">
+            <span class="track-course-card__technology">
+              {{ course.technology }}
+            </span>
+
+            <h2 class="track-course-card__title">
+              <a  class="track-course-card__title-link" [routerLink]="['/learn/courses', course.playlistId]">
+                {{ course.title }}
+              </a>
+            </h2>
+
+            <p class="track-course-card__description">
+              <a
+                class="track-course-card__description-link"
+                [routerLink]="['/learn/courses', course.playlistId]"
+              >
+                <p class="track-course-card__description">
+                  {{ course.description }}
+                </p>
+              </a>
+            </p>
+
+            <div class="track-course-card__rating">★★★★★</div>
+          </div>
+        </article>
+      }
+    </section>
+  }
+</app-page-container>
