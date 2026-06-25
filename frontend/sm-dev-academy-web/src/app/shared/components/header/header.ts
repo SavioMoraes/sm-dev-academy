@@ -524,8 +524,6 @@ export class Header implements OnInit {
 
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
-        console.log('notifications', notifications.length, notifications);
-
         this.notifications = notifications;
         this.cdr.detectChanges();
       },

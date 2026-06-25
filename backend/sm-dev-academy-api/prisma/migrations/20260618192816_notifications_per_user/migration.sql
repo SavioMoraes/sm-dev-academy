@@ -1,11 +1,11 @@
 /*
   Warnings:
 
-  - You are about to drop the column `read` on the `Notification` table. All the data in the column will be lost.
+  - You are about to drop the column `read` on the `notifications` table. All the data in the column will be lost.
 
 */
 -- AlterTable
-ALTER TABLE "Notification" DROP COLUMN "read";
+ALTER TABLE "notifications" DROP COLUMN "read";
 
 -- CreateTable
 CREATE TABLE "notification_users" (
@@ -25,4 +25,4 @@ CREATE UNIQUE INDEX "notification_users_userId_notificationId_key" ON "notificat
 ALTER TABLE "notification_users" ADD CONSTRAINT "notification_users_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "notification_users" ADD CONSTRAINT "notification_users_notificationId_fkey" FOREIGN KEY ("notificationId") REFERENCES "Notification"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "notification_users" ADD CONSTRAINT "notification_users_notificationId_fkey" FOREIGN KEY ("notificationId") REFERENCES "notifications"("id") ON DELETE CASCADE ON UPDATE CASCADE;

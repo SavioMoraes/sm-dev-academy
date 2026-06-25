@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE "Notification" ADD COLUMN     "playlistId" TEXT;
+ALTER TABLE "notifications" ADD COLUMN "playlistId" TEXT;

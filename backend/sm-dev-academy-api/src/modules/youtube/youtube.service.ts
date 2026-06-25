@@ -1,188 +1,114 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
-const TECHNOLOGIES = [
-  'PHP',
-  'MongoDB',
-  'MySQL',
-  'PostgreSQL',
-];
+const TECHNOLOGIES = ['PHP', 'MongoDB', 'MySQL', 'PostgreSQL'];
 
 const TECHNOLOGY_CATEGORIES: Record<string, string> = {
-
   PHP: 'Backend',
   MongoDB: 'Database',
   MySQL: 'Database',
   PostgreSQL: 'Database',
-
 };
 
 @Injectable()
 export class YoutubeService {
-
   async getCourses() {
-
     const courses: any[] = [];
 
     for (const technology of TECHNOLOGIES) {
-
       try {
+        const response = await axios.get(
+          'https://www.googleapis.com/youtube/v3/search',
+          {
+            params: {
+              key: process.env.YOUTUBE_API_KEY,
 
-        const response =
-          await axios.get(
-            'https://www.googleapis.com/youtube/v3/search',
-            {
-              params: {
+              q: technology,
 
-                key:
-                  process.env.YOUTUBE_API_KEY,
+              part: 'snippet',
 
-                q:
-                  technology,
+              type: 'playlist',
 
-                part:
-                  'snippet',
-
-                type:
-                  'playlist',
-
-                maxResults:
-                  4,
-
-              },
+              maxResults: 4,
             },
-          );
+          },
+        );
 
-        const playlists =
-          response.data.items || [];
+        const playlists = response.data.items || [];
 
         for (const playlist of playlists) {
-
-          const playlistId =
-            playlist.id?.playlistId;
+          const playlistId = playlist.id?.playlistId;
 
           if (!playlistId) {
             continue;
           }
 
           courses.push({
-
             playlistId,
 
-            title:
-              playlist.snippet.title,
+            title: playlist.snippet.title,
 
-            description:
-              playlist.snippet.description,
+            description: playlist.snippet.description,
 
             thumbnail:
               playlist.snippet.thumbnails?.high?.url ||
-
               playlist.snippet.thumbnails?.default?.url ||
-
               '',
 
-            playlistUrl:
-              `https://www.youtube.com/playlist?list=${playlistId}`,
+            playlistUrl: `https://www.youtube.com/playlist?list=${playlistId}`,
 
-            category:
-              TECHNOLOGY_CATEGORIES[
-                technology
-              ],
+            category: TECHNOLOGY_CATEGORIES[technology],
 
             technology,
 
-            featured:
-              false,
-
+            featured: false,
           });
-
         }
-
       } catch (error: any) {
-
         console.error(
           `Erro ao buscar ${technology}`,
           error?.response?.status,
           error?.response?.data,
         );
-
       }
-
     }
 
     return {
-
-      total:
-        courses.length,
+      total: courses.length,
 
       courses,
-
     };
-
   }
 
-  async getPlaylistVideos(
-    playlistId: string,
-  ) {
+  async getPlaylistVideos(playlistId: string) {
+    const response = await axios.get(
+      'https://www.googleapis.com/youtube/v3/playlistItems',
+      {
+        params: {
+          key: process.env.YOUTUBE_API_KEY,
 
-    const response =
-      await axios.get(
-        'https://www.googleapis.com/youtube/v3/playlistItems',
-        {
-          params: {
+          part: 'snippet',
 
-            key:
-              process.env.YOUTUBE_API_KEY,
+          playlistId,
 
-            part:
-              'snippet',
-
-            playlistId,
-
-            maxResults:
-              50,
-
-          },
+          maxResults: 50,
         },
-      );
-
-    const videos =
-      response.data.items || [];
-
-    return videos.map(
-      (
-        video: any,
-        index: number,
-      ) => ({
-
-        videoId:
-          video.snippet
-            ?.resourceId
-            ?.videoId,
-
-        title:
-          video.snippet?.title,
-
-        thumbnail:
-          video.snippet
-            ?.thumbnails
-            ?.high
-            ?.url ||
-
-          video.snippet
-            ?.thumbnails
-            ?.default
-            ?.url ||
-
-          '',
-
-        position:
-          index + 1,
-
-      }),
+      },
     );
 
-  }
+    const videos = response.data.items || [];
 
+    return videos.map((video: any, index: number) => ({
+      videoId: video.snippet?.resourceId?.videoId,
+
+      title: video.snippet?.title,
+
+      thumbnail:
+        video.snippet?.thumbnails?.high?.url ||
+        video.snippet?.thumbnails?.default?.url ||
+        '',
+
+      position: index + 1,
+    }));
+  }
 }
