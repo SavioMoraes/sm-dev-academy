@@ -3,9 +3,7 @@ import { PrismaService } from '../../database/prisma.service';
 
 @Injectable()
 export class CourseService {
-  constructor(
-    private readonly prismaService: PrismaService,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async getCourses() {
     const courses = await this.prismaService.course.findMany({
@@ -63,5 +61,4 @@ export class CourseService {
 
     return course;
   }
-
 }

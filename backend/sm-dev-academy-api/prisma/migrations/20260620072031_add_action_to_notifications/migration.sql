@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE "Notification" ADD COLUMN     "action" TEXT NOT NULL DEFAULT 'ADDED';
+ALTER TABLE "notifications" ADD COLUMN "action" TEXT NOT NULL DEFAULT 'ADDED';

@@ -10,6 +10,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { FavoriteModule } from './modules/favorite/favorite.module';
 import { MyCourseModule } from './modules/my-course/my-course.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { RatingModule } from './modules/rating/rating.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { NotificationModule } from './modules/notification/notification.module';
     FavoriteModule,
     MyCourseModule,
     NotificationModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

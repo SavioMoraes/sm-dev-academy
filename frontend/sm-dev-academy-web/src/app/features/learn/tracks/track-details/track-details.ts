@@ -71,9 +71,6 @@ export class TrackDetails implements OnInit {
               this.trackCourses.length > 0
                 ? Math.round(totalProgress / this.trackCourses.length)
                 : 0;
-
-            console.log('TRACK PROGRESS', this.trackProgress);
-
             this.cdr.detectChanges();
           },
 
