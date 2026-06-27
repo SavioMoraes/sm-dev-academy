@@ -25,37 +25,75 @@ export class AdminService {
       }),
     ]);
 
+    const totalStartedCourses = await this.prismaService.userCourse.count();
+
     return {
       totalCourses,
       totalUsers,
       totalAdmins,
+      totalStartedCourses,
     };
   }
 
   async getUsers() {
-    const users = await this.prismaService.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        avatarUrl: true,
+    return this.prismaService.user.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+
+      include: {
         userCourses: {
           include: {
-            course: {
-              select: {
-                title: true,
-              },
-            },
+            course: true,
+          },
+        },
+
+        _count: {
+          select: {
+            favorites: true,
           },
         },
       },
+    });
+  }
+
+  async searchUsers(term: string) {
+    return this.prismaService.user.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: term,
+              mode: 'insensitive',
+            },
+          },
+          {
+            email: {
+              contains: term,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+
       orderBy: {
-        createdAt: 'desc',
+        name: 'asc',
+      },
+
+      include: {
+        userCourses: {
+          include: {
+            course: true,
+          },
+        },
+
+        _count: {
+          select: {
+            favorites: true,
+          },
+        },
       },
     });
-
-    return users;
   }
 
   async promoteUser(userId: string) {
@@ -145,8 +183,8 @@ export class AdminService {
     };
   }
 
-  async importCourses() {
-    const result = await this.youtubeService.getCourses();
+  async importCourses(technologies: string[]) {
+    const result = await this.youtubeService.getCourses(technologies);
 
     let saved = 0;
     let duplicates = 0;

@@ -3,9 +3,7 @@ import { CourseService } from './course.service';
 
 @Controller('learn/courses')
 export class CourseController {
-  constructor(
-    private readonly courseService: CourseService,
-  ) {}
+  constructor(private readonly courseService: CourseService) {}
 
   @Get()
   async getCourses() {
@@ -17,10 +15,15 @@ export class CourseController {
     @Param('id')
     id: string,
   ) {
-    return this.courseService.getCourseById(
-      id,
-    );
+    return this.courseService.getCourseById(id);
+  }
 
+  @Get('search/:term')
+  async searchCourses(
+    @Param('term')
+    term: string,
+  ) {
+    return this.courseService.searchCourses(term);
   }
 
   @Get(':playlistId')
@@ -28,9 +31,6 @@ export class CourseController {
     @Param('playlistId')
     playlistId: string,
   ) {
-    return this.courseService.getCourseByPlaylistId(
-      playlistId,
-    );
+    return this.courseService.getCourseByPlaylistId(playlistId);
   }
-
 }
