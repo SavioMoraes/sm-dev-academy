@@ -19,7 +19,7 @@ export const TECHNOLOGIES = {
       icon: 'assets/svg/scss.svg',
     },
     {
-      label: 'Styled Components',
+      label: 'Styled-Components',
       slug: 'styled-components',
       icon: 'assets/svg/styledcomponents.svg',
     },
