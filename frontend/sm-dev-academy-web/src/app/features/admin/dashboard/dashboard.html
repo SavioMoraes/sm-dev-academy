@@ -2,144 +2,283 @@
   <div class="admin-dashboard">
     <h1>Administração</h1>
 
-    <div class="admin-stats">
-      <div class="admin-stat-card">
-        <span class="admin-stat-card__value">
-          {{ dashboard?.totalCourses ?? 0 }}
-        </span>
-
-        <span class="admin-stat-card__label"> Cursos </span>
-      </div>
-
-      <div class="admin-stat-card">
-        <span class="admin-stat-card__value">
-          {{ dashboard?.totalUsers ?? 0 }}
-        </span>
-
-        <span class="admin-stat-card__label"> Usuários </span>
-      </div>
-
-      <div class="admin-stat-card">
-        <span class="admin-stat-card__value">
-          {{ dashboard?.totalAdmins ?? 0 }}
-        </span>
-
-        <span class="admin-stat-card__label"> Admins </span>
-      </div>
-    </div>
-
     <div class="admin-card">
-      <h2>Gestão de Cursos</h2>
+      <h2 class="admin-section-title">Gestão de Cursos</h2>
 
-      <p>Atualiza a base de cursos a partir da integração do YouTube.</p>
+      <div class="admin-course-management">
+        <!-- IMPORTAÇÃO -->
 
-      <button (click)="importCourses()" [disabled]="isLoading">
-        @if (!isLoading) {
-          Sincronizar Cursos
-        } @else {
-          Sincronizando...
-        }
-      </button>
+        <section class="admin-course-column">
+          <h3 class="admin-section-subtitle">Importar Cursos</h3>
 
-      @if (importResult) {
-        <div class="admin-result">
-          Found: {{ importResult.found }}
-          <br />
-          Accepted: {{ importResult.accepted }}
-          <br />
-          Saved: {{ importResult.saved }}
-          <br />
-          Duplicates: {{ importResult.duplicates }}
-        </div>
-      }
-    </div>
+          <span class="admin-course-info"> Selecione até 4 tecnologias. </span>
 
-    <div class="admin-card">
-      <h2>Usuários</h2>
+          <select
+            #technologySelect
+            class="admin-input admin-course-input"
+            (change)="
+              toggleTechnologyByLabel(technologySelect.value); technologySelect.selectedIndex = 0
+            "
+          >
+            <option value="">Selecionar tecnologia</option>
 
-      <table class="admin-users-table">
-        <thead>
-          <tr>
-            <th>Avatar</th>
+            @for (technology of technologies; track technology.slug) {
+              @if (!selectedTechnologies.includes(technology.label)) {
+                <option [value]="technology.label" [disabled]="selectedTechnologies.length >= 4">
+                  {{ technology.label }}
+                </option>
+              }
+            }
+          </select>
 
-            <th>Nome</th>
+          @if (selectedTechnologies.length) {
+            <div class="admin-selected-list">
+              @for (technology of selectedTechnologies; track technology) {
+                <div class="admin-selected-item">
+                  <span>
+                    {{ technology }}
+                  </span>
 
-            <th>Email</th>
-
-            <th>Role</th>
-
-            <th>Cursos</th>
-
-            <th>Ações</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          @for (user of users; track user.id) {
-            <tr>
-              <td>
-                <img [src]="user.avatarUrl" [alt]="user.name" class="admin-user-avatar" />
-              </td>
-
-              <td>
-                {{ user.name }}
-              </td>
-
-              <td>
-                {{ user.email }}
-              </td>
-
-              <td>
-                {{ user.role }}
-              </td>
-
-              <td>
-                @if (user.userCourses.length) {
-                  <button class="admin-view-courses" (click)="openCoursesModal(user.userCourses)">
-                    {{ user.userCourses.length }}
-                    curso(s)
-                  </button>
-                } @else {
-                  <span class="admin-user-courses-empty"> Nenhum </span>
-                }
-              </td>
-
-              <td class="admin-users-actions">
-                @if (user.role === 'USER') {
-                  <button (click)="promoteUser(user.id)">Tornar Admin</button>
-                } @else {
-                  <button (click)="demoteUser(user.id)">Remover Admin</button>
-                }
-
-                <button (click)="openResetPasswordModal(user.id)">Resetar Senha</button>
-
-                <button (click)="deleteUser(user.id)">Excluir</button>
-              </td>
-            </tr>
+                  <a class="admin-selected-item__remove" (click)="removeTechnology(technology)">
+                    ✕
+                  </a>
+                </div>
+              }
+            </div>
           }
-        </tbody>
-      </table>
+
+          <button (click)="importCourses()" [disabled]="!selectedTechnologies.length || isLoading">
+            @if (!isLoading) {
+              Importar Cursos
+            } @else {
+              Importando...
+            }
+          </button>
+
+          @if (importResult) {
+            <div class="admin-result">
+              <a class="admin-result__close" (click)="importResult = null"> ✕ </a>
+
+              Found: {{ importResult.found }}
+
+              <br />
+
+              Accepted: {{ importResult.accepted }}
+
+              <br />
+
+              Saved: {{ importResult.saved }}
+
+              <br />
+
+              Duplicates: {{ importResult.duplicates }}
+
+              <br />
+
+              Videos: {{ importResult.videosSaved }}
+            </div>
+          }
+        </section>
+
+        <!-- EXCLUSÃO -->
+
+        <section class="admin-course-column">
+          <h3 class="admin-section-subtitle">Excluir Curso</h3>
+
+          <span class="admin-course-info"> Pesquise o curso que deseja excluir. </span>
+
+          <input
+            #courseSearchInput
+            class="admin-input admin-course-search"
+            [class.admin-course-search--open]="isCourseDropdownOpen"
+            type="text"
+            placeholder="Pesquisar curso..."
+            [(ngModel)]="courseSearch"
+            (input)="onCourseSearch()"
+            (click)="$event.stopPropagation()"
+          />
+
+          @if (isCourseDropdownOpen) {
+            <div class="admin-search-results">
+              @if (courseResults.length) {
+                @for (course of courseResults; track course.id) {
+                  <div class="admin-search-item" (click)="selectCourse(course)">
+                    <img [src]="course.thumbnail" [alt]="course.title" />
+
+                    <div>
+                      <strong>{{ course.title }}</strong>
+
+                      <span>{{ course.technology }}</span>
+                    </div>
+                  </div>
+                }
+              } @else {
+                <div class="admin-search-empty">Nenhum curso encontrado.</div>
+              }
+            </div>
+          }
+
+          <button (click)="deleteCourse()" [disabled]="!selectedCourse || isDeletingCourse">
+            @if (!isDeletingCourse) {
+              Excluir Curso
+            } @else {
+              Excluindo...
+            }
+          </button>
+        </section>
+      </div>
     </div>
 
     <div class="admin-card">
-      <h2>Excluir Curso</h2>
+      <h2 class="admin-section-title">Visão Geral</h2>
 
-      <p>Informe o Playlist ID do curso.</p>
+      <div class="admin-stats">
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Cursos </span>
 
-      <input
-        type="text"
-        [(ngModel)]="playlistIdToDelete"
-        placeholder="Playlist ID"
-        class="admin-input"
-      />
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalCourses ?? 0 }}
+          </span>
+        </div>
 
-      <button (click)="deleteCourse()" [disabled]="isDeletingCourse">
-        @if (!isDeletingCourse) {
-          Excluir Curso
-        } @else {
-          Excluindo...
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Usuários </span>
+
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalUsers ?? 0 }}
+          </span>
+        </div>
+
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Administradores </span>
+
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalAdmins ?? 0 }}
+          </span>
+        </div>
+
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Cursos em andamento </span>
+
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalStartedCourses ?? 0 }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div #selectedUserCard class="admin-card">
+      <div class="admin-course-column">
+        <h3 class="admin-section-title">Gestão de Usuários</h3>
+
+        <input
+          class="admin-input admin-course-search"
+          type="text"
+          placeholder="Pesquisar usuário..."
+          [(ngModel)]="userSearch"
+          (input)="onUserSearch()"
+        />
+
+        <button type="button" class="admin-show-all-users" (click)="showAllUsers()">
+          Ver todos os usuários
+        </button>
+
+        @if (isUserDropdownOpen) {
+          <div class="admin-search-results">
+            @if (userResults.length) {
+              @for (user of userResults; track user.id) {
+                <div class="admin-search-item" (click)="selectUser(user)">
+                  <img
+                    [src]="user.avatarUrl || 'assets/images/default-avatar.png'"
+                    [alt]="user.name"
+                  />
+
+                  <div>
+                    <strong>{{ user.name }}</strong>
+
+                    <span>{{ user.email }}</span>
+                  </div>
+                </div>
+              }
+            } @else {
+              <div class="admin-search-item admin-search-item--empty">
+                Nenhum usuário encontrado.
+              </div>
+            }
+          </div>
         }
-      </button>
+
+        @if (selectedUser) {
+          <div class="admin-selected-item">
+            <span>
+              {{ selectedUser.name }}
+            </span>
+
+            <a class="admin-selected-item__remove" (click)="clearSelectedUser()"> ✕ </a>
+          </div>
+          <div class="admin-card">
+            <div class="admin-user-header">
+              <img
+                [src]="selectedUser.avatarUrl || 'assets/images/default-avatar.png'"
+                [alt]="selectedUser.name"
+                class="admin-user-card__avatar"
+              />
+
+              <div>
+                <h2 style="margin: 0">
+                  {{ selectedUser.name }}
+                </h2>
+
+                <p>
+                  {{ selectedUser.email }}
+                </p>
+
+                <p>
+                  {{ selectedUser.role }}
+                </p>
+              </div>
+            </div>
+
+            <div class="admin-stats">
+              <div class="admin-stat-card">
+                <span class="admin-stat-card__label"> Cursos iniciados </span>
+
+                <span class="admin-stat-card__value">
+                  {{ selectedUser.userCourses?.length ?? 0 }}
+                </span>
+              </div>
+
+              <div class="admin-stat-card">
+                <span class="admin-stat-card__label"> Favoritos </span>
+
+                <span class="admin-stat-card__value">
+                  {{ selectedUser._count?.favorites ?? 0 }}
+                </span>
+              </div>
+            </div>
+
+            <div class="admin-user-actions">
+              @if (selectedUser.role === 'USER') {
+                <button type="button" (click)="promoteUser(selectedUser.id)">Tornar Admin</button>
+              }
+
+              @if (selectedUser.role === 'ADMIN') {
+                <button type="button" (click)="demoteUser(selectedUser.id)">Remover Admin</button>
+              }
+
+              <button type="button" (click)="openResetPasswordModal(selectedUser.id)">
+                Resetar Senha
+              </button>
+
+              <button type="button" (click)="openCoursesModal(selectedUser.userCourses)">
+                Ver Cursos
+              </button>
+
+              <button type="button" (click)="deleteUser(selectedUser.id)">Excluir Usuário</button>
+            </div>
+          </div>
+        }
+      </div>
     </div>
   </div>
   @if (resetPasswordModalOpen) {
@@ -167,9 +306,13 @@
           </div>
         }
 
-        <button class="admin-modal-save" (click)="resetPassword()">Salvar Senha</button>
+        <button type="button" class="admin-modal-save" (click)="resetPassword()">
+          Salvar Senha
+        </button>
 
-        <button class="admin-modal-cancel" (click)="resetPasswordModalOpen = false">Cancelar</button>
+        <button type="button" class="admin-modal-cancel" (click)="resetPasswordModalOpen = false">
+          Cancelar
+        </button>
       </div>
     </div>
   }
@@ -187,7 +330,33 @@
           }
         </div>
 
-        <button class="admin-modal-cancel" (click)="closeCoursesModal()">Fechar</button>
+        <button type="button" class="admin-modal-cancel" (click)="closeCoursesModal()">
+          Fechar
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (userModalOpen) {
+    <div class="admin-modal-backdrop">
+      <div class="admin-modal admin-users-modal">
+        <h2>Todos os usuários</h2>
+
+        <div class="admin-users-modal-list">
+          @for (user of userResults; track user.id) {
+            <div class="admin-search-item" (click)="selectUser(user)">
+              <img [src]="user.avatarUrl || 'assets/images/default-avatar.png'" [alt]="user.name" />
+
+              <div>
+                <strong>{{ user.name }}</strong>
+
+                <span>{{ user.email }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <button type="button" class="admin-modal-cancel" (click)="closeUserModal()">Fechar</button>
       </div>
     </div>
   }

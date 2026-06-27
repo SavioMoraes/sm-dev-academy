@@ -1,21 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-
-const TECHNOLOGIES = ['PHP', 'MongoDB', 'MySQL', 'PostgreSQL'];
-
-const TECHNOLOGY_CATEGORIES: Record<string, string> = {
-  PHP: 'Backend',
-  MongoDB: 'Database',
-  MySQL: 'Database',
-  PostgreSQL: 'Database',
-};
+import { TECHNOLOGY_CATEGORIES } from '../../common/constants/technology-categories';
 
 @Injectable()
 export class YoutubeService {
-  async getCourses() {
+  async getCourses(technologies: readonly string[]) {
     const courses: any[] = [];
 
-    for (const technology of TECHNOLOGIES) {
+    for (const technology of technologies) {
       try {
         const response = await axios.get(
           'https://www.googleapis.com/youtube/v3/search',
@@ -57,7 +49,10 @@ export class YoutubeService {
 
             playlistUrl: `https://www.youtube.com/playlist?list=${playlistId}`,
 
-            category: TECHNOLOGY_CATEGORIES[technology],
+            category:
+              TECHNOLOGY_CATEGORIES[
+                technology as keyof typeof TECHNOLOGY_CATEGORIES
+              ],
 
             technology,
 

@@ -6,6 +6,7 @@ import {
   Patch,
   Delete,
   Param,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { AdminService } from './admin.service';
+import { ImportCoursesDto } from './dto/import-courses.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -45,6 +47,14 @@ export class AdminController {
   @Get('users')
   getUsers() {
     return this.adminService.getUsers();
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  @Get('users/search')
+  searchUsers(@Query('term') term: string) {
+    return this.adminService.searchUsers(term);
   }
 
   @ApiBearerAuth()
@@ -97,7 +107,10 @@ export class AdminController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('ADMIN')
   @Post('courses/import')
-  importCourses() {
-    return this.adminService.importCourses();
+  importCourses(
+    @Body()
+    body: ImportCoursesDto,
+  ) {
+    return this.adminService.importCourses(body.technologies);
   }
 }

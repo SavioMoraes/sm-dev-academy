@@ -1,9 +1,20 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/services/auth-service/auth.service';
 import { PageContainer } from '../../../shared/ui/page-container/page-container';
 import { FormsModule } from '@angular/forms';
+import { TECHNOLOGIES } from '../../../core/constants/technologies';
+import { Technology } from '../../../core/interfaces/technology.interface';
+import { Course } from '../../../core/interfaces/course.interface';
+import { CourseService } from '../../../core/services/course-service/course.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,15 +24,42 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashboard.scss',
 })
 export class Dashboard implements OnInit {
+  @HostListener('document:click', ['$event'])
+  handleDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (!target.closest('.admin-course-column')) {
+      this.closeCourseSearch();
+    }
+  }
+
+  @ViewChild('selectedUserCard')
+  selectedUserCard!: ElementRef<HTMLDivElement>;
+
   private readonly API_URL = environment.apiUrl;
 
   isLoading = false;
+
+  technologies = Object.values(TECHNOLOGIES).flat() as Technology[];
+  selectedTechnologies: string[] = [];
+
+  courseSearch = '';
+  courseResults: Course[] = [];
+  selectedCourse: Course | null = null;
+  isCourseDropdownOpen = false;
+
+  userSearch = '';
+  userResults: any[] = [];
+  selectedUser: any = null;
+  isUserDropdownOpen = false;
+
   importResult: any = null;
 
   dashboard: {
     totalCourses: number;
     totalUsers: number;
     totalAdmins: number;
+    totalStartedCourses: number;
   } | null = null;
 
   users: any[] = [];
@@ -36,10 +74,12 @@ export class Dashboard implements OnInit {
 
   selectedUserCourses: any[] = [];
   coursesModalOpen = false;
+  userModalOpen = false;
 
   constructor(
     private readonly http: HttpClient,
     private readonly authService: AuthService,
+    private readonly courseService: CourseService,
     private readonly cdr: ChangeDetectorRef,
   ) {}
 
@@ -60,6 +100,7 @@ export class Dashboard implements OnInit {
         totalCourses: number;
         totalUsers: number;
         totalAdmins: number;
+        totalStartedCourses: number;
       }>(`${this.API_URL}/admin/dashboard`, {
         headers,
       })
@@ -115,11 +156,10 @@ export class Dashboard implements OnInit {
       .subscribe({
         next: () => {
           alert('Usuário promovido para administrador.');
-          setTimeout(() => {
-            this.loadUsers();
-            this.loadDashboard();
-            this.cdr.detectChanges();
-          }, 300);
+          this.selectedUser.role = 'ADMIN';
+          this.cdr.detectChanges();
+          this.loadUsers();
+          this.loadDashboard();
         },
       });
   }
@@ -142,11 +182,10 @@ export class Dashboard implements OnInit {
       .subscribe({
         next: () => {
           alert('Administrador removido com sucesso.');
-          setTimeout(() => {
-            this.loadUsers();
-            this.loadDashboard();
-            this.cdr.detectChanges();
-          }, 300);
+          this.selectedUser.role = 'USER';
+          this.cdr.detectChanges();
+          this.loadUsers();
+          this.loadDashboard();
         },
       });
   }
@@ -180,7 +219,156 @@ export class Dashboard implements OnInit {
       });
   }
 
+  toggleTechnologyByLabel(label: string): void {
+    if (!label) {
+      return;
+    }
+
+    if (this.selectedTechnologies.includes(label)) {
+      return;
+    }
+
+    if (this.selectedTechnologies.length >= 4) {
+      alert('Selecione no máximo 4 tecnologias.');
+
+      return;
+    }
+
+    this.selectedTechnologies.push(label);
+
+    this.cdr.detectChanges();
+  }
+
+  removeTechnology(label: string): void {
+    this.selectedTechnologies = this.selectedTechnologies.filter(
+      (technology) => technology !== label,
+    );
+
+    this.cdr.detectChanges();
+  }
+
+  onCourseSearch(): void {
+    const term = this.courseSearch.trim();
+
+    if (term.length < 3) {
+      this.courseResults = [];
+      this.isCourseDropdownOpen = false;
+      this.cdr.detectChanges();
+      return;
+    }
+
+    this.courseService.searchCourses(term).subscribe({
+      next: (courses) => {
+        console.log(term, term.length, courses.length);
+        this.courseResults = courses;
+        this.isCourseDropdownOpen = true;
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+  selectCourse(course: Course): void {
+    this.selectedCourse = course;
+    this.playlistIdToDelete = course.playlistId;
+    this.courseSearch = course.title;
+    this.courseResults = [];
+    this.isCourseDropdownOpen = false;
+    this.cdr.detectChanges();
+  }
+
+  onUserSearch(): void {
+    const term = this.userSearch.trim();
+
+    if (term.length < 3) {
+      this.userResults = [];
+      this.isUserDropdownOpen = false;
+      this.cdr.detectChanges();
+      return;
+    }
+
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    this.http
+      .get<any[]>(`${this.API_URL}/admin/users/search?term=${term}`, {
+        headers,
+      })
+      .subscribe({
+        next: (users) => {
+          this.userResults = users;
+          this.isUserDropdownOpen = true;
+          this.cdr.detectChanges();
+        },
+      });
+  }
+
+  showAllUsers(): void {
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    this.http
+      .get<any[]>(`${this.API_URL}/admin/users`, {
+        headers,
+      })
+      .subscribe({
+        next: (users) => {
+          this.userResults = users;
+          this.userModalOpen = true;
+
+          this.cdr.detectChanges();
+        },
+      });
+  }
+
+  selectUser(user: any): void {
+    this.selectedUser = user;
+    this.userSearch = '';
+    this.userResults = [];
+    this.isUserDropdownOpen = false;
+    this.userModalOpen = false;
+    this.cdr.detectChanges();
+
+    queueMicrotask(() => {
+      this.selectedUserCard?.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+  }
+
+  clearSelectedUser(): void {
+    this.selectedUser = null;
+    this.userSearch = '';
+    this.userResults = [];
+    this.isUserDropdownOpen = false;
+    this.cdr.detectChanges();
+  }
+
+  closeCourseSearch(): void {
+    if (this.selectedCourse) {
+      this.courseSearch = this.selectedCourse.title;
+    } else {
+      this.courseSearch = '';
+    }
+
+    this.courseResults = [];
+    this.isCourseDropdownOpen = false;
+    this.cdr.detectChanges();
+  }
+
   importCourses(): void {
+    if (!this.selectedTechnologies.length) {
+      alert('Selecione pelo menos uma tecnologia.');
+
+      return;
+    }
+
     this.isLoading = true;
     this.importResult = null;
 
@@ -193,30 +381,36 @@ export class Dashboard implements OnInit {
     this.http
       .post(
         `${this.API_URL}/admin/courses/import`,
-        {},
+        {
+          technologies: this.selectedTechnologies,
+        },
         {
           headers,
         },
       )
       .subscribe({
         next: (response) => {
+          this.isLoading = false;
+
           this.importResult = response;
+
           this.loadDashboard();
 
-          window.dispatchEvent(new CustomEvent('notifications-updated'));
-
-          this.isLoading = false;
           this.cdr.detectChanges();
+
+          window.dispatchEvent(new CustomEvent('notifications-updated'));
         },
+
         error: (error) => {
           console.error(error);
 
           this.importResult = {
             error: true,
-            message: error?.error?.message || 'Erro ao sincronizar cursos.',
+            message: error?.error?.message ?? 'Erro ao importar cursos.',
           };
 
           this.isLoading = false;
+
           this.cdr.detectChanges();
         },
       });
@@ -249,12 +443,15 @@ export class Dashboard implements OnInit {
         next: () => {
           alert('Curso excluído com sucesso.');
           this.playlistIdToDelete = '';
+          this.courseSearch = '';
+          this.selectedCourse = null;
+          this.courseResults = [];
+          this.isCourseDropdownOpen = false;
           this.isDeletingCourse = false;
           this.loadDashboard();
+          this.cdr.detectChanges();
 
           window.dispatchEvent(new CustomEvent('notifications-updated'));
-
-          this.cdr.detectChanges();
         },
         error: () => {
           this.isDeletingCourse = false;
@@ -344,5 +541,14 @@ export class Dashboard implements OnInit {
   closeCoursesModal(): void {
     this.coursesModalOpen = false;
     this.selectedUserCourses = [];
+  }
+
+  openUserModal(user: any): void {
+    this.selectedUser = user;
+    this.userModalOpen = true;
+  }
+
+  closeUserModal(): void {
+    this.userModalOpen = false;
   }
 }
