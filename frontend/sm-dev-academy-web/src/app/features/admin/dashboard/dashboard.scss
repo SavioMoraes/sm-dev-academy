@@ -558,6 +558,66 @@
 }
 
 @media (max-width: 768px) {
+  .admin-dashboard {
+    gap: 24px;
+  }
+
+  .admin-course-management {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .admin-course-column {
+    gap: 16px;
+  }
+
+  .admin-course-input,
+  .admin-course-search,
+  .admin-selected-item,
+  .admin-result {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .admin-search-results {
+    width: 100%;
+    margin-top: -16px;
+    margin-bottom: 0;
+  }
+
+  .admin-card button {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .admin-show-all-users {
+    width: 50%;
+    min-width: 50%;
+    margin-top: 0;
+    align-self: flex-start;
+  }
+
+  .admin-selected-item {
+    margin-top: 20px;
+  }
+
+  .admin-user-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .admin-user-actions {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .admin-user-actions button {
+    width: 50%;
+    min-width: 50%;
+  }
+
   .admin-stats {
     grid-template-columns: 1fr;
   }
@@ -565,5 +625,22 @@
   .admin-users-table {
     display: block;
     overflow-x: auto;
+  }
+
+  .admin-course-column > button,
+  .admin-show-all-users {
+    width: 50%;
+    min-width: 50%;
+    margin-left: auto;
+  }
+
+  .admin-user-actions {
+    justify-content: center;
+  }
+
+  .admin-user-actions button {
+    width: 50%;
+    min-width: 50%;
+    margin-left: 0;
   }
 }
