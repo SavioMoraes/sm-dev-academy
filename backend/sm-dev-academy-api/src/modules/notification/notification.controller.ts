@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Patch,
@@ -10,6 +11,7 @@ import {
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { NotificationService } from './notification.service';
+import { DeleteNotificationsDto } from './dto/delete-notifications.dto';
 
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
@@ -35,6 +37,17 @@ export class NotificationController {
     return this.notificationService.deleteNotification(
       request.user.sub,
       notificationId,
+    );
+  }
+
+  @Delete()
+  deleteNotifications(
+    @Body() dto: DeleteNotificationsDto,
+    @Req() request: any,
+  ) {
+    return this.notificationService.deleteNotifications(
+      request.user.sub,
+      dto.ids,
     );
   }
 

@@ -54,6 +54,9 @@ export class Header implements OnInit {
   notifications: Notification[] = [];
   isNotificationsOpen = false;
 
+  selectionMode = false;
+  selectedNotificationIds = new Set<string>();
+
   get unreadNotificationsCount(): number {
     return this.notifications.filter((notification) => !notification.read).length;
   }
@@ -107,6 +110,17 @@ export class Header implements OnInit {
 
       return !isToday && !isYesterday;
     });
+  }
+
+  get allNotificationsSelected(): boolean {
+    return (
+      this.notifications.length > 0 &&
+      this.selectedNotificationIds.size === this.notifications.length
+    );
+  }
+
+  get hasSelectedNotifications(): boolean {
+    return this.selectedNotificationIds.size > 0;
   }
 
   constructor(
@@ -525,6 +539,8 @@ export class Header implements OnInit {
     this.notificationService.getNotifications().subscribe({
       next: (notifications) => {
         this.notifications = notifications;
+        this.selectedNotificationIds.clear();
+        this.selectionMode = false;
         this.cdr.detectChanges();
       },
     });
@@ -532,6 +548,60 @@ export class Header implements OnInit {
 
   toggleNotifications(): void {
     this.isNotificationsOpen = !this.isNotificationsOpen;
+  }
+
+  toggleSelectionMode(): void {
+    this.selectionMode = !this.selectionMode;
+
+    if (!this.selectionMode) {
+      this.selectedNotificationIds.clear();
+    }
+  }
+
+  toggleNotificationSelection(notificationId: string): void {
+    if (this.selectedNotificationIds.has(notificationId)) {
+      this.selectedNotificationIds.delete(notificationId);
+    } else {
+      this.selectedNotificationIds.add(notificationId);
+    }
+  }
+
+  toggleSelectAllNotifications(): void {
+    if (this.allNotificationsSelected) {
+      this.selectedNotificationIds.clear();
+      return;
+    }
+
+    this.selectedNotificationIds.clear();
+
+    this.notifications.forEach((notification) => {
+      this.selectedNotificationIds.add(notification.id);
+    });
+  }
+
+  deleteSelectedNotifications(): void {
+    if (!this.selectedNotificationIds.size) {
+      return;
+    }
+
+    const ids = [...this.selectedNotificationIds];
+    const previousNotifications = [...this.notifications];
+
+    this.notifications = this.notifications.filter(
+      (notification) => !this.selectedNotificationIds.has(notification.id),
+    );
+
+    this.selectedNotificationIds.clear();
+    this.selectionMode = false;
+
+    this.cdr.detectChanges();
+
+    this.notificationService.deleteNotifications(ids).subscribe({
+      error: () => {
+        this.notifications = previousNotifications;
+        this.cdr.detectChanges();
+      },
+    });
   }
 
   getRelativeDate(date: string): string {
@@ -608,6 +678,8 @@ export class Header implements OnInit {
     );
 
     this.cdr.detectChanges();
+
+    this.selectedNotificationIds.delete(notificationId);
 
     this.notificationService.deleteNotification(notificationId).subscribe({
       error: () => {

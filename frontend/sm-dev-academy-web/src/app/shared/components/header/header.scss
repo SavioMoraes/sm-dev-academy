@@ -835,6 +835,9 @@
 }
 
 .header-notifications__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 16px 20px;
   border-bottom: 1px solid #ececec;
   color: #23262f;
@@ -844,8 +847,75 @@
   letter-spacing: 0.5px;
 }
 
+.header-notifications__selection-button {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: #ff1027;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.header-notifications__selection-button:hover {
+  opacity: 0.8;
+}
+
+.header-notifications__bulk-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.header-notifications__select-all {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #23262f;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.header-notifications__bulk-delete {
+  padding: 6px 12px;
+  border: 1px solid #ff1027;
+  border-radius: 8px;
+  background: transparent;
+  color: #ff1027;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header-notifications__bulk-delete:hover:not(:disabled) {
+  background: #ff1027;
+  color: #ffffff;
+}
+
+.header-notifications__bulk-delete:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.header-notifications__checkbox {
+  width: 16px;
+  height: 16px;
+  margin: 20px 12px 0 16px;
+  accent-color: #ff1027;
+  cursor: pointer;
+}
+
 .header-notifications__item {
   position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   padding: 16px 20px;
   cursor: default;
   transition: background-color 0.2s ease;
@@ -866,6 +936,7 @@
 
 .header-notifications__content {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 8px;
 }

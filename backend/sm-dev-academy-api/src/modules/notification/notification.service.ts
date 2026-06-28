@@ -68,6 +68,23 @@ export class NotificationService {
     return notification;
   }
 
+  async deleteNotifications(userId: string, notificationIds: string[]) {
+    await this.prismaService.notificationUser.deleteMany({
+      where: {
+        userId,
+        notificationId: {
+          in: notificationIds,
+        },
+      },
+    });
+
+    this.notificationGateway.emitNotificationDeleted();
+
+    return {
+      deleted: notificationIds.length,
+    };
+  }
+
   async markAsUnread(userId: string, notificationId: string) {
     const notification = await this.prismaService.notificationUser.update({
       where: {
