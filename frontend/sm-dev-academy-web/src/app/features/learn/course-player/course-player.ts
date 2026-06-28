@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PageContainer } from '../../../shared/ui/page-container/page-container';
+import { HighlightCourseCard } from '../../../shared/components/highlight-course-card/highlight-course-card';
+import { StreamSection } from '../../../shared/components/stream-section/stream-section';
 import { Course, CourseVideo } from '../../../core/interfaces/course.interface';
 import { CourseService } from '../../../core/services/course-service/course.service';
 import { FavoriteService } from '../../../core/services/favorite-service/favorite.service';
@@ -14,7 +16,12 @@ import { AuthService } from '../../../core/services/auth-service/auth.service';
 @Component({
   selector: 'app-course-player',
   standalone: true,
-  imports: [CommonModule, PageContainer],
+  imports: [
+    CommonModule, 
+    PageContainer,
+    HighlightCourseCard,
+    StreamSection,
+  ],
   templateUrl: './course-player.html',
   styleUrl: './course-player.scss',
 })
@@ -57,6 +64,8 @@ export class CoursePlayer implements OnInit, OnDestroy {
 
       this.loadCourse(playlistId);
     });
+
+    this.cdr.detectChanges();
   }
 
   private loadCourse(playlistId: string): void {

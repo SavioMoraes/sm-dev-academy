@@ -69,7 +69,7 @@
               </span>
             </button>
           }
-          
+
           <p class="course-player__description">
             {{ course.description }}
           </p>
@@ -89,8 +89,7 @@
               </div>
 
               <span class="course-player__rating-average">
-                Média: {{ ratingAverage.toFixed(1) }}
-                ({{ totalRatings }} avaliações)
+                Média: {{ ratingAverage.toFixed(1) }} ({{ totalRatings }} avaliações)
               </span>
 
               <span class="course-player__rating-title"> Sua avaliação </span>
@@ -99,11 +98,7 @@
 
               <div class="course-player__stars">
                 @for (star of stars; track star) {
-                  <button
-                    type="button"
-                    class="course-player__star"
-                    (click)="rateCourse(star)"
-                  >
+                  <button type="button" class="course-player__star" (click)="rateCourse(star)">
                     <img
                       class="course-player__star-icon"
                       [src]="getUserStarIcon(star)"
@@ -146,34 +141,20 @@
       </div>
 
       @if (relatedCourses.length) {
-        <div class="course-player__related">
-          <h2 class="course-player__related-title">Cursos Relacionados</h2>
-
-          <div class="course-player__related-grid">
-            @for (relatedCourse of relatedCourses; track relatedCourse.id) {
-              <div
-                class="course-player__related-card"
-                (click)="openRelatedCourse(relatedCourse.playlistId)"
-              >
-                <img
-                  class="course-player__related-image"
-                  [src]="relatedCourse.thumbnail"
-                  [alt]="relatedCourse.title"
-                />
-
-                <div class="course-player__related-content">
-                  <span class="course-player__related-technology">
-                    {{ relatedCourse.technology }}
-                  </span>
-
-                  <h3 class="course-player__related-course-title">
-                    {{ relatedCourse.title }}
-                  </h3>
-                </div>
-              </div>
-            }
-          </div>
-        </div>
+        <app-stream-section
+          title="Cursos Relacionados"
+          subtitle="Continue aprendendo com cursos da mesma categoria ou tecnologia"
+        >
+          @for (relatedCourse of relatedCourses; track relatedCourse.id) {
+            <app-highlight-course-card
+              [title]="relatedCourse.title"
+              [category]="relatedCourse.category"
+              [description]="relatedCourse.description"
+              [image]="relatedCourse.thumbnail"
+              [playlistId]="relatedCourse.playlistId"
+            />
+          }
+        </app-stream-section>
       }
     </div>
   }
