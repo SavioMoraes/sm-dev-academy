@@ -1,0 +1,23 @@
+.course-rating {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.course-rating__stars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.course-rating__star-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.course-rating__average {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  line-height: 1.5;
+}

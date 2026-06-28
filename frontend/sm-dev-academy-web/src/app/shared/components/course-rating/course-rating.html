@@ -1,0 +1,15 @@
+<div class="course-rating">
+  <div class="course-rating__stars">
+    @for (star of stars; track star) {
+      <img class="course-rating__star-icon" [src]="getStarIcon(star)" alt="Avaliação" />
+    }
+  </div>
+
+  @if (showAverage) {
+    <span class="course-rating__average">
+      Média:
+      {{ ratingAverage.toFixed(1) }}
+      ({{ totalRatings }} avaliações)
+    </span>
+  }
+</div>
