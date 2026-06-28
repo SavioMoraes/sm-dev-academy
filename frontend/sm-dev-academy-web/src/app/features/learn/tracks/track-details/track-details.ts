@@ -7,11 +7,16 @@ import { CourseService } from '../../../../core/services/course-service/course.s
 import { PageContainer } from '../../../../shared/ui/page-container/page-container';
 import { RouterLink } from '@angular/router';
 import { MyCourseService } from '../../../../core/services/my-course-service/my-course.service';
+import { CourseRating } from '../../../../shared/components/course-rating/course-rating';
 
 @Component({
   selector: 'app-track-details',
   standalone: true,
-  imports: [PageContainer, RouterLink],
+  imports: [
+    PageContainer, 
+    RouterLink,
+    CourseRating,
+  ],
   templateUrl: './track-details.html',
   styleUrl: './track-details.scss',
 })

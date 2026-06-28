@@ -78,19 +78,7 @@
             <div class="course-player__rating">
               <span class="course-player__rating-title"> Nota do Curso </span>
 
-              <div class="course-player__stars">
-                @for (star of stars; track star) {
-                  <img
-                    class="course-player__star-icon"
-                    [src]="getAverageStarIcon(star)"
-                    alt="Média"
-                  />
-                }
-              </div>
-
-              <span class="course-player__rating-average">
-                Média: {{ ratingAverage.toFixed(1) }} ({{ totalRatings }} avaliações)
-              </span>
+              <app-course-rating [courseId]="course.id" [showAverage]="true" />
 
               <span class="course-player__rating-title"> Sua avaliação </span>
 

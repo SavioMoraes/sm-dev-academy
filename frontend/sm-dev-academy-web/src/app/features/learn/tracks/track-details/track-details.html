@@ -47,7 +47,7 @@
               </a>
             </p>
 
-            <div class="track-course-card__rating">★★★★★</div>
+            <app-course-rating [courseId]="item.course.id" [showAverage]="false"></app-course-rating>
 
             <div class="track-course-progress">
               <div class="track-course-progress__bar">
@@ -64,12 +64,12 @@
     @if (trackCourses.length > 0) {
       <section class="track-total-progress">
         <h2 class="track-total-progress__title">Progresso Total da Trilha</h2>
-  
+
         <div class="track-total-progress__content">
           <div class="track-total-progress__bar">
             <div class="track-total-progress__fill" [style.width]="trackProgress + '%'"></div>
           </div>
-  
+
           <span class="track-total-progress__label"> {{ trackProgress }}% </span>
         </div>
       </section>

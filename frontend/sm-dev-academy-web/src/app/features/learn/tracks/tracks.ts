@@ -48,6 +48,8 @@ export class Tracks implements OnInit {
                   (item: any) => item.course?.playlistId === course.playlistId,
                 );
 
+                this.cdr.detectChanges();
+
                 return myCourse?.progress ?? 0;
               });
 
@@ -58,6 +60,7 @@ export class Tracks implements OnInit {
                   )
                 : 0;
 
+                this.cdr.detectChanges();
               return {
                 track,
                 courses,

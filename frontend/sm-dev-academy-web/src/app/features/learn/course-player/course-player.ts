@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -12,16 +12,12 @@ import { MyCourseService } from '../../../core/services/my-course-service/my-cou
 import { RatingService } from '../../../core/services/rating-service/rating.service';
 import { CourseContextService } from '../../../core/services/course-context-service/course-context.service';
 import { AuthService } from '../../../core/services/auth-service/auth.service';
+import { CourseRating } from '../../../shared/components/course-rating/course-rating';
 
 @Component({
   selector: 'app-course-player',
   standalone: true,
-  imports: [
-    CommonModule, 
-    PageContainer,
-    HighlightCourseCard,
-    StreamSection,
-  ],
+  imports: [CommonModule, PageContainer, HighlightCourseCard, StreamSection, CourseRating],
   templateUrl: './course-player.html',
   styleUrl: './course-player.scss',
 })
@@ -37,6 +33,9 @@ export class CoursePlayer implements OnInit, OnDestroy {
   private readonly authService = inject(AuthService);
   private readonly courseContextService = inject(CourseContextService);
 
+  @ViewChild(CourseRating)
+  private readonly courseRating?: CourseRating;
+
   course?: Course;
   selectedVideo?: CourseVideo;
   videoUrl?: SafeResourceUrl;
@@ -45,9 +44,7 @@ export class CoursePlayer implements OnInit, OnDestroy {
   isStartedLoading = true;
   isAuthenticated = false;
   relatedCourses: Course[] = [];
-  ratingAverage = 0;
   userRating = 0;
-  totalRatings = 0;
 
   readonly stars = [1, 2, 3, 4, 5];
 
@@ -115,8 +112,6 @@ export class CoursePlayer implements OnInit, OnDestroy {
 
         this.ratingService.getRating(this.course.id).subscribe({
           next: (response) => {
-            this.ratingAverage = response.average;
-            this.totalRatings = response.totalRatings;
             this.userRating = response.userRating ?? 0;
             this.cdr.detectChanges();
           },
@@ -251,18 +246,6 @@ export class CoursePlayer implements OnInit, OnDestroy {
     this.router.navigate(['/learn/courses', playlistId]);
   }
 
-  getAverageStarIcon(star: number): string {
-    if (this.ratingAverage >= star) {
-      return 'assets/svg/filled-star.svg';
-    }
-
-    if (this.ratingAverage >= star - 0.5) {
-      return 'assets/svg/half-star.svg';
-    }
-
-    return 'assets/svg/empty-star.svg';
-  }
-
   getUserStarIcon(star: number): string {
     return this.userRating >= star ? 'assets/svg/filled-star.svg' : 'assets/svg/empty-star.svg';
   }
@@ -279,15 +262,12 @@ export class CoursePlayer implements OnInit, OnDestroy {
     }
 
     this.userRating = star;
-
     this.cdr.detectChanges();
 
     this.ratingService.create(this.course.id, star).subscribe({
       next: (response) => {
         this.userRating = response.userRating;
-        this.ratingAverage = response.average;
-        this.totalRatings = response.totalRatings;
-
+        this.courseRating?.refresh();
         this.cdr.detectChanges();
       },
 
