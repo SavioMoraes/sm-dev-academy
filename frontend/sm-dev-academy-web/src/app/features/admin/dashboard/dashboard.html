@@ -171,42 +171,42 @@
       <div class="admin-course-column">
         <h3 class="admin-section-title">Gestão de Usuários</h3>
 
-        <input
-          class="admin-input admin-course-search"
-          type="text"
-          placeholder="Pesquisar usuário..."
-          [(ngModel)]="userSearch"
-          (input)="onUserSearch()"
-        />
-
-        <button type="button" class="admin-show-all-users" (click)="showAllUsers()">
-          Ver todos os usuários
-        </button>
-
-        @if (isUserDropdownOpen) {
-          <div class="admin-search-results">
-            @if (userResults.length) {
-              @for (user of userResults; track user.id) {
-                <div class="admin-search-item" (click)="selectUser(user)">
-                  <img
-                    [src]="user.avatarUrl || 'assets/images/default-avatar.png'"
-                    [alt]="user.name"
-                  />
-
-                  <div>
-                    <strong>{{ user.name }}</strong>
-
-                    <span>{{ user.email }}</span>
+        <div class="admin-user-search">
+          <input
+            #userSearchInput
+            class="admin-input admin-course-search"
+            type="text"
+            placeholder="Pesquisar usuário..."
+            [(ngModel)]="userSearch"
+            (focus)="openUsersDropdown()"
+            (input)="onUserSearch()"
+          />
+  
+          @if (isUserDropdownOpen) {
+            <div class="admin-search-results">
+              @if (userResults.length) {
+                @for (user of userResults; track user.id) {
+                  <div class="admin-search-item" (click)="selectUser(user)">
+                    <img
+                      [src]="user.avatarUrl || 'assets/images/default-avatar.png'"
+                      [alt]="user.name"
+                    />
+  
+                    <div>
+                      <strong>{{ user.name }}</strong>
+  
+                      <span>{{ user.email }}</span>
+                    </div>
                   </div>
+                }
+              } @else {
+                <div class="admin-search-item admin-search-item--empty">
+                  Nenhum usuário encontrado.
                 </div>
               }
-            } @else {
-              <div class="admin-search-item admin-search-item--empty">
-                Nenhum usuário encontrado.
-              </div>
-            }
-          </div>
-        }
+            </div>
+          }
+        </div>
 
         @if (selectedUser) {
           <div class="admin-selected-item">

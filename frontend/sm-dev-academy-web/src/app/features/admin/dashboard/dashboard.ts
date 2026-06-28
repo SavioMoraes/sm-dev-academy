@@ -36,6 +36,9 @@ export class Dashboard implements OnInit {
   @ViewChild('selectedUserCard')
   selectedUserCard!: ElementRef<HTMLDivElement>;
 
+  @ViewChild('userSearchInput')
+  private readonly userSearchInput!: ElementRef<HTMLInputElement>;
+
   private readonly API_URL = environment.apiUrl;
 
   isLoading = false;
@@ -86,6 +89,21 @@ export class Dashboard implements OnInit {
   ngOnInit(): void {
     this.loadDashboard();
     this.loadUsers();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (target.closest('.admin-user-search')) {
+      return;
+    }
+
+    this.userSearch = '';
+    this.userResults = [];
+    this.isUserDropdownOpen = false;
+
+    this.cdr.detectChanges();
   }
 
   loadDashboard(): void {
@@ -276,13 +294,47 @@ export class Dashboard implements OnInit {
     this.cdr.detectChanges();
   }
 
+  // onUserSearch(): void {
+  //   const term = this.userSearch.trim();
+
+  //   if (term.length < 3) {
+  //     this.userResults = [];
+  //     this.isUserDropdownOpen = false;
+  //     this.cdr.detectChanges();
+  //     return;
+  //   }
+
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .get<any[]>(`${this.API_URL}/admin/users/search?term=${term}`, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: (users) => {
+  //         this.userResults = users;
+  //         this.isUserDropdownOpen = true;
+  //         this.cdr.detectChanges();
+  //       },
+  //     });
+  // }
+
   onUserSearch(): void {
     const term = this.userSearch.trim();
 
-    if (term.length < 3) {
-      this.userResults = [];
-      this.isUserDropdownOpen = false;
+    if (!term.length) {
+      this.userResults = [...this.users];
+      this.isUserDropdownOpen = true;
       this.cdr.detectChanges();
+
+      return;
+    }
+
+    if (term.length < 3) {
       return;
     }
 
@@ -303,6 +355,19 @@ export class Dashboard implements OnInit {
           this.cdr.detectChanges();
         },
       });
+  }
+
+  openUsersDropdown(): void {
+    if (this.userSearch.trim().length >= 3) {
+      this.onUserSearch();
+
+      return;
+    }
+
+    this.userResults = [...this.users];
+    this.isUserDropdownOpen = true;
+
+    this.cdr.detectChanges();
   }
 
   showAllUsers(): void {
@@ -331,7 +396,7 @@ export class Dashboard implements OnInit {
     this.userSearch = '';
     this.userResults = [];
     this.isUserDropdownOpen = false;
-    this.userModalOpen = false;
+
     this.cdr.detectChanges();
 
     queueMicrotask(() => {
