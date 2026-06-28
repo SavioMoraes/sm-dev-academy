@@ -43,6 +43,15 @@ export class NotificationService {
     });
   }
 
+  deleteNotifications(ids: string[]): Observable<{ deleted: number }> {
+    return this.http.delete<{ deleted: number }>(this.apiUrl, {
+      headers: this.getHeaders(),
+      body: {
+        ids,
+      },
+    });
+  }
+
   markAsUnread(id: string): Observable<Notification> {
     return this.http.patch<Notification>(
       `${this.apiUrl}/${id}/unread`,

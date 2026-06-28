@@ -106,7 +106,44 @@
 
             @if (isNotificationsOpen) {
               <div class="header-notifications__dropdown">
-                <div class="header-notifications__title">Notificações</div>
+                <div class="header-notifications__title">
+                  <span>Notificações</span>
+
+                  <button
+                    type="button"
+                    class="header-notifications__selection-button"
+                    (click)="toggleSelectionMode()"
+                  >
+                    @if (selectionMode) {
+                      Cancelar
+                    } @else {
+                      Selecionar
+                    }
+                  </button>
+                </div>
+
+                @if (selectionMode) {
+                  <div class="header-notifications__bulk-actions">
+                    <label class="header-notifications__select-all">
+                      <input
+                        type="checkbox"
+                        [checked]="allNotificationsSelected"
+                        (change)="toggleSelectAllNotifications()"
+                      />
+
+                      <span>Selecionar todas</span>
+                    </label>
+
+                    <button
+                      type="button"
+                      class="header-notifications__bulk-delete"
+                      [disabled]="!hasSelectedNotifications"
+                      (click)="deleteSelectedNotifications()"
+                    >
+                      Excluir selecionadas
+                    </button>
+                  </div>
+                }
 
                 @if (notifications.length > 0) {
                   @if (todayNotifications.length > 0) {
@@ -117,6 +154,15 @@
                         class="header-notifications__item"
                         [class.header-notifications__item--read]="notification.read"
                       >
+                        @if (selectionMode) {
+                          <input
+                            type="checkbox"
+                            class="header-notifications__checkbox"
+                            [checked]="selectedNotificationIds.has(notification.id)"
+                            (click)="$event.stopPropagation()"
+                            (change)="toggleNotificationSelection(notification.id)"
+                          />
+                        }
                         <div class="header-notifications__content">
                           <div class="header-notifications__type">
                             @if (notification.action === 'ADDED') {
@@ -178,6 +224,15 @@
                         class="header-notifications__item"
                         [class.header-notifications__item--read]="notification.read"
                       >
+                        @if (selectionMode) {
+                          <input
+                            type="checkbox"
+                            class="header-notifications__checkbox"
+                            [checked]="selectedNotificationIds.has(notification.id)"
+                            (click)="$event.stopPropagation()"
+                            (change)="toggleNotificationSelection(notification.id)"
+                          />
+                        }
                         <div class="header-notifications__content">
                           <div class="header-notifications__type">
                             @if (notification.action === 'ADDED') {
@@ -239,6 +294,15 @@
                         class="header-notifications__item"
                         [class.header-notifications__item--read]="notification.read"
                       >
+                        @if (selectionMode) {
+                          <input
+                            type="checkbox"
+                            class="header-notifications__checkbox"
+                            [checked]="selectedNotificationIds.has(notification.id)"
+                            (click)="$event.stopPropagation()"
+                            (change)="toggleNotificationSelection(notification.id)"
+                          />
+                        }
                         <div class="header-notifications__content">
                           <div class="header-notifications__type">
                             @if (notification.action === 'ADDED') {
