@@ -23,6 +23,7 @@ export class Login {
   confirmPassword = '';
   recoveryError = '';
   recoverySuccess = '';
+  successMessage = '';
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -39,6 +40,12 @@ export class Login {
       this.submitted = false;
       this.errorMessage = '';
     });
+
+    this.successMessage = history.state?.successMessage ?? '';
+
+    if (this.successMessage) {
+      history.replaceState({}, '');
+    }
   }
 
   handleSubmit(): void {
