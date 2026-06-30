@@ -184,99 +184,140 @@ export class AdminService {
   }
 
   async importCourses(technologies: string[]) {
-    const result = await this.youtubeService.getCourses(technologies);
+    const existingPlaylistIds = new Set(
+      (
+        await this.prismaService.course.findMany({
+          select: {
+            playlistId: true,
+          },
+        })
+      ).map((course) => course.playlistId),
+    );
 
-    let saved = 0;
+    const processedPlaylistIds = new Set<string>();
+
+    const users = await this.prismaService.user.findMany({
+      select: {
+        id: true,
+      },
+    });
+
+    let coursesImported = 0;
+    let videosImported = 0;
+    let notificationsCreated = 0;
+    let processedTechnologies = 0;
     let duplicates = 0;
-    let videosSaved = 0;
 
-    for (const course of result.courses) {
-      const existingCourse = await this.prismaService.course.findUnique({
-        where: {
-          playlistId: course.playlistId,
-        },
-      });
+    for (const technology of technologies) {
+      try {
+        let savedCourses = 0;
+        let pageToken: string | undefined;
 
-      if (existingCourse) {
-        duplicates++;
+        do {
+          const { playlists, nextPageToken } =
+            await this.youtubeService.searchPlaylists(technology, pageToken);
 
-        continue;
+          pageToken = nextPageToken;
+
+          for (const course of playlists) {
+            if (savedCourses === 5) {
+              break;
+            }
+
+            if (!course.playlistId) {
+              continue;
+            }
+
+            if (processedPlaylistIds.has(course.playlistId)) {
+              continue;
+            }
+
+            if (existingPlaylistIds.has(course.playlistId)) {
+              duplicates++;
+              continue;
+            }
+
+            processedPlaylistIds.add(course.playlistId);
+            existingPlaylistIds.add(course.playlistId);
+
+            const createdCourse = await this.prismaService.course.create({
+              data: {
+                playlistId: course.playlistId,
+                title: course.title,
+                slug: course.playlistId,
+                description: course.description,
+                thumbnail: course.thumbnail,
+                playlistUrl: course.playlistUrl,
+                category: course.category,
+                technology: course.technology,
+                featured: false,
+              },
+            });
+
+            const videos = await this.youtubeService.getPlaylistVideos(
+              course.playlistId,
+            );
+
+            for (const video of videos) {
+              if (!video.videoId) {
+                continue;
+              }
+
+              await this.prismaService.courseVideo.upsert({
+                where: {
+                  videoId: video.videoId,
+                },
+
+                update: {},
+
+                create: {
+                  courseId: createdCourse.id,
+                  videoId: video.videoId,
+                  title: video.title,
+                  thumbnail: video.thumbnail,
+                  position: video.position,
+                },
+              });
+
+              videosImported++;
+            }
+
+            const notification = await this.prismaService.notification.create({
+              data: {
+                title: course.title,
+                playlistId: course.playlistId,
+                action: 'ADDED',
+              },
+            });
+
+            await this.prismaService.notificationUser.createMany({
+              data: users.map((user) => ({
+                userId: user.id,
+                notificationId: notification.id,
+              })),
+            });
+
+            savedCourses++;
+            coursesImported++;
+            notificationsCreated++;
+          }
+        } while (pageToken && savedCourses < 5);
+        processedTechnologies++;
+      } catch (error) {
+        console.error(`Erro ao importar ${technology}`, error);
       }
+    }
 
-      const createdCourse = await this.prismaService.course.create({
-        data: {
-          playlistId: course.playlistId,
-          title: course.title,
-          slug: course.playlistId,
-          description: course.description,
-          thumbnail: course.thumbnail,
-          playlistUrl: course.playlistUrl,
-          category: course.category,
-          technology: course.technology,
-          featured: false,
-        },
-      });
-
-      const videos = await this.youtubeService.getPlaylistVideos(
-        course.playlistId,
-      );
-
-      for (const video of videos) {
-        if (!video.videoId) {
-          continue;
-        }
-
-        await this.prismaService.courseVideo.upsert({
-          where: {
-            videoId: video.videoId,
-          },
-
-          update: {},
-
-          create: {
-            courseId: createdCourse.id,
-            videoId: video.videoId,
-            title: video.title,
-            thumbnail: video.thumbnail,
-            position: video.position,
-          },
-        });
-
-        videosSaved++;
-      }
-
-      saved++;
-
-      const notification = await this.prismaService.notification.create({
-        data: {
-          title: course.title,
-          playlistId: course.playlistId,
-          action: 'ADDED',
-        },
-      });
-
-      const users = await this.prismaService.user.findMany({
-        select: {
-          id: true,
-        },
-      });
-
-      await this.prismaService.notificationUser.createMany({
-        data: users.map((user) => ({
-          userId: user.id,
-          notificationId: notification.id,
-        })),
-      });
-
+    if (notificationsCreated > 0) {
       this.notificationGateway.emitNotificationCreated();
     }
 
     return {
-      found: result.total,
-      accepted: result.total,
-      saved,
+      found: coursesImported + duplicates,
+      accepted: coursesImported + duplicates,
+      saved: coursesImported,
       duplicates,
-      videosSaved,
+      videosSaved: videosImported,
     };
   }
 
