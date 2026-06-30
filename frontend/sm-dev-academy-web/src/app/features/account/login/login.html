@@ -67,6 +67,13 @@
 
         <p class="subtitle">Bem-vindo de volta!</p>
 
+        @if (successMessage) {
+          <div class="login-success">
+            <span>Conta criada com sucesso!</span>
+            <span>Faça login para acessar a plataforma.</span>
+          </div>
+        }
+
         @if (errorMessage) {
           <div class="login-error">
             {{ errorMessage }}
