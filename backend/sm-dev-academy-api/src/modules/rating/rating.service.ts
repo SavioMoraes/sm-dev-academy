@@ -89,4 +89,59 @@ export class RatingService {
       userRating: userRating?.rating ?? null,
     };
   }
+
+  async getRatings(userId: string, courseIds: string[]) {
+    const [aggregates, userRatings] = await Promise.all([
+      this.prismaService.courseRating.groupBy({
+        by: ['courseId'],
+
+        where: {
+          courseId: {
+            in: courseIds,
+          },
+        },
+
+        _avg: {
+          rating: true,
+        },
+
+        _count: {
+          rating: true,
+        },
+      }),
+
+      this.prismaService.courseRating.findMany({
+        where: {
+          userId,
+
+          courseId: {
+            in: courseIds,
+          },
+        },
+
+        select: {
+          courseId: true,
+          rating: true,
+        },
+      }),
+    ]);
+
+    return courseIds.map((courseId) => {
+      const aggregate = aggregates.find((item) => item.courseId === courseId);
+
+      const userRating = userRatings.find((item) => item.courseId === courseId);
+
+      return {
+        courseId,
+
+        average: aggregate?._avg.rating
+          ? Number(aggregate._avg.rating.toFixed(1))
+          : 0,
+
+        totalRatings: aggregate?._count.rating ?? 0,
+
+        userRating: userRating?.rating ?? null,
+      };
+    });
+  }
 }

@@ -17,7 +17,7 @@ export const TRACKS: Track[] = [
       'MongoDB',
     ],
     courses: [
-      'PLMbclvogjXZWgHgQcY5H4MvKtEW8q53cC',
+      'PLpdAy0tYrnKwOzyDmyEuUWC-p3pd7q1IL',
       'PLr6-GrHUlVf8JIgLcu3sHigvQjTw_aC9C',
       'PLLAZ4kZ9dFpOMcA70cU3gZZAXeCR9CNS9',
       'PLx4x_zx8csUg_AxxbVWHEyAJ6cBdsYc0T',
@@ -43,7 +43,7 @@ export const TRACKS: Track[] = [
       'AWS',
     ],
     courses: [
-      'PLfqMhTWNBTe0PY9xunOzsP5kmYIz2Hu7i',
+      'PLwgL9IEA0PxUjbhob9UMdpVq12sGrjgU6',
       'PL4cUxeGkcC9gQeDH6xYhmO-db2mhoTSrT',
       'PL7zl8TDRnbulsGX8znjV0SA1cDBVzCwga',
       'PLNCSWIsR6ADIl3wauyqaYprM5KzOOZDS5',
@@ -69,7 +69,7 @@ export const TRACKS: Track[] = [
       'ChatGPT',
     ],
     courses: [
-      'PLPt6-BtUI22oveeGAyckbAXRSmTBGLZP4',
+      'PLpdAy0tYrnKwmcenKePWr9TQ9deRanAr7',
       'PLP9IO4UYNF0UCaUSF3XNZ1U9f01E5h5PM',
       'PL-Hkw4CrSVq-Oc898YeSkcHTAAS2K2S3f',
       'PLsFVybaG4mODFwCuV06yLitVTikKF09sy',
@@ -97,7 +97,7 @@ export const TRACKS: Track[] = [
       'DeepSeek',
     ],
     courses: [
-      'PLWKjhJtqVAbnSe1qUNMG7AbPmjIG54u88',
+      'PLMbclvogjXZWgHgQcY5H4MvKtEW8q53cC',
       'PL0Zuz27SZ-6Mx9fd9elt80G1bPcySmWit',
       'PLnDvRpP8Bnexu5wvxogy6N49_S5Xk8Cze',
       'PL2Fdisxwzt_d590u3uad46W-kHA0PTjjw',
@@ -126,7 +126,7 @@ export const TRACKS: Track[] = [
       'ChatGPT',
     ],
     courses: [
-      'PLHJ9lQEt-ZKPKt9XZks5y3hfe1xB2S6zZ',
+      'PLa3uqHCcweThO0Cv_Ogrj-WSqluotKm5s',
       'PLpDyZ4xZcDg_gyII__1jtnE2FEgqpfJU8',
       'PL4cUxeGkcC9jxJX7vojNVK-o8ubDZEcNb',
       'PLb2HQ45KP0Wsk-p_0c6ImqBAEFEY-LU9H',
@@ -151,7 +151,7 @@ export const TRACKS: Track[] = [
       'Git',
     ],
     courses: [
-      'PLr6-GrHUlVf_ZNmuQSXdS197Oyr1L9sPB',
+      'PLhSj3UTs2_yVHt2DgHky_MzzRC58UHE4z',
       'PL2Fdisxwzt_f5C7Mv0kg1EAHhy2VJLf1c',
       'PL4cUxeGkcC9gpXORlEHjc5bgnIi5HEGhw',
       'PLHz_AreHm4dlsK3Nr9GVvXCbpQyHQl1o1',
@@ -171,7 +171,7 @@ export const TRACKS: Track[] = [
       'Angular',
     ],
     courses: [
-      'PLP9IO4UYNF0VdAajP_5pYG-jG2JRrG72s',
+      'PLbIBj8vQhvm00J3f3rD33tRuNLem8EgEA',
       'PLmnsJI3O-fYskJJ2nK1kGPXPzCYOTJAOb',
       'PLa3uqHCcweTicGuLMh9ZS7l0uYOuiXr-b',
       'PLGxZ4Rq3BOBoSRcKWEdQACbUCNWLczg2G',
@@ -190,7 +190,7 @@ export const TRACKS: Track[] = [
       'GitHub',
     ],
     courses: [
-      'PLHz_AreHm4dkZ9-atkcmcBaMZdmLHft8n',
+      'PL2Fdisxwzt_cajoGVWTx44wM6Ht09QJ3A',
       'PL6gx4Cwl9DGBxQO2r_kmxn-0UqL_Rkj0t',
       'PL9aKtVrF05DxIrtD3CuXGnzq8Q0IZ-t8J',
       'PLDyJYA6aTY1lwiVmcFFb7g0dRehAXmWUn',

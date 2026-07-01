@@ -47,7 +47,12 @@
               </a>
             </p>
 
-            <app-course-rating [courseId]="item.course.id" [showAverage]="false"></app-course-rating>
+            <app-course-rating
+              [ratingAverage]="item.average"
+              [totalRatings]="item.totalRatings"
+              [showAverage]="false"
+            >
+            </app-course-rating>
 
             <div class="track-course-progress">
               <div class="track-course-progress__bar">

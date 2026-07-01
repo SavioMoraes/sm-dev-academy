@@ -19,7 +19,10 @@ import { CourseService } from '../../../core/services/course-service/course.serv
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [PageContainer, FormsModule],
+  imports: [
+    PageContainer, 
+    FormsModule
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
@@ -87,7 +90,13 @@ export class Dashboard implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadDashboard();
+    // this.loadDashboard();
+    this.loadDashboard().subscribe({
+      next: (response) => {
+        this.dashboard = response;
+        this.cdr.detectChanges();
+      },
+    });
     this.loadUsers();
   }
 
@@ -106,31 +115,48 @@ export class Dashboard implements OnInit {
     this.cdr.detectChanges();
   }
 
-  loadDashboard(): void {
+  // loadDashboard(): void {
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .get<{
+  //       totalCourses: number;
+  //       totalUsers: number;
+  //       totalAdmins: number;
+  //       totalStartedCourses: number;
+  //     }>(`${this.API_URL}/admin/dashboard`, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.dashboard = response;
+  //         this.cdr.detectChanges();
+  //       },
+  //       error: (error) => {
+  //         console.error(error);
+  //       },
+  //     });
+  // }
+
+  loadDashboard() {
     const token = this.authService.getToken();
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
 
-    this.http
-      .get<{
-        totalCourses: number;
-        totalUsers: number;
-        totalAdmins: number;
-        totalStartedCourses: number;
-      }>(`${this.API_URL}/admin/dashboard`, {
-        headers,
-      })
-      .subscribe({
-        next: (response) => {
-          this.dashboard = response;
-          this.cdr.detectChanges();
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+    return this.http.get<{
+      totalCourses: number;
+      totalUsers: number;
+      totalAdmins: number;
+      totalStartedCourses: number;
+    }>(`${this.API_URL}/admin/dashboard`, {
+      headers,
+    });
   }
 
   loadUsers(): void {
@@ -459,9 +485,12 @@ export class Dashboard implements OnInit {
 
           this.importResult = response;
 
-          this.loadDashboard();
-
-          this.cdr.detectChanges();
+          this.loadDashboard().subscribe({
+            next: (dashboard) => {
+              this.dashboard = dashboard;
+              this.cdr.detectChanges();
+            },
+          });
 
           window.dispatchEvent(new CustomEvent('notifications-updated'));
         },
