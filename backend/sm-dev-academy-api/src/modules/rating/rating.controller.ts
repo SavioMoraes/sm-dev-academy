@@ -7,11 +7,8 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-
 import { ApiBearerAuth } from '@nestjs/swagger';
-
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { RatingService } from './rating.service';
 
@@ -19,7 +16,22 @@ import { RatingService } from './rating.service';
 @UseGuards(JwtAuthGuard)
 @Controller('ratings')
 export class RatingController {
-  constructor(private readonly ratingService: RatingService) {}
+  constructor(
+    private readonly ratingService: RatingService
+  ) {}
+
+  @Post('batch')
+  async getRatings(
+    @Req()
+    request: any,
+
+    @Body()
+    body: {
+      courseIds: string[];
+    },
+  ) {
+    return this.ratingService.getRatings(request.user.sub, body.courseIds);
+  }
 
   @Post(':courseId')
   async create(
