@@ -19,10 +19,7 @@ import { CourseService } from '../../../core/services/course-service/course.serv
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    PageContainer, 
-    FormsModule
-  ],
+  imports: [PageContainer, FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
@@ -90,7 +87,6 @@ export class Dashboard implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.loadDashboard();
     this.loadDashboard().subscribe({
       next: (response) => {
         this.dashboard = response;
@@ -104,6 +100,9 @@ export class Dashboard implements OnInit {
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
 
+    console.log(target);
+    console.log(target.closest('.admin-user-search'));
+
     if (target.closest('.admin-user-search')) {
       return;
     }
@@ -114,33 +113,6 @@ export class Dashboard implements OnInit {
 
     this.cdr.detectChanges();
   }
-
-  // loadDashboard(): void {
-  //   const token = this.authService.getToken();
-
-  //   const headers = new HttpHeaders({
-  //     Authorization: `Bearer ${token}`,
-  //   });
-
-  //   this.http
-  //     .get<{
-  //       totalCourses: number;
-  //       totalUsers: number;
-  //       totalAdmins: number;
-  //       totalStartedCourses: number;
-  //     }>(`${this.API_URL}/admin/dashboard`, {
-  //       headers,
-  //     })
-  //     .subscribe({
-  //       next: (response) => {
-  //         this.dashboard = response;
-  //         this.cdr.detectChanges();
-  //       },
-  //       error: (error) => {
-  //         console.error(error);
-  //       },
-  //     });
-  // }
 
   loadDashboard() {
     const token = this.authService.getToken();
@@ -253,12 +225,20 @@ export class Dashboard implements OnInit {
       })
       .subscribe({
         next: () => {
+          this.closeUserModal();
+          this.closeCoursesModal();
+          this.selectedUser = null;
+
           alert('Usuário excluído com sucesso.');
-          setTimeout(() => {
-            this.loadUsers();
-            this.loadDashboard();
-            this.cdr.detectChanges();
-          }, 300);
+
+          this.loadUsers();
+
+          this.loadDashboard().subscribe({
+            next: (dashboard) => {
+              this.dashboard = dashboard;
+              this.cdr.detectChanges();
+            },
+          });
         },
       });
   }
@@ -319,35 +299,6 @@ export class Dashboard implements OnInit {
     this.isCourseDropdownOpen = false;
     this.cdr.detectChanges();
   }
-
-  // onUserSearch(): void {
-  //   const term = this.userSearch.trim();
-
-  //   if (term.length < 3) {
-  //     this.userResults = [];
-  //     this.isUserDropdownOpen = false;
-  //     this.cdr.detectChanges();
-  //     return;
-  //   }
-
-  //   const token = this.authService.getToken();
-
-  //   const headers = new HttpHeaders({
-  //     Authorization: `Bearer ${token}`,
-  //   });
-
-  //   this.http
-  //     .get<any[]>(`${this.API_URL}/admin/users/search?term=${term}`, {
-  //       headers,
-  //     })
-  //     .subscribe({
-  //       next: (users) => {
-  //         this.userResults = users;
-  //         this.isUserDropdownOpen = true;
-  //         this.cdr.detectChanges();
-  //       },
-  //     });
-  // }
 
   onUserSearch(): void {
     const term = this.userSearch.trim();
