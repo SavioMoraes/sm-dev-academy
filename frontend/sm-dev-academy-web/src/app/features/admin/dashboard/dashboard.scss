@@ -514,6 +514,24 @@
   margin-bottom: 24px;
 }
 
+.admin-user-search {
+  position: relative;
+  width: 100%;
+}
+
+.admin-course-search {
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.admin-user-search .admin-search-results {
+  position: absolute;
+  top: calc(100% - 35px);
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 @media (max-width: 1024px) {
   .admin-users-actions {
     flex-direction: column;
