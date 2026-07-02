@@ -87,36 +87,37 @@
 
           <span class="admin-course-info"> Pesquise o curso que deseja excluir. </span>
 
-          <input
-            #courseSearchInput
-            class="admin-input admin-course-search"
-            [class.admin-course-search--open]="isCourseDropdownOpen"
-            type="text"
-            placeholder="Pesquisar curso..."
-            [(ngModel)]="courseSearch"
-            (input)="onCourseSearch()"
-            (click)="$event.stopPropagation()"
-          />
+          <div class="admin-course-search">
+            <input
+              #courseSearchInput
+              class="admin-input admin-course-search-input"
+              type="text"
+              placeholder="Pesquisar curso..."
+              [(ngModel)]="courseSearch"
+              (input)="onCourseSearch()"
+            />
+            @if (isCourseDropdownOpen) {
+              <a class="admin-course-search-close" (click)="closeCourseSearch()"> ✕ </a>
 
-          @if (isCourseDropdownOpen) {
-            <div class="admin-search-results">
-              @if (courseResults.length) {
-                @for (course of courseResults; track course.id) {
-                  <div class="admin-search-item" (click)="selectCourse(course)">
-                    <img [src]="course.thumbnail" [alt]="course.title" />
+              <div class="admin-search-results admin-course-search-results">
+                @if (courseResults.length) {
+                  @for (course of courseResults; track course.id) {
+                    <div class="admin-search-item" (click)="selectCourse(course)">
+                      <img [src]="course.thumbnail" [alt]="course.title" />
 
-                    <div>
-                      <strong>{{ course.title }}</strong>
+                      <div>
+                        <strong>{{ course.title }}</strong>
 
-                      <span>{{ course.technology }}</span>
+                        <span>{{ course.technology }}</span>
+                      </div>
                     </div>
-                  </div>
+                  }
+                } @else {
+                  <div class="admin-search-empty">Nenhum curso encontrado.</div>
                 }
-              } @else {
-                <div class="admin-search-empty">Nenhum curso encontrado.</div>
-              }
-            </div>
-          }
+              </div>
+            }
+          </div>
 
           <button (click)="deleteCourse()" [disabled]="!selectedCourse || isDeletingCourse">
             @if (!isDeletingCourse) {
@@ -167,23 +168,27 @@
       </div>
     </div>
 
-    <div #selectedUserCard class="admin-card">
-      <div class="admin-course-column">
+    <div
+      #selectedUserCard
+      class="admin-card"
+      [class.admin-card--user-search-open]="isUserDropdownOpen"
+    >
+      <div class="admin-user-column">
         <h3 class="admin-section-title">Gestão de Usuários</h3>
 
         <div class="admin-user-search">
           <input
             #userSearchInput
-            class="admin-input admin-course-search"
+            class="admin-input admin-user-search-input"
             type="text"
             placeholder="Pesquisar usuário..."
             [(ngModel)]="userSearch"
             (focus)="openUsersDropdown()"
             (input)="onUserSearch()"
           />
-  
+
           @if (isUserDropdownOpen) {
-            <div class="admin-search-results">
+            <div class="admin-search-results admin-user-search-results">
               @if (userResults.length) {
                 @for (user of userResults; track user.id) {
                   <div class="admin-search-item" (click)="selectUser(user)">
@@ -191,14 +196,15 @@
                       [src]="user.avatarUrl || 'assets/images/default-avatar.png'"
                       [alt]="user.name"
                     />
-  
+
                     <div>
                       <strong>{{ user.name }}</strong>
-  
+
                       <span>{{ user.email }}</span>
                     </div>
                   </div>
                 }
+                <div class="admin-search-spacer"></div>
               } @else {
                 <div class="admin-search-item admin-search-item--empty">
                   Nenhum usuário encontrado.
