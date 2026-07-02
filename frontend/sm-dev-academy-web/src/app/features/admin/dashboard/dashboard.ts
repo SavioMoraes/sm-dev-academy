@@ -24,17 +24,11 @@ import { CourseService } from '../../../core/services/course-service/course.serv
   styleUrl: './dashboard.scss',
 })
 export class Dashboard implements OnInit {
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-
-    if (!target.closest('.admin-course-column')) {
-      this.closeCourseSearch();
-    }
-  }
-
   @ViewChild('selectedUserCard')
   selectedUserCard!: ElementRef<HTMLDivElement>;
+
+  @ViewChild('courseSearchInput')
+  private readonly courseSearchInput!: ElementRef<HTMLInputElement>;
 
   @ViewChild('userSearchInput')
   private readonly userSearchInput!: ElementRef<HTMLInputElement>;
@@ -100,19 +94,35 @@ export class Dashboard implements OnInit {
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
 
-    console.log(target);
-    console.log(target.closest('.admin-user-search'));
-
-    if (target.closest('.admin-user-search')) {
-      return;
+    // CURSOS
+    if (!target.closest('.admin-course-search')) {
+      this.closeCourseSearch();
     }
 
-    this.userSearch = '';
-    this.userResults = [];
-    this.isUserDropdownOpen = false;
+    // USUÁRIOS
+    if (!target.closest('.admin-user-search')) {
+      this.userSearch = '';
+      this.userResults = [];
+      this.isUserDropdownOpen = false;
+    }
 
     this.cdr.detectChanges();
   }
+
+  // @HostListener('document:click', ['$event'])
+  // onDocumentClick(event: MouseEvent): void {
+  //   const target = event.target as HTMLElement;
+
+  //   if (target.closest('.admin-user-search')) {
+  //     return;
+  //   }
+
+  //   this.userSearch = '';
+  //   this.userResults = [];
+  //   this.isUserDropdownOpen = false;
+
+  //   this.cdr.detectChanges();
+  // }
 
   loadDashboard() {
     const token = this.authService.getToken();
@@ -283,7 +293,6 @@ export class Dashboard implements OnInit {
 
     this.courseService.searchCourses(term).subscribe({
       next: (courses) => {
-        console.log(term, term.length, courses.length);
         this.courseResults = courses;
         this.isCourseDropdownOpen = true;
         this.cdr.detectChanges();

@@ -89,8 +89,6 @@ export class TrackDetails implements OnInit {
               next: (ratings) => {
                 const ratingsMap = new Map(ratings.map((rating) => [rating.courseId, rating]));
 
-                console.log(ratings);
-
                 this.trackCourses.forEach((item) => {
                   const rating = ratingsMap.get(item.course.id);
 
