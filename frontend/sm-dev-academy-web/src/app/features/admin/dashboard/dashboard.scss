@@ -348,7 +348,6 @@
   gap: 0;
 }
 
-
 .admin-course-select {
   width: 80%;
   min-width: 260px;
@@ -454,7 +453,7 @@
   font-size: 18px;
   cursor: pointer;
   user-select: none;
-  transition: color .2s;
+  transition: color 0.2s;
   z-index: 1001;
 }
 
@@ -673,5 +672,17 @@
     width: 50%;
     min-width: 50%;
     margin-left: 0;
+  }
+
+  .admin-user-search {
+    width: 100% !important;
+  }
+
+  .admin-user-search-input {
+    width: 100% !important;
+  }
+
+  .admin-user-search-results {
+    width: 100% !important;
   }
 }
