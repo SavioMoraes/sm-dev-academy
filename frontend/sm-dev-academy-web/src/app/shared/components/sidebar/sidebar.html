@@ -47,12 +47,12 @@
 
     <!-- SIDEBAR NAVIGATION -->
     <nav class="sidebar-navigation">
-      <!-- HOME PAGE -->
+      <!-- PÁGINA INICIAL -->
       <section class="sidebar-navigation__section">
         <h2
           class="sidebar-navigation__title"
         >
-         <span>HOME PAGE</span>
+         <span>PÁGINA INICIAL</span>
         </h2>
         
         <ul class="sidebar-navigation__list">
@@ -63,7 +63,7 @@
                 routerLink="/"
                 routerLinkActive="sidebar-navigation__link--active"
                 [routerLinkActiveOptions]="{ exact: true }"
-                [matTooltip]="isCollapsed ? 'Home' : ''"
+                [matTooltip]="isCollapsed ? 'Início' : ''"
                 matTooltipPosition="below"
                 matTooltipClass="sidebar-tooltip"
               >
@@ -73,7 +73,7 @@
   
                 @if (!isCollapsed) {
                   <span class="sidebar-navigation__label">
-                    Home
+                    Início
                   </span>
                 }
               </a>
@@ -93,7 +93,7 @@
           [class.sidebar-navigation__title--expanded]="learnExpanded"
           (click)="toggleSection('learn')"
         >
-          <span>LEARN</span>
+          <span>CONTEÚDO</span>
 
           <span class="material-symbols-outlined">
             @if (learnExpanded) {
@@ -123,7 +123,7 @@
                   routerLink="/learn/courses"
                   routerLinkActive="sidebar-navigation__link--active"
                   [routerLinkActiveOptions]="{ exact: true }"
-                  [matTooltip]="isCollapsed ? 'Courses' : ''"
+                  [matTooltip]="isCollapsed ? 'Cursos' : ''"
                   matTooltipPosition="below"
                   matTooltipClass="sidebar-tooltip" 
                 >
@@ -139,7 +139,7 @@
 
                   @if (!isCollapsed) {
                     <span class="sidebar-navigation__label">
-                      Courses
+                      Cursos
                     </span>
                   }
 
@@ -753,7 +753,7 @@
                   class="sidebar-navigation__link-content"
                   routerLink="/learn/my-courses"
                   routerLinkActive="sidebar-navigation__link--active"
-                  [matTooltip]="isCollapsed ? 'MyCourses' : ''"
+                  [matTooltip]="isCollapsed ? 'Meus Cursos' : ''"
                   matTooltipPosition="below"
                   matTooltipClass="sidebar-tooltip" 
                 >
@@ -763,7 +763,7 @@
   
                   @if (!isCollapsed) {
                     <span class="sidebar-navigation__label">
-                      My Courses
+                      Meus Cursos
                     </span>
                   }
                 </a>
@@ -771,13 +771,13 @@
             </li>
 
             <!-- FAVORITES -->
-            <li class="sidebar-navigation__item" data-label="Favorites">
+            <li class="sidebar-navigation__item" data-label="Favoritos">
               <div class="sidebar-navigation__link">
                 <a
                   routerLink="/learn/favorites"
                   routerLinkActive="sidebar-navigation__link--active"
                   class="sidebar-navigation__link-content"
-                  [matTooltip]="isCollapsed ? 'Favorites' : ''"
+                  [matTooltip]="isCollapsed ? 'Favoritos' : ''"
                   matTooltipPosition="below"
                   matTooltipClass="sidebar-tooltip" 
                 >
@@ -787,7 +787,7 @@
   
                   @if (!isCollapsed) {
                     <span class="sidebar-navigation__label">
-                      Favorites
+                      Favoritos
                     </span>
                   }
                 </a>
@@ -795,13 +795,13 @@
             </li>
 
             <!-- TRACKS -->
-            <li class="sidebar-navigation__item" data-label="Tracks">
+            <li class="sidebar-navigation__item" data-label="Trilhas">
               <div class="sidebar-navigation__link">
                 <a
                   class="sidebar-navigation__link-content"
                   routerLink="/learn/tracks"
                   routerLinkActive="sidebar-navigation__link--active"
-                  [matTooltip]="isCollapsed ? 'Tracks' : ''"
+                  [matTooltip]="isCollapsed ? 'Trilhas' : ''"
                   matTooltipPosition="below"
                   matTooltipClass="sidebar-tooltip" 
                 >
@@ -811,7 +811,7 @@
   
                   @if (!isCollapsed) {
                     <span class="sidebar-navigation__label">
-                      Tracks
+                      Trilhas
                     </span>
                   }
                 </a>
@@ -832,7 +832,7 @@
           [class.sidebar-navigation__title--expanded]="accountExpanded"
           (click)="toggleSection('account')"
         >
-          <span>ACCOUNT</span>
+          <span>CONTA</span>
 
           <span class="material-symbols-outlined">
             @if (accountExpanded) {
@@ -845,13 +845,13 @@
 
         @if (accountExpanded) {
           <ul class="sidebar-navigation__list">
-            <li class="sidebar-navigation__item" data-label="Profile">
+            <li class="sidebar-navigation__item" data-label="Perfil">
               <div class="sidebar-navigation__link">
                 <a
                   class="sidebar-navigation__link-content"
                   routerLink="/account/profile"
                   routerLinkActive="sidebar-navigation__link--active"
-                  [matTooltip]="isCollapsed ? 'Profile' : ''"
+                  [matTooltip]="isCollapsed ? 'Perfil' : ''"
                   matTooltipPosition="below"
                   matTooltipClass="sidebar-tooltip" 
                 >
@@ -861,7 +861,7 @@
   
                   @if (!isCollapsed) {
                     <span class="sidebar-navigation__label">
-                      Profile
+                      Perfil
                     </span>
                   }
                 </a>
@@ -902,7 +902,7 @@
                     class="sidebar-navigation__link-content"
                     routerLink="/admin/dashboard"
                     routerLinkActive="sidebar-navigation__link--active"
-                    [matTooltip]="isCollapsed ? 'Dashboard' : ''"
+                    [matTooltip]="isCollapsed ? 'Painel' : ''"
                     matTooltipPosition="below"
                     matTooltipClass="sidebar-tooltip" 
                   >
@@ -912,7 +912,7 @@
   
                     @if (!isCollapsed) {
                       <span class="sidebar-navigation__label">
-                        Dashboard
+                        Painel
                       </span>
                     }
                   </a>

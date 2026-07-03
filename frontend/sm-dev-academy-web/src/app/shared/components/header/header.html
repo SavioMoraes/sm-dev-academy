@@ -511,10 +511,10 @@
 
     <!-- MOBILE OVERLAY CONTENT -->
     <div class="mobile-overlay__content">
-      <!-- HOME PAGE -->
+      <!-- PÁGINA INICIAL -->
       <section class="mobile-overlay__section">
         <div class="mobile-overlay__section-header">
-          <p class="mobile-overlay__title">HOME PAGE</p>
+          <p class="mobile-overlay__title">PÁGINA INICIAL</p>
         </div>
 
         <ul class="mobile-overlay__list">
@@ -527,16 +527,16 @@
             >
               <i class="material-symbols-outlined"> home </i>
 
-              <span class="mobile-overlay__label"> Home </span>
+              <span class="mobile-overlay__label"> Início </span>
             </a>
           </li>
         </ul>
       </section>
 
-      <!-- LEARN -->
+      <!-- CONTEÚDO -->
       <section class="mobile-overlay__section">
         <a class="mobile-overlay__section-toggle" (click)="toggleSection('learn')">
-          <span class="mobile-overlay__title"> Learn </span>
+          <span class="mobile-overlay__title"> CONTEÚDO </span>
 
           <i class="material-symbols-outlined">
             @if (learnExpanded) {
@@ -549,7 +549,7 @@
 
         @if (learnExpanded) {
           <ul class="mobile-overlay__list">
-            <!-- COURSES -->
+            <!-- CURSOS -->
             <li class="mobile-overlay__item">
               <div class="mobile-overlay__category">
                 <a
@@ -560,7 +560,7 @@
                 >
                   <i class="material-symbols-outlined"> school </i>
 
-                  <span class="mobile-overlay__label"> Courses </span>
+                  <span class="mobile-overlay__label"> Cursos </span>
                 </a>
 
                 <button
@@ -962,7 +962,7 @@
               >
                 <i class="material-symbols-outlined"> video_library </i>
 
-                <span class="mobile-overlay__label"> My Courses </span>
+                <span class="mobile-overlay__label"> Meus Cursos </span>
               </a>
             </li>
 
@@ -974,7 +974,7 @@
               >
                 <i class="material-symbols-outlined"> favorite </i>
 
-                <span class="mobile-overlay__label"> Favorites </span>
+                <span class="mobile-overlay__label"> Favoritos </span>
               </a>
             </li>
 
@@ -987,7 +987,7 @@
               >
                 <i class="material-symbols-outlined"> share </i>
 
-                <span class="mobile-overlay__label"> Tracks </span>
+                <span class="mobile-overlay__label"> Trilhas </span>
               </a>
             </li>
           </ul>
@@ -997,7 +997,7 @@
       <!-- ACCOUNT -->
       <section class="mobile-overlay__section">
         <a class="mobile-overlay__section-toggle" (click)="toggleSection('account')">
-          <span class="mobile-overlay__title"> Account </span>
+          <span class="mobile-overlay__title"> Conta </span>
 
           <i class="material-symbols-outlined">
             @if (accountExpanded) {
@@ -1018,7 +1018,7 @@
               >
                 <i class="material-symbols-outlined"> manage_accounts </i>
 
-                <span class="mobile-overlay__label"> Profile </span>
+                <span class="mobile-overlay__label"> Perfil </span>
               </a>
             </li>
           </ul>
