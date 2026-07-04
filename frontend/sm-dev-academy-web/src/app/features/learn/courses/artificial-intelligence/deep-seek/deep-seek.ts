@@ -70,7 +70,7 @@ export class DeepSeek implements OnInit, AfterViewInit {
           this.courses =
             response.courses.filter(
               (course) =>
-                course.technology === 'Deep Seek',
+                course.technology === 'DeepSeek',
             );
 
           this.visibleCourses =

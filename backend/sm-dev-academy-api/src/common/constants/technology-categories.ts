@@ -35,5 +35,5 @@ export const TECHNOLOGY_CATEGORIES = {
   GitHub: 'DevOps',
 
   ChatGPT: 'IA',
-  'Deep Seek': 'IA',
+  DeepSeek: 'IA',
 } as const;

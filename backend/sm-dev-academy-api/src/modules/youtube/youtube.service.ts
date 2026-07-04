@@ -10,7 +10,7 @@ export class YoutubeService {
       {
         params: {
           key: process.env.YOUTUBE_API_KEY,
-          q: technology,
+          q: `curso ${technology}`,
           part: 'snippet',
           type: 'playlist',
           maxResults: 50,

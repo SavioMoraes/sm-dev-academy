@@ -126,7 +126,7 @@ export class AdminService {
     });
   }
 
-  async deleteCourseByPlaylistId(playlistId: string) {
+  async deleteCourseByPlaylistId(playlistId: string, emitEvent = true) {
     const course = await this.prismaService.course.findUnique({
       where: {
         playlistId,
@@ -175,6 +175,20 @@ export class AdminService {
         id: course.id,
       },
     });
+
+    if (emitEvent) {
+      this.notificationGateway.emitNotificationDeleted();
+    }
+
+    return {
+      success: true,
+    };
+  }
+
+  async deleteCourses(playlistIds: string[]) {
+    for (const playlistId of playlistIds) {
+      await this.deleteCourseByPlaylistId(playlistId, false);
+    }
 
     this.notificationGateway.emitNotificationDeleted();
 

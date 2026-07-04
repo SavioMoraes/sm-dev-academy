@@ -174,7 +174,7 @@ export const TECHNOLOGIES = {
       icon: 'assets/svg/chatgpt.svg',
     },
     {
-      label: 'Deep Seek',
+      label: 'DeepSeek',
       slug: 'deep-seek',
       icon: 'assets/svg/deepseek.svg',
     },
