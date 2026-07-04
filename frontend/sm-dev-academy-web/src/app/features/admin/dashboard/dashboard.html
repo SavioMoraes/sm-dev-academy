@@ -32,14 +32,17 @@
           </select>
 
           @if (selectedTechnologies.length) {
-            <div class="admin-selected-list">
+            <div class="admin-selected-technologies">
               @for (technology of selectedTechnologies; track technology) {
-                <div class="admin-selected-item">
+                <div class="admin-selected-technology">
                   <span>
                     {{ technology }}
                   </span>
 
-                  <a class="admin-selected-item__remove" (click)="removeTechnology(technology)">
+                  <a
+                    class="admin-selected-technology__remove"
+                    (click)="removeTechnology(technology)"
+                  >
                     ✕
                   </a>
                 </div>
@@ -83,26 +86,28 @@
         <!-- EXCLUSÃO -->
 
         <section class="admin-course-column">
-          <h3 class="admin-section-subtitle">Excluir Curso</h3>
+          <h3 class="admin-section-subtitle">Excluir Cursos</h3>
 
-          <span class="admin-course-info"> Pesquise o curso que deseja excluir. </span>
+          <span class="admin-course-info"> Pesquise os cursos que deseja excluir. </span>
 
           <div class="admin-course-search">
             <input
               #courseSearchInput
               class="admin-input admin-course-search-input"
+              [class.admin-course-search-input--open]="isCourseDropdownOpen"
               type="text"
               placeholder="Pesquisar curso..."
               [(ngModel)]="courseSearch"
               (input)="onCourseSearch()"
             />
+
             @if (isCourseDropdownOpen) {
               <a class="admin-course-search-close" (click)="closeCourseSearch()"> ✕ </a>
 
               <div class="admin-search-results admin-course-search-results">
                 @if (courseResults.length) {
                   @for (course of courseResults; track course.id) {
-                    <div class="admin-search-item" (click)="selectCourse(course)">
+                    <div class="admin-search-item" (click)="onCourseItemClick($event, course)">
                       <img [src]="course.thumbnail" [alt]="course.title" />
 
                       <div>
@@ -119,9 +124,25 @@
             }
           </div>
 
-          <button (click)="deleteCourse()" [disabled]="!selectedCourse || isDeletingCourse">
+          @if (selectedCourses.length) {
+            <div class="admin-selected-list">
+              @for (course of selectedCourses; track course.playlistId) {
+                <div class="admin-selected-course">
+                  <span>
+                    {{ course.title }}
+                  </span>
+
+                  <a class="admin-selected-course__remove" (click)="removeSelectedCourse(course)">
+                    ✕
+                  </a>
+                </div>
+              }
+            </div>
+          }
+
+          <button class="button-danger-course" (click)="deleteCourse()" [disabled]="!selectedCourses.length || isDeletingCourse">
             @if (!isDeletingCourse) {
-              Excluir Curso
+              Excluir Curso(s)
             } @else {
               Excluindo...
             }

@@ -16,6 +16,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { AdminService } from './admin.service';
 import { ImportCoursesDto } from './dto/import-courses.dto';
+import { DeleteCoursesDto } from './dto/delete-courses.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -101,6 +102,17 @@ export class AdminController {
   @Delete('courses/playlist/:playlistId')
   deleteCourse(@Param('playlistId') playlistId: string) {
     return this.adminService.deleteCourseByPlaylistId(playlistId);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  @Delete('courses')
+  deleteCourses(
+    @Body()
+    body: DeleteCoursesDto,
+  ) {
+    return this.adminService.deleteCourses(body.playlistIds);
   }
 
   @ApiBearerAuth()

@@ -42,7 +42,8 @@ export class Dashboard implements OnInit {
 
   courseSearch = '';
   courseResults: Course[] = [];
-  selectedCourse: Course | null = null;
+  // selectedCourse: Course | null = null;
+  selectedCourses: Course[] = [];
   isCourseDropdownOpen = false;
 
   userSearch = '';
@@ -60,7 +61,7 @@ export class Dashboard implements OnInit {
   } | null = null;
 
   users: any[] = [];
-  playlistIdToDelete = '';
+  // playlistIdToDelete = '';
   isDeletingCourse = false;
 
   resetPasswordModalOpen = false;
@@ -94,12 +95,10 @@ export class Dashboard implements OnInit {
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
 
-    // CURSOS
     if (!target.closest('.admin-course-search')) {
       this.closeCourseSearch();
     }
 
-    // USUÁRIOS
     if (!target.closest('.admin-user-search')) {
       this.userSearch = '';
       this.userResults = [];
@@ -109,17 +108,159 @@ export class Dashboard implements OnInit {
     this.cdr.detectChanges();
   }
 
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent): void {
-  //   const target = event.target as HTMLElement;
+  // loadDashboard() {
+  //   const token = this.authService.getToken();
 
-  //   if (target.closest('.admin-user-search')) {
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   return this.http.get<{
+  //     totalCourses: number;
+  //     totalUsers: number;
+  //     totalAdmins: number;
+  //     totalStartedCourses: number;
+  //   }>(`${this.API_URL}/admin/dashboard`, {
+  //     headers,
+  //   });
+  // }
+
+  // loadUsers(): void {
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .get<any[]>(`${this.API_URL}/admin/users`, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.users = response;
+
+  //         this.cdr.detectChanges();
+  //       },
+  //       error: (error) => {
+  //         console.error(error);
+  //       },
+  //     });
+  // }
+
+  // promoteUser(userId: string): void {
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .patch(
+  //       `${this.API_URL}/admin/users/${userId}/promote`,
+  //       {},
+  //       {
+  //         headers,
+  //       },
+  //     )
+  //     .subscribe({
+  //       next: () => {
+  //         alert('Usuário promovido para administrador.');
+  //         this.selectedUser.role = 'ADMIN';
+  //         this.cdr.detectChanges();
+  //         this.loadUsers();
+  //         this.loadDashboard();
+  //       },
+  //     });
+  // }
+
+  // demoteUser(userId: string): void {
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .patch(
+  //       `${this.API_URL}/admin/users/${userId}/demote`,
+  //       {},
+  //       {
+  //         headers,
+  //       },
+  //     )
+  //     .subscribe({
+  //       next: () => {
+  //         alert('Administrador removido com sucesso.');
+  //         this.selectedUser.role = 'USER';
+  //         this.cdr.detectChanges();
+  //         this.loadUsers();
+  //         this.loadDashboard();
+  //       },
+  //     });
+  // }
+
+  // deleteUser(userId: string): void {
+  //   const confirmed = confirm('Deseja excluir este usuário?');
+
+  //   if (!confirmed) {
   //     return;
   //   }
 
-  //   this.userSearch = '';
-  //   this.userResults = [];
-  //   this.isUserDropdownOpen = false;
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .delete(`${this.API_URL}/admin/users/${userId}`, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: () => {
+  //         this.closeUserModal();
+  //         this.closeCoursesModal();
+  //         this.selectedUser = null;
+
+  //         alert('Usuário excluído com sucesso.');
+
+  //         this.loadUsers();
+
+  //         this.loadDashboard().subscribe({
+  //           next: (dashboard) => {
+  //             this.dashboard = dashboard;
+  //             this.cdr.detectChanges();
+  //           },
+  //         });
+  //       },
+  //     });
+  // }
+
+  // toggleTechnologyByLabel(label: string): void {
+  //   if (!label) {
+  //     return;
+  //   }
+
+  //   if (this.selectedTechnologies.includes(label)) {
+  //     return;
+  //   }
+
+  //   if (this.selectedTechnologies.length >= 4) {
+  //     alert('Selecione no máximo 4 tecnologias.');
+
+  //     return;
+  //   }
+
+  //   this.selectedTechnologies.push(label);
+
+  //   this.cdr.detectChanges();
+  // }
+
+  // removeTechnology(label: string): void {
+  //   this.selectedTechnologies = this.selectedTechnologies.filter(
+  //     (technology) => technology !== label,
+  //   );
 
   //   this.cdr.detectChanges();
   // }
@@ -183,9 +324,15 @@ export class Dashboard implements OnInit {
         next: () => {
           alert('Usuário promovido para administrador.');
           this.selectedUser.role = 'ADMIN';
-          this.cdr.detectChanges();
+
           this.loadUsers();
-          this.loadDashboard();
+
+          this.loadDashboard().subscribe({
+            next: (dashboard) => {
+              this.dashboard = dashboard;
+              this.cdr.detectChanges();
+            },
+          });
         },
       });
   }
@@ -209,9 +356,15 @@ export class Dashboard implements OnInit {
         next: () => {
           alert('Administrador removido com sucesso.');
           this.selectedUser.role = 'USER';
-          this.cdr.detectChanges();
+
           this.loadUsers();
-          this.loadDashboard();
+
+          this.loadDashboard().subscribe({
+            next: (dashboard) => {
+              this.dashboard = dashboard;
+              this.cdr.detectChanges();
+            },
+          });
         },
       });
   }
@@ -262,9 +415,8 @@ export class Dashboard implements OnInit {
       return;
     }
 
-    if (this.selectedTechnologies.length >= 4) {
-      alert('Selecione no máximo 4 tecnologias.');
-
+    if (this.selectedTechnologies.length >= 3) {
+      alert('Selecione no máximo 3 tecnologias.');
       return;
     }
 
@@ -281,6 +433,126 @@ export class Dashboard implements OnInit {
     this.cdr.detectChanges();
   }
 
+  // onCourseSearch(): void {
+  //   const term = this.courseSearch.trim();
+
+  //   if (term.length < 3) {
+  //     this.courseResults = [];
+  //     this.isCourseDropdownOpen = false;
+  //     this.cdr.detectChanges();
+  //     return;
+  //   }
+
+  //   this.courseService.searchCourses(term).subscribe({
+  //     next: (courses) => {
+  //       this.courseResults = courses;
+  //       this.isCourseDropdownOpen = true;
+  //       this.cdr.detectChanges();
+  //     },
+  //   });
+  // }
+
+  // selectCourse(course: Course): void {
+  //   this.selectedCourse = course;
+  //   this.playlistIdToDelete = course.playlistId;
+  //   this.courseSearch = course.title;
+  //   this.courseResults = [];
+  //   this.isCourseDropdownOpen = false;
+  //   this.cdr.detectChanges();
+  // }
+
+  // onUserSearch(): void {
+  //   const term = this.userSearch.trim();
+
+  //   if (!term.length) {
+  //     this.userResults = [...this.users];
+  //     this.isUserDropdownOpen = true;
+  //     this.cdr.detectChanges();
+
+  //     return;
+  //   }
+
+  //   if (term.length < 3) {
+  //     return;
+  //   }
+
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .get<any[]>(`${this.API_URL}/admin/users/search?term=${term}`, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: (users) => {
+  //         this.userResults = users;
+  //         this.isUserDropdownOpen = true;
+  //         this.cdr.detectChanges();
+  //       },
+  //     });
+  // }
+
+  // openUsersDropdown(): void {
+  //   if (this.userSearch.trim().length >= 3) {
+  //     this.onUserSearch();
+
+  //     return;
+  //   }
+
+  //   this.userResults = [...this.users];
+  //   this.isUserDropdownOpen = true;
+
+  //   this.cdr.detectChanges();
+  // }
+
+  // showAllUsers(): void {
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .get<any[]>(`${this.API_URL}/admin/users`, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: (users) => {
+  //         this.userResults = users;
+  //         this.userModalOpen = true;
+
+  //         this.cdr.detectChanges();
+  //       },
+  //     });
+  // }
+
+  // selectUser(user: any): void {
+  //   this.selectedUser = user;
+  //   this.userSearch = '';
+  //   this.userResults = [];
+  //   this.isUserDropdownOpen = false;
+
+  //   this.cdr.detectChanges();
+
+  //   queueMicrotask(() => {
+  //     this.selectedUserCard?.nativeElement.scrollIntoView({
+  //       behavior: 'smooth',
+  //       block: 'start',
+  //     });
+  //   });
+  // }
+
+  // clearSelectedUser(): void {
+  //   this.selectedUser = null;
+  //   this.userSearch = '';
+  //   this.userResults = [];
+  //   this.isUserDropdownOpen = false;
+  //   this.cdr.detectChanges();
+  // }
+
   onCourseSearch(): void {
     const term = this.courseSearch.trim();
 
@@ -293,20 +565,80 @@ export class Dashboard implements OnInit {
 
     this.courseService.searchCourses(term).subscribe({
       next: (courses) => {
-        this.courseResults = courses;
+        this.courseResults = courses.filter(
+          (course) =>
+            !this.selectedCourses.some(
+              (selectedCourse) => selectedCourse.playlistId === course.playlistId,
+            ),
+        );
+
         this.isCourseDropdownOpen = true;
         this.cdr.detectChanges();
       },
     });
   }
 
+  // selectCourse(course: Course): void {
+  //   const alreadySelected = this.selectedCourses.some(
+  //     (selectedCourse) => selectedCourse.playlistId === course.playlistId,
+  //   );
+
+  //   if (alreadySelected) {
+  //     return;
+  //   }
+
+  //   this.selectedCourses.push(course);
+
+  //   this.courseSearch = '';
+  //   this.courseResults = [];
+  //   this.isCourseDropdownOpen = false;
+
+  //   this.cdr.detectChanges();
+
+  //   queueMicrotask(() => {
+  //     this.courseSearchInput.nativeElement.focus();
+  //   });
+  // }
+
   selectCourse(course: Course): void {
-    this.selectedCourse = course;
-    this.playlistIdToDelete = course.playlistId;
-    this.courseSearch = course.title;
-    this.courseResults = [];
-    this.isCourseDropdownOpen = false;
+    const alreadySelected = this.selectedCourses.some(
+      (selectedCourse) => selectedCourse.playlistId === course.playlistId,
+    );
+
+    if (alreadySelected) {
+      return;
+    }
+
+    this.selectedCourses.push(course);
+
+    this.courseResults = this.courseResults.filter(
+      (result) => result.playlistId !== course.playlistId,
+    );
+
+    this.isCourseDropdownOpen = this.courseResults.length > 0;
+
     this.cdr.detectChanges();
+
+    queueMicrotask(() => {
+      this.courseSearchInput.nativeElement.focus();
+    });
+  }
+
+  onCourseItemClick(event: MouseEvent, course: Course): void {
+    event.stopPropagation();
+    this.selectCourse(course);
+  }
+
+  removeSelectedCourse(course: Course): void {
+    this.selectedCourses = this.selectedCourses.filter(
+      (selectedCourse) => selectedCourse.playlistId !== course.playlistId,
+    );
+
+    this.cdr.detectChanges();
+
+    queueMicrotask(() => {
+      this.courseSearchInput.nativeElement.focus();
+    });
   }
 
   onUserSearch(): void {
@@ -401,15 +733,228 @@ export class Dashboard implements OnInit {
     this.cdr.detectChanges();
   }
 
-  closeCourseSearch(): void {
-    if (this.selectedCourse) {
-      this.courseSearch = this.selectedCourse.title;
-    } else {
-      this.courseSearch = '';
-    }
+  // closeCourseSearch(): void {
+  //   if (this.selectedCourse) {
+  //     this.courseSearch = this.selectedCourse.title;
+  //   } else {
+  //     this.courseSearch = '';
+  //   }
 
+  //   this.courseResults = [];
+  //   this.isCourseDropdownOpen = false;
+  //   this.cdr.detectChanges();
+  // }
+
+  // importCourses(): void {
+  //   if (!this.selectedTechnologies.length) {
+  //     alert('Selecione pelo menos uma tecnologia.');
+
+  //     return;
+  //   }
+
+  //   this.isLoading = true;
+  //   this.importResult = null;
+
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .post(
+  //       `${this.API_URL}/admin/courses/import`,
+  //       {
+  //         technologies: this.selectedTechnologies,
+  //       },
+  //       {
+  //         headers,
+  //       },
+  //     )
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.isLoading = false;
+
+  //         this.importResult = response;
+
+  //         this.loadDashboard().subscribe({
+  //           next: (dashboard) => {
+  //             this.dashboard = dashboard;
+  //             this.cdr.detectChanges();
+  //           },
+  //         });
+
+  //         window.dispatchEvent(new CustomEvent('notifications-updated'));
+  //       },
+
+  //       error: (error) => {
+  //         console.error(error);
+
+  //         this.importResult = {
+  //           error: true,
+  //           message: error?.error?.message ?? 'Erro ao importar cursos.',
+  //         };
+
+  //         this.isLoading = false;
+
+  //         this.cdr.detectChanges();
+  //       },
+  //     });
+  // }
+
+  // deleteCourse(): void {
+  //   if (!this.playlistIdToDelete.trim()) {
+  //     return;
+  //   }
+
+  //   const confirmed = confirm('Deseja excluir este curso?');
+
+  //   if (!confirmed) {
+  //     return;
+  //   }
+
+  //   this.isDeletingCourse = true;
+
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .delete(`${this.API_URL}/admin/courses/playlist/${this.playlistIdToDelete}`, {
+  //       headers,
+  //     })
+  //     .subscribe({
+  //       next: () => {
+  //         alert('Curso excluído com sucesso.');
+  //         this.playlistIdToDelete = '';
+  //         this.courseSearch = '';
+  //         this.selectedCourse = null;
+  //         this.courseResults = [];
+  //         this.isCourseDropdownOpen = false;
+  //         this.isDeletingCourse = false;
+  //         this.loadDashboard().subscribe({
+  //           next: (dashboard) => {
+  //             this.dashboard = dashboard;
+  //             this.cdr.detectChanges();
+  //           },
+  //         });
+
+  //         window.dispatchEvent(new CustomEvent('notifications-updated'));
+  //       },
+  //       error: () => {
+  //         this.isDeletingCourse = false;
+  //       },
+  //     });
+  // }
+
+  // openResetPasswordModal(userId: string): void {
+  //   this.selectedUserId = userId;
+  //   this.newPassword = '';
+  //   this.confirmPassword = '';
+  //   this.resetPasswordModalOpen = true;
+  // }
+
+  // resetPassword(): void {
+  //   this.passwordError = '';
+
+  //   if (!this.newPassword.trim()) {
+  //     this.passwordError = 'Informe uma nova senha.';
+  //     return;
+  //   }
+
+  //   if (this.newPassword.length < 6) {
+  //     this.passwordError = 'A senha deve possuir pelo menos 6 caracteres.';
+  //     return;
+  //   }
+
+  //   if (!this.confirmPassword.trim()) {
+  //     this.passwordError = 'Confirme a senha.';
+  //     return;
+  //   }
+
+  //   if (this.newPassword !== this.confirmPassword) {
+  //     this.passwordError = 'As senhas não coincidem.';
+  //     return;
+  //   }
+
+  //   const token = this.authService.getToken();
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`,
+  //   });
+
+  //   this.http
+  //     .patch(
+  //       `${this.API_URL}/admin/users/${this.selectedUserId}/reset-password`,
+  //       {
+  //         password: this.newPassword,
+  //       },
+  //       {
+  //         headers,
+  //       },
+  //     )
+  //     .subscribe({
+  //       next: () => {
+  //         this.resetPasswordModalOpen = false;
+  //         this.selectedUserId = '';
+  //         this.newPassword = '';
+  //         this.confirmPassword = '';
+  //         this.passwordError = '';
+  //         this.cdr.detectChanges();
+
+  //         alert('Senha alterada com sucesso.');
+  //       },
+
+  //       error: (error) => {
+  //         console.error(error);
+  //         this.passwordError = error?.error?.message || 'Erro ao alterar senha.';
+  //         this.cdr.detectChanges();
+  //       },
+  //     });
+  // }
+
+  // closeResetPasswordModal(): void {
+  //   this.resetPasswordModalOpen = false;
+  //   this.selectedUserId = '';
+  //   this.newPassword = '';
+  //   this.confirmPassword = '';
+  //   this.passwordError = '';
+  // }
+
+  // openCoursesModal(userCourses: any[]): void {
+  //   this.selectedUserCourses = userCourses;
+  //   this.coursesModalOpen = true;
+  // }
+
+  // closeCoursesModal(): void {
+  //   this.coursesModalOpen = false;
+  //   this.selectedUserCourses = [];
+  // }
+
+  // openUserModal(user: any): void {
+  //   this.selectedUser = user;
+  //   this.userModalOpen = true;
+  // }
+
+  // closeUserModal(): void {
+  //   this.userModalOpen = false;
+  // }
+
+  // closeCourseSearch(): void {
+  //   this.courseSearch = '';
+  //   this.courseResults = [];
+  //   this.isCourseDropdownOpen = false;
+
+  //   this.cdr.detectChanges();
+  // }
+
+  closeCourseSearch(): void {
+    this.courseSearch = '';
     this.courseResults = [];
     this.isCourseDropdownOpen = false;
+
     this.cdr.detectChanges();
   }
 
@@ -471,11 +1016,15 @@ export class Dashboard implements OnInit {
   }
 
   deleteCourse(): void {
-    if (!this.playlistIdToDelete.trim()) {
+    if (!this.selectedCourses.length) {
       return;
     }
 
-    const confirmed = confirm('Deseja excluir este curso?');
+    const confirmed = confirm(
+      this.selectedCourses.length === 1
+        ? 'Deseja excluir este curso?'
+        : `Deseja excluir ${this.selectedCourses.length} cursos?`,
+    );
 
     if (!confirmed) {
       return;
@@ -490,23 +1039,36 @@ export class Dashboard implements OnInit {
     });
 
     this.http
-      .delete(`${this.API_URL}/admin/courses/playlist/${this.playlistIdToDelete}`, {
+      .request('delete', `${this.API_URL}/admin/courses`, {
         headers,
+        body: {
+          playlistIds: this.selectedCourses.map((course) => course.playlistId),
+        },
       })
       .subscribe({
         next: () => {
-          alert('Curso excluído com sucesso.');
-          this.playlistIdToDelete = '';
+          alert(
+            this.selectedCourses.length === 1
+              ? 'Curso excluído com sucesso.'
+              : `${this.selectedCourses.length} cursos excluídos com sucesso.`,
+          );
+
+          this.selectedCourses = [];
           this.courseSearch = '';
-          this.selectedCourse = null;
           this.courseResults = [];
           this.isCourseDropdownOpen = false;
           this.isDeletingCourse = false;
-          this.loadDashboard();
-          this.cdr.detectChanges();
+
+          this.loadDashboard().subscribe({
+            next: (dashboard) => {
+              this.dashboard = dashboard;
+              this.cdr.detectChanges();
+            },
+          });
 
           window.dispatchEvent(new CustomEvent('notifications-updated'));
         },
+
         error: () => {
           this.isDeletingCourse = false;
         },
@@ -573,7 +1135,9 @@ export class Dashboard implements OnInit {
 
         error: (error) => {
           console.error(error);
+
           this.passwordError = error?.error?.message || 'Erro ao alterar senha.';
+
           this.cdr.detectChanges();
         },
       });

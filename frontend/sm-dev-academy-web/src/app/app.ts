@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavigationHistoryService } from './core/services/navigation-history-service/navigation-history.service';
 
@@ -25,12 +25,5 @@ export class App {
 
       this.navigationHistoryService.update(event.urlAfterRedirects);
     });
-  }
-
-  @HostListener('document:visibilitychange')
-  onVisibilityChange(): void {
-    if (document.visibilityState === 'visible') {
-      window.location.reload();
-    }
   }
 }

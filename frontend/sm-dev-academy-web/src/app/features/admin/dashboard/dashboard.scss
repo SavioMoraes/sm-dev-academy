@@ -337,7 +337,7 @@
 
 .admin-course-management {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 32px;
   align-items: start;
 }
@@ -346,6 +346,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  min-width: 0;
 }
 
 .admin-course-select {
@@ -355,16 +356,47 @@
 }
 
 .admin-selected-item {
-  width: 80%;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 0 10px 14px;
-  margin-bottom: 35px;
+  padding: 10px 14px;
   border-radius: 10px;
   background: rgba(255, 16, 39, 0.08);
   border: 1px solid rgba(255, 16, 39, 0.2);
+}
+
+.admin-selected-course {
+  width: 80%;
+  max-width: 80%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 16, 39, 0.08);
+  border: 1px solid rgba(255, 16, 39, 0.2);
+  overflow: hidden;
+}
+
+.admin-selected-item span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.admin-selected-course span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .admin-selected-item__remove {
@@ -382,8 +414,48 @@
   transition: color 0.2s ease;
 }
 
+.admin-selected-course__remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: #b5b8c5;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
 .admin-selected-item__remove:hover {
   color: #ff1027;
+}
+
+.admin-selected-course__remove:hover {
+  color: #ff1027;
+}
+
+.admin-selected-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.admin-course-search .admin-selected-item .admin-selected-course {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.admin-course-search .admin-selected-item span .admin-selected-course span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .admin-result__close {
@@ -421,8 +493,8 @@
 
 .admin-course-search-results {
   width: 100%;
-  margin-top: -35px;
-  margin-bottom: 35px;
+  margin-top: 0;
+  margin-bottom: 16px;
 }
 
 .admin-course-search {
@@ -432,7 +504,7 @@
 
 .admin-course-search-input {
   width: 100%;
-  margin-bottom: 35px;
+  margin-bottom: 0;
 }
 
 .admin-course-search-input--open {
@@ -551,7 +623,7 @@
 
 .admin-user-search {
   position: relative;
-  width: 80%;
+  width: 100%;
 }
 
 .admin-user-search-input {
@@ -583,6 +655,56 @@
   margin-bottom: 250px;
 }
 
+.admin-selected-technologies {
+  width: 80%;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.admin-selected-technology {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 16, 39, 0.08);
+  border: 1px solid rgba(255, 16, 39, 0.2);
+}
+
+.admin-selected-technology span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.admin-selected-technology__remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: #b5b8c5;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.admin-selected-technology__remove:hover {
+  color: #ff1027;
+}
+
+.button-danger-course {
+  margin-top: 35px;
+}
+
 @media (max-width: 1024px) {
   .admin-users-actions {
     flex-direction: column;
@@ -612,6 +734,7 @@
   .admin-course-input,
   .admin-course-search,
   .admin-selected-item,
+  .admin-selected-course,
   .admin-result {
     width: 100%;
     margin-bottom: 0;
@@ -629,6 +752,10 @@
   }
 
   .admin-selected-item {
+    margin-top: 20px;
+  }
+
+  .admin-selected-course {
     margin-top: 20px;
   }
 
@@ -684,5 +811,13 @@
 
   .admin-user-search-results {
     width: 100% !important;
+  }
+
+  .admin-selected-list {
+    width: 100%;
+  }
+
+  .admin-selected-technologies {
+    width: 100%;
   }
 }
