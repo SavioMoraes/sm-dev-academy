@@ -46,10 +46,8 @@ export class Header implements OnInit {
   isProfileMenuOpen = false;
 
   searchTerm = '';
-  // allCourses: Course[] = [];
   searchResults: Course[] = [];
   isSearchDropdownOpen = false;
-  // hasLoadedCourses = false;
 
   notifications: Notification[] = [];
   isNotificationsOpen = false;
@@ -159,7 +157,6 @@ export class Header implements OnInit {
   ngOnInit(): void {
     this.checkViewport();
     this.updateExpandedSections(this.router.url);
-    // this.loadNotifications();
 
     window.addEventListener('notifications-updated', () => {
       this.loadNotifications();
@@ -420,43 +417,6 @@ export class Header implements OnInit {
   isArtificialIntelligenceParentActive(): boolean {
     return this.router.url.startsWith('/learn/courses/artificial-intelligence/');
   }
-
-  // private loadCourses(): void {
-  //   if (this.hasLoadedCourses) {
-  //     return;
-  //   }
-
-  //   this.courseService.getCourses().subscribe({
-  //     next: (response) => {
-  //       this.allCourses = response.courses ?? [];
-  //       this.hasLoadedCourses = true;
-  //     },
-  //   });
-  // }
-
-  // onSearchInput(): void {
-  //   const term = this.searchTerm.trim().toLowerCase();
-
-  //   if (term.length === 1) {
-  //     this.loadCourses();
-  //   }
-
-  //   if (term.length < 3) {
-  //     this.searchResults = [];
-  //     this.isSearchDropdownOpen = false;
-  //     return;
-  //   }
-
-  //   this.searchResults = this.allCourses.filter((course) => {
-  //     const normalizedTerm = term.replace(/[\s.-]/g, '');
-  //     const title = course.title.toLowerCase().replace(/[\s.-]/g, '');
-  //     const technology = course.technology.toLowerCase().replace(/[\s.-]/g, '');
-
-  //     return title.includes(normalizedTerm) || technology.includes(normalizedTerm);
-  //   });
-
-  //   this.isSearchDropdownOpen = true;
-  // }
 
   onSearchInput(): void {
     const term = this.searchTerm.trim();

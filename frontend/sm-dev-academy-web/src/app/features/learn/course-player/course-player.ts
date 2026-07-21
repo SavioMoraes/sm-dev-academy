@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild, inject } fr
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { forkJoin } from 'rxjs';
 import { PageContainer } from '../../../shared/ui/page-container/page-container';
 import { HighlightCourseCard } from '../../../shared/components/highlight-course-card/highlight-course-card';
 import { StreamSection } from '../../../shared/components/stream-section/stream-section';
@@ -65,6 +66,69 @@ export class CoursePlayer implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
+  // private loadCourse(playlistId: string): void {
+  //   this.course = undefined;
+  //   this.selectedVideo = undefined;
+  //   this.videoUrl = undefined;
+  //   this.isFavorite = false;
+  //   this.isStarted = false;
+  //   this.isStartedLoading = true;
+
+  //   this.courseService.getCourseByPlaylistId(playlistId).subscribe({
+  //     next: (response) => {
+  //       this.course = response;
+
+  //       this.loadRelatedCourses();
+
+  //       this.courseContextService.setCurrentCourse({
+  //         category: this.course.category,
+  //         technology: this.course.technology,
+  //       });
+
+  //       this.cdr.detectChanges();
+
+  //       this.myCourseService.check(this.course.id).subscribe({
+  //         next: (response) => {
+  //           this.isStarted = response.isStarted;
+  //           this.isStartedLoading = false;
+
+  //           if (this.isStarted && this.course?.videos?.length) {
+  //             this.selectVideo(this.course.videos[0]);
+  //           }
+
+  //           this.cdr.detectChanges();
+  //         },
+
+  //         error: () => {
+  //           this.isStartedLoading = false;
+  //         },
+  //       });
+
+  //       this.favoriteService.check(this.course.id).subscribe({
+  //         next: (response) => {
+  //           this.isFavorite = response.isFavorite;
+  //           this.cdr.detectChanges();
+  //         },
+  //       });
+
+  //       this.ratingService.getRating(this.course.id).subscribe({
+  //         next: (response) => {
+  //           this.userRating = response.userRating ?? 0;
+  //           this.cdr.detectChanges();
+  //         },
+
+  //         error: (error) => {
+  //           console.error(error);
+  //         },
+  //       });
+  //     },
+
+  //     error: () => {
+  //       this.router.navigate(['/not-found']);
+  //     },
+  //   });
+  // }
+
   private loadCourse(playlistId: string): void {
     this.course = undefined;
     this.selectedVideo = undefined;
@@ -84,11 +148,15 @@ export class CoursePlayer implements OnInit, OnDestroy {
           technology: this.course.technology,
         });
 
-        this.cdr.detectChanges();
-
-        this.myCourseService.check(this.course.id).subscribe({
-          next: (response) => {
-            this.isStarted = response.isStarted;
+        forkJoin({
+          started: this.myCourseService.check(this.course.id),
+          favorite: this.favoriteService.check(this.course.id),
+          rating: this.ratingService.getRating(this.course.id),
+        }).subscribe({
+          next: ({ started, favorite, rating }) => {
+            this.isStarted = started.isStarted;
+            this.isFavorite = favorite.isFavorite;
+            this.userRating = rating.userRating ?? 0;
             this.isStartedLoading = false;
 
             if (this.isStarted && this.course?.videos?.length) {
@@ -98,26 +166,10 @@ export class CoursePlayer implements OnInit, OnDestroy {
             this.cdr.detectChanges();
           },
 
-          error: () => {
-            this.isStartedLoading = false;
-          },
-        });
-
-        this.favoriteService.check(this.course.id).subscribe({
-          next: (response) => {
-            this.isFavorite = response.isFavorite;
-            this.cdr.detectChanges();
-          },
-        });
-
-        this.ratingService.getRating(this.course.id).subscribe({
-          next: (response) => {
-            this.userRating = response.userRating ?? 0;
-            this.cdr.detectChanges();
-          },
-
           error: (error) => {
             console.error(error);
+            this.isStartedLoading = false;
+            this.cdr.detectChanges();
           },
         });
       },
