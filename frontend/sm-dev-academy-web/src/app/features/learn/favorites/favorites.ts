@@ -34,6 +34,7 @@ export class Favorites implements OnInit, AfterViewInit {
   favorites: any[] = [];
   visibleFavorites: any[] = [];
   favoriteToRemove: any = null;
+  loading = true;
 
   ngOnInit(): void {
     this.loadFavorites();
@@ -44,21 +45,25 @@ export class Favorites implements OnInit, AfterViewInit {
   }
 
   loadFavorites(): void {
+    this.loading = true;
+
     this.favoriteService.getFavorites().subscribe({
       next: (response) => {
         this.favorites = response;
         this.visibleFavorites = this.favorites.slice(0, this.pageSize);
 
-        this.cdr.detectChanges();
-
         setTimeout(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+
           if (!this.observer) {
             this.createObserver();
           }
-        });
+        }, 0);
       },
 
       error: (error) => {
+        this.loading = false;
         console.error(error);
       },
     });
