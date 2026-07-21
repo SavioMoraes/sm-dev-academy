@@ -69,10 +69,6 @@
   font-size: 0.8em;
 }
 
-.login-panel {
-  padding: 20px 60px;
-}
-
 .login-card h1 {
   text-align: center;
 }
@@ -172,5 +168,12 @@
   .auth-logo-mobile img {
     width: 140px;
     height: auto;
+  }
+
+  .back-link {
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    justify-content: center;
   }
 }
