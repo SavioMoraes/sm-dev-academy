@@ -33,6 +33,7 @@ export class MyCourses implements OnInit, AfterViewInit {
 
   myCourses: any[] = [];
   visibleMyCourses: any[] = [];
+  loading = true;
 
   ngOnInit(): void {
     this.loadMyCourses();
@@ -41,21 +42,26 @@ export class MyCourses implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
 
   loadMyCourses(): void {
+    this.loading = true;
+
     this.myCourseService.getMyCourses().subscribe({
       next: (response) => {
         this.myCourses = response;
         this.visibleMyCourses = this.myCourses.slice(0, this.pageSize);
 
         setTimeout(() => {
+          this.loading = false;
+
           this.cdr.detectChanges();
 
           if (!this.observer) {
             this.createObserver();
           }
-        });
+        }, 0);
       },
 
       error: (error) => {
+        this.loading = false;
         console.error(error);
       },
     });

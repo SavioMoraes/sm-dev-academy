@@ -42,7 +42,11 @@
   </app-responsive-grid>
   <div #sentinel class="courses__sentinel"></div> -->
 
-  @if (favorites.length === 0) {
+  @if (loading) {
+    <div class="courses-empty">
+      <h2>Carregando favoritos...</h2>
+    </div>
+  } @else if (favorites.length === 0) {
     <div class="courses-empty">
       <h2>Você ainda não possui cursos favoritos.</h2>
       <p>Adicione cursos aos favoritos para acessá-los rapidamente.</p>

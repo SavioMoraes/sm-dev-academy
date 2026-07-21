@@ -33,7 +33,11 @@
 
   <div #sentinel class="courses__sentinel"></div> -->
 
-  @if (myCourses.length === 0) {
+  @if (loading) {
+    <div class="courses-empty">
+      <h2>Carregando cursos...</h2>
+    </div>
+  } @else if (myCourses.length === 0) {
     <div class="courses-empty">
       <h2>Você ainda não iniciou nenhum curso.</h2>
       <p>Explore a plataforma e comece um curso para acompanhar seu progresso aqui.</p>
