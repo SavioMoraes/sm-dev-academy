@@ -46,10 +46,10 @@ export class Header implements OnInit {
   isProfileMenuOpen = false;
 
   searchTerm = '';
-  allCourses: Course[] = [];
+  // allCourses: Course[] = [];
   searchResults: Course[] = [];
   isSearchDropdownOpen = false;
-  hasLoadedCourses = false;
+  // hasLoadedCourses = false;
 
   notifications: Notification[] = [];
   isNotificationsOpen = false;
@@ -421,41 +421,60 @@ export class Header implements OnInit {
     return this.router.url.startsWith('/learn/courses/artificial-intelligence/');
   }
 
-  private loadCourses(): void {
-    if (this.hasLoadedCourses) {
-      return;
-    }
+  // private loadCourses(): void {
+  //   if (this.hasLoadedCourses) {
+  //     return;
+  //   }
 
-    this.courseService.getCourses().subscribe({
-      next: (response) => {
-        this.allCourses = response.courses ?? [];
-        this.hasLoadedCourses = true;
-      },
-    });
-  }
+  //   this.courseService.getCourses().subscribe({
+  //     next: (response) => {
+  //       this.allCourses = response.courses ?? [];
+  //       this.hasLoadedCourses = true;
+  //     },
+  //   });
+  // }
+
+  // onSearchInput(): void {
+  //   const term = this.searchTerm.trim().toLowerCase();
+
+  //   if (term.length === 1) {
+  //     this.loadCourses();
+  //   }
+
+  //   if (term.length < 3) {
+  //     this.searchResults = [];
+  //     this.isSearchDropdownOpen = false;
+  //     return;
+  //   }
+
+  //   this.searchResults = this.allCourses.filter((course) => {
+  //     const normalizedTerm = term.replace(/[\s.-]/g, '');
+  //     const title = course.title.toLowerCase().replace(/[\s.-]/g, '');
+  //     const technology = course.technology.toLowerCase().replace(/[\s.-]/g, '');
+
+  //     return title.includes(normalizedTerm) || technology.includes(normalizedTerm);
+  //   });
+
+  //   this.isSearchDropdownOpen = true;
+  // }
 
   onSearchInput(): void {
-    const term = this.searchTerm.trim().toLowerCase();
-
-    if (term.length === 1) {
-      this.loadCourses();
-    }
+    const term = this.searchTerm.trim();
 
     if (term.length < 3) {
       this.searchResults = [];
       this.isSearchDropdownOpen = false;
+      this.cdr.detectChanges();
       return;
     }
 
-    this.searchResults = this.allCourses.filter((course) => {
-      const normalizedTerm = term.replace(/[\s.-]/g, '');
-      const title = course.title.toLowerCase().replace(/[\s.-]/g, '');
-      const technology = course.technology.toLowerCase().replace(/[\s.-]/g, '');
-
-      return title.includes(normalizedTerm) || technology.includes(normalizedTerm);
+    this.courseService.searchCourses(term).subscribe({
+      next: (courses) => {
+        this.searchResults = courses;
+        this.isSearchDropdownOpen = true;
+        this.cdr.detectChanges();
+      },
     });
-
-    this.isSearchDropdownOpen = true;
   }
 
   clearSearch(): void {
