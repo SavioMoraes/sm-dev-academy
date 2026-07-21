@@ -3,7 +3,7 @@
     <h1 class="courses__title">Meus Cursos</h1>
   </div>
 
-  <app-responsive-grid>
+  <!-- <app-responsive-grid>
     @for (myCourse of visibleMyCourses; track myCourse.id) {
       <article class="course-card" (click)="openCourse(myCourse.course.playlistId)">
         <button
@@ -31,5 +31,42 @@
     }
   </app-responsive-grid>
 
-  <div #sentinel class="courses__sentinel"></div>
+  <div #sentinel class="courses__sentinel"></div> -->
+
+  @if (myCourses.length === 0) {
+    <div class="courses-empty">
+      <h2>Você ainda não iniciou nenhum curso.</h2>
+      <p>Explore a plataforma e comece um curso para acompanhar seu progresso aqui.</p>
+    </div>
+  } @else {
+    <app-responsive-grid>
+      @for (myCourse of visibleMyCourses; track myCourse.id) {
+        <article class="course-card" (click)="openCourse(myCourse.course.playlistId)">
+          <button
+            class="course-card__remove"
+            type="button"
+            (click)="removeCourse($event, myCourse.course.id)"
+            title="Remover dos Meus Cursos"
+          >
+            ✕
+          </button>
+
+          <img
+            class="course-card__image"
+            loading="lazy"
+            [src]="myCourse.course.thumbnail"
+            [alt]="myCourse.course.title"
+          />
+
+          <div class="course-card__content">
+            <h3 class="course-card__title">
+              {{ myCourse.course.title }}
+            </h3>
+          </div>
+        </article>
+      }
+    </app-responsive-grid>
+
+    <div #sentinel class="courses__sentinel"></div>
+  }
 </app-page-container>
