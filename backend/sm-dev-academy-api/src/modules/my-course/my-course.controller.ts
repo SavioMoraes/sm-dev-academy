@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -17,10 +18,7 @@ import { MyCourseService } from './my-course.service';
 
 @Controller('learn/my-courses')
 export class MyCourseController {
-
-  constructor(
-    private readonly myCourseService: MyCourseService,
-  ) {}
+  constructor(private readonly myCourseService: MyCourseService) {}
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -32,12 +30,7 @@ export class MyCourseController {
     @Param('courseId')
     courseId: string,
   ) {
-
-    return this.myCourseService.create(
-      request.user.sub,
-      courseId,
-    );
-
+    return this.myCourseService.create(request.user.sub, courseId);
   }
 
   @ApiBearerAuth()
@@ -47,11 +40,7 @@ export class MyCourseController {
     @Req()
     request: any,
   ) {
-
-    return this.myCourseService.getMyCourses(
-      request.user.sub,
-    );
-
+    return this.myCourseService.getMyCourses(request.user.sub);
   }
 
   @ApiBearerAuth()
@@ -64,12 +53,7 @@ export class MyCourseController {
     @Param('courseId')
     courseId: string,
   ) {
-
-    return this.myCourseService.isStarted(
-      request.user.sub,
-      courseId,
-    );
-
+    return this.myCourseService.isStarted(request.user.sub, courseId);
   }
 
   @Patch(':courseId/progress')
@@ -94,4 +78,16 @@ export class MyCourseController {
     );
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Delete(':courseId')
+  async remove(
+    @Req()
+    request: any,
+
+    @Param('courseId')
+    courseId: string,
+  ) {
+    return this.myCourseService.remove(request.user.sub, courseId);
+  }
 }

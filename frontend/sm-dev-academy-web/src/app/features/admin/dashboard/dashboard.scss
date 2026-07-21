@@ -734,7 +734,6 @@
   .admin-course-input,
   .admin-course-search,
   .admin-selected-item,
-  .admin-selected-course,
   .admin-result {
     width: 100%;
     margin-bottom: 0;
@@ -756,7 +755,10 @@
   }
 
   .admin-selected-course {
+    width: 100%;
+    max-width: 100%;
     margin-top: 20px;
+    margin-bottom: 0;
   }
 
   .admin-user-header {
