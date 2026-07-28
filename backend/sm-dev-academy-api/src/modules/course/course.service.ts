@@ -3,9 +3,7 @@ import { PrismaService } from '../../database/prisma.service';
 
 @Injectable()
 export class CourseService {
-  constructor(
-    private readonly prismaService: PrismaService,
-  ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async getCourses() {
     const courses = await this.prismaService.course.findMany({
@@ -18,6 +16,39 @@ export class CourseService {
       total: courses.length,
       courses,
     };
+  }
+
+  async searchCourses(term: string) {
+    return this.prismaService.course.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: term,
+              mode: 'insensitive',
+            },
+          },
+          {
+            technology: {
+              contains: term,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+
+      orderBy: {
+        title: 'asc',
+      },
+
+      select: {
+        id: true,
+        title: true,
+        thumbnail: true,
+        playlistId: true,
+        technology: true,
+      },
+    });
   }
 
   async getCourseById(id: string) {
@@ -63,5 +94,4 @@ export class CourseService {
 
     return course;
   }
-
 }

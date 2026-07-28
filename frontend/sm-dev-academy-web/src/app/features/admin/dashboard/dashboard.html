@@ -1,44 +1,390 @@
-<div class="admin-dashboard">
+<app-page-container>
+  <div class="admin-dashboard">
+    <h1>Administração</h1>
 
-  <h1>
-    Administração
-  </h1>
+    <div class="admin-card">
+      <h2 class="admin-section-title">Gestão de Cursos</h2>
 
-  <div class="admin-card">
+      <div class="admin-course-management">
+        <!-- IMPORTAÇÃO -->
 
-    <h2>
-      Gestão de Cursos
-    </h2>
+        <section class="admin-course-column">
+          <h3 class="admin-section-subtitle">Importar Cursos</h3>
 
-    <p>
-      Atualiza a base de cursos a partir da integração do YouTube.
-    </p>
+          <span class="admin-course-info"> Selecione até 3 tecnologias. </span>
 
-    <button
-      (click)="importCourses()"
-      [disabled]="isLoading"
+          <select
+            #technologySelect
+            class="admin-input admin-course-input"
+            (change)="
+              toggleTechnologyByLabel(technologySelect.value); technologySelect.selectedIndex = 0
+            "
+          >
+            <option value="">Selecionar tecnologia</option>
+
+            @for (technology of technologies; track technology.slug) {
+              @if (!selectedTechnologies.includes(technology.label)) {
+                <option [value]="technology.label" [disabled]="selectedTechnologies.length >= 3">
+                  {{ technology.label }}
+                </option>
+              }
+            }
+          </select>
+
+          @if (selectedTechnologies.length) {
+            <div class="admin-selected-technologies">
+              @for (technology of selectedTechnologies; track technology) {
+                <div class="admin-selected-technology">
+                  <span>
+                    {{ technology }}
+                  </span>
+
+                  <a
+                    class="admin-selected-technology__remove"
+                    (click)="removeTechnology(technology)"
+                  >
+                    ✕
+                  </a>
+                </div>
+              }
+            </div>
+          }
+
+          <button (click)="importCourses()" [disabled]="!selectedTechnologies.length || isLoading">
+            @if (!isLoading) {
+              Importar Cursos
+            } @else {
+              Importando...
+            }
+          </button>
+
+          @if (importResult) {
+            <div class="admin-result">
+              <a class="admin-result__close" (click)="importResult = null"> ✕ </a>
+
+              Found: {{ importResult.found }}
+
+              <br />
+
+              Accepted: {{ importResult.accepted }}
+
+              <br />
+
+              Saved: {{ importResult.saved }}
+
+              <br />
+
+              Duplicates: {{ importResult.duplicates }}
+
+              <br />
+
+              Videos: {{ importResult.videosSaved }}
+            </div>
+          }
+        </section>
+
+        <!-- EXCLUSÃO -->
+
+        <section class="admin-course-column">
+          <h3 class="admin-section-subtitle">Excluir Cursos</h3>
+
+          <span class="admin-course-info"> Pesquise os cursos que deseja excluir. </span>
+
+          <div class="admin-course-search">
+            <input
+              #courseSearchInput
+              class="admin-input admin-course-search-input"
+              [class.admin-course-search-input--open]="isCourseDropdownOpen"
+              type="text"
+              placeholder="Pesquisar curso..."
+              [(ngModel)]="courseSearch"
+              (input)="onCourseSearch()"
+            />
+
+            @if (isCourseDropdownOpen) {
+              <a class="admin-course-search-close" (click)="closeCourseSearch()"> ✕ </a>
+
+              <div class="admin-search-results admin-course-search-results">
+                @if (courseResults.length) {
+                  @for (course of courseResults; track course.id) {
+                    <div class="admin-search-item" (click)="onCourseItemClick($event, course)">
+                      <img [src]="course.thumbnail" [alt]="course.title" />
+
+                      <div>
+                        <strong>{{ course.title }}</strong>
+
+                        <span>{{ course.technology }}</span>
+                      </div>
+                    </div>
+                  }
+                } @else {
+                  <div class="admin-search-empty">Nenhum curso encontrado.</div>
+                }
+              </div>
+            }
+          </div>
+
+          @if (selectedCourses.length) {
+            <div class="admin-selected-list">
+              @for (course of selectedCourses; track course.playlistId) {
+                <div class="admin-selected-course">
+                  <span>
+                    {{ course.title }}
+                  </span>
+
+                  <a class="admin-selected-course__remove" (click)="removeSelectedCourse(course)">
+                    ✕
+                  </a>
+                </div>
+              }
+            </div>
+          }
+
+          <button class="button-danger-course" (click)="deleteCourse()" [disabled]="!selectedCourses.length || isDeletingCourse">
+            @if (!isDeletingCourse) {
+              Excluir Curso(s)
+            } @else {
+              Excluindo...
+            }
+          </button>
+        </section>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2 class="admin-section-title">Visão Geral</h2>
+
+      <div class="admin-stats">
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Cursos </span>
+
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalCourses ?? 0 }}
+          </span>
+        </div>
+
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Usuários </span>
+
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalUsers ?? 0 }}
+          </span>
+        </div>
+
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Administradores </span>
+
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalAdmins ?? 0 }}
+          </span>
+        </div>
+
+        <div class="admin-stat-card">
+          <span class="admin-stat-card__label"> Cursos em andamento </span>
+
+          <span class="admin-stat-card__value">
+            {{ dashboard?.totalStartedCourses ?? 0 }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      #selectedUserCard
+      class="admin-card"
+      [class.admin-card--user-search-open]="isUserDropdownOpen"
     >
-      @if (!isLoading) {
-        Sincronizar Cursos
-      } @else {
-        Sincronizando...
-      }
-    </button>
+      <div class="admin-user-column">
+        <h3 class="admin-section-title">Gestão de Usuários</h3>
 
-    @if (importResult) {
+        <div class="admin-user-search">
+          <input
+            #userSearchInput
+            class="admin-input admin-user-search-input"
+            type="text"
+            placeholder="Pesquisar usuário..."
+            [(ngModel)]="userSearch"
+            (focus)="openUsersDropdown()"
+            (input)="onUserSearch()"
+          />
 
-  <div class="admin-result">
-    Found: {{ importResult.found }}
-    <br>
-    Accepted: {{ importResult.accepted }}
-    <br>
-    Saved: {{ importResult.saved }}
-    <br>
-    Duplicates: {{ importResult.duplicates }}
+          @if (isUserDropdownOpen) {
+            <div class="admin-search-results admin-user-search-results">
+              @if (userResults.length) {
+                @for (user of userResults; track user.id) {
+                  <div class="admin-search-item" (click)="selectUser(user)">
+                    <img
+                      [src]="user.avatarUrl || 'assets/images/default-avatar.png'"
+                      [alt]="user.name"
+                    />
+
+                    <div>
+                      <strong>{{ user.name }}</strong>
+
+                      <span>{{ user.email }}</span>
+                    </div>
+                  </div>
+                }
+                <div class="admin-search-spacer"></div>
+              } @else {
+                <div class="admin-search-item admin-search-item--empty">
+                  Nenhum usuário encontrado.
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        @if (selectedUser) {
+          <div class="admin-selected-item">
+            <span>
+              {{ selectedUser.name }}
+            </span>
+
+            <a class="admin-selected-item__remove" (click)="clearSelectedUser()"> ✕ </a>
+          </div>
+          <div class="admin-card">
+            <div class="admin-user-header">
+              <img
+                [src]="selectedUser.avatarUrl || 'assets/images/default-avatar.png'"
+                [alt]="selectedUser.name"
+                class="admin-user-card__avatar"
+              />
+
+              <div>
+                <h2 style="margin: 0">
+                  {{ selectedUser.name }}
+                </h2>
+
+                <p>
+                  {{ selectedUser.email }}
+                </p>
+
+                <p>
+                  {{ selectedUser.role }}
+                </p>
+              </div>
+            </div>
+
+            <div class="admin-stats">
+              <div class="admin-stat-card">
+                <span class="admin-stat-card__label"> Cursos iniciados </span>
+
+                <span class="admin-stat-card__value">
+                  {{ selectedUser.userCourses?.length ?? 0 }}
+                </span>
+              </div>
+
+              <div class="admin-stat-card">
+                <span class="admin-stat-card__label"> Favoritos </span>
+
+                <span class="admin-stat-card__value">
+                  {{ selectedUser._count?.favorites ?? 0 }}
+                </span>
+              </div>
+            </div>
+
+            <div class="admin-user-actions">
+              @if (selectedUser.role === 'USER') {
+                <button type="button" (click)="promoteUser(selectedUser.id)">Tornar Admin</button>
+              }
+
+              @if (selectedUser.role === 'ADMIN') {
+                <button type="button" (click)="demoteUser(selectedUser.id)">Remover Admin</button>
+              }
+
+              <button type="button" (click)="openResetPasswordModal(selectedUser.id)">
+                Resetar Senha
+              </button>
+
+              <button type="button" (click)="openCoursesModal(selectedUser.userCourses)">
+                Ver Cursos
+              </button>
+
+              <button type="button" (click)="deleteUser(selectedUser.id)">Excluir Usuário</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
   </div>
+  @if (resetPasswordModalOpen) {
+    <div class="admin-modal-backdrop">
+      <div class="admin-modal">
+        <h2>Resetar Senha</h2>
 
-}
+        <input
+          type="password"
+          [(ngModel)]="newPassword"
+          placeholder="Nova senha"
+          class="admin-input"
+        />
 
-  </div>
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirmar senha"
+          class="admin-input"
+        />
 
-</div>
+        @if (passwordError) {
+          <div class="login-error">
+            {{ passwordError }}
+          </div>
+        }
+
+        <button type="button" class="admin-modal-save" (click)="resetPassword()">
+          Salvar Senha
+        </button>
+
+        <button type="button" class="admin-modal-cancel" (click)="resetPasswordModalOpen = false">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (coursesModalOpen) {
+    <div class="admin-modal-backdrop">
+      <div class="admin-modal">
+        <h2>Cursos em andamento</h2>
+
+        <div class="admin-courses-list">
+          @for (userCourse of selectedUserCourses; track userCourse.course.title) {
+            <div class="admin-course-item">
+              {{ userCourse.course.title }}
+            </div>
+          }
+        </div>
+
+        <button type="button" class="admin-modal-cancel" (click)="closeCoursesModal()">
+          Fechar
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (userModalOpen) {
+    <div class="admin-modal-backdrop">
+      <div class="admin-modal admin-users-modal">
+        <h2>Todos os usuários</h2>
+
+        <div class="admin-users-modal-list">
+          @for (user of userResults; track user.id) {
+            <div class="admin-search-item" (click)="selectUser(user)">
+              <img [src]="user.avatarUrl || 'assets/images/default-avatar.png'" [alt]="user.name" />
+
+              <div>
+                <strong>{{ user.name }}</strong>
+
+                <span>{{ user.email }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <button type="button" class="admin-modal-cancel" (click)="closeUserModal()">Fechar</button>
+      </div>
+    </div>
+  }
+</app-page-container>

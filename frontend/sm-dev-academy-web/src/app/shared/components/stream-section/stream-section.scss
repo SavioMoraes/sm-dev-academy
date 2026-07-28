@@ -34,10 +34,28 @@
 
 .stream-section__title {
   margin: 0;
-  font-size: 28px;
   font-weight: 700;
   line-height: 1.1;
   color: #ffffff;
+}
+
+.stream-section__title--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.stream-section__title--link:hover {
+  color: #ff1027;
+}
+
+.stream-section__title--link .material-symbols-outlined {
+  font-size: inherit;
+  line-height: 1;
 }
 
 .stream-section__subtitle {
@@ -108,22 +126,14 @@
   scroll-behavior: smooth;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
-  mask-image:
-    linear-gradient(
-      to right,
-      transparent 0%,
-      black 3%,
-      black 97%,
-      transparent 100%
-    );
-  -webkit-mask-image:
-    linear-gradient(
-      to right,
-      transparent 0%,
-      black 3%,
-      black 97%,
-      transparent 100%
-    );
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 3%,
+    black 97%,
+    transparent 100%
+  );
 }
 
 .stream-section__content::-webkit-scrollbar {
@@ -134,46 +144,22 @@
    DESKTOP
 ========================================================= */
 
-@media (min-width: 1440px) {
-  // .stream-section {
-  //   gap: 28px;
-  // }
-
-  .stream-section__title {
-    font-size: 32px;
-  }
-}
+@media (min-width: 1440px) {}
 
 /* =========================================================
    LAPTOP
 ========================================================= */
 
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .stream-section__title {
-    font-size: 28px;
-  }
-}
+@media (min-width: 1024px) and (max-width: 1439px) {}
 
 /* =========================================================
    TABLET
 ========================================================= */
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  // .stream-section {
-  //   gap: 22px;
-  // }
-
   .stream-section__header {
     align-items: center;
   }
-
-  .stream-section__title {
-    font-size: 24px;
-  }
-
-  // .stream-section__content {
-  //   gap: 18px;
-  // }
 
   .stream-section__arrow {
     display: none;
@@ -185,27 +171,15 @@
 ========================================================= */
 
 @media (max-width: 767px) {
-  // .stream-section {
-  //   gap: 20px;
-  // }
-
   .stream-section__header {
     align-items: flex-start;
     flex-direction: column;
     gap: 14px;
   }
 
-  .stream-section__title {
-    font-size: 22px;
-  }
-
   .stream-section__subtitle {
     font-size: 14px;
   }
-
-  // .stream-section__content {
-  //   gap: 16px;
-  // }
 
   .stream-section__arrow {
     display: none;

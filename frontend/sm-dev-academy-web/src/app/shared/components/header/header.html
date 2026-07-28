@@ -23,21 +23,63 @@
       </div>
 
       <!-- DESKTOP/LAPTOP SEARCH -->
-      <div class="header__search" [class.header__search--active]="isSearchActive">
-        <a class="header__search-back" (click)="toggleSearch()">
-          <i class="material-symbols-outlined"> undo </i>
-        </a>
-        <input type="text" placeholder="Pesquisar" class="header__search-input" />
+      <div
+        class="header__search"
+        [class.header__search--active]="isSearchActive"
+        [class.header__search--dropdown-open]="isSearchDropdownOpen"
+      >
+        <div class="header__search-bar">
+          <a class="header__search-back" (click)="toggleSearch()">
+            <i class="material-symbols-outlined"> undo </i>
+          </a>
 
-        <a class="header__search-submit">
-          <i class="material-symbols-outlined"> input </i>
-        </a>
+          <input
+            type="text"
+            placeholder="Pesquisar cursos"
+            class="header__search-input"
+            [(ngModel)]="searchTerm"
+            (input)="onSearchInput()"
+            (keyup.enter)="submitSearch()"
+          />
+
+          <a class="header__search-submit" (click)="submitSearch()">
+            <i class="material-symbols-outlined"> input </i>
+          </a>
+        </div>
+
+        @if (isSearchDropdownOpen) {
+          <div class="header__search-dropdown">
+            @if (searchResults.length > 0) {
+              @for (course of searchResults; track course.id) {
+                <a class="header__search-result" (click)="openCourse(course)">
+                  <img
+                    class="header__search-result-thumbnail"
+                    [src]="course.thumbnail"
+                    [alt]="course.title"
+                  />
+
+                  <div class="header__search-result-content">
+                    <div class="header__search-result-meta">
+                      {{ course.category }} • {{ course.technology }}
+                    </div>
+
+                    <div class="header__search-result-title">
+                      {{ course.title }}
+                    </div>
+                  </div>
+                </a>
+              }
+            } @else {
+              <div class="header__search-empty">Nenhum resultado encontrado</div>
+            }
+          </div>
+        }
       </div>
 
       <div class="header__center">
         <!-- LOGO -->
         <div class="header__brand">
-          <a href="/">
+          <a routerLink="/">
             <img src="assets/images/logo-sm-dev-academy.webp" alt="SM Dev Academy" />
           </a>
         </div>
@@ -46,9 +88,286 @@
       <!-- RIGHT -->
       <div class="header__right">
         <!-- NOTIFICATIONS -->
-        <a href="javascript:void(0)" class="header__icon-button" (click)="$event.preventDefault()">
-          <i class="material-symbols-outlined"> notifications </i>
-        </a>
+        @if (isAuthenticated) {
+          <div class="header-notifications">
+            <a
+              href="javascript:void(0)"
+              class="header__icon-button"
+              (click)="toggleNotifications(); $event.preventDefault()"
+            >
+              <i class="material-symbols-outlined"> notifications </i>
+
+              @if (unreadNotificationsCount > 0) {
+                <span class="header-notifications__badge">
+                  {{ unreadNotificationsCount }}
+                </span>
+              }
+            </a>
+
+            @if (isNotificationsOpen) {
+              <div class="header-notifications__dropdown">
+                <div class="header-notifications__title">
+                  <span>Notificações</span>
+
+                  <button
+                    type="button"
+                    class="header-notifications__selection-button"
+                    (click)="toggleSelectionMode()"
+                  >
+                    @if (selectionMode) {
+                      Cancelar
+                    } @else {
+                      Selecionar
+                    }
+                  </button>
+                </div>
+
+                @if (selectionMode) {
+                  <div class="header-notifications__bulk-actions">
+                    <label class="header-notifications__select-all">
+                      <input
+                        type="checkbox"
+                        [checked]="allNotificationsSelected"
+                        (change)="toggleSelectAllNotifications()"
+                      />
+
+                      <span>Selecionar todas</span>
+                    </label>
+
+                    <button
+                      type="button"
+                      class="header-notifications__bulk-delete"
+                      [disabled]="!hasSelectedNotifications"
+                      (click)="deleteSelectedNotifications()"
+                    >
+                      Excluir selecionadas
+                    </button>
+                  </div>
+                }
+
+                @if (notifications.length > 0) {
+                  @if (todayNotifications.length > 0) {
+                    <div class="header-notifications__group-title">Hoje</div>
+
+                    @for (notification of todayNotifications; track notification.id) {
+                      <div
+                        class="header-notifications__item"
+                        [class.header-notifications__item--read]="notification.read"
+                      >
+                        @if (selectionMode) {
+                          <input
+                            type="checkbox"
+                            class="header-notifications__checkbox"
+                            [checked]="selectedNotificationIds.has(notification.id)"
+                            (click)="$event.stopPropagation()"
+                            (change)="toggleNotificationSelection(notification.id)"
+                          />
+                        }
+                        <div class="header-notifications__content">
+                          <div class="header-notifications__type">
+                            @if (notification.action === 'ADDED') {
+                              Novo curso disponível
+                            } @else {
+                              Curso removido da plataforma
+                            }
+                          </div>
+
+                          <a
+                            class="header-notifications__course"
+                            [title]="notification.title"
+                            (click)="openNotificationCourse(notification)"
+                          >
+                            {{ notification.title }}
+                          </a>
+
+                          <span class="header-notifications__date">
+                            {{ getRelativeDate(notification.createdAt) }}
+                          </span>
+
+                          <div class="header-notifications__footer">
+                            <button
+                              type="button"
+                              class="header-notifications__read-toggle"
+                              [class.header-notifications__read-toggle--read]="notification.read"
+                              [class.header-notifications__read-toggle--unread]="!notification.read"
+                              [title]="
+                                notification.read ? 'Marcar como não lido' : 'Marcar como lido'
+                              "
+                              (click)="toggleNotificationReadStatus(notification)"
+                            >
+                              @if (notification.read) {
+                                Lido
+                              } @else {
+                                Não lido
+                              }
+                            </button>
+
+                            <button
+                              type="button"
+                              class="header-notifications__delete"
+                              title="Excluir notificação"
+                              (click)="deleteNotification(notification.id, $event)"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+
+                  @if (yesterdayNotifications.length > 0) {
+                    <div class="header-notifications__group-title">Ontem</div>
+
+                    @for (notification of yesterdayNotifications; track notification.id) {
+                      <div
+                        class="header-notifications__item"
+                        [class.header-notifications__item--read]="notification.read"
+                      >
+                        @if (selectionMode) {
+                          <input
+                            type="checkbox"
+                            class="header-notifications__checkbox"
+                            [checked]="selectedNotificationIds.has(notification.id)"
+                            (click)="$event.stopPropagation()"
+                            (change)="toggleNotificationSelection(notification.id)"
+                          />
+                        }
+                        <div class="header-notifications__content">
+                          <div class="header-notifications__type">
+                            @if (notification.action === 'ADDED') {
+                              Novo curso disponível
+                            } @else {
+                              Curso removido da plataforma
+                            }
+                          </div>
+
+                          <a
+                            class="header-notifications__course"
+                            [title]="notification.title"
+                            (click)="openNotificationCourse(notification)"
+                          >
+                            {{ notification.title }}
+                          </a>
+
+                          <span class="header-notifications__date">
+                            {{ getRelativeDate(notification.createdAt) }}
+                          </span>
+
+                          <div class="header-notifications__footer">
+                            <button
+                              type="button"
+                              class="header-notifications__read-toggle"
+                              [class.header-notifications__read-toggle--read]="notification.read"
+                              [class.header-notifications__read-toggle--unread]="!notification.read"
+                              [title]="
+                                notification.read ? 'Marcar como não lido' : 'Marcar como lido'
+                              "
+                              (click)="toggleNotificationReadStatus(notification)"
+                            >
+                              @if (notification.read) {
+                                Lido
+                              } @else {
+                                Não lido
+                              }
+                            </button>
+
+                            <button
+                              type="button"
+                              class="header-notifications__delete"
+                              title="Excluir notificação"
+                              (click)="deleteNotification(notification.id, $event)"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+
+                  @if (olderNotifications.length > 0) {
+                    <div class="header-notifications__group-title">Anteriores</div>
+
+                    @for (notification of olderNotifications; track notification.id) {
+                      <div
+                        class="header-notifications__item"
+                        [class.header-notifications__item--read]="notification.read"
+                      >
+                        @if (selectionMode) {
+                          <input
+                            type="checkbox"
+                            class="header-notifications__checkbox"
+                            [checked]="selectedNotificationIds.has(notification.id)"
+                            (click)="$event.stopPropagation()"
+                            (change)="toggleNotificationSelection(notification.id)"
+                          />
+                        }
+                        <div class="header-notifications__content">
+                          <div class="header-notifications__type">
+                            @if (notification.action === 'ADDED') {
+                              Novo curso disponível
+                            } @else {
+                              Curso removido da plataforma
+                            }
+                          </div>
+
+                          <a
+                            class="header-notifications__course"
+                            [title]="notification.title"
+                            (click)="openNotificationCourse(notification)"
+                          >
+                            {{ notification.title }}
+                          </a>
+
+                          <span class="header-notifications__date">
+                            {{ getRelativeDate(notification.createdAt) }}
+                          </span>
+
+                          <div class="header-notifications__footer">
+                            <button
+                              type="button"
+                              class="header-notifications__read-toggle"
+                              [class.header-notifications__read-toggle--read]="notification.read"
+                              [class.header-notifications__read-toggle--unread]="!notification.read"
+                              [title]="
+                                notification.read ? 'Marcar como não lido' : 'Marcar como lido'
+                              "
+                              (click)="toggleNotificationReadStatus(notification)"
+                            >
+                              @if (notification.read) {
+                                Lido
+                              } @else {
+                                Não lido
+                              }
+                            </button>
+
+                            <button
+                              type="button"
+                              class="header-notifications__delete"
+                              title="Excluir notificação"
+                              (click)="deleteNotification(notification.id, $event)"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  }
+                } @else {
+                  <div class="header-notifications__empty">
+                    <i class="material-symbols-outlined"> notifications </i>
+
+                    <span> Você está em dia. </span>
+
+                    <small> Nenhuma notificação disponível. </small>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
 
         <!-- LOGIN / PROFILE -->
         @if (!isAuthenticated) {
@@ -103,7 +422,10 @@
   <!-- SEARCH HEADER -->
   <header class="header header--search-active header--search-mobile">
     <div class="header__content">
-      <div class="header-search-mobile">
+      <div
+        class="header-search-mobile"
+        [class.header-search-mobile--dropdown-open]="isSearchDropdownOpen"
+      >
         <div class="header-search-mobile__bar">
           <!-- BACK -->
           <button type="button" class="header-search-mobile__action" (click)="toggleSearch()">
@@ -116,13 +438,44 @@
             placeholder="Pesquisar"
             class="header-search-mobile__input"
             autofocus
+            [(ngModel)]="searchTerm"
+            (input)="onSearchInput()"
+            (keyup.enter)="submitSearch()"
           />
 
           <!-- SEARCH -->
-          <button type="button" class="header-search-mobile__action">
+          <button type="button" class="header-search-mobile__action" (click)="submitSearch()">
             <i class="material-symbols-outlined"> input </i>
           </button>
         </div>
+
+        @if (isSearchDropdownOpen) {
+          <div class="header-search-mobile__dropdown">
+            @if (searchResults.length > 0) {
+              @for (course of searchResults; track course.id) {
+                <a class="header-search-mobile__result" (click)="openCourse(course)">
+                  <img
+                    class="header-search-mobile__thumbnail"
+                    [src]="course.thumbnail"
+                    [alt]="course.title"
+                  />
+
+                  <div class="header-search-mobile__content">
+                    <div class="header-search-mobile__meta">
+                      {{ course.category }} • {{ course.technology }}
+                    </div>
+
+                    <div class="header-search-mobile__title">
+                      {{ course.title }}
+                    </div>
+                  </div>
+                </a>
+              }
+            } @else {
+              <div class="header-search-mobile__empty">Nenhum resultado encontrado</div>
+            }
+          </div>
+        }
       </div>
     </div>
   </header>
@@ -141,7 +494,7 @@
       <div class="mobile-menu__ghost">&#128123;</div>
       <!-- LOGO -->
       <div class="mobile-menu__logo">
-        <a routerLink="/">
+        <a routerLink="/" (click)="toggleMobileMenu()">
           <img src="assets/images/logo-sm-dev-academy.webp" alt="SM Dev Academy" />
         </a>
       </div>
@@ -158,10 +511,10 @@
 
     <!-- MOBILE OVERLAY CONTENT -->
     <div class="mobile-overlay__content">
-      <!-- HOME PAGE -->
+      <!-- PÁGINA INICIAL -->
       <section class="mobile-overlay__section">
         <div class="mobile-overlay__section-header">
-          <p class="mobile-overlay__title">HOME PAGE</p>
+          <p class="mobile-overlay__title">PÁGINA INICIAL</p>
         </div>
 
         <ul class="mobile-overlay__list">
@@ -174,16 +527,16 @@
             >
               <i class="material-symbols-outlined"> home </i>
 
-              <span class="mobile-overlay__label"> Home </span>
+              <span class="mobile-overlay__label"> Início </span>
             </a>
           </li>
         </ul>
       </section>
 
-      <!-- LEARN -->
+      <!-- CONTEÚDO -->
       <section class="mobile-overlay__section">
         <a class="mobile-overlay__section-toggle" (click)="toggleSection('learn')">
-          <span class="mobile-overlay__title"> Learn </span>
+          <span class="mobile-overlay__title"> CONTEÚDO </span>
 
           <i class="material-symbols-outlined">
             @if (learnExpanded) {
@@ -196,7 +549,7 @@
 
         @if (learnExpanded) {
           <ul class="mobile-overlay__list">
-            <!-- COURSES -->
+            <!-- CURSOS -->
             <li class="mobile-overlay__item">
               <div class="mobile-overlay__category">
                 <a
@@ -207,7 +560,7 @@
                 >
                   <i class="material-symbols-outlined"> school </i>
 
-                  <span class="mobile-overlay__label"> Courses </span>
+                  <span class="mobile-overlay__label"> Cursos </span>
                 </a>
 
                 <button
@@ -609,7 +962,7 @@
               >
                 <i class="material-symbols-outlined"> video_library </i>
 
-                <span class="mobile-overlay__label"> My Courses </span>
+                <span class="mobile-overlay__label"> Meus Cursos </span>
               </a>
             </li>
 
@@ -621,7 +974,7 @@
               >
                 <i class="material-symbols-outlined"> favorite </i>
 
-                <span class="mobile-overlay__label"> Favorites </span>
+                <span class="mobile-overlay__label"> Favoritos </span>
               </a>
             </li>
 
@@ -634,7 +987,7 @@
               >
                 <i class="material-symbols-outlined"> share </i>
 
-                <span class="mobile-overlay__label"> Tracks </span>
+                <span class="mobile-overlay__label"> Trilhas </span>
               </a>
             </li>
           </ul>
@@ -644,7 +997,7 @@
       <!-- ACCOUNT -->
       <section class="mobile-overlay__section">
         <a class="mobile-overlay__section-toggle" (click)="toggleSection('account')">
-          <span class="mobile-overlay__title"> Account </span>
+          <span class="mobile-overlay__title"> Conta </span>
 
           <i class="material-symbols-outlined">
             @if (accountExpanded) {
@@ -665,7 +1018,7 @@
               >
                 <i class="material-symbols-outlined"> manage_accounts </i>
 
-                <span class="mobile-overlay__label"> Profile </span>
+                <span class="mobile-overlay__label"> Perfil </span>
               </a>
             </li>
           </ul>
@@ -697,7 +1050,7 @@
                 >
                   <i class="material-symbols-outlined"> dashboard </i>
 
-                  <span class="mobile-overlay__label"> Dashboard </span>
+                  <span class="mobile-overlay__label"> Painel </span>
                 </a>
               </li>
             </ul>

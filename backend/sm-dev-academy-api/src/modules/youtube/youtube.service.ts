@@ -1,188 +1,96 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-
-const TECHNOLOGIES = [
-  'GitHub',
-  'ChatGPT',
-  'Deep Seek',
-  'HTML',
-];
-
-const TECHNOLOGY_CATEGORIES: Record<string, string> = {
-
-  GitHub: 'DevOps',
-  ChatGPT: 'IA',
-  'Deep Seek': 'IA',
-  HTML: 'Frontend',
-
-};
+import { TECHNOLOGY_CATEGORIES } from '../../common/constants/technology-categories';
 
 @Injectable()
 export class YoutubeService {
+  async searchPlaylists(technology: string, pageToken?: string) {
+    const response = await axios.get(
+      'https://www.googleapis.com/youtube/v3/search',
+      {
+        params: {
+          key: process.env.YOUTUBE_API_KEY,
+          q: `curso ${technology}`,
+          part: 'snippet',
+          type: 'playlist',
+          maxResults: 50,
+          pageToken,
+        },
+      },
+    );
 
-  async getCourses() {
+    const playlists =
+      response.data.items?.map((playlist: any) => {
+        const playlistId = playlist.id?.playlistId;
 
-    const courses: any[] = [];
-
-    for (const technology of TECHNOLOGIES) {
-
-      try {
-
-        const response =
-          await axios.get(
-            'https://www.googleapis.com/youtube/v3/search',
-            {
-              params: {
-
-                key:
-                  process.env.YOUTUBE_API_KEY,
-
-                q:
-                  technology,
-
-                part:
-                  'snippet',
-
-                type:
-                  'playlist',
-
-                maxResults:
-                  4,
-
-              },
-            },
-          );
-
-        const playlists =
-          response.data.items || [];
-
-        for (const playlist of playlists) {
-
-          const playlistId =
-            playlist.id?.playlistId;
-
-          if (!playlistId) {
-            continue;
-          }
-
-          courses.push({
-
-            playlistId,
-
-            title:
-              playlist.snippet.title,
-
-            description:
-              playlist.snippet.description,
-
-            thumbnail:
-              playlist.snippet.thumbnails?.high?.url ||
-
-              playlist.snippet.thumbnails?.default?.url ||
-
-              '',
-
-            playlistUrl:
-              `https://www.youtube.com/playlist?list=${playlistId}`,
-
-            category:
-              TECHNOLOGY_CATEGORIES[
-                technology
-              ],
-
-            technology,
-
-            featured:
-              false,
-
-          });
-
-        }
-
-      } catch (error: any) {
-
-        console.error(
-          `Erro ao buscar ${technology}`,
-          error?.response?.status,
-          error?.response?.data,
-        );
-
-      }
-
-    }
+        return {
+          playlistId,
+          title: playlist.snippet.title,
+          description: playlist.snippet.description,
+          thumbnail:
+            playlist.snippet.thumbnails?.high?.url ||
+            playlist.snippet.thumbnails?.default?.url ||
+            '',
+          playlistUrl: `https://www.youtube.com/playlist?list=${playlistId}`,
+          category:
+            TECHNOLOGY_CATEGORIES[
+              technology as keyof typeof TECHNOLOGY_CATEGORIES
+            ],
+          technology,
+          featured: false,
+        };
+      }) ?? [];
 
     return {
-
-      total:
-        courses.length,
-
-      courses,
-
+      playlists,
+      nextPageToken: response.data.nextPageToken,
     };
-
   }
 
-  async getPlaylistVideos(
-    playlistId: string,
-  ) {
+  async getPlaylistVideos(playlistId: string) {
+    const videos: any[] = [];
 
-    const response =
-      await axios.get(
+    let nextPageToken: string | undefined;
+
+    do {
+      const response = await axios.get(
         'https://www.googleapis.com/youtube/v3/playlistItems',
         {
           params: {
-
-            key:
-              process.env.YOUTUBE_API_KEY,
-
-            part:
-              'snippet',
-
+            key: process.env.YOUTUBE_API_KEY,
+            part: 'snippet',
             playlistId,
-
-            maxResults:
-              50,
-
+            maxResults: 50,
+            pageToken: nextPageToken,
           },
         },
       );
 
-    const videos =
-      response.data.items || [];
+      const items = response.data.items ?? [];
 
-    return videos.map(
-      (
-        video: any,
-        index: number,
-      ) => ({
+      for (const item of items) {
+        const videoId = item.snippet?.resourceId?.videoId;
 
-        videoId:
-          video.snippet
-            ?.resourceId
-            ?.videoId,
+        if (!videoId) {
+          continue;
+        }
 
-        title:
-          video.snippet?.title,
+        videos.push({
+          videoId,
+          title: item.snippet.title,
+          thumbnail:
+            item.snippet.thumbnails?.high?.url ||
+            item.snippet.thumbnails?.default?.url ||
+            '',
+        });
+      }
 
-        thumbnail:
-          video.snippet
-            ?.thumbnails
-            ?.high
-            ?.url ||
+      nextPageToken = response.data.nextPageToken;
+    } while (nextPageToken);
 
-          video.snippet
-            ?.thumbnails
-            ?.default
-            ?.url ||
-
-          '',
-
-        position:
-          index + 1,
-
-      }),
-    );
-
+    return videos.map((video, index) => ({
+      ...video,
+      position: index + 1,
+    }));
   }
-
 }

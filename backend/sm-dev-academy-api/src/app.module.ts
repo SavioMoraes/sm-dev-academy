@@ -9,6 +9,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { FavoriteModule } from './modules/favorite/favorite.module';
 import { MyCourseModule } from './modules/my-course/my-course.module';
+import { NotificationModule } from './modules/notification/notification.module';
+import { RatingModule } from './modules/rating/rating.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { MyCourseModule } from './modules/my-course/my-course.module';
     AdminModule,
     FavoriteModule,
     MyCourseModule,
+    NotificationModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,26 +3,19 @@
 .avatar-preview {
   width: 80px;
   height: 80px;
-
   margin: 0 auto 20px;
-
   border-radius: 50%;
-
   overflow: hidden;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(255, 255, 255, 0.05);
-
   border: 2px solid rgba(255, 16, 39, 0.25);
 }
 
 .avatar-preview img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
@@ -32,21 +25,13 @@
 
 .avatar-upload {
   display: block;
-
   width: fit-content;
-
   margin: 0 auto 32px;
-
   padding: 10px 18px;
-
   border-radius: 10px;
-
   cursor: pointer;
-
   color: #ffffff;
-
   background: rgba(255, 16, 39, 0.08);
-
   border: 1px solid rgba(255, 16, 39, 0.25);
 }
 
@@ -65,7 +50,6 @@
 .avatar-preview {
   width: 80px;
   height: 80px;
-
   margin: 0 auto 12px;
 }
 
@@ -82,46 +66,30 @@
 }
 
 .confirm-register {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
-.login-panel {
-  padding: 20px 60px;
-}
-
-.login-card h1{
+.login-card h1 {
   text-align: center;
 }
 
 .login-error {
   margin-bottom: 20px;
-
   padding: 12px;
-
   border-radius: 10px;
-
   background: rgba(255, 16, 39, 0.12);
-
   border: 1px solid rgba(255, 16, 39, 0.35);
-
   color: #ff8a95;
-
   text-align: center;
 }
 
 .login-success {
   margin-bottom: 20px;
-
   padding: 12px;
-
   border-radius: 10px;
-
   background: rgba(0, 255, 128, 0.12);
-
   border: 1px solid rgba(0, 255, 128, 0.35);
-
   color: #00ff80;
-
   text-align: center;
 }
 
@@ -160,11 +128,11 @@
 
 .password-toggle .material-symbols-outlined {
   font-size: 22px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #9ca3af;
 }
 
 .password-toggle:hover .material-symbols-outlined {
-  color: #ffffff;
+  color: #d1d5db;
 }
 
 .mobile-auth-logo {
@@ -177,7 +145,6 @@
 
 // Tablet //
 @media (min-width: 768px) and (max-width: 1023px) {
-
   .auth-logo-mobile {
     display: flex;
     justify-content: center;
@@ -188,12 +155,10 @@
     width: 180px;
     height: auto;
   }
-
 }
 
 // Mobile //
 @media (max-width: 767px) {
-
   .auth-logo-mobile {
     display: flex;
     justify-content: center;
@@ -205,4 +170,10 @@
     height: auto;
   }
 
+  .back-link {
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    justify-content: center;
+  }
 }

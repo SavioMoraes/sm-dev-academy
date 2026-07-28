@@ -20,11 +20,13 @@ model Course {
   technology  String
   level       String?
   featured    Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
   videos      CourseVideo[]
   favorites   Favorite[]
   userCourses UserCourse[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  ratings     CourseRating[]
 
   @@map("courses")
 }
@@ -50,10 +52,13 @@ model User {
   password    String
   role        String       @default("USER")
   avatarUrl   String?
-  favorites   Favorite[]
-  userCourses UserCourse[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+  
+  favorites   Favorite[]
+  userCourses UserCourse[]
+  notifications NotificationUser[]
+  ratings     CourseRating[]
 
   @@map("users")
 }
@@ -86,4 +91,43 @@ model UserCourse {
   @@unique([userId, courseId])
   @@index([userId, updatedAt])
   @@map("user_courses")
+}
+
+model Notification {
+  id         String            @id @default(cuid())
+  title      String
+  playlistId String?
+  action     String            @default("ADDED")
+  createdAt DateTime           @default(now())
+
+  users NotificationUser[]
+
+  @@map("notifications")
+}
+
+model NotificationUser {
+  id             String   @id @default(cuid())
+  userId         String
+  notificationId String
+  read           Boolean  @default(false)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+
+  @@unique([userId, notificationId])
+  @@map("notification_users")
+}
+
+model CourseRating {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  rating    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@map("course_ratings")
 }

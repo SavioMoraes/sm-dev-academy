@@ -4,7 +4,7 @@ import { profileUnsavedGuard } from './core/guards/profile-unsaved.guard';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-    /* =========================================================
+  /* =========================================================
          ACCOUNT
       ========================================================= */
   {
@@ -333,6 +333,7 @@ export const routes: Routes = [
 
       {
         path: 'learn/my-courses',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/learn/my-courses/my-courses').then((m) => m.MyCourses),
       },
@@ -343,6 +344,7 @@ export const routes: Routes = [
 
       {
         path: 'learn/favorites',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/learn/favorites/favorites').then((m) => m.Favorites),
       },
@@ -357,6 +359,16 @@ export const routes: Routes = [
       },
 
       {
+        path: 'learn/tracks/:slug',
+        loadComponent: () =>
+          import('./features/learn/tracks/track-details/track-details').then((m) => m.TrackDetails),
+      },
+
+      /* =========================================================
+         PROFILE
+      ========================================================= */
+
+      {
         path: 'account/profile',
         canActivate: [authGuard],
         canDeactivate: [profileUnsavedGuard],
@@ -369,10 +381,20 @@ export const routes: Routes = [
 
       {
         path: 'admin/dashboard',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/admin/dashboard/dashboard').then((m) => m.Dashboard),
       },
     ],
+  },
+
+  /* =========================================================
+     NOT FOUND
+  ========================================================= */
+
+  {
+    path: 'not-found',
+    loadComponent: () => import('./shared/components/not-found/not-found').then((m) => m.NotFound),
   },
 
   /* =========================================================

@@ -16,11 +16,9 @@ export class MyCourseService {
     return { Authorization: `Bearer ${this.authService.getToken()}` };
   }
 
-  create(
-    courseId: string,
-  ): Observable<any> {
-
-    return this.http.post(`${this.apiUrl}/${courseId}`,
+  create(courseId: string): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/${courseId}`,
       {},
       {
         headers: this.getHeaders(),
@@ -28,31 +26,19 @@ export class MyCourseService {
     );
   }
 
-  check(
-    courseId: string,
-  ): Observable<any> {
-
-    return this.http.get(`${this.apiUrl}/check/${courseId}`,
-      {
-        headers: this.getHeaders(),
-      },
-    );
+  check(courseId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/check/${courseId}`, {
+      headers: this.getHeaders(),
+    });
   }
 
   getMyCourses(): Observable<any> {
-
-    return this.http.get(this.apiUrl,
-      {
-        headers: this.getHeaders(),
-      },
-    );
+    return this.http.get(this.apiUrl, {
+      headers: this.getHeaders(),
+    });
   }
 
-  updateProgress(
-    courseId: string,
-    lastVideoId: string,
-    progress: number,
-  ): Observable<any> {
+  updateProgress(courseId: string, lastVideoId: string, progress: number): Observable<any> {
     return this.http.patch(
       `${this.apiUrl}/${courseId}/progress`,
       {
@@ -65,4 +51,9 @@ export class MyCourseService {
     );
   }
 
+  remove(courseId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${courseId}`, {
+      headers: this.getHeaders(),
+    });
+  }
 }

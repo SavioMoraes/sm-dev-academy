@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/services/auth-service/auth.service';
 import { Footer } from '../footer/footer';
 import { TECHNOLOGIES } from '../../../core/constants/technologies';
 import { CourseContextService } from '../../../core/services/course-context-service/course-context.service';
+import { NavigationHistoryService } from '../../../core/services/navigation-history-service/navigation-history.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,6 +40,7 @@ export class Sidebar implements OnInit {
     private readonly authService: AuthService,
     private readonly courseContextService: CourseContextService,
     private readonly cdr: ChangeDetectorRef,
+    private readonly navigationHistoryService: NavigationHistoryService,
   ) {}
 
   // HELPERS
@@ -182,7 +184,7 @@ export class Sidebar implements OnInit {
       this.adminExpanded = true;
     }
 
-    if (this.isCoursesRoute(url)) {
+    if (this.isCoursesParentActive()) {
       this.coursesExpanded = true;
     }
 

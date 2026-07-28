@@ -1,246 +1,178 @@
 <div class="login-page">
-
-  <a
-    class="back-link"
-    routerLink="/"
-  >
-    ← Voltar para plataforma
-  </a>
+  <a class="back-link" routerLink="/"> ← Voltar para plataforma </a>
 
   <div class="login-layout">
-
     <!-- ESQUERDA -->
 
     <section class="login-brand">
-
-      <img
-        src="assets/images/logo-sm-dev-academy.webp"
-        alt="SM Dev Academy"
-        class="brand-logo"
-      >
+      <img src="assets/images/logo-sm-dev-academy.webp" alt="SM Dev Academy" class="brand-logo" />
 
       <h2>
         APRENDA. CONSTRUA.
-        <span>
-          EVOLUA.
-        </span>
+        <span> EVOLUA. </span>
       </h2>
 
-      <p>
-        Domine as tecnologias mais exigidas do mercado
-        e transforme sua carreira em tecnologia.
-      </p>
+      <p>Domine as tecnologias mais exigidas do mercado e transforme sua carreira em tecnologia.</p>
 
       <div class="tech-list">
-
         <div class="tech-item">
-
-          <img
-            src="/assets/svg/angular.svg"
-            alt="Angular"
-          >
+          <img src="/assets/svg/angular.svg" alt="Angular" />
 
           <span>Angular</span>
-
         </div>
 
         <div class="tech-item">
-
-          <img
-            src="/assets/svg/react.svg"
-            alt="React"
-          >
+          <img src="/assets/svg/react.svg" alt="React" />
 
           <span>React</span>
-
         </div>
 
         <div class="tech-item">
-
-          <img
-            src="/assets/svg/nestjs.svg"
-            alt="NestJS"
-          >
+          <img src="/assets/svg/nestjs.svg" alt="NestJS" />
 
           <span>NestJS</span>
-
         </div>
 
         <div class="tech-item">
-
-          <img
-            src="/assets/svg/nodedotjs.svg"
-            alt="Node.js"
-          >
+          <img src="/assets/svg/nodedotjs.svg" alt="Node.js" />
 
           <span>Node.js</span>
-
         </div>
 
         <div class="tech-item">
-
-          <img
-            src="/assets/svg/typescript.svg"
-            alt="TypeScript"
-          >
+          <img src="/assets/svg/typescript.svg" alt="TypeScript" />
 
           <span>TypeScript</span>
-
         </div>
 
         <div class="tech-item">
-
-          <img
-            src="/assets/svg/postgresql.svg"
-            alt="PostgreSQL"
-          >
+          <img src="/assets/svg/postgresql.svg" alt="PostgreSQL" />
 
           <span>PostgreSQL</span>
-
         </div>
-
       </div>
 
       <div class="brand-background"></div>
-
     </section>
 
     <!-- DIREITA -->
 
     <section class="login-panel">
-
-      <form
-        class="login-card"
-        [formGroup]="loginForm"
-        (ngSubmit)="handleSubmit()"
-      >
-
+      <form class="login-card" [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
         <div class="auth-logo-mobile">
-          <img
-            src="assets/images/logo-sm-dev-academy.webp"
-            alt="SM Dev Academy"
-          >
+          <img src="assets/images/logo-sm-dev-academy.webp" alt="SM Dev Academy" />
         </div>
 
-        <h1>
-          Login
-        </h1>
+        <h1>Login</h1>
 
-        <p class="subtitle">
-          Bem-vindo de volta!
-        </p>
+        <p class="subtitle">Bem-vindo de volta!</p>
+
+        @if (successMessage) {
+          <div class="login-success">
+            <span>Conta criada com sucesso!</span>
+            <span>Faça login para acessar a plataforma.</span>
+          </div>
+        }
 
         @if (errorMessage) {
-
           <div class="login-error">
             {{ errorMessage }}
           </div>
-
         }
 
         <div class="form-group">
+          <label> E-mail </label>
 
-          <label>
-            E-mail
-          </label>
+          <input type="email" formControlName="email" />
 
-          <input
-            type="email"
-            formControlName="email"
-          >
-
-          @if (
-            submitted &&
-            loginForm.controls.email.invalid
-          ) {
-
-            <small class="field-error">
-              Informe um e-mail válido.
-            </small>
-
+          @if (submitted && loginForm.controls.email.invalid) {
+            <small class="field-error"> Informe um e-mail válido. </small>
           }
-
         </div>
 
         <div class="form-group">
-
-          <label>
-            Senha
-          </label>
+          <label> Senha </label>
 
           <div class="password-field">
+            <input [type]="showPassword ? 'text' : 'password'" formControlName="password" />
 
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              formControlName="password"
-            >
-
-            <button
-              type="button"
-              class="password-toggle"
-              (click)="showPassword = !showPassword"
-            >
-
+            <button type="button" class="password-toggle" (click)="showPassword = !showPassword">
               <i class="material-symbols-outlined">
-
                 @if (showPassword) {
                   visibility_off
                 } @else {
                   visibility
                 }
-
               </i>
-
             </button>
           </div>
 
-          @if (
-            submitted &&
-            loginForm.controls.password.hasError('minlength')
-          ) {
-
-            <small class="field-error">
-              A senha deve possuir pelo menos 6 caracteres.
-            </small>
-
+          @if (submitted && loginForm.controls.password.hasError('minlength')) {
+            <small class="field-error"> A senha deve possuir pelo menos 6 caracteres. </small>
           }
 
-          @if (
-            submitted &&
-            loginForm.controls.password.hasError('required')
-          ) {
-
-            <small class="field-error">
-              Informe sua senha.
-            </small>
-
+          @if (submitted && loginForm.controls.password.hasError('required')) {
+            <small class="field-error"> Informe sua senha. </small>
           }
-
         </div>
 
-        <button
-          type="submit"
-          [disabled]="isLoading"
-        >
-          Entrar
-        </button>
+        <div class="forgot-password">
+          <button type="button" (click)="openForgotPassword()">Esqueci minha senha</button>
+        </div>
+
+        <button type="submit" [disabled]="isLoading">Entrar</button>
 
         <div class="register-link">
+          <span> Ainda não possui uma conta? </span>
 
-          <span>
-            Ainda não possui uma conta?
-          </span>
-
-          <a routerLink="/account/register">
-            Cadastre-se agora
-          </a>
-
+          <a routerLink="/account/register"> Cadastre-se agora </a>
         </div>
-
       </form>
-
     </section>
-
   </div>
+  @if (forgotPasswordOpen) {
+    <div class="auth-modal-backdrop">
+      <div class="auth-modal">
+        <h2>Recuperar senha</h2>
 
+        <input type="email" [(ngModel)]="recoveryEmail" placeholder="Informe seu e-mail" />
+
+        @if (recoveryError) {
+          <div class="login-error">
+            {{ recoveryError }}
+          </div>
+        }
+
+        <button type="button" (click)="continueRecovery()">Continuar</button>
+
+        <button type="button" class="modal-cancel" (click)="forgotPasswordOpen = false">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (resetPasswordOpen) {
+    <div class="auth-modal-backdrop">
+      <div class="auth-modal">
+        <h2>Nova senha</h2>
+
+        <input type="password" [(ngModel)]="newPassword" placeholder="Nova senha" />
+
+        <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirmar senha" />
+
+        @if (recoveryError) {
+          <div class="login-error">
+            {{ recoveryError }}
+          </div>
+        }
+
+        <button type="button" (click)="saveNewPassword()">Salvar senha</button>
+
+        <button type="button" class="modal-cancel" (click)="resetPasswordOpen = false">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  }
 </div>

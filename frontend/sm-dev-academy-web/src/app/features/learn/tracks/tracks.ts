@@ -8,10 +8,15 @@ import { TRACKS } from '../../../core/constants/track.constant';
 import { CourseService } from '../../../core/services/course-service/course.service';
 import { MyCourseService } from '../../../core/services/my-course-service/my-course.service';
 
+
 @Component({
   selector: 'app-tracks',
   standalone: true,
-  imports: [PageContainer, StreamSection, HighlightCourseCard],
+  imports: [
+    PageContainer, 
+    StreamSection, 
+    HighlightCourseCard,
+  ],
   templateUrl: './tracks.html',
   styleUrl: './tracks.scss',
 })
@@ -43,6 +48,8 @@ export class Tracks implements OnInit {
                   (item: any) => item.course?.playlistId === course.playlistId,
                 );
 
+                this.cdr.detectChanges();
+
                 return myCourse?.progress ?? 0;
               });
 
@@ -53,6 +60,7 @@ export class Tracks implements OnInit {
                   )
                 : 0;
 
+                this.cdr.detectChanges();
               return {
                 track,
                 courses,

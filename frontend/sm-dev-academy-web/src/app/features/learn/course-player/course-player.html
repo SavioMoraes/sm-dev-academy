@@ -9,85 +9,176 @@
         @if (isStartedLoading) {
           <div class="course-player__video-placeholder">
             <div class="course-player__video-overlay">
-              <h3>
-                Carregando curso...
-              </h3>
+              <h3>Carregando curso...</h3>
             </div>
           </div>
         } @else {
           @if (isStarted && videoUrl) {
-            <iframe
-              class="course-player__video"
-              [src]="videoUrl"
-              allowfullscreen>
-            </iframe>
+            <iframe class="course-player__video" [src]="videoUrl" allowfullscreen> </iframe>
           } @else {
             <div class="course-player__video-placeholder">
               <div class="course-player__video-overlay">
-                <h3>
-                  Curso não iniciado
-                </h3>
+                <h3>Curso não iniciado</h3>
 
-                <p>
-                  Clique em "Iniciar Curso" para liberar as aulas.
-                </p>
+                <p>Clique em "Iniciar Curso" para liberar as aulas.</p>
               </div>
             </div>
           }
         }
 
-        <div class="course-player__sidebar">
-          <div class="sm-dev-academy__logo">
-            <img
-              src="assets/images/logo-sm-dev-academy.webp"
-              alt="SM Dev Academy"
+        <!-- <div class="course-player__sidebar">
+          @if (isAuthenticated) {
+            @if (!isStartedLoading) {
+              <button type="button" class="course-player__start" (click)="startCourse()">
+                @if (isStarted) {
+                  Curso Iniciado
+                } @else {
+                  Iniciar Curso
+                }
+              </button>
+            }
+          }
+
+          @if (isAuthenticated) {
+            <button
+              type="button"
+              class="course-player__favorite"
+              [class.course-player__favorite--active]="isFavorite"
+              (click)="favoriteCourse()"
             >
-          </div>
+              @if (isFavorite) {
+                <img
+                  class="course-player__favorite-icon course-player__favorite-icon--active"
+                  src="assets/svg/heart.svg"
+                  alt="Favoritado"
+                />
+              } @else {
+                <img
+                  class="course-player__favorite-icon"
+                  src="assets/svg/heart.svg"
+                  alt="Favoritar"
+                />
+              }
+
+              <span>
+                @if (isFavorite) {
+                  Favoritado
+                } @else {
+                  Favoritar
+                }
+              </span>
+            </button>
+          }
 
           <p class="course-player__description">
             {{ course.description }}
           </p>
 
-          @if (!isStartedLoading) {
-            <button
-              type="button"
-              class="course-player__start"
-              (click)="startCourse()"
-            >
+          @if (isAuthenticated) {
+            <div class="course-player__rating">
+              <span class="course-player__rating-title"> Nota do Curso </span>
+
+              <app-course-rating [courseId]="course.id" [showAverage]="true" />
+
+              <span class="course-player__rating-title"> Sua avaliação </span>
+
+              <span class="course-player__rating-average">Clique nas estrelas para avaliar</span>
+
+              <div class="course-player__stars">
+                @for (star of stars; track star) {
+                  <button type="button" class="course-player__star" (click)="rateCourse(star)">
+                    <img
+                      class="course-player__star-icon"
+                      [src]="getUserStarIcon(star)"
+                      alt="Sua avaliação"
+                    />
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div> -->
+
+        <div class="course-player__sidebar">
+          @if (isAuthenticated && !isStartedLoading) {
+            <button type="button" class="course-player__start" (click)="startCourse()">
               @if (isStarted) {
                 Curso Iniciado
               } @else {
                 Iniciar Curso
               }
             </button>
+
+            <button
+              type="button"
+              class="course-player__favorite"
+              [class.course-player__favorite--active]="isFavorite"
+              (click)="favoriteCourse()"
+            >
+              @if (isFavorite) {
+                <img
+                  class="course-player__favorite-icon course-player__favorite-icon--active"
+                  src="assets/svg/heart.svg"
+                  alt="Favoritado"
+                />
+              } @else {
+                <img
+                  class="course-player__favorite-icon"
+                  src="assets/svg/heart.svg"
+                  alt="Favoritar"
+                />
+              }
+
+              <span>
+                @if (isFavorite) {
+                  Favoritado
+                } @else {
+                  Favoritar
+                }
+              </span>
+            </button>
           }
 
-          <button
-            type="button"
-            class="course-player__favorite"
-            [class.course-player__favorite--active]="isFavorite"
-            (click)="favoriteCourse()"
-          >
-            @if (isFavorite) {
-              ❤️ Favoritado
-            } @else {
-              🤍 Favoritar
-            }
-          </button>
+          <p class="course-player__description">
+            {{ course.description }}
+          </p>
+
+          @if (isAuthenticated) {
+            <div class="course-player__rating">
+              <span class="course-player__rating-title"> Nota do Curso </span>
+
+              <app-course-rating [courseId]="course.id" [showAverage]="true" />
+
+              <span class="course-player__rating-title"> Sua avaliação </span>
+
+              <span class="course-player__rating-average"> Clique nas estrelas para avaliar </span>
+
+              <div class="course-player__stars">
+                @for (star of stars; track star) {
+                  <button type="button" class="course-player__star" (click)="rateCourse(star)">
+                    <img
+                      class="course-player__star-icon"
+                      [src]="getUserStarIcon(star)"
+                      alt="Sua avaliação"
+                    />
+                  </button>
+                }
+              </div>
+            </div>
+          }
         </div>
       </div>
 
       @if (!isStartedLoading && !isStarted) {
         <div class="course-player__warning">
-          🔒 Inicie o curso para assistir às aulas.
+          <img class="course-player__warning-icon" src="assets/svg/padlock.svg" alt="Bloqueado" />
+
+          <span> Inicie o curso para assistir às aulas. </span>
         </div>
       }
 
       <div class="course-player__playlist">
-        @for (
-          video of course.videos;
-          track video.videoId
-        ) {
+        @for (video of course.videos; track video.videoId) {
           <button
             type="button"
             class="course-player__item"
@@ -105,6 +196,23 @@
           </button>
         }
       </div>
+
+      @if (relatedCourses.length) {
+        <app-stream-section
+          title="Cursos Relacionados"
+          subtitle="Continue aprendendo com cursos da mesma categoria ou tecnologia"
+        >
+          @for (relatedCourse of relatedCourses; track relatedCourse.id) {
+            <app-highlight-course-card
+              [title]="relatedCourse.title"
+              [category]="relatedCourse.category"
+              [description]="relatedCourse.description"
+              [image]="relatedCourse.thumbnail"
+              [playlistId]="relatedCourse.playlistId"
+            />
+          }
+        </app-stream-section>
+      }
     </div>
   }
 </app-page-container>

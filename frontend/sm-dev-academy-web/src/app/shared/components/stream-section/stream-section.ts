@@ -13,7 +13,7 @@ export class StreamSection {
 
   @Input() title: string = '';
   @Input() subtitle: string = '';
-  @Input() titleLink: string | null = null;
+  @Input() titleLink: string | any[] | null = null;
 
   @ViewChild('scrollContainer')
   private scrollContainer?: ElementRef<HTMLDivElement>;

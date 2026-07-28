@@ -1,4 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FavoriteService } from '../../../core/services/favorite-service/favorite.service';
 import { Router } from '@angular/router';
@@ -8,11 +16,7 @@ import { ResponsiveGrid } from '../../../shared/ui/responsive-grid/responsive-gr
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [
-    CommonModule,
-    PageContainer,
-    ResponsiveGrid,
-  ],
+  imports: [CommonModule, PageContainer, ResponsiveGrid],
   templateUrl: './favorites.html',
   styleUrl: './favorites.scss',
 })
@@ -29,39 +33,40 @@ export class Favorites implements OnInit, AfterViewInit {
 
   favorites: any[] = [];
   visibleFavorites: any[] = [];
+  favoriteToRemove: any = null;
+  loading = true;
 
   ngOnInit(): void {
     this.loadFavorites();
   }
 
-  ngAfterViewInit(): void {}
-    
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
+
   loadFavorites(): void {
-    this.favoriteService
-      .getFavorites()
-      .subscribe({
-        next: (response) => {
-          console.log('FAVORITES', response);
+    this.loading = true;
 
-          this.favorites = response;
-          this.visibleFavorites =
-            this.favorites.slice(
-              0,
-              this.pageSize,
-            );
-          setTimeout(() => {
-            this.cdr.detectChanges();
+    this.favoriteService.getFavorites().subscribe({
+      next: (response) => {
+        this.favorites = response;
+        this.visibleFavorites = this.favorites.slice(0, this.pageSize);
 
-            if (!this.observer) {
-              this.createObserver();
-            }
-          });
-        },
+        setTimeout(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
 
-        error: (error) => {
-          console.error(error);
-        },
-      });
+          if (!this.observer) {
+            this.createObserver();
+          }
+        }, 0);
+      },
+
+      error: (error) => {
+        this.loading = false;
+        console.error(error);
+      },
+    });
   }
 
   private createObserver(): void {
@@ -69,84 +74,89 @@ export class Favorites implements OnInit, AfterViewInit {
       if (!this.sentinel) {
         return;
       }
-      this.observer =
-        new IntersectionObserver(
-          (entries) => {
-            if (
-              !entries[0]?.isIntersecting
-            ) {
-              return;
-            }
-            this.loadMore();
-          },
-          {
-            root: null,
-            threshold: 1,
-            rootMargin: '0px',
-          },
-        );
-      this.observer.observe(
-        this.sentinel.nativeElement,
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries[0]?.isIntersecting) {
+            return;
+          }
+          this.loadMore();
+        },
+        {
+          root: null,
+          threshold: 1,
+          rootMargin: '0px',
+        },
       );
+      this.observer.observe(this.sentinel.nativeElement);
     });
   }
 
   private loadMore(): void {
-    const nextPage =
-      this.currentPage + 1;
-    const nextItems =
-      this.favorites.slice(
-        0,
-        nextPage * this.pageSize,
-      );
-    if (
-      nextItems.length >
-      this.visibleFavorites.length
-    ) {
+    const nextPage = this.currentPage + 1;
+    const nextItems = this.favorites.slice(0, nextPage * this.pageSize);
+    if (nextItems.length > this.visibleFavorites.length) {
       setTimeout(() => {
-        this.visibleFavorites =
-          nextItems;
-        this.currentPage =
-          nextPage;
+        this.visibleFavorites = nextItems;
+        this.currentPage = nextPage;
         this.cdr.detectChanges();
       }, 100);
     }
   }
 
-  openCourse(
-    playlistId: string,
-  ): void {
-    this.router.navigate([
-      '/learn/courses',
-      playlistId,
-    ]);
+  openCourse(playlistId: string): void {
+    this.router.navigate(['/learn/courses', playlistId]);
   }
 
-  removeFavorite(
-    event: Event,
-    courseId: string,
-  ): void {
+  openRemoveFavoriteModal(event: Event, favorite: any): void {
     event.preventDefault();
     event.stopPropagation();
-    this.favorites =
-      this.favorites.filter(
-        favorite =>
-          favorite.course.id !== courseId,
-      );
-    this.visibleFavorites =
-      this.visibleFavorites.filter(
-        favorite =>
-          favorite.course.id !== courseId,
-      );
+
+    this.favoriteToRemove = favorite;
     this.cdr.detectChanges();
-    this.favoriteService
-      .remove(courseId)
-      .subscribe({
-        error: (error) => {
-          console.error(error);
-          this.loadFavorites();
-        },
-      });
   }
 
+  cancelRemoveFavorite(): void {
+    this.favoriteToRemove = null;
+    this.cdr.detectChanges();
+  }
+
+  confirmRemoveFavorite(): void {
+    if (!this.favoriteToRemove) {
+      return;
+    }
+
+    const courseId = this.favoriteToRemove.course.id;
+    this.favorites = this.favorites.filter((favorite) => favorite.course.id !== courseId);
+
+    this.visibleFavorites = this.visibleFavorites.filter(
+      (favorite) => favorite.course.id !== courseId,
+    );
+
+    this.favoriteToRemove = null;
+    this.cdr.detectChanges();
+
+    this.favoriteService.remove(courseId).subscribe({
+      error: (error) => {
+        console.error(error);
+
+        this.loadFavorites();
+      },
+    });
+  }
+
+  // removeFavorite(event: Event, courseId: string): void {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  //   this.favorites = this.favorites.filter((favorite) => favorite.course.id !== courseId);
+  //   this.visibleFavorites = this.visibleFavorites.filter(
+  //     (favorite) => favorite.course.id !== courseId,
+  //   );
+  //   this.cdr.detectChanges();
+  //   this.favoriteService.remove(courseId).subscribe({
+  //     error: (error) => {
+  //       console.error(error);
+  //       this.loadFavorites();
+  //     },
+  //   });
+  // }
 }
